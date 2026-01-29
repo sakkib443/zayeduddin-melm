@@ -10,7 +10,7 @@
  */
 export const API_BASE_URL =
     process.env.NEXT_PUBLIC_API_URL ||
-    'https://hiictpark-server.vercel.app/api';
+    'https://zayeduddin-melm-backend.vercel.app/api';
 
 // For legacy code support (if any file uses API_URL specifically)
 export const API_URL = API_BASE_URL;
