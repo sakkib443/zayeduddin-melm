@@ -182,13 +182,13 @@ const Footer = () => {
             </h4>
             <ul className="space-y-4">
               <li>
-                <a href="tel:+8801829818616" className="group flex items-start gap-3">
+                <a href="tel:+8801741117701" className="group flex items-start gap-3">
                   <div className="w-9 h-9 rounded-md bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#D4AF37] transition-colors">
                     <IoCallOutline className="text-[#D4AF37]" />
                   </div>
                   <div>
                     <p className={`text-xs text-gray-400 work ${bengaliClass}`}>{t("footer.phone")}</p>
-                    <p className="text-gray-200 text-sm work group-hover:text-[#D4AF37] transition-colors">+880 1829-818616</p>
+                    <p className="text-gray-200 text-sm work group-hover:text-[#D4AF37] transition-colors">+88 01741 117701</p>
                   </div>
                 </a>
               </li>

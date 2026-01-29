@@ -25,7 +25,7 @@ const FloatingWhatsAppButton = () => {
 
     return (
         <a
-            href="https://wa.me/8801829818616"
+            href="https://wa.me/8801741117701"
             target="_blank"
             rel="noopener noreferrer"
             className={`fixed right-6 z-[60] flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-[0_4px_14px_rgba(37,211,102,0.4)] hover:bg-[#20bd5a] hover:scale-110 hover:-translate-y-1 transition-all duration-300 group ${isScrolled ? 'bottom-24' : 'bottom-6'
