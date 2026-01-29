@@ -226,7 +226,7 @@ const Footer = () => {
             <p className={`text-gray-400 text-sm work text-center md:text-left ${bengaliClass}`}>
               {t("footer.copyright")}
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2">
               <span className="text-gray-400 text-xs work">
                 {t("footer.tradeLicense")}
               </span>
