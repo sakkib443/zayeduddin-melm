@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* =====================================================
+   ZAYED DESIGNER - GLOBAL DESIGN SYSTEM
+   Colors: Dark Red (#300000) & Gold (#D4AF37)
+   Fonts: Outfit (headings), Poppins (body), Playfair Display (serif)
+   ===================================================== */
+
+:root {
+  /* Brand Colors */
+  --color-brand-dark: #300000;
+  --color-brand-gold: #D4AF37;
+  --color-brand-light: #fafafa;
+  
+  /* Primary Colors (Legacy / Global fallback) */
+  --color-primary: #300000;
+  --color-primary-dark: #220000;
+  --color-primary-light: #440000;
+
+  /* Neutral Colors */
+  --color-dark: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-gray-800: #1e293b;
+  --color-gray-700: #334155;
+  --color-gray-600: #475569;
+  --color-gray-50: #f8fafc;
+  --color-white: #ffffff;
+
+  /* Font Families */
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-bengali: "Hind Siliguri", sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-gray-800);
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-brand-light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.hind-siliguri {
+  font-family: var(--font-bengali);
+}

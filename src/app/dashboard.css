@@ -1,0 +1,547 @@
+/* =====================================================
+   DASHBOARD - SEPARATE CSS FILE
+   This CSS is ONLY for Dashboard pages
+   It will NOT affect Frontend (mainLayout) pages
+   ===================================================== */
+
+/* =====================================================
+   DASHBOARD - DARK MODE STYLES
+   Use .dashboard-container as parent scope
+   ===================================================== */
+
+/* Dashboard Main Container - Light Mode */
+.dashboard-container {
+    --dashboard-bg-primary: #ffffff;
+    --dashboard-bg-secondary: #f8fafc;
+    --dashboard-bg-tertiary: #f1f5f9;
+    --dashboard-text-primary: #0f172a;
+    --dashboard-text-secondary: #475569;
+    --dashboard-text-muted: #94a3b8;
+    --dashboard-border: #e2e8f0;
+    --dashboard-card-bg: #ffffff;
+    --dashboard-sidebar-bg: #ffffff;
+    --dashboard-header-bg: #ffffff;
+}
+
+/* Dashboard Main Container - Dark Mode */
+.dark .dashboard-container {
+    --dashboard-bg-primary: #0f172a;
+    --dashboard-bg-secondary: #1e293b;
+    --dashboard-bg-tertiary: #334155;
+    --dashboard-text-primary: #f1f5f9;
+    --dashboard-text-secondary: #cbd5e1;
+    --dashboard-text-muted: #64748b;
+    --dashboard-border: #334155;
+    --dashboard-card-bg: #1e293b;
+    --dashboard-sidebar-bg: #0f172a;
+    --dashboard-header-bg: #1e293b;
+}
+
+/* =====================================================
+   DASHBOARD LAYOUT COMPONENTS
+   ===================================================== */
+
+/* Dashboard Background */
+.dashboard-container {
+    background-color: var(--dashboard-bg-secondary) !important;
+    min-height: 100vh;
+}
+
+/* Dashboard Sidebar */
+.dashboard-container .dashboard-sidebar {
+    background-color: var(--dashboard-sidebar-bg) !important;
+    border-color: var(--dashboard-border) !important;
+}
+
+/* Dashboard Header */
+.dashboard-container .dashboard-header {
+    background-color: var(--dashboard-header-bg) !important;
+    border-color: var(--dashboard-border) !important;
+}
+
+/* Dashboard Cards */
+.dashboard-container .dashboard-card {
+    background-color: var(--dashboard-card-bg) !important;
+    border-color: var(--dashboard-border) !important;
+}
+
+/* Dashboard Text Colors */
+.dashboard-container .dashboard-text-primary {
+    color: var(--dashboard-text-primary) !important;
+}
+
+.dashboard-container .dashboard-text-secondary {
+    color: var(--dashboard-text-secondary) !important;
+}
+
+.dashboard-container .dashboard-text-muted {
+    color: var(--dashboard-text-muted) !important;
+}
+
+/* =====================================================
+   DASHBOARD SPECIFIC OVERRIDES
+   These use dashboard-specific selectors to avoid
+   affecting frontend pages
+   ===================================================== */
+
+/* Dashboard Dark Mode - Background Colors */
+.dark .dashboard-container .bg-white {
+    background-color: #1e293b !important;
+}
+
+.dark .dashboard-container .bg-gray-50 {
+    background-color: #0f172a !important;
+}
+
+.dark .dashboard-container .bg-gray-100 {
+    background-color: #1e293b !important;
+}
+
+/* Dashboard Dark Mode - Text Colors */
+.dark .dashboard-container .text-gray-900 {
+    color: #f1f5f9 !important;
+}
+
+.dark .dashboard-container .text-gray-800 {
+    color: #e2e8f0 !important;
+}
+
+.dark .dashboard-container .text-gray-700 {
+    color: #cbd5e1 !important;
+}
+
+.dark .dashboard-container .text-gray-600 {
+    color: #94a3b8 !important;
+}
+
+.dark .dashboard-container .text-gray-500 {
+    color: #64748b !important;
+}
+
+/* Dashboard Dark Mode - Border Colors */
+.dark .dashboard-container .border-gray-200 {
+    border-color: #334155 !important;
+}
+
+.dark .dashboard-container .border-gray-100 {
+    border-color: #1e293b !important;
+}
+
+/* Dashboard Dark Mode - Input Fields */
+.dark .dashboard-container input,
+.dark .dashboard-container textarea,
+.dark .dashboard-container select {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+.dark .dashboard-container input::placeholder,
+.dark .dashboard-container textarea::placeholder {
+    color: #64748b !important;
+}
+
+/* Dashboard Dark Mode - Tables */
+.dark .dashboard-container table {
+    background-color: #1e293b !important;
+}
+
+.dark .dashboard-container thead {
+    background-color: #0f172a !important;
+}
+
+.dark .dashboard-container th {
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+.dark .dashboard-container td {
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+.dark .dashboard-container tbody tr:hover {
+    background-color: #334155 !important;
+}
+
+/* Dashboard Dark Mode - Buttons */
+.dark .dashboard-container .btn-secondary,
+.dark .dashboard-container button.bg-gray-100 {
+    background-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Dashboard Dark Mode - Dropdown/Menus */
+.dark .dashboard-container [class*="dropdown"],
+.dark .dashboard-container [class*="menu"] {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* Dashboard Dark Mode - Modal */
+.dark .dashboard-container [class*="modal"] {
+    background-color: #1e293b !important;
+}
+
+/* Dashboard Dark Mode - Scrollbar */
+.dark .dashboard-container ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.dark .dashboard-container ::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+.dark .dashboard-container ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+.dark .dashboard-container ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* =====================================================
+   SIDEBAR - PRESERVE ORIGINAL STYLING
+   These rules ensure sidebar keeps its original styles
+   ===================================================== */
+
+/* Sidebar (aside) - Reset to original colors */
+.dark .dashboard-container aside {
+    background: linear-gradient(to bottom, #0f172a, #0f172a, #020617) !important;
+}
+
+.dark .dashboard-container aside .bg-white,
+.dark .dashboard-container aside [class*="bg-white"] {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+}
+
+.dark .dashboard-container aside .bg-slate-800 {
+    background-color: #1e293b !important;
+}
+
+.dark .dashboard-container aside .bg-slate-200 {
+    background-color: #1e293b !important;
+}
+
+/* Sidebar text colors - preserve original */
+.dark .dashboard-container aside .text-slate-400 {
+    color: #94a3b8 !important;
+}
+
+.dark .dashboard-container aside .text-slate-500 {
+    color: #64748b !important;
+}
+
+/* Sidebar borders */
+.dark .dashboard-container aside .border-white\/5,
+.dark .dashboard-container aside [class*="border-white/5"] {
+    border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Sidebar bottom section */
+.dark .dashboard-container aside .bg-slate-900\/95 {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+}
+
+/* =====================================================
+   DASHBOARD CARDS & SECTIONS - COMPREHENSIVE DARK MODE
+   Matching Analytics page styling
+   NOTE: Excludes sidebar (aside) to preserve original styling
+   ===================================================== */
+
+/* All Cards with bg-white - EXCLUDE sidebar */
+.dark .dashboard-container main .bg-white,
+.dark .dashboard-container main [class*="bg-white"],
+.dark .dashboard-container .lg\:ml-72 .bg-white,
+.dark .dashboard-container .lg\:ml-72 [class*="bg-white"] {
+    background-color: #1e293b !important;
+}
+
+/* Cards with shadows - EXCLUDE sidebar */
+.dark .dashboard-container main .shadow-sm,
+.dark .dashboard-container main .shadow-lg,
+.dark .dashboard-container .lg\:ml-72 .shadow-sm,
+.dark .dashboard-container .lg\:ml-72 .shadow-lg {
+    box-shadow: none !important;
+}
+
+/* Border colors for cards */
+.dark .dashboard-container .border-slate-200,
+.dark .dashboard-container [class*="border-slate-200"],
+.dark .dashboard-container .border-slate-100,
+.dark .dashboard-container [class*="border-slate-100"] {
+    border-color: #1e293b !important;
+}
+
+/* All headings */
+.dark .dashboard-container .text-slate-800,
+.dark .dashboard-container [class*="text-slate-800"] {
+    color: #ffffff !important;
+}
+
+.dark .dashboard-container .text-slate-700,
+.dark .dashboard-container [class*="text-slate-700"] {
+    color: #e2e8f0 !important;
+}
+
+.dark .dashboard-container .text-slate-600,
+.dark .dashboard-container [class*="text-slate-600"] {
+    color: #cbd5e1 !important;
+}
+
+.dark .dashboard-container .text-slate-500,
+.dark .dashboard-container [class*="text-slate-500"] {
+    color: #94a3b8 !important;
+}
+
+.dark .dashboard-container .text-slate-400,
+.dark .dashboard-container [class*="text-slate-400"] {
+    color: #64748b !important;
+}
+
+/* Background colors for inner sections */
+.dark .dashboard-container .bg-slate-50,
+.dark .dashboard-container [class*="bg-slate-50"] {
+    background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+.dark .dashboard-container .bg-slate-100,
+.dark .dashboard-container [class*="bg-slate-100"] {
+    background-color: rgba(30, 41, 59, 0.8) !important;
+}
+
+/* Hover backgrounds */
+.dark .dashboard-container .hover\:bg-slate-50:hover,
+.dark .dashboard-container [class*="hover:bg-slate-50"]:hover {
+    background-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+.dark .dashboard-container .hover\:bg-slate-100:hover,
+.dark .dashboard-container [class*="hover:bg-slate-100"]:hover {
+    background-color: rgba(51, 65, 85, 0.8) !important;
+}
+
+/* Table specific */
+.dark .dashboard-container thead,
+.dark .dashboard-container [class*="thead"],
+.dark .dashboard-container .bg-slate-50\/80 {
+    background-color: rgba(15, 23, 42, 0.5) !important;
+}
+
+.dark .dashboard-container tbody tr {
+    border-color: #1e293b !important;
+}
+
+.dark .dashboard-container tbody tr:hover {
+    background-color: rgba(51, 65, 85, 0.3) !important;
+}
+
+/* Dividers */
+.dark .dashboard-container .divide-slate-100>*+*,
+.dark .dashboard-container [class*="divide-slate-100"]>*+* {
+    border-color: #1e293b !important;
+}
+
+.dark .dashboard-container .border-t,
+.dark .dashboard-container .border-b {
+    border-color: #1e293b !important;
+}
+
+/* Icon backgrounds (soft colors) */
+.dark .dashboard-container [class*="bg-indigo-500/10"] {
+    background-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+.dark .dashboard-container [class*="bg-emerald-500/10"] {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+.dark .dashboard-container [class*="bg-amber-500/10"] {
+    background-color: rgba(245, 158, 11, 0.15) !important;
+}
+
+.dark .dashboard-container [class*="bg-purple-500/10"] {
+    background-color: rgba(168, 85, 247, 0.15) !important;
+}
+
+.dark .dashboard-container [class*="bg-red-500/10"] {
+    background-color: rgba(20, 184, 166, 0.15) !important;
+}
+
+/* Badge backgrounds */
+.dark .dashboard-container [class*="bg-emerald-50"] {
+    background-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+.dark .dashboard-container [class*="bg-red-50"] {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Hover shadow for cards */
+.dark .dashboard-container .hover\:shadow-xl:hover,
+.dark .dashboard-container [class*="hover:shadow-xl"]:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Links text */
+.dark .dashboard-container a.text-indigo-600,
+.dark .dashboard-container [class*="text-indigo-600"] {
+    color: #818cf8 !important;
+}
+
+/* Stats cards hover shadow */
+.dark .dashboard-container .hover\:shadow-slate-200\/50:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Buttons with slate background */
+.dark .dashboard-container button[class*="bg-slate-100"],
+.dark .dashboard-container a[class*="bg-slate-100"] {
+    background-color: #0f172a !important;
+    border-color: #1e293b !important;
+    color: #cbd5e1 !important;
+}
+
+.dark .dashboard-container button[class*="bg-slate-100"]:hover,
+.dark .dashboard-container a[class*="bg-slate-100"]:hover {
+    background-color: #1e293b !important;
+}
+
+/* Footer/bottom section borders */
+.dark .dashboard-container .border-slate-100 {
+    border-color: #1e293b !important;
+}
+
+/* =====================================================
+   FORM PAGES - CREATE/EDIT PAGES DARK MODE
+   ===================================================== */
+
+/* Page containers with min-h-screen */
+.dark .dashboard-container .min-h-screen.bg-slate-50,
+.dark .dashboard-container [class*="min-h-screen"][class*="bg-slate-50"] {
+    background-color: transparent !important;
+}
+
+/* Form cards - white backgrounds */
+.dark .dashboard-container form.bg-white,
+.dark .dashboard-container form[class*="bg-white"],
+.dark .dashboard-container div.bg-white {
+    background-color: #1e293b !important;
+}
+
+/* Step indicator backgrounds */
+.dark .dashboard-container .bg-slate-200 {
+    background-color: #334155 !important;
+}
+
+.dark .dashboard-container .bg-indigo-100 {
+    background-color: rgba(99, 102, 241, 0.2) !important;
+}
+
+.dark .dashboard-container .bg-purple-100 {
+    background-color: rgba(168, 85, 247, 0.2) !important;
+}
+
+.dark .dashboard-container .bg-rose-100 {
+    background-color: rgba(244, 63, 94, 0.2) !important;
+}
+
+/* Info cards - amber/orange gradient */
+.dark .dashboard-container [class*="bg-gradient-to-r"][class*="from-amber-50"],
+.dark .dashboard-container [class*="from-amber-50"][class*="to-orange-50"] {
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1)) !important;
+}
+
+.dark .dashboard-container .border-amber-100 {
+    border-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+/* Tab navigation */
+.dark .dashboard-container .border-b.border-slate-200 {
+    border-color: #334155 !important;
+}
+
+/* Hover states for tabs */
+.dark .dashboard-container .hover\:bg-slate-50:hover {
+    background-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+/* Active tab backgrounds */
+.dark .dashboard-container [class*="bg-indigo-50"] {
+    background-color: rgba(99, 102, 241, 0.1) !important;
+}
+
+.dark .dashboard-container [class*="bg-purple-50"] {
+    background-color: rgba(168, 85, 247, 0.1) !important;
+}
+
+.dark .dashboard-container [class*="bg-rose-50"] {
+    background-color: rgba(244, 63, 94, 0.1) !important;
+}
+
+.dark .dashboard-container [class*="bg-pink-50"] {
+    background-color: rgba(236, 72, 153, 0.1) !important;
+}
+
+/* Section header gradients */
+.dark .dashboard-container [class*="bg-gradient-to-r"][class*="from-indigo-50"],
+.dark .dashboard-container [class*="from-indigo-50"][class*="to-purple-50"] {
+    background: linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)) !important;
+}
+
+.dark .dashboard-container [class*="bg-gradient-to-r"][class*="from-pink-50"],
+.dark .dashboard-container [class*="from-pink-50"][class*="to-rose-50"] {
+    background: linear-gradient(to right, rgba(236, 72, 153, 0.1), rgba(244, 63, 94, 0.1)) !important;
+}
+
+/* Input field backgrounds */
+.dark .dashboard-container .bg-slate-50 {
+    background-color: #0f172a !important;
+}
+
+/* Input focus states */
+.dark .dashboard-container input.focus\:bg-white:focus,
+.dark .dashboard-container textarea.focus\:bg-white:focus,
+.dark .dashboard-container select.focus\:bg-white:focus {
+    background-color: #1e293b !important;
+}
+
+/* =====================================================
+   INPUT FIELDS - DARK MODE BORDERS & STYLING
+   ===================================================== */
+
+/* All input, textarea, select with slate-200 border */
+.dark .dashboard-container input,
+.dark .dashboard-container textarea,
+.dark .dashboard-container select {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+.dark .dashboard-container input::placeholder,
+.dark .dashboard-container textarea::placeholder {
+    color: #64748b !important;
+}
+
+/* Focus states with visible border */
+.dark .dashboard-container input:focus,
+.dark .dashboard-container textarea:focus,
+.dark .dashboard-container select:focus {
+    border-color: #6366f1 !important;
+    background-color: #1e293b !important;
+}
+
+/* Override specific border classes */
+.dark .dashboard-container .border-slate-200 {
+    border-color: #334155 !important;
+}
+
+/* Checkbox styling */
+.dark .dashboard-container input[type="checkbox"] {
+    background-color: #1e293b !important;
+    border-color: #475569 !important;
+}

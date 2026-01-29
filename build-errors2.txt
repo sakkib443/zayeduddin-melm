@@ -1,0 +1,260 @@
+﻿
+> bd-calling-academy@0.1.0 build
+> next build
+
+node.exe : [baseline-
+browser-mapping] The 
+data in this module 
+is over two months 
+old.  To ensure 
+accurate Baseline 
+data, please update: 
+`npm i baseline-brows
+er-mapping@latest -D`
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" "C:
+\Users\User\AppData\R
+oaming\n ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: ([baseli   
+ ne-brows...ping@    
+latest -D`:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+   Ôû▓ Next.js 16.0.1 (Turbopack)
+
+   Creating an optimized production build ...
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+ Ô£ô Compiled successfully in 3.9s
+   Running TypeScript ...
+   Collecting page data ...
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+   Generating static pages (0/42) ...
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+[baseline-browser-map
+ping] The data in 
+this module is over 
+two months old.  To 
+ensure accurate 
+Baseline data, 
+please update: `npm 
+i baseline-browser-ma
+pping@latest -D`
+   Generating static pages (10/42) 
+   Generating static pages (20/42) 
+   Generating static pages (31/42) 
+ Ô£ô Generating static pages (42/42) in 956.2ms
+   Finalizing page optimization ...
+
+Route (app)
+Ôöî Ôùï /
+Ôö£ Ôùï /_not-found
+Ôö£ Ôùï /about
+Ôö£ Ôùï /certification
+Ôö£ Ôùï /contact
+Ôö£ Ôùï /courses
+Ôö£ ãÆ /courses/[courseid]
+Ôö£ Ôùï /dashboard/admin
+Ôö£ Ôùï /dashboard/admin/category
+Ôö£ Ôùï /dashboard/admin/category/create
+Ôö£ Ôùï /dashboard/admin/certification
+Ôö£ Ôùï /dashboard/admin/course
+Ôö£ Ôùï /dashboard/admin/course/create
+Ôö£ ãÆ /dashboard/admin/course/edit/[id]
+Ôö£ Ôùï /dashboard/admin/feedback
+Ôö£ Ôùï /dashboard/admin/image
+Ôö£ Ôùï /dashboard/admin/mentor
+Ôö£ Ôùï /dashboard/admin/mentor/create
+Ôö£ ãÆ /dashboard/admin/mentor/edit/[id]
+Ôö£ Ôùï /dashboard/admin/user
+Ôö£ Ôùï /dashboard/mentor
+Ôö£ Ôùï /dashboard/mentor/category
+Ôö£ Ôùï /dashboard/mentor/course
+Ôö£ ãÆ /dashboard/mentor/course/edit/[id]
+Ôö£ Ôùï /dashboard/mentor/courses
+Ôö£ Ôùï /dashboard/mentor/mentors
+Ôö£ ãÆ /dashboard/mentor/mentors/edit/[id]
+Ôö£ Ôùï /dashboard/mentor/messages
+Ôö£ Ôùï /dashboard/mentor/performance
+Ôö£ Ôùï /dashboard/mentor/profile
+Ôö£ Ôùï /dashboard/mentor/schedule
+Ôö£ Ôùï /dashboard/mentor/students
+Ôö£ Ôùï /dashboard/user
+Ôö£ Ôùï /dashboard/user/certificates
+Ôö£ Ôùï /dashboard/user/courses
+Ôö£ Ôùï /dashboard/user/payments
+Ôö£ Ôùï /dashboard/user/profile
+Ôö£ Ôùï /dashboard/user/schedule
+Ôö£ Ôùï /dashboard/user/support
+Ôö£ Ôùï /events
+Ôö£ Ôùï /login
+Ôö£ Ôùï /mentors
+Ôö£ ãÆ /mentors/[id]
+Ôö£ Ôùï /phoenix
+Ôö£ Ôùï /register
+Ôöö Ôùï /success-story
+
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+
