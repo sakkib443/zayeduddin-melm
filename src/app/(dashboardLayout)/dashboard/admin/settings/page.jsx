@@ -1,10 +1,10 @@
 'use client';
 import { API_URL } from '@/config/api';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { FiSettings, FiSave, FiBell, FiLock, FiGlobe, FiDollarSign, FiChevronRight, FiCheck } from 'react-icons/fi';
 
-export default function SettingsPage() {
+function SettingsContent() {
   const searchParams = useSearchParams();
   const tabFromUrl = searchParams.get('tab');
   const [activeTab, setActiveTab] = useState(tabFromUrl || 'general');
@@ -112,8 +112,8 @@ export default function SettingsPage() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${activeTab === tab.id
-                      ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700'
+                    ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700'
                     }`}
                 >
                   <span className="flex items-center gap-2">
@@ -325,6 +325,22 @@ export default function SettingsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense fallback={
+      <div className="p-6 space-y-6 animate-pulse">
+        <div className="h-20 bg-gray-200 dark:bg-slate-700 rounded-md"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <div className="h-40 bg-gray-200 dark:bg-slate-700 rounded-md"></div>
+          <div className="lg:col-span-3 h-96 bg-gray-200 dark:bg-slate-700 rounded-md"></div>
+        </div>
+      </div>
+    }>
+      <SettingsContent />
+    </Suspense>
   );
 }
 

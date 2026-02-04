@@ -2,7 +2,7 @@
 import { API_URL, API_BASE_URL, API_URL as BASE_URL } from '@/config/api';
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -56,7 +56,7 @@ const softwareSchema = z.object({
     isFeatured: z.boolean().optional(),
 });
 
-export default function CreateSoftwarePage() {
+function CreateSoftwareContent() {
     const [loading, setLoading] = useState(false);
     const [fetchingData, setFetchingData] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -97,7 +97,7 @@ export default function CreateSoftwarePage() {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            
+
             try {
                 const res = await fetch(`${BASE_URL}/categories?type=software`);
                 const data = await res.json();
@@ -110,7 +110,7 @@ export default function CreateSoftwarePage() {
     // Fetch existing software data if in edit mode
     useEffect(() => {
         if (isEditMode && editId) {
-            
+
             const token = localStorage.getItem('token');
 
             const fetchSoftware = async () => {
@@ -163,7 +163,7 @@ export default function CreateSoftwarePage() {
 
     const onSubmit = async (values) => {
         setLoading(true);
-        
+
         const token = localStorage.getItem('token');
         const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -550,6 +550,21 @@ export default function CreateSoftwarePage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function CreateSoftwarePage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <div className="flex flex-col items-center gap-4">
+                    <FiLoader className="animate-spin text-violet-600" size={32} />
+                    <p className="text-gray-500 font-medium">Loading Software Editor...</p>
+                </div>
+            </div>
+        }>
+            <CreateSoftwareContent />
+        </Suspense>
     );
 }
 

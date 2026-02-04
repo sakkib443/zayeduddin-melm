@@ -1,6 +1,6 @@
 "use client";
 import { API_URL } from '@/config/api';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -51,7 +51,7 @@ const getSoftwareIcon = (platform) => {
     return icons[platform] || SiAdobephotoshop;
 };
 
-const DesignTemplatePage = () => {
+const DesignTemplateContent = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { language } = useLanguage();
@@ -727,6 +727,21 @@ const DesignTemplatePage = () => {
                 }
             `}</style>
         </div>
+    );
+};
+
+const DesignTemplatePage = () => {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#020202]">
+                <div className="animate-pulse flex flex-col items-center gap-4">
+                    <LuPalette className="text-blue-600 mb-2" size={48} />
+                    <p className="text-gray-500 font-medium tracking-wider text-sm uppercase">Loading Gallery...</p>
+                </div>
+            </div>
+        }>
+            <DesignTemplateContent />
+        </Suspense>
     );
 };
 
