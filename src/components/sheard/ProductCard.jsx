@@ -23,7 +23,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/providers/ThemeProvider";
 import { motion } from "framer-motion";
 
-const ProductCard = ({ product, type, view = "grid" }) => {
+const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
     const dispatch = useDispatch();
     const [isAdded, setIsAdded] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -31,7 +31,9 @@ const ProductCard = ({ product, type, view = "grid" }) => {
     const { language } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
-    const detailUrl = `/${type}/${product._id || product.id}`;
+    // Use slug for URL if available, otherwise fallback to _id
+    const detailUrl = `/${type}/${product.slug || product._id || product.id}`;
+
 
     // Get first image from images array or fallback
     const productImage = product.images?.[0] || product.image || "/images/placeholder.png";
@@ -83,13 +85,23 @@ const ProductCard = ({ product, type, view = "grid" }) => {
 
                 {/* Image Section */}
                 <div className="relative h-56 w-full overflow-hidden shrink-0">
-                    <Link href={detailUrl} className="block h-full w-full">
-                        <img
-                            src={productImage}
-                            alt={title}
-                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                    </Link>
+                    {disableLink ? (
+                        <div className="block h-full w-full cursor-pointer">
+                            <img
+                                src={productImage}
+                                alt={title}
+                                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                        </div>
+                    ) : (
+                        <Link href={detailUrl} className="block h-full w-full">
+                            <img
+                                src={productImage}
+                                alt={title}
+                                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                        </Link>
+                    )}
 
                     {/* Type Badge (Top Left) */}
                     <div className="absolute top-4 left-4">
@@ -164,8 +176,8 @@ const ProductCard = ({ product, type, view = "grid" }) => {
                                 onClick={handleAddToCart}
                                 disabled={isAdded}
                                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${isAdded
-                                        ? 'bg-emerald-500 text-white'
-                                        : 'bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-white hover:bg-[#300000] hover:text-white'
+                                    ? 'bg-emerald-500 text-white'
+                                    : 'bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-white hover:bg-[#300000] hover:text-white'
                                     }`}
                             >
                                 {isAdded ? <LuCheck size={18} /> : <LuShoppingCart size={18} />}

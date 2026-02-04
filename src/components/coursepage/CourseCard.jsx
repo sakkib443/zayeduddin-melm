@@ -74,7 +74,7 @@ const CourseCard = ({ course }) => {
           </Link>
 
           <Link
-            href={`https://wa.me/8801829818616?text=${encodeURIComponent(
+            href={`https://wa.me/8801714117701?text=${encodeURIComponent(
               `??? "${title}" ??????? ???? ????`
             )}`}
             target="_blank"

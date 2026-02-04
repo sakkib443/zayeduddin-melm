@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
-  FiArrowLeft, FiSave, FiLoader, FiTag, FiPlus, FiTrash2, 
-  FiFileText, FiDollarSign, FiImage, FiCheck, FiLayers, 
-  FiMonitor, FiEdit3, FiInfo, FiSettings, FiAlertCircle
+  FiArrowLeft, FiSave, FiLoader, FiTag, FiPlus, FiTrash2,
+  FiFileText, FiDollarSign, FiImage, FiCheck, FiLayers,
+  FiMonitor, FiEdit3, FiInfo, FiSettings, FiAlertCircle,
+  FiBold, FiItalic, FiList, FiLink, FiCode, FiAlignLeft,
+  FiAlignCenter, FiAlignRight, FiType, FiEye
 } from 'react-icons/fi';
 import Link from 'next/link';
 import { API_URL } from '@/config/api';
@@ -56,11 +58,13 @@ const designTemplateSchema = z.object({
 
 export default function CreateDesignTemplatePage() {
   const { isDark } = useTheme();
+  const contentRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [fetchingData, setFetchingData] = useState(false);
   const [categories, setCategories] = useState([]);
   const [serverErrors, setServerErrors] = useState({});
   const [generalError, setGeneralError] = useState('');
+  const [previewMode, setPreviewMode] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -110,7 +114,7 @@ export default function CreateDesignTemplatePage() {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         let data = await res.json();
-        
+
         // If no design-template categories, try fetching all categories
         if (!data.data || data.data.length === 0) {
           res = await fetch(`${API_URL}/categories/admin/all`, {
@@ -118,7 +122,7 @@ export default function CreateDesignTemplatePage() {
           });
           data = await res.json();
         }
-        
+
         console.log('Categories loaded:', data.data);
         setCategories(data.data || []);
       } catch (err) {
@@ -175,19 +179,51 @@ export default function CreateDesignTemplatePage() {
     }
   }, [isEditMode, editId, reset]);
 
+  // Sync longDescription to contentRef when data changes or preview mode ends
+  const longDescValue = watch('longDescription');
+
+  useEffect(() => {
+    // Only update contentRef when NOT in preview mode and when the element exists
+    if (!previewMode && contentRef.current) {
+      // Only update if the values differ to avoid cursor jump issues
+      if (contentRef.current.innerHTML !== longDescValue) {
+        contentRef.current.innerHTML = longDescValue || '';
+      }
+    }
+  }, [longDescValue, previewMode]);
+
+  // Editor formatting functions
+  const formatText = (command, value = null) => {
+    document.execCommand(command, false, value);
+    // Small delay to ensure DOM is updated
+    setTimeout(() => {
+      if (contentRef.current) {
+        setValue('longDescription', contentRef.current.innerHTML);
+      }
+    }, 0);
+  };
+
+  const insertHeading = (level) => {
+    document.execCommand('formatBlock', false, `h${level}`);
+    setTimeout(() => {
+      if (contentRef.current) {
+        setValue('longDescription', contentRef.current.innerHTML);
+      }
+    }, 0);
+  };
+
+
   const onSubmit = async (values) => {
     setLoading(true);
     setServerErrors({});
     setGeneralError('');
 
     const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     const cleanArray = (arr) => arr?.filter(item => item && item.trim() !== '') || [];
 
     const payload = {
       ...values,
-      author: user._id,
       features: cleanArray(values.features),
       filesIncluded: cleanArray(values.filesIncluded),
       compatibility: cleanArray(values.compatibility),
@@ -195,6 +231,7 @@ export default function CreateDesignTemplatePage() {
       offerPrice: (values.offerPrice === 0 || !values.offerPrice) ? null : values.offerPrice,
       extendedLicensePrice: (values.extendedLicensePrice === 0 || !values.extendedLicensePrice) ? null : values.extendedLicensePrice,
     };
+
 
     try {
       const url = isEditMode
@@ -246,12 +283,12 @@ export default function CreateDesignTemplatePage() {
   // Style functions with error state
   const inputStyle = (fieldName) => {
     const error = hasError(fieldName);
-    return `w-full px-3 py-2 rounded-md border ${error 
-      ? 'border-red-500 bg-red-50 dark:bg-red-900/20 ring-1 ring-red-500' 
-      : isDark 
-        ? 'border-slate-700 bg-slate-900 text-white' 
+    return `w-full px-3 py-2 rounded-md border ${error
+      ? 'border-red-500 bg-red-50 dark:bg-red-900/20 ring-1 ring-red-500'
+      : isDark
+        ? 'border-slate-700 bg-slate-900 text-white'
         : 'border-gray-200 bg-white text-gray-800'
-    } focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-sm transition-colors`;
+      } focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-sm transition-colors`;
   };
 
   const labelStyle = (fieldName) => {
@@ -423,13 +460,64 @@ export default function CreateDesignTemplatePage() {
                 )}
               </div>
               <div>
-                <label className={labelStyle('longDescription')}>Long Description</label>
-                <textarea
-                  {...register('longDescription')}
-                  rows={6}
-                  className={`${inputStyle('longDescription')} resize-none`}
-                  placeholder="Detailed overview..."
-                />
+                <div className="flex items-center justify-between mb-2">
+                  <label className={labelStyle('longDescription')}>Long Description (Rich Text)</label>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewMode(!previewMode)}
+                    className={`flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${previewMode
+                      ? 'bg-blue-500 text-white'
+                      : isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                  >
+                    {previewMode ? <FiEdit3 size={12} /> : <FiEye size={12} />}
+                    {previewMode ? 'Edit' : 'Preview'}
+                  </button>
+                </div>
+
+                <div className={`rounded-md border overflow-hidden ${isDark ? 'border-slate-700 bg-slate-900/50' : 'border-gray-200 bg-white'}`}>
+                  {/* Toolbar */}
+                  <div className={`px-2 py-1.5 border-b flex flex-wrap gap-0.5 ${isDark ? 'border-slate-700 bg-slate-800' : 'border-gray-100 bg-gray-50'}`}>
+                    <button type="button" onClick={() => formatText('bold')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Bold"><FiBold size={14} /></button>
+                    <button type="button" onClick={() => formatText('italic')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Italic"><FiItalic size={14} /></button>
+                    <div className={`w-px h-4 mx-1.5 self-center ${isDark ? 'bg-slate-700' : 'bg-gray-200'}`} />
+                    <button type="button" onClick={() => insertHeading(2)} className={`px-1.5 py-1 rounded text-[10px] font-bold hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>H2</button>
+                    <button type="button" onClick={() => insertHeading(3)} className={`px-1.5 py-1 rounded text-[10px] font-bold hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>H3</button>
+                    <div className={`w-px h-4 mx-1.5 self-center ${isDark ? 'bg-slate-700' : 'bg-gray-200'}`} />
+                    <button type="button" onClick={() => formatText('insertUnorderedList')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Bullet List"><FiList size={14} /></button>
+                    <button type="button" onClick={() => formatText('justifyLeft')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Align Left"><FiAlignLeft size={14} /></button>
+                    <button type="button" onClick={() => formatText('justifyCenter')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Align Center"><FiAlignCenter size={14} /></button>
+                    <button type="button" onClick={() => {
+                      const url = prompt('Enter link URL:');
+                      if (url) formatText('createLink', url);
+                    }} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Insert Link"><FiLink size={14} /></button>
+                    <div className={`w-px h-4 mx-1.5 self-center ${isDark ? 'bg-slate-700' : 'bg-gray-200'}`} />
+                    <button type="button" onClick={() => {
+                      const imageUrl = prompt('Enter image URL:');
+                      if (imageUrl) {
+                        document.execCommand('insertHTML', false, `<img src="${imageUrl}" alt="Content Image" style="max-width: 100%; height: auto; border-radius: 8px; margin: 16px 0;" />`);
+                        if (contentRef.current) {
+                          setValue('longDescription', contentRef.current.innerHTML);
+                        }
+                      }
+                    }} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Insert Image"><FiImage size={14} /></button>
+                  </div>
+
+                  {previewMode ? (
+                    <div
+                      className={`p-4 min-h-[250px] prose prose-sm max-w-none ${isDark ? 'prose-invert' : ''}`}
+                      dangerouslySetInnerHTML={{ __html: watch('longDescription') }}
+                    />
+                  ) : (
+                    <div
+                      ref={contentRef}
+                      contentEditable
+                      onInput={(e) => setValue('longDescription', e.currentTarget.innerHTML)}
+                      className={`p-4 min-h-[250px] focus:outline-none text-sm ${isDark ? 'text-slate-200' : 'text-slate-800'}`}
+                      style={{ lineHeight: 1.6 }}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>

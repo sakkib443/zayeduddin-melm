@@ -460,7 +460,7 @@ const CheckoutContent = () => {
                                                         {manualMethod[0].toUpperCase()}
                                                     </div>
                                                     <div>
-                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">01730481212</p>
+                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">01714117701</p>
                                                         <p className={`text-[10px] font-normal text-slate-400 uppercase tracking-widest ${bengaliClass}`}>
                                                             {language === 'bn' ? 'পার্সোনাল নম্বর' : 'Personal Number'}
                                                         </p>
