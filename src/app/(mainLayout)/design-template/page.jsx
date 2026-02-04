@@ -23,6 +23,7 @@ import {
     LuEye,
     LuCalendar,
     LuRefreshCw,
+    LuBookmark,
 } from "react-icons/lu";
 import { FiMessageSquare, FiShare2, FiChevronLeft, FiThumbsUp } from "react-icons/fi";
 import ProductCard from "@/components/sheard/ProductCard";
@@ -370,29 +371,61 @@ const DesignTemplateContent = () => {
                                 <div className={`sticky top-0 z-50 border-b backdrop-blur-xl ${isDark ? 'bg-[#0f0f0f]/95 border-white/5' : 'bg-white/95 border-gray-200'}`}>
                                     <div className="px-4 lg:px-8 py-4">
                                         <div className="flex items-center justify-between">
-                                            <nav className="flex items-center gap-2 text-sm">
-                                                <button onClick={closeModal} className={`hover:text-blue-600 transition-colors ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                            <nav className="flex items-center gap-2 text-sm overflow-hidden">
+                                                <button onClick={closeModal} className={`hover:text-blue-600 transition-colors shrink-0 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                                                     <FiChevronLeft size={20} className="inline mr-1" />
                                                     Back
                                                 </button>
-                                                <span className={isDark ? 'text-gray-600' : 'text-gray-400'}>/</span>
-                                                <span className={`font-medium truncate max-w-[300px] ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                                <span className={`shrink-0 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>/</span>
+                                                <span className={`font-medium truncate max-w-[100px] md:max-w-[300px] ${isDark ? 'text-white' : 'text-gray-900'}`}>
                                                     {selectedTemplate.title}
                                                 </span>
                                             </nav>
-                                            <div className="flex items-center gap-2">
-                                                <Link
-                                                    href={`/design-template/${selectedTemplate.slug || selectedTemplate._id}`}
-                                                    target="_blank"
-                                                    className={`p-2 rounded-full ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+                                            <div className="flex items-center gap-2 md:gap-3">
+                                                {/* Contact us Button */}
+                                                <button
+                                                    onClick={() => window.open('https://wa.me/8801714117701?text=Hi, I am interested in: ' + encodeURIComponent(selectedTemplate.title), '_blank')}
+                                                    className={`hidden md:flex items-center gap-3 px-5 py-2.5 border rounded-lg transition-all ${isDark ? 'border-white/10 hover:bg-white/5 text-white' : 'border-gray-200 hover:bg-gray-50 text-gray-900 font-medium'}`}
                                                 >
-                                                    <LuExternalLink size={18} className={isDark ? 'text-gray-400' : 'text-gray-500'} />
-                                                </Link>
+                                                    <FiMessageSquare className="text-green-500" size={18} />
+                                                    <span className="text-sm">Contact us</span>
+                                                </button>
+
+                                                <div className="flex items-center gap-1.5 md:gap-2.5">
+                                                    {/* Bookmark Button */}
+                                                    <button className={`p-2.5 border rounded-lg transition-all ${isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}>
+                                                        <LuBookmark size={18} />
+                                                    </button>
+
+                                                    {/* Like Button */}
+                                                    <button
+                                                        onClick={handleLike}
+                                                        className={`p-2.5 border rounded-lg transition-all ${isLiked ? 'text-red-500 border-red-500/30 bg-red-500/5' : isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}
+                                                    >
+                                                        <LuHeart size={18} className={isLiked ? 'fill-current' : ''} />
+                                                    </button>
+                                                </div>
+
+                                                {/* Download Button Group */}
+                                                <div className="flex items-stretch rounded-lg overflow-hidden border-0">
+                                                    <button
+                                                        onClick={handleBuyNow}
+                                                        className="flex items-center gap-2 px-6 py-2.5 bg-[#00C853] hover:bg-[#00B24A] text-white font-bold text-sm transition-all shadow-none"
+                                                    >
+                                                        {selectedTemplate.accessType === 'free' ? 'Free download' : 'Buy Template'}
+                                                    </button>
+                                                    <div className="w-[1px] bg-white/20" />
+                                                    <button className="px-3 bg-[#00C853] hover:bg-[#00B24A] text-white transition-all shadow-none">
+                                                        <LuChevronDown size={18} />
+                                                    </button>
+                                                </div>
+
+                                                {/* Close Button */}
                                                 <button
                                                     onClick={closeModal}
-                                                    className={`p-2 rounded-full ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
+                                                    className={`ml-1 md:ml-2 p-2 rounded-full ${isDark ? 'hover:bg-white/10' : 'hover:bg-gray-100'}`}
                                                 >
-                                                    <LuX size={20} className={isDark ? 'text-gray-400' : 'text-gray-500'} />
+                                                    <LuX size={18} className={isDark ? 'text-gray-400' : 'text-gray-500'} />
                                                 </button>
                                             </div>
                                         </div>
