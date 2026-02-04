@@ -353,7 +353,7 @@ const DesignTemplateContent = () => {
                     >
                         {/* Dark Blur Overlay */}
                         <div
-                            className="fixed inset-0 bg-black/90 backdrop-blur-sm"
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm"
                             onClick={closeModal}
                         />
 
@@ -392,9 +392,12 @@ const DesignTemplateContent = () => {
                                                 </button>
 
                                                 <div className="flex items-center gap-1.5 md:gap-2.5">
-                                                    {/* Bookmark Button */}
-                                                    <button className={`p-2.5 border rounded-lg transition-all ${isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}>
-                                                        <LuBookmark size={18} />
+                                                    {/* Add to Cart Button */}
+                                                    <button
+                                                        onClick={handleAddToCart}
+                                                        className={`p-2.5 border rounded-lg transition-all ${isAdded ? 'text-green-500 border-green-500/30 bg-green-500/5' : isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}
+                                                    >
+                                                        {isAdded ? <LuCheck size={18} /> : <LuShoppingCart size={18} />}
                                                     </button>
 
                                                     {/* Like Button */}
