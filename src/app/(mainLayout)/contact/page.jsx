@@ -113,7 +113,7 @@ const ContactPage = () => {
                 {language === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}
               </span>
             </div>
-            <h1 className={`text-4xl md:text-7xl font-script italic text-[#300000] dark:text-[#D4AF37] mb-6 leading-tight ${bengaliClass}`}>
+            <h1 className={`text-4xl md:text-7xl font-bold text-[#300000] dark:text-[#D4AF37] mb-6 leading-tight ${bengaliClass}`}>
               {language === 'bn' ? 'আমাদের সাথে যোগাযোগ করুন' : "Let's Start a Conversation"}
             </h1>
             <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
@@ -302,9 +302,8 @@ const ContactPage = () => {
       </section>
 
       <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
                 .font-script {
-                    font-family: 'Dancing Script', cursive;
+                    font-family: var(--font-poppins);
                 }
             `}</style>
     </div>

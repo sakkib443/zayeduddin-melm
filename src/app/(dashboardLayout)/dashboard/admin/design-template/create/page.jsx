@@ -16,11 +16,11 @@ import Link from 'next/link';
 import { API_URL } from '@/config/api';
 import { useTheme } from '@/providers/ThemeProvider';
 
-// Platform Options
-const PLATFORM_OPTIONS = [
-  'Figma', 'Photoshop', 'Illustrator', 'Adobe XD', 'Sketch', 'Canva',
-  'HTML/CSS', 'React', 'Next.js', 'Tailwind CSS', 'WordPress',
-  'Elementor', 'Bootstrap', 'InDesign', 'After Effects', 'Premiere Pro', 'Other'
+// Design Tools Options (Multi-selection)
+const DESIGN_TOOLS_OPTIONS = [
+  'Figma', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe XD', 'Sketch', 'Canva',
+  'Adobe InDesign', 'CorelDRAW', 'Affinity Designer', 'GIMP', 'Procreate',
+  'Blender', 'Cinema 4D', 'After Effects', 'Premiere Pro', 'Other'
 ];
 
 // Design Template Type Options
@@ -33,26 +33,22 @@ const DESIGN_TYPE_OPTIONS = [
 
 const designTemplateSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  platform: z.string().min(1, "Platform is required"),
-  category: z.string().min(1, "Category is required"),
-  templateType: z.string().min(1, "Template type is required"),
-  accessType: z.enum(['free', 'paid']),
-  version: z.string().min(1, "Version is required"),
-  price: z.coerce.number().min(0),
+  category: z.string().optional().nullable(),
+  designTools: z.array(z.string()).optional(),
+  templateType: z.string().optional().nullable(),
+  accessType: z.enum(['free', 'paid']).optional(),
+  price: z.coerce.number().min(0).optional().nullable(),
   offerPrice: z.coerce.number().min(0).optional().nullable(),
-  licenseType: z.enum(['regular', 'extended']),
-  regularLicensePrice: z.coerce.number().min(0),
+  licenseType: z.enum(['regular', 'extended']).optional(),
+  regularLicensePrice: z.coerce.number().min(0).optional().nullable(),
   extendedLicensePrice: z.coerce.number().min(0).optional().nullable(),
-  description: z.string().min(1, "Description is required"),
-  longDescription: z.string().optional(),
-  features: z.array(z.string()).optional(),
-  filesIncluded: z.array(z.string()).optional(),
-  compatibility: z.array(z.string()).optional(),
-  images: z.array(z.string()).min(1, "At least one image is required"),
-  previewUrl: z.string().optional(),
-  downloadFile: z.string().min(1, "Download file URL is required"),
-  documentationUrl: z.string().optional(),
-  status: z.enum(['pending', 'approved', 'rejected', 'draft']),
+  description: z.string().optional().nullable(),
+  longDescription: z.string().optional().nullable(),
+  images: z.array(z.string()).optional(),
+  previewUrl: z.string().optional().nullable(),
+  downloadFile: z.string().optional().nullable(),
+  documentationUrl: z.string().optional().nullable(),
+  status: z.enum(['pending', 'approved', 'rejected', 'draft']).optional(),
   isFeatured: z.boolean().optional(),
 });
 
@@ -77,23 +73,17 @@ function CreateDesignTemplateContent() {
       status: 'approved',
       accessType: 'paid',
       licenseType: 'regular',
-      version: '1.0.0',
       templateType: 'Website Template',
-      platform: 'Figma',
+      designTools: [],
       isFeatured: false,
       images: [''],
-      features: [''],
-      filesIncluded: [''],
-      compatibility: [''],
       price: 0,
       regularLicensePrice: 0,
     }
   });
 
   const imageFields = useFieldArray({ control, name: 'images' });
-  const featureFields = useFieldArray({ control, name: 'features' });
-  const fileIncludedFields = useFieldArray({ control, name: 'filesIncluded' });
-  const compatibilityFields = useFieldArray({ control, name: 'compatibility' });
+  const [selectedTools, setSelectedTools] = useState([]);
 
   // Check if field has error (from zod or server)
   const hasError = (fieldName) => {
@@ -144,13 +134,13 @@ function CreateDesignTemplateContent() {
           const data = await res.json();
           if (data.data) {
             const sw = data.data;
+            setSelectedTools(sw.designTools || []);
             reset({
               title: sw.title || '',
-              platform: sw.platform || 'Figma',
               category: sw.category?._id || sw.category || '',
+              designTools: sw.designTools || [],
               templateType: sw.templateType || 'Website Template',
               accessType: sw.accessType || 'paid',
-              version: sw.version || '1.0.0',
               price: sw.price || 0,
               offerPrice: sw.offerPrice || null,
               licenseType: sw.licenseType || 'regular',
@@ -158,9 +148,6 @@ function CreateDesignTemplateContent() {
               extendedLicensePrice: sw.extendedLicensePrice || null,
               description: sw.description || '',
               longDescription: sw.longDescription || '',
-              features: sw.features?.length ? sw.features : [''],
-              filesIncluded: sw.filesIncluded?.length ? sw.filesIncluded : [''],
-              compatibility: sw.compatibility?.length ? sw.compatibility : [''],
               images: sw.images?.length ? sw.images : [''],
               previewUrl: sw.previewUrl || '',
               downloadFile: sw.downloadFile || '',
@@ -222,15 +209,25 @@ function CreateDesignTemplateContent() {
 
     const cleanArray = (arr) => arr?.filter(item => item && item.trim() !== '') || [];
 
+    // Form data cleaning - remove empty/null values to let backend defaults take over
     const payload = {
       ...values,
-      features: cleanArray(values.features),
-      filesIncluded: cleanArray(values.filesIncluded),
-      compatibility: cleanArray(values.compatibility),
+      designTools: selectedTools,
       images: cleanArray(values.images),
-      offerPrice: (values.offerPrice === 0 || !values.offerPrice) ? null : values.offerPrice,
-      extendedLicensePrice: (values.extendedLicensePrice === 0 || !values.extendedLicensePrice) ? null : values.extendedLicensePrice,
     };
+
+    // Remove empty strings, nulls, and undefined from payload
+    Object.keys(payload).forEach(key => {
+      if (payload[key] === "" || payload[key] === null || payload[key] === undefined) {
+        delete payload[key];
+      }
+    });
+
+    // Handle specific cases for prices
+    if (values.offerPrice === 0 || !values.offerPrice) delete payload.offerPrice;
+    if (values.extendedLicensePrice === 0 || !values.extendedLicensePrice) delete payload.extendedLicensePrice;
+
+    console.log('Final Prepared Payload:', payload);
 
 
     try {
@@ -256,25 +253,27 @@ function CreateDesignTemplateContent() {
         router.push('/dashboard/admin/design-template');
       } else {
         // Parse server validation errors
+        console.error('Submission failed:', result);
+
         if (result.errorSources && Array.isArray(result.errorSources)) {
           const newErrors = {};
           result.errorSources.forEach(err => {
             if (err.path) {
-              newErrors[err.path] = err.message;
+              const path = err.path.split('.').pop(); // Handle body.title etc.
+              newErrors[path] = err.message;
             }
           });
           setServerErrors(newErrors);
-          setGeneralError(`Validation Error: Please fix the highlighted fields below`);
+          setGeneralError(`Validation Error: Please fix the fields below`);
         } else if (result.message) {
           setGeneralError(result.message);
         } else {
-          setGeneralError('An unknown error occurred');
+          setGeneralError(JSON.stringify(result));
         }
-        console.error('Server error:', result);
       }
     } catch (error) {
-      setGeneralError('Network error - please check your connection');
-      console.error('Network error:', error);
+      console.error('Request failed:', error);
+      setGeneralError(`Connection Error: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -329,28 +328,22 @@ function CreateDesignTemplateContent() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => router.push('/dashboard/admin/design-template')}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${isDark ? 'text-slate-300 hover:bg-slate-700' : 'text-gray-600 hover:bg-gray-100'} transition-colors`}
-          >
-            Cancel
-          </button>
-          <button
+            type="button"
             onClick={handleSubmit(onSubmit)}
             disabled={loading}
-            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50"
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-md text-sm font-semibold transition-all ${loading ? 'bg-blue-400 cursor-not-allowed text-white' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20'}`}
           >
             {loading ? <FiLoader className="animate-spin" size={16} /> : <FiSave size={16} />}
-            {loading ? 'Saving...' : isEditMode ? 'Update' : 'Create'}
+            {isEditMode ? 'Update Template' : 'Publish Template'}
           </button>
         </div>
       </div>
 
-      {/* Error Alert */}
       {generalError && (
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4 flex items-start gap-3">
-          <FiAlertCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+        <div className="mb-6 p-4 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-md flex items-center gap-3 text-red-600 dark:text-red-400 shadow-sm">
+          <FiAlertCircle size={20} className="shrink-0" />
           <div>
-            <p className="text-sm font-medium text-red-800 dark:text-red-200">{generalError}</p>
+            <p className="text-sm font-medium">{generalError}</p>
             {Object.keys(serverErrors).length > 0 && (
               <ul className="mt-2 text-xs text-red-600 dark:text-red-300 space-y-1">
                 {Object.entries(serverErrors).map(([field, message]) => (
@@ -373,11 +366,11 @@ function CreateDesignTemplateContent() {
             </h2>
             <div className="space-y-4">
               <div>
-                <label className={labelStyle('title')}>Template Title *</label>
+                <label className={labelStyle('title')} style={{ fontSize: '11px' }}>Template Title *</label>
                 <input
                   {...register('title')}
                   placeholder="e.g. Modern E-commerce UI Kit"
-                  className={inputStyle('title')}
+                  className={`${inputStyle('title')} placeholder:text-gray-300 dark:placeholder:text-slate-600`}
                 />
                 {(errors.title || serverErrors.title) && (
                   <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
@@ -388,18 +381,7 @@ function CreateDesignTemplateContent() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelStyle('platform')}>Platform *</label>
-                  <select {...register('platform')} className={inputStyle('platform')}>
-                    {PLATFORM_OPTIONS.map(p => <option key={p} value={p}>{p}</option>)}
-                  </select>
-                  {(errors.platform || serverErrors.platform) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                      <FiAlertCircle size={12} /> {getError('platform')}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className={labelStyle('category')}>Category *</label>
+                  <label className={labelStyle('category')} style={{ fontSize: '11px' }}>Category *</label>
                   <select {...register('category')} className={inputStyle('category')}>
                     <option value="">Select Category</option>
                     {categories.map(c => (
@@ -412,11 +394,8 @@ function CreateDesignTemplateContent() {
                     </p>
                   )}
                 </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelStyle('templateType')}>Template Type *</label>
+                  <label className={labelStyle('templateType')} style={{ fontSize: '11px' }}>Template Type *</label>
                   <select {...register('templateType')} className={inputStyle('templateType')}>
                     {DESIGN_TYPE_OPTIONS.map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
@@ -426,15 +405,35 @@ function CreateDesignTemplateContent() {
                     </p>
                   )}
                 </div>
-                <div>
-                  <label className={labelStyle('version')}>Version *</label>
-                  <input {...register('version')} className={inputStyle('version')} placeholder="1.0.0" />
-                  {(errors.version || serverErrors.version) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                      <FiAlertCircle size={12} /> {getError('version')}
-                    </p>
-                  )}
+              </div>
+
+              {/* Design Tools Multi-Selection */}
+              <div>
+                <label className={`${labelStyle('designTools')}`} style={{ fontSize: '11px' }}>Design Tools</label>
+                <div className={`grid grid-cols-2 md:grid-cols-3 gap-2 p-3 rounded-md border ${isDark ? 'border-slate-700 bg-slate-900' : 'border-gray-200 bg-gray-50'}`}>
+                  {DESIGN_TOOLS_OPTIONS.map(tool => (
+                    <label key={tool} className={`flex items-center gap-2 text-sm cursor-pointer p-1.5 rounded ${selectedTools.includes(tool) ? (isDark ? 'bg-blue-500/20' : 'bg-blue-50') : ''}`}>
+                      <input
+                        type="checkbox"
+                        checked={selectedTools.includes(tool)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedTools([...selectedTools, tool]);
+                          } else {
+                            setSelectedTools(selectedTools.filter(t => t !== tool));
+                          }
+                        }}
+                        className="rounded border-gray-300"
+                      />
+                      <span className={isDark ? 'text-slate-300' : 'text-gray-700'}>{tool}</span>
+                    </label>
+                  ))}
                 </div>
+                {(errors.designTools || serverErrors.designTools) && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <FiAlertCircle size={12} /> {getError('designTools')}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -446,11 +445,11 @@ function CreateDesignTemplateContent() {
             </h2>
             <div className="space-y-4">
               <div>
-                <label className={labelStyle('description')}>Short Description *</label>
+                <label className={labelStyle('description')} style={{ fontSize: '11px' }}>Short Description *</label>
                 <textarea
                   {...register('description')}
                   rows={3}
-                  className={`${inputStyle('description')} resize-none`}
+                  className={`${inputStyle('description')} resize-none placeholder:text-gray-300 dark:placeholder:text-slate-600`}
                   placeholder="Brief description of the template..."
                 />
                 {(errors.description || serverErrors.description) && (
@@ -461,7 +460,7 @@ function CreateDesignTemplateContent() {
               </div>
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className={labelStyle('longDescription')}>Long Description (Rich Text)</label>
+                  <label className={labelStyle('longDescription')} style={{ fontSize: '11px' }}>Long Description (Rich Text)</label>
                   <button
                     type="button"
                     onClick={() => setPreviewMode(!previewMode)}
@@ -522,74 +521,6 @@ function CreateDesignTemplateContent() {
             </div>
           </div>
 
-          {/* Features & Files */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Features */}
-            <div className={cardClass}>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} flex items-center gap-2`}>
-                  <FiCheck size={16} className="text-emerald-500" /> Features
-                </h2>
-                <button type="button" onClick={() => featureFields.append('')} className="p-1.5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                  <FiPlus size={14} />
-                </button>
-              </div>
-              <div className="space-y-2">
-                {featureFields.fields.map((field, idx) => (
-                  <div key={field.id} className="flex gap-2">
-                    <input {...register(`features.${idx}`)} className={inputStyle('features')} placeholder="Feature item" />
-                    <button type="button" onClick={() => featureFields.remove(idx)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-colors">
-                      <FiTrash2 size={16} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Files Included */}
-            <div className={cardClass}>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} flex items-center gap-2`}>
-                  <FiLayers size={16} className="text-violet-500" /> Files Included
-                </h2>
-                <button type="button" onClick={() => fileIncludedFields.append('')} className="p-1.5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                  <FiPlus size={14} />
-                </button>
-              </div>
-              <div className="space-y-2">
-                {fileIncludedFields.fields.map((field, idx) => (
-                  <div key={field.id} className="flex gap-2">
-                    <input {...register(`filesIncluded.${idx}`)} className={inputStyle('filesIncluded')} placeholder=".fig, .psd, etc." />
-                    <button type="button" onClick={() => fileIncludedFields.remove(idx)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-colors">
-                      <FiTrash2 size={16} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Compatibility */}
-          <div className={cardClass}>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} flex items-center gap-2`}>
-                <FiMonitor size={16} className="text-cyan-500" /> Compatibility
-              </h2>
-              <button type="button" onClick={() => compatibilityFields.append('')} className="p-1.5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                <FiPlus size={14} />
-              </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {compatibilityFields.fields.map((field, idx) => (
-                <div key={field.id} className="flex gap-2">
-                  <input {...register(`compatibility.${idx}`)} className={inputStyle('compatibility')} placeholder="Figma 2024+" />
-                  <button type="button" onClick={() => compatibilityFields.remove(idx)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-colors">
-                    <FiTrash2 size={16} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* Right Column - Pricing & Media */}
@@ -601,7 +532,7 @@ function CreateDesignTemplateContent() {
             </h2>
             <div className="space-y-4">
               <div>
-                <label className={labelStyle('accessType')}>Access Type</label>
+                <label className={labelStyle('accessType')} style={{ fontSize: '11px' }}>Access Type</label>
                 <select
                   {...register('accessType', {
                     onChange: (e) => {
@@ -616,16 +547,21 @@ function CreateDesignTemplateContent() {
                   <option value="paid">Paid</option>
                   <option value="free">Free</option>
                 </select>
+                {(errors.accessType || serverErrors.accessType) && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <FiAlertCircle size={12} /> {getError('accessType')}
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className={labelStyle('price')}>Price (৳) *</label>
+                  <label className={labelStyle('price')} style={{ fontSize: '11px' }}>Price (৳) *</label>
                   <input
                     type="number"
                     {...register('price')}
                     disabled={watch('accessType') === 'free'}
-                    className={inputStyle('price')}
+                    className={`${inputStyle('price')} placeholder:text-gray-300 dark:placeholder:text-slate-600`}
                     placeholder="0"
                   />
                   {(errors.price || serverErrors.price) && (
@@ -635,29 +571,39 @@ function CreateDesignTemplateContent() {
                   )}
                 </div>
                 <div>
-                  <label className={labelStyle('offerPrice')}>Offer Price (৳)</label>
+                  <label className={labelStyle('offerPrice')} style={{ fontSize: '11px' }}>Offer Price (৳)</label>
                   <input
                     type="number"
                     {...register('offerPrice')}
                     disabled={watch('accessType') === 'free'}
-                    className={inputStyle('offerPrice')}
+                    className={`${inputStyle('offerPrice')} placeholder:text-gray-300 dark:placeholder:text-slate-600`}
                     placeholder="0"
                   />
+                  {(errors.offerPrice || serverErrors.offerPrice) && (
+                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                      <FiAlertCircle size={12} /> {getError('offerPrice')}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className={`border-t ${isDark ? 'border-slate-700' : 'border-gray-200'} pt-4`}>
-                <label className={labelStyle('licenseType')}>License Type</label>
+                <label className={labelStyle('licenseType')} style={{ fontSize: '11px' }}>License Type</label>
                 <select {...register('licenseType')} className={inputStyle('licenseType')}>
                   <option value="regular">Regular License</option>
                   <option value="extended">Extended License</option>
                 </select>
+                {(errors.licenseType || serverErrors.licenseType) && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <FiAlertCircle size={12} /> {getError('licenseType')}
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className={labelStyle('regularLicensePrice')}>Regular (৳) *</label>
-                  <input type="number" {...register('regularLicensePrice')} className={inputStyle('regularLicensePrice')} placeholder="0" />
+                  <label className={labelStyle('regularLicensePrice')} style={{ fontSize: '11px' }}>Regular (৳) *</label>
+                  <input type="number" {...register('regularLicensePrice')} className={`${inputStyle('regularLicensePrice')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="0" />
                   {(errors.regularLicensePrice || serverErrors.regularLicensePrice) && (
                     <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
                       <FiAlertCircle size={12} /> {getError('regularLicensePrice')}
@@ -665,8 +611,13 @@ function CreateDesignTemplateContent() {
                   )}
                 </div>
                 <div>
-                  <label className={labelStyle('extendedLicensePrice')}>Extended (৳)</label>
-                  <input type="number" {...register('extendedLicensePrice')} className={inputStyle('extendedLicensePrice')} placeholder="0" />
+                  <label className={labelStyle('extendedLicensePrice')} style={{ fontSize: '11px' }}>Extended (৳)</label>
+                  <input type="number" {...register('extendedLicensePrice')} className={`${inputStyle('extendedLicensePrice')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="0" />
+                  {(errors.extendedLicensePrice || serverErrors.extendedLicensePrice) && (
+                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                      <FiAlertCircle size={12} /> {getError('extendedLicensePrice')}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -688,7 +639,7 @@ function CreateDesignTemplateContent() {
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className={labelStyle('images')}>Image URLs *</label>
+                  <label className={labelStyle('images')} style={{ fontSize: '11px' }}>Image URLs *</label>
                   <button type="button" onClick={() => imageFields.append('')} className="text-xs text-blue-500 hover:underline">
                     <FiPlus className="inline mr-1" size={12} /> Add
                   </button>
@@ -696,7 +647,7 @@ function CreateDesignTemplateContent() {
                 <div className="space-y-2">
                   {imageFields.fields.map((field, idx) => (
                     <div key={field.id} className="flex gap-2">
-                      <input {...register(`images.${idx}`)} className={inputStyle('images')} placeholder="https://..." />
+                      <input {...register(`images.${idx}`)} className={`${inputStyle('images')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="https://..." />
                       {imageFields.fields.length > 1 && (
                         <button type="button" onClick={() => imageFields.remove(idx)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-colors">
                           <FiTrash2 size={14} />
@@ -713,13 +664,18 @@ function CreateDesignTemplateContent() {
               </div>
 
               <div>
-                <label className={labelStyle('previewUrl')}>Preview URL</label>
-                <input {...register('previewUrl')} className={inputStyle('previewUrl')} placeholder="https://..." />
+                <label className={labelStyle('previewUrl')} style={{ fontSize: '11px' }}>Preview URL</label>
+                <input {...register('previewUrl')} className={`${inputStyle('previewUrl')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="https://..." />
+                {(errors.previewUrl || serverErrors.previewUrl) && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <FiAlertCircle size={12} /> {getError('previewUrl')}
+                  </p>
+                )}
               </div>
 
               <div>
-                <label className={labelStyle('downloadFile')}>Download File *</label>
-                <input {...register('downloadFile')} className={inputStyle('downloadFile')} placeholder="Cloud storage link..." />
+                <label className={labelStyle('downloadFile')} style={{ fontSize: '11px' }}>Download File *</label>
+                <input {...register('downloadFile')} className={`${inputStyle('downloadFile')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="Cloud storage link..." />
                 {(errors.downloadFile || serverErrors.downloadFile) && (
                   <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('downloadFile')}
@@ -728,8 +684,13 @@ function CreateDesignTemplateContent() {
               </div>
 
               <div>
-                <label className={labelStyle('documentationUrl')}>Documentation URL</label>
-                <input {...register('documentationUrl')} className={inputStyle('documentationUrl')} placeholder="Docs link..." />
+                <label className={labelStyle('documentationUrl')} style={{ fontSize: '11px' }}>Documentation URL</label>
+                <input {...register('documentationUrl')} className={`${inputStyle('documentationUrl')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="Docs link..." />
+                {(errors.documentationUrl || serverErrors.documentationUrl) && (
+                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <FiAlertCircle size={12} /> {getError('documentationUrl')}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -740,13 +701,18 @@ function CreateDesignTemplateContent() {
               <FiSettings size={16} className="text-amber-500" /> Status
             </h2>
             <div>
-              <label className={labelStyle('status')}>Listing Status</label>
+              <label className={labelStyle('status')} style={{ fontSize: '11px' }}>Listing Status</label>
               <select {...register('status')} className={inputStyle('status')}>
                 <option value="approved">Live / Approved</option>
                 <option value="pending">Pending Review</option>
                 <option value="draft">Draft</option>
                 <option value="rejected">Rejected</option>
               </select>
+              {(errors.status || serverErrors.status) && (
+                <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                  <FiAlertCircle size={12} /> {getError('status')}
+                </p>
+              )}
             </div>
             <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'} mt-3`}>
               Templates marked as Live will be visible to customers.

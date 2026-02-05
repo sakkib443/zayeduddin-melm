@@ -19,10 +19,10 @@ const Footer = () => {
   const quickLinks = [
     { to: "/", label: t("navbar.home") },
     { to: "/courses", label: t("navbar.courses") }, // Label is corrected to 'Training' via translation
-    { to: "/website", label: "Website Selection" },
-    { to: "/design-template", label: "Design Template" },
-    { to: "/pricing", label: "Pricing Plan" },
-    { to: "/blog", label: "Blog" },
+    { to: "/website", label: t("navbar.websiteSelection") },
+    { to: "/design-template", label: t("navbar.designTemplate") },
+    { to: "/pricing", label: t("navbar.pricingPlan") },
+    { to: "/blog", label: t("navbar.blog") },
     { to: "/about", label: t("navbar.about") },
     { to: "/contact", label: t("navbar.contact") },
   ];

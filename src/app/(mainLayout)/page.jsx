@@ -7,6 +7,7 @@ import { fetchCategories } from "@/redux/categorySlice";
 import Hero from "@/components/Home/Hero";
 import TopCategories from "@/components/Home/TopCategories";
 import PopularCourse from "@/components/Home/PopularCourse";
+import StatisticsBar from "@/components/Home/StatisticsBar";
 import ContactStrip from "@/components/Home/ContactStrip";
 import DigitalAssets from "@/components/Home/DigitalAssets";
 import AboutMe from "@/components/Home/AboutMe";
@@ -53,7 +54,7 @@ const HomePage = () => {
     if (mounted) {
       dispatch(fetchCoursesData());
       dispatch(fetchCategories());
-      dispatch(fetchDesignTemplates({ limit: 8 }));
+      dispatch(fetchDesignTemplates({ limit: 6 }));
     }
   }, [dispatch, mounted]);
 
@@ -73,8 +74,9 @@ const HomePage = () => {
         {/* Other Sections */}
         <section className="relative z-10 bg-white dark:bg-[#020202]">
           <PopularCourse />
-          <ContactStrip />
+          <StatisticsBar />
           <DigitalAssets />
+          <ContactStrip />
           <AboutMe />
           <BlogSection />
           <Testimonials />

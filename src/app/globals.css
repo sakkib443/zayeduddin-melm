@@ -11,7 +11,7 @@
   --color-brand-dark: #300000;
   --color-brand-gold: #D4AF37;
   --color-brand-light: #fafafa;
-  
+
   /* Primary Colors (Legacy / Global fallback) */
   --color-primary: #300000;
   --color-primary-dark: #220000;
@@ -27,10 +27,10 @@
   --color-white: #ffffff;
 
   /* Font Families */
-  --font-heading: "Outfit", sans-serif;
-  --font-body: "Poppins", sans-serif;
-  --font-serif: "Playfair Display", serif;
-  --font-bengali: "Hind Siliguri", sans-serif;
+  --font-heading: var(--font-outfit), sans-serif;
+  --font-body: var(--font-poppins), sans-serif;
+  --font-serif: var(--font-playfair), serif;
+  --font-bengali: var(--font-hind-siliguri), "Hind Siliguri", sans-serif;
 }
 
 body {
@@ -40,7 +40,30 @@ body {
   background-color: var(--color-brand-light);
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Ensure Bengali font is applied to everything when .font-bengali class is on body */
+body.font-bengali,
+body.font-bengali h1,
+body.font-bengali h2,
+body.font-bengali h3,
+body.font-bengali h4,
+body.font-bengali h5,
+body.font-bengali h6,
+body.font-bengali p,
+body.font-bengali span,
+body.font-bengali a,
+body.font-bengali button,
+body.font-bengali input,
+body.font-bengali textarea,
+body.font-bengali label {
+  font-family: var(--font-bengali) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
 }
@@ -49,6 +72,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
 }
 
-.hind-siliguri {
-  font-family: var(--font-bengali);
+.hind-siliguri,
+.font-bengali {
+  font-family: var(--font-bengali) !important;
 }

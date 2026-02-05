@@ -3,6 +3,8 @@
 import Footer from '@/components/sheard/Footer';
 import Navbar from '@/components/sheard/Navbar';
 import TopHeader from '@/components/sheard/TopHeader';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 import ScrollToTop from '@/components/sheard/ScrollToTop';
 import FloatingLanguageButton from '@/components/sheard/FloatingLanguageButton';
 import FloatingWhatsAppButton from '@/components/sheard/FloatingWhatsAppButton';
@@ -10,6 +12,13 @@ import { AdminEditProvider } from '@/providers/AdminEditProvider';
 import React from 'react';
 
 const MainLayout = ({ children }) => {
+    const pathname = usePathname();
+
+    useEffect(() => {
+        // Force scroll to top on route change
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
     return (
         <AdminEditProvider>
             <div>

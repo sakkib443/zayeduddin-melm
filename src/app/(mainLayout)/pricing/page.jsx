@@ -77,7 +77,7 @@ const PricingPage = () => {
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className={`text-4xl md:text-6xl font-script italic text-[#300000] dark:text-[#D4AF37] mb-4`}
+                        className={`text-4xl md:text-6xl font-bold text-[#300000] dark:text-[#D4AF37] mb-4`}
                     >
                         {language === 'bn' ? 'সহজ মূল্যতালিকা' : 'Simple Pricing'}
                     </motion.h1>
@@ -98,8 +98,8 @@ const PricingPage = () => {
                             <button
                                 onClick={() => setBillingCycle("monthly")}
                                 className={`px-8 py-2.5 rounded-full text-xs font-bold transition-all duration-300 ${billingCycle === "monthly"
-                                        ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
-                                        : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
+                                    ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
+                                    : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
                                     }`}
                             >
                                 {language === 'bn' ? 'মাসিক' : 'Monthly'}
@@ -107,8 +107,8 @@ const PricingPage = () => {
                             <button
                                 onClick={() => setBillingCycle("yearly")}
                                 className={`px-8 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 ${billingCycle === "yearly"
-                                        ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
-                                        : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
+                                    ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
+                                    : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
                                     }`}
                             >
                                 <span>{language === 'bn' ? 'বার্ষিক' : 'Yearly'}</span>
@@ -128,8 +128,8 @@ const PricingPage = () => {
                             transition={{ delay: idx * 0.1 }}
                             viewport={{ once: true }}
                             className={`relative bg-white dark:bg-[#0d0d0d] rounded-[32px] p-8 md:p-10 flex flex-col items-start transition-all duration-500 ${plan.highlight
-                                    ? "ring-2 ring-indigo-500/50 shadow-2xl shadow-indigo-500/10 scale-105 z-10"
-                                    : "border border-slate-100 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/20 shadow-xl shadow-black/5"
+                                ? "ring-2 ring-indigo-500/50 shadow-2xl shadow-indigo-500/10 scale-105 z-10"
+                                : "border border-slate-100 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/20 shadow-xl shadow-black/5"
                                 }`}
                         >
                             {plan.badge && (
@@ -166,14 +166,14 @@ const PricingPage = () => {
                                 {plan.features.map((feature, fIdx) => (
                                     <div key={fIdx} className="flex items-center gap-3">
                                         <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${feature.included
-                                                ? "bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400"
-                                                : "bg-slate-100 dark:bg-white/5 text-slate-400/50"
+                                            ? "bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                                            : "bg-slate-100 dark:bg-white/5 text-slate-400/50"
                                             }`}>
                                             {feature.included ? <LuCheck size={12} strokeWidth={3} /> : <LuX size={12} />}
                                         </div>
                                         <span className={`text-sm ${feature.included
-                                                ? "text-slate-700 dark:text-slate-300 font-medium"
-                                                : "text-slate-400 dark:text-slate-600"
+                                            ? "text-slate-700 dark:text-slate-300 font-medium"
+                                            : "text-slate-400 dark:text-slate-600"
                                             } ${bengaliClass}`}>
                                             {language === 'bn' ? feature.textBn : feature.text}
                                         </span>
@@ -183,8 +183,8 @@ const PricingPage = () => {
 
                             <button
                                 className={`w-full py-4 rounded-full text-sm font-bold transition-all duration-300 mt-auto ${plan.highlight
-                                        ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-600/30 hover:-translate-y-1"
-                                        : "bg-slate-50 dark:bg-white/5 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:-translate-y-1"
+                                    ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-600/30 hover:-translate-y-1"
+                                    : "bg-slate-50 dark:bg-white/5 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:-translate-y-1"
                                     } ${bengaliClass}`}
                             >
                                 {language === 'bn' ? plan.buttonTextBn : plan.buttonText}
@@ -207,9 +207,8 @@ const PricingPage = () => {
             </div>
 
             <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
                 .font-script {
-                    font-family: 'Dancing Script', cursive;
+                    font-family: var(--font-poppins);
                 }
             `}</style>
         </div>

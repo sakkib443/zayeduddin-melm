@@ -1,7 +1,65 @@
 {
+    "statisticsBar": {
+        "totalCourses": "Total Courses",
+        "totalStudents": "Total Students",
+        "totalEnrollment": "Total Enrollment",
+        "totalTemplates": "Total Templates"
+    },
+    "blogSection": {
+        "badge": "OUR BLOGS",
+        "title": "Latest News & Articles",
+        "viewAll": "VIEW ALL POSTS",
+        "author": "Zayed Uddin",
+        "category": "Article",
+        "summaryFallback": "Read the latest update about our activities and industry insights."
+    },
+    "contactStrip": {
+        "enquiry": "Make an Online Enquiry",
+        "or": "Or",
+        "call": "Call +8801714117701"
+    },
+    "digitalAssets": {
+        "title": "Digital Assets",
+        "subtitle": "Explore our curated marketplace for the highest quality design assets and UI kits for your projects.",
+        "all": "ALL",
+        "noAssets": "No assets found in this category."
+    },
+    "testimonials": {
+        "title": "People Say About Me",
+        "items": [
+            {
+                "name": "Oliver Beddows",
+                "designation": "Designer, Manchester",
+                "review": "But not all testimonials are created equal. A generic \"Great product!\" doesn't carry much weight. To truly resonate, testimonials need to be well-designed. This means ensuring they're authentic, with specific details that paint a vivid picture of the customer's experience."
+            },
+            {
+                "name": "Madley Pondor",
+                "designation": "Reporter, San Diego",
+                "review": "ThemeMove deserves 5 star for theme's features, design quality, flexibility, and support service! If you can include a photo or video, even better! Visuals add a layer of credibility that text alone can't achieve. Ultimately, well-crafted testimonials boost conversions."
+            },
+            {
+                "name": "Mina Hollace",
+                "designation": "Reporter, London",
+                "review": "Very good and fast support during the week. They know what you need, exactly when you need it. When people see that others have benefited from your offering, they're far more likely to take the leap themselves. Letting your happy customers do the talking."
+            },
+            {
+                "name": "James Wilson",
+                "designation": "Developer, New York",
+                "review": "The courses are beautifully crafted. Every lesson is easy to understand and practical. Visuals add a layer of credibility that text alone can't achieve. Ultimately, well-crafted testimonials boost conversions by addressing potential customers' concerns."
+            },
+            {
+                "name": "Sophie Chen",
+                "designation": "Student, Singapore",
+                "review": "Best platform for online learning. All courses are updated and professional. When people see that others have benefited from your offering, they're far more likely to take the leap themselves. It's about letting your experiences speak for themselves."
+            }
+        ]
+    },
     "navbar": {
         "home": "Home",
         "courses": "Training",
+        "design": "Design",
+        "pricing": "Price",
+        "blog": "Blog",
         "events": "Events",
         "success": "Success",
         "successHistory": "Success Stories",
@@ -11,6 +69,9 @@
         "certification": "Certification",
         "software": "Software",
         "website": "Website",
+        "websiteSelection": "Website Selection",
+        "designTemplate": "Design Template",
+        "pricingPlan": "Pricing Plan",
         "category": "Category",
         "getCourse": "Get Course",
         "onlineCourse": "Online Course",
@@ -30,25 +91,14 @@
         "adminPanel": "Admin Panel"
     },
     "hero": {
-        "badge": "🎓 A Leading Platform for Skills Development",
-        "heading1": "Transform Your",
-        "heading2": "Career Path",
-        "headingWith": "with",
-        "academyName": "Jayed Uddin",
-        "description": "Welcome to Jayed Uddin — a leading IT training and creative platform in Bangladesh. We specialize in career-oriented education with expert instructors, hands-on learning, and personalized support for real-world success.",
-        "courses": "Courses",
-        "students": "Students",
-        "placement": "Placement",
-        "vendorCertified": "Vendor Certified",
-        "buildingSkills": "Building Skills",
-        "careerSuccess": "Career Success",
-        "joinSeminar": "Join Seminar & Events",
-        "successStories": "Success Stories",
-        "enrolledThisMonth": "enrolled this month",
-        "topRated": "Top Rated",
-        "academy2024": "Academy 2024",
-        "rating": "Rating",
-        "jobSupport": "Job Support"
+        "name": "Zayed Uddin",
+        "subTitle": "Designer & Trainer",
+        "bio": "Zayed Uddin is a seasoned Graphic and UX/UI Design instructor with over 20 years of professional experience. He currently leads design training programs at BITM and UIU (IBER), sharing his vast industry expertise with aspiring designers.",
+        "seeMore": "See More",
+        "design": "Design",
+        "designDesc": "Design Work means that portion of the Work consisting of the design services required for the Project.",
+        "training": "Training",
+        "trainingDesc": "Workplace training is the process of developing knowledge, skills and efficiency in your job."
     },
     "homeCategory": {
         "badge": "Browse Categories",
@@ -76,17 +126,29 @@
             "diplomaSub": "Skill Up, Stand Out"
         }
     },
+    "aboutMe": {
+        "title": "About Me",
+        "text1": "Zayed Uddin is a seasoned Graphic and UX/UI Design instructor with over 20 years of professional experience. He currently leads design training programs at BITM and UIU (IBER), sharing his vast industry expertise with aspiring designers.",
+        "text2": "Since 2003, he has worked with top-tier organizations and as a successful freelancer on global marketplaces. Beyond professional design, he is deeply committed to education, serving as a master trainer for various government and international projects like ASSET and BYTES.",
+        "yearsExp": "Years Exp."
+    },
+    "topCategories": {
+        "trainingTitle": "Training",
+        "trainingSubtitle": "Skill Up, Stand Out",
+        "graphicTitle": "Graphic Template",
+        "graphicSubtitle": "Ready-to-use Designs",
+        "uiuxTitle": "UI/UX Template",
+        "uiuxSubtitle": "Modern App & Web UI",
+        "websiteTitle": "Website Template",
+        "websiteSubtitle": "Professional Websites",
+        "exploreMore": "Explore more",
+        "viewAll": "View All"
+    },
     "popularCourse": {
-        "badge": "Most Popular Courses",
-        "title1": "Explore Our ",
-        "title2": "Popular Courses",
-        "description": "At Jayed Uddin, we provide skill-based training programas customized to meet the evolving needs of today's job market. Whether you're just beginning your career or looking to upgrade your professional expertise, our flexible learning options are designed to help you stay competitive.",
-        "courses": "Courses",
-        "students": "Students",
-        "success": "Success",
-        "placementRate": "Placement Rate",
-        "viewAllCourses": "View All Courses",
-        "joinThousands": "Join thousands of successful learners today"
+        "title": "Training Courses",
+        "description": "Learn new skills with our premium video courses. From design to development, master your craft.",
+        "allCourses": "ALL COURSES",
+        "noCourses": "No courses found in this category"
     },
     "seminarEvent": {
         "badge": "To Know Us Better",

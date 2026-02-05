@@ -181,7 +181,7 @@ const CourseContent = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className={`text-4xl md:text-7xl font-script italic text-[#300000] mb-4 ${bengaliClass}`}>
+            <h1 className={`text-4xl md:text-[50px] font-bold text-[#300000] mb-4 ${bengaliClass}`}>
               {language === 'bn' ? 'ট্রেনিং কোর্স' : 'Training Courses'}
             </h1>
             <p className={`text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10 ${bengaliClass}`}>
@@ -327,9 +327,8 @@ const CourseContent = () => {
       </main>
 
       <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
                 .font-script {
-                    font-family: 'Dancing Script', cursive;
+                    font-family: var(--font-poppins);
                 }
             `}</style>
     </div>

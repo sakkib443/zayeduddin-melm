@@ -142,10 +142,17 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                     {/* Stats Bar */}
                     <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-50 dark:border-white/5">
                         <div className="flex items-center gap-3 text-[10px] font-medium text-slate-500">
-                            <div className="flex items-center gap-1">
-                                <LuLayers className="text-[#300000]" size={12} />
-                                <span>{version}</span>
-                            </div>
+                            {type === 'design-template' && product.designTools?.length > 0 ? (
+                                <div className="flex items-center gap-1">
+                                    <LuLayers className="text-[#300000]" size={12} />
+                                    <span>{product.designTools[0]}</span>
+                                </div>
+                            ) : type === 'website' ? (
+                                <div className="flex items-center gap-1">
+                                    <LuLayers className="text-[#300000]" size={12} />
+                                    <span>{version}</span>
+                                </div>
+                            ) : null}
                             <div className="flex items-center gap-1">
                                 <LuUsers className="text-[#300000]" size={12} />
                                 <span>{sales}+ Sales</span>

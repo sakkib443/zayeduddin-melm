@@ -38,7 +38,7 @@ const DigitalAssets = () => {
                     >
                         <LuSparkles className="text-[#300000]" size={16} />
                         <span className="text-[10px] font-bold text-[#300000] uppercase tracking-[0.2em]">
-                            {language === 'bn' ? 'ডিজিটাল অ্যাসেটস' : 'Digital Assets'}
+                            {t("digitalAssets.title")}
                         </span>
                     </motion.div>
 
@@ -47,9 +47,10 @@ const DigitalAssets = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className={`text-3xl md:text-4xl lg:text-5xl font-serif italic text-[#300000] mb-4 ${bengaliClass}`}
+                        className={`text-3xl md:text-4xl lg:text-5xl font-bold text-[#300000] mb-4 ${bengaliClass}`}
+                        style={{ fontFamily: 'var(--font-poppins)' }}
                     >
-                        {language === 'bn' ? 'ডিজিটাল অ্যাসেটস' : 'Digital Assets'}
+                        {t("digitalAssets.title")}
                     </motion.h2>
 
                     <motion.p
@@ -59,9 +60,7 @@ const DigitalAssets = () => {
                         transition={{ delay: 0.2 }}
                         className={`text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed ${bengaliClass}`}
                     >
-                        {language === 'bn'
-                            ? 'আপনার প্রজেক্টের জন্য আমাদের কিউরেটেড মার্কেটপ্লেস থেকে সেরা মানের ডিজাইন অ্যাসেট এবং ইউআই কিটগুলো খুঁজে নিন।'
-                            : 'Explore our curated marketplace for the highest quality design assets and UI kits for your projects.'}
+                        {t("digitalAssets.subtitle")}
                     </motion.p>
                 </div>
 
@@ -74,7 +73,7 @@ const DigitalAssets = () => {
                             : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                             }`}
                     >
-                        {language === 'bn' ? 'সবগুলো' : 'ALL'}
+                        {t("digitalAssets.all")}
                     </button>
 
                     {categories
@@ -121,13 +120,12 @@ const DigitalAssets = () => {
                 {/* No Templates Message */}
                 {!loading && templates.length === 0 && (
                     <div className="text-center py-20">
-                        <p className="text-slate-400">No assets found in this category.</p>
+                        <p className={`text-slate-400 ${bengaliClass}`}>{t("digitalAssets.noAssets")}</p>
                     </div>
                 )}
             </div>
 
             <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
       `}</style>
         </section>
     );

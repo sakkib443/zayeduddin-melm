@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Hero = () => {
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
     const colors = {
@@ -19,19 +19,19 @@ const Hero = () => {
 
     const cards = [
         {
-            title: "Design",
-            description: "Design Work means that portion of the Work consisting of the design services required...",
+            title: t("hero.design"),
+            description: t("hero.designDesc"),
             href: "/design-template",
         },
         {
-            title: "Training",
-            description: "Workplace training is the process of developing knowledge, skills and efficiency in your job...",
+            title: t("hero.training"),
+            description: t("hero.trainingDesc"),
             href: "/courses",
         },
     ];
 
     return (
-        <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 py-20 overflow-hidden" style={{ backgroundColor: colors.bg }}>
+        <section className="relative min-h-[70vh] md:min-h-[75vh] flex flex-col items-center justify-center px-4 py-12 md:py-16 overflow-hidden" style={{ backgroundColor: colors.bg }}>
 
             {/* Background Image - Blended & Faded */}
             <div className="absolute right-0 bottom-0 top-0 w-full md:w-[70%] lg:w-[30%] h-full z-0 pointer-events-none select-none overflow-hidden">
@@ -59,18 +59,19 @@ const Hero = () => {
                     transition={{ duration: 0.8 }}
                     className="mb-10"
                 >
-                    <h1 className="text-5xl md:text-6xl font-serif italic mb-4" style={{ color: colors.dark }}>
-                        Zayed Uddin
+                    <h1 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: colors.dark, fontFamily: 'var(--font-poppins)' }}>
+                        {t("hero.name")}
                     </h1>
                     <h2 className="text-lg md:text-xl font-bold tracking-[0.2em] uppercase mb-6" style={{ color: colors.dark }}>
-                        Designer & Trainer
+                        {t("hero.subTitle")}
                     </h2>
 
                     {/* Bio Description */}
-                    <p className={`max-w-3xl mx-auto text-xs md:text-sm leading-relaxed opacity-80 ${bengaliClass}`} style={{ color: colors.dark }}>
-                        "Zayed Uddin is a seasoned Graphic and UX/UI Design instructor with over 20 years of professional experience. He currently leads design training programs at BITM and UIU (IBER), sharing his vast industry expertise with aspiring designers.
-                        <br /><br />
-                        Since 2003, he has worked with top-tier organizations and as a successful freelancer on global marketplaces. Beyond professional design, he is deeply committed to education, serving as a master trainer for various government and international projects like ASSET and BYTES."
+                    <p className={`max-w-3xl mx-auto text-xs md:text-sm leading-relaxed opacity-80 whitespace-pre-line ${bengaliClass}`} style={{ color: colors.dark }}>
+                        {t("hero.bio")}
+                        <Link href="/about" className="inline-block ml-2 text-[#D4AF37] font-bold hover:underline transition-all">
+                            {t("hero.seeMore")}
+                        </Link>
                     </p>
                 </motion.div>
 
@@ -89,8 +90,8 @@ const Hero = () => {
                                     style={{ backgroundColor: colors.dark }}
                                 >
                                     <h3
-                                        className="text-3xl md:text-4xl font-serif italic mb-4 transition-colors group-hover:text-white"
-                                        style={{ color: colors.gold }}
+                                        className="text-3xl md:text-4xl font-bold mb-4 transition-colors group-hover:text-white"
+                                        style={{ color: colors.gold, fontFamily: 'var(--font-poppins)' }}
                                     >
                                         {card.title}
                                     </h3>
@@ -109,11 +110,6 @@ const Hero = () => {
 
             {/* Custom Font Import */}
             <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Outfit:wght@400;700&display=swap');
-                
-                .font-serif {
-                    font-family: 'Playfair Display', serif;
-                }
             `}</style>
         </section>
     );

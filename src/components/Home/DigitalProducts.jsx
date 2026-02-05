@@ -173,6 +173,7 @@ const DigitalProducts = () => {
                     <div className="overflow-hidden mb-5">
                         <motion.h2
                             className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white tracking-tight ${bengaliClass}`}
+                            style={{ fontFamily: 'var(--font-poppins)' }}
                             initial={{ y: 50, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             viewport={{ once: true }}

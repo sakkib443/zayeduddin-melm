@@ -24,7 +24,7 @@ const CourseCardSkeleton = () => (
 
 const PopularCourse = () => {
   const [activeCategory, setActiveCategory] = useState('all');
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
   const { items: categories = [] } = useSelector((state) => state.categories);
@@ -40,7 +40,7 @@ const PopularCourse = () => {
   const courseCategories = categories.filter(cat => cat.type === 'course');
 
   const filters = [
-    { id: 'all', label: language === 'bn' ? "সকল কোর্স" : "ALL COURSES" },
+    { id: 'all', label: t("popularCourse.allCourses") },
     ...courseCategories.map(cat => ({
       id: cat._id,
       label: language === 'bn' ? (cat.nameBn || cat.name).toUpperCase() : cat.name.toUpperCase()
@@ -61,10 +61,10 @@ const PopularCourse = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl lg:text-5xl font-serif italic mb-4"
-            style={{ color: colors.darkRed }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
+            style={{ color: colors.darkRed, fontFamily: 'var(--font-poppins)' }}
           >
-            {language === 'bn' ? 'প্রশিক্ষণ কোর্স' : 'Training Courses'}
+            {t("popularCourse.title")}
           </motion.h2>
 
           <motion.p
@@ -75,9 +75,7 @@ const PopularCourse = () => {
             className={`text-sm md:text-base opacity-70 leading-relaxed max-w-2xl mx-auto ${bengaliClass}`}
             style={{ color: colors.darkRed }}
           >
-            {language === 'bn'
-              ? 'আমাদের প্রিমিয়াম ভিডিও কোর্সের মাধ্যমে নতুন দক্ষতা শিখুন। ডিজাইন থেকে শুরু করে ডেভেলপমেন্ট পর্যন্ত, আপনার নৈপুণ্যে দক্ষ হয়ে উঠুন।'
-              : 'Learn new skills with our premium video courses. From design to development, master your craft.'}
+            {t("popularCourse.description")}
           </motion.p>
         </div>
 
@@ -136,7 +134,7 @@ const PopularCourse = () => {
                     className="col-span-full text-center py-20"
                   >
                     <p className={`text-gray-400 font-medium ${bengaliClass}`}>
-                      {language === 'bn' ? 'এই ক্যাটাগরিতে কোনো কোর্স পাওয়া যায়নি' : 'No courses found in this category'}
+                      {t("popularCourse.noCourses")}
                     </p>
                   </motion.div>
                 )}
@@ -148,10 +146,6 @@ const PopularCourse = () => {
       </div>
 
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
       `}</style>
     </section>
   );

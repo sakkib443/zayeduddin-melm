@@ -40,6 +40,18 @@ import {
     SiCanva
 } from "react-icons/si";
 
+const DESIGN_TOOLS_OPTIONS = [
+    'Figma',
+    'Adobe Photoshop',
+    'Adobe Illustrator',
+    'Adobe XD',
+    'Sketch',
+    'Canva',
+    'Adobe InDesign',
+    'After Effects',
+    'Other'
+];
+
 const getSoftwareIcon = (platform) => {
     const icons = {
         'Photoshop': SiAdobephotoshop,
@@ -63,6 +75,7 @@ const DesignTemplateContent = () => {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("all");
+    const [selectedTool, setSelectedTool] = useState("all");
     const [templates, setTemplates] = useState([]);
     const [categories, setCategories] = useState([]);
 
@@ -123,7 +136,9 @@ const DesignTemplateContent = () => {
         const matchesCategory = selectedCategory === "all" ||
             template.category?._id === selectedCategory ||
             template.category === selectedCategory;
-        return matchesSearch && matchesCategory;
+        const matchesTool = selectedTool === "all" ||
+            (template.designTools && template.designTools.includes(selectedTool));
+        return matchesSearch && matchesCategory && matchesTool;
     });
 
     const getCategoryCount = (categoryId) => {
@@ -242,7 +257,7 @@ const DesignTemplateContent = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className={`text-4xl md:text-7xl font-script italic text-[#300000] mb-4 ${bengaliClass}`}>
+                        <h1 className={`text-4xl md:text-[50px] font-bold text-[#300000] mb-4 ${bengaliClass}`}>
                             {language === 'bn' ? 'গ্রাফিক টেম্পলেট' : 'Graphic Templates'}
                         </h1>
                         <p className={`text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10 ${bengaliClass}`}>
@@ -296,11 +311,28 @@ const DesignTemplateContent = () => {
                                 ))}
                             </div>
 
-                            <div className="relative group">
-                                <button className="flex items-center gap-3 px-6 py-2.5 bg-slate-50 dark:bg-white/5 text-slate-500 rounded-full text-xs font-bold hover:bg-slate-100 transition-all">
-                                    <span>Most Popular</span>
-                                    <LuChevronDown size={14} />
-                                </button>
+                            <div className="flex flex-wrap items-center gap-3">
+                                <div className="relative group">
+                                    <LuLayers className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-[#300000] z-10" size={14} />
+                                    <select
+                                        value={selectedTool}
+                                        onChange={(e) => setSelectedTool(e.target.value)}
+                                        className="appearance-none pl-12 pr-10 py-2.5 bg-slate-50 dark:bg-white/5 text-slate-500 rounded-full text-xs font-bold hover:bg-slate-100 transition-all outline-none cursor-pointer border-none ring-0 focus:ring-1 focus:ring-[#300000]/20"
+                                    >
+                                        <option value="all">{language === 'bn' ? 'সব টুলস' : 'All Tools'}</option>
+                                        {DESIGN_TOOLS_OPTIONS.map(tool => (
+                                            <option key={tool} value={tool}>{tool}</option>
+                                        ))}
+                                    </select>
+                                    <LuChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={14} />
+                                </div>
+
+                                <div className="relative group">
+                                    <button className="flex items-center gap-3 px-6 py-2.5 bg-slate-50 dark:bg-white/5 text-slate-500 rounded-full text-xs font-bold hover:bg-slate-100 transition-all">
+                                        <span>{language === 'bn' ? 'জনপ্রিয়' : 'Most Popular'}</span>
+                                        <LuChevronDown size={14} />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
@@ -524,49 +556,19 @@ const DesignTemplateContent = () => {
 
                                             {/* Details Grid */}
                                             <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 py-6 border-t ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
-                                                {/* Features Card */}
+                                                {/* Design Tools Card */}
                                                 <div className={`p-5 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-white border-gray-200'}`}>
                                                     <h3 className={`font-bold mb-4 flex items-center gap-2 text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                        <LuLayers className="text-blue-600" size={16} /> Features
-                                                    </h3>
-                                                    <ul className="space-y-2">
-                                                        {(selectedTemplate.features?.length > 0 ? selectedTemplate.features : ["Fully Editable", "High Resolution", "Well Organized"]).map((f, i) => (
-                                                            <li key={i} className="flex items-center gap-2 text-sm text-gray-500">
-                                                                <LuCheck className="text-green-500 shrink-0" size={14} /> {f}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-
-                                                {/* Files Included Card */}
-                                                <div className={`p-5 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-white border-gray-200'}`}>
-                                                    <h3 className={`font-bold mb-4 flex items-center gap-2 text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                        <LuFileCode className="text-amber-500" size={16} /> Files Included
+                                                        <LuLayers className="text-blue-600" size={16} /> Design Tools
                                                     </h3>
                                                     <div className="flex flex-wrap gap-2">
-                                                        {(selectedTemplate.filesIncluded?.length > 0 ? selectedTemplate.filesIncluded : [selectedTemplate.platform || "PSD"]).map((file, i) => (
+                                                        {(selectedTemplate.designTools?.length > 0 ? selectedTemplate.designTools : [selectedTemplate.platform || "Other"]).map((tool, i) => (
                                                             <span key={i} className={`px-3 py-1.5 rounded-lg text-xs font-medium ${isDark ? 'bg-white/5 text-gray-300 border border-white/10' : 'bg-gray-100 text-gray-700 border border-gray-200'}`}>
-                                                                {file}
+                                                                {tool}
                                                             </span>
                                                         ))}
                                                     </div>
                                                 </div>
-
-                                                {/* Compatibility Card */}
-                                                {selectedTemplate.compatibility?.length > 0 && (
-                                                    <div className={`p-5 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-white border-gray-200'}`}>
-                                                        <h3 className={`font-bold mb-4 flex items-center gap-2 text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                            <LuRefreshCw className="text-purple-500" size={16} /> Compatibility
-                                                        </h3>
-                                                        <div className="flex flex-wrap gap-2">
-                                                            {selectedTemplate.compatibility.map((item, i) => (
-                                                                <span key={i} className={`px-3 py-1.5 rounded-lg text-xs font-medium ${isDark ? 'bg-white/5 text-gray-300 border border-white/10' : 'bg-gray-100 text-gray-700 border border-gray-200'}`}>
-                                                                    {item}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                )}
 
                                                 {/* Meta Info Card */}
                                                 <div className={`p-5 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-white border-gray-200'}`}>
@@ -574,10 +576,6 @@ const DesignTemplateContent = () => {
                                                         <LuCalendar className="text-cyan-500" size={16} /> Info
                                                     </h3>
                                                     <div className="space-y-2 text-sm">
-                                                        <div className="flex justify-between">
-                                                            <span className="text-gray-500">Version</span>
-                                                            <span className={isDark ? 'text-white' : 'text-gray-900'}>{selectedTemplate.version || "1.0.0"}</span>
-                                                        </div>
                                                         <div className="flex justify-between">
                                                             <span className="text-gray-500">Published</span>
                                                             <span className={isDark ? 'text-white' : 'text-gray-900'}>{formatDate(selectedTemplate.publishDate)}</span>
@@ -719,9 +717,8 @@ const DesignTemplateContent = () => {
 
             {/* Rich Content Styles */}
             <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
                 .font-script {
-                    font-family: 'Dancing Script', cursive;
+                    font-family: var(--font-poppins);
                 }
                 .rich-content h2 { 
                     font-size: 1.5rem; 

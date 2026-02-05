@@ -22,7 +22,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { items = [] } = useSelector((state) => state.cart || {});
-  const { t } = useLanguage();
+  const { t, language, toggleLanguage } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -56,17 +56,17 @@ const Navbar = () => {
   }, []);
 
   const leftMenu = [
-    { href: "/", label: "HOME" },
-    { href: "/courses", label: "TRAINING" },
-    { href: "/design-template", label: "DESIGN" },
-    { href: "/pricing", label: "PRICE" },
+    { href: "/", label: t("navbar.home") },
+    { href: "/courses", label: t("navbar.courses") },
+    { href: "/design-template", label: t("navbar.design") },
+    { href: "/pricing", label: t("navbar.pricing") },
   ];
 
   const rightMenu = [
-    { href: "/website", label: "WEBSITE" },
-    { href: "/about", label: "ABOUT" },
-    { href: "/blog", label: "BLOG" },
-    { href: "/contact", label: "CONTACT" },
+    { href: "/website", label: t("navbar.website") },
+    { href: "/about", label: t("navbar.about") },
+    { href: "/blog", label: t("navbar.blog") },
+    { href: "/contact", label: t("navbar.contact") },
   ];
 
   const colors = {
@@ -112,7 +112,7 @@ const Navbar = () => {
                         e.stopPropagation();
                         setActiveDropdown(activeDropdown === item.label ? null : item.label);
                       }}
-                      className="group flex items-center gap-1.5 text-[11px] xl:text-xs font-bold tracking-[0.2em] transition-colors"
+                      className="group flex items-center gap-1.5 text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
                       style={{ color: colors.text }}
                     >
                       {item.label}
@@ -122,7 +122,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       href={item.href}
-                      className="relative group text-[11px] xl:text-xs font-bold tracking-[0.2em] transition-colors"
+                      className="relative group text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
                       style={{ color: pathname === item.href ? colors.hover : colors.text }}
                     >
                       {item.label}
@@ -172,7 +172,7 @@ const Navbar = () => {
                         e.stopPropagation();
                         setActiveDropdown(activeDropdown === item.label ? null : item.label);
                       }}
-                      className="group flex items-center gap-1.5 text-[11px] xl:text-xs font-bold tracking-[0.2em] transition-colors"
+                      className="group flex items-center gap-1.5 text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
                       style={{ color: colors.text }}
                     >
                       {item.label}
@@ -182,7 +182,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       href={item.href}
-                      className="relative group text-[11px] xl:text-xs font-bold tracking-[0.2em] transition-colors"
+                      className="relative group text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
                       style={{ color: pathname === item.href ? colors.hover : colors.text }}
                     >
                       {item.label}
@@ -226,6 +226,27 @@ const Navbar = () => {
                     </span>
                   )}
                 </Link>
+
+                {/* Language Toggle */}
+                <button
+                  onClick={toggleLanguage}
+                  className="relative flex items-center bg-white/5 rounded-full p-1 w-24 h-9 border border-[#D4AF37]/30 hover:border-[#D4AF37] transition-all duration-500 overflow-hidden shadow-inner"
+                  title={language === "en" ? "বাংলায় দেখুন" : "Switch to English"}
+                >
+                  <motion.div
+                    className="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-[#D4AF37] rounded-full shadow-[0_4px_10px_rgba(212,175,55,0.4)]"
+                    animate={{
+                      x: language === 'en' ? 0 : '100%'
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                  <span className={`flex-1 text-[10px] font-black tracking-widest text-center relative z-10 transition-colors duration-300 ${language === 'en' ? 'text-[#300000]' : 'text-[#D4AF37]'}`}>
+                    EN
+                  </span>
+                  <span className={`flex-1 text-[10px] font-bold tracking-normal text-center relative z-10 transition-colors duration-300 ${language === 'bn' ? 'text-[#300000]' : 'text-[#D4AF37]'} ${language === 'bn' ? 'hind-siliguri' : ''}`}>
+                    বাংলা
+                  </span>
+                </button>
 
                 {mounted && user ? (
                   <div className="relative nav-dropdown">
@@ -297,7 +318,7 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <Link href="/login" className="text-[10px] font-bold tracking-widest border px-3 py-1.5 rounded-sm transition-all hover:bg-white/5" style={{ color: colors.text, borderColor: colors.text }}>
-                    LOGIN
+                    {t("navbar.signIn").toUpperCase()}
                   </Link>
                 )}
               </div>
@@ -387,11 +408,34 @@ const Navbar = () => {
                     </div>
                   ))}
 
-                  <div className="mt-8 pt-8 border-t border-gold/10">
+                  <div className="mt-8 pt-8 border-t border-gold/10 flex flex-col gap-6">
+                    {/* Mobile Language Toggle */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold tracking-[0.2em] text-[#D4AF37] uppercase">{t("language.switchLanguage")}</span>
+                      <button
+                        onClick={toggleLanguage}
+                        className="relative flex items-center bg-white/10 rounded-full p-1 w-28 h-10 border border-[#D4AF37]/30 overflow-hidden"
+                      >
+                        <motion.div
+                          className="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-[#D4AF37] rounded-full"
+                          animate={{
+                            x: language === 'en' ? 0 : '100%'
+                          }}
+                          transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                        />
+                        <span className={`flex-1 text-[11px] font-black tracking-widest text-center relative z-10 transition-colors duration-300 ${language === 'en' ? 'text-[#300000]' : 'text-[#D4AF37]'}`}>
+                          EN
+                        </span>
+                        <span className={`flex-1 text-[11px] font-bold text-center relative z-10 transition-colors duration-300 ${language === 'bn' ? 'text-[#300000]' : 'text-[#D4AF37]'} ${language === 'bn' ? 'hind-siliguri' : ''}`}>
+                          বাংলা
+                        </span>
+                      </button>
+                    </div>
+
                     {user ? (
-                      <button onClick={handleLogout} className="text-sm font-bold tracking-widest" style={{ color: colors.text }}>LOG OUT</button>
+                      <button onClick={handleLogout} className="text-sm font-bold tracking-widest text-left" style={{ color: colors.text }}>{t("navbar.logout").toUpperCase()}</button>
                     ) : (
-                      <Link href="/login" className="text-sm font-bold tracking-widest" onClick={() => setIsMobileMenuOpen(false)} style={{ color: colors.text }}>LOGIN</Link>
+                      <Link href="/login" className="text-sm font-bold tracking-widest" onClick={() => setIsMobileMenuOpen(false)} style={{ color: colors.text }}>{t("navbar.signIn").toUpperCase()}</Link>
                     )}
                   </div>
                 </div>
@@ -401,11 +445,9 @@ const Navbar = () => {
         </AnimatePresence>
       </motion.nav>
       {/* Spacer to prevent layout jump - should match non-sticky height */}
-      <div className="h-[66px] lg:h-[84px]" />
+      <div className="h-[56px] lg:h-[76px]" />
 
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Outfit:wght@400;700&display=swap');
-        }
       `}</style>
     </>
   );

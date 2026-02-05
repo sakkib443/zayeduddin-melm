@@ -62,7 +62,7 @@ const AboutPage = () => {
                 </span>
               </div>
 
-              <h1 className={`text-4xl md:text-7xl font-script italic text-[#300000] dark:text-[#D4AF37] mb-8 leading-tight ${bengaliClass}`}>
+              <h1 className={`text-4xl md:text-7xl font-bold text-[#300000] dark:text-[#D4AF37] mb-8 leading-tight ${bengaliClass}`}>
                 {language === 'bn' ? 'দক্ষতা বুনন, ভবিষ্যৎ গঠন' : 'Building Skills, Shaping Futures'}
               </h1>
 
@@ -162,7 +162,7 @@ const AboutPage = () => {
             </div>
 
             <div className="w-full lg:w-1/2 order-1 lg:order-2">
-              <h2 className="text-4xl md:text-6xl font-script italic text-[#D4AF37] mb-8">
+              <h2 className="text-4xl md:text-6xl font-bold text-[#D4AF37] mb-8">
                 {language === 'bn' ? 'আমাদের মিশন' : 'Our Mission'}
               </h2>
               <p className="text-xl text-white/70 mb-12 leading-relaxed">
@@ -196,7 +196,7 @@ const AboutPage = () => {
       <section className="py-32 bg-white dark:bg-[#020202]">
         <div className="container mx-auto px-4 lg:px-16">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-6xl font-script italic text-[#300000] dark:text-[#D4AF37] mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-[#300000] dark:text-[#D4AF37] mb-6">
               {language === 'bn' ? 'কেন আমরা সেরা?' : 'Why Choose Us?'}
             </h2>
             <div className="w-24 h-1 bg-[#300000] dark:bg-[#D4AF37] mx-auto rounded-full mb-8" />
@@ -244,7 +244,7 @@ const AboutPage = () => {
         <div className="bg-[#300000] rounded-[60px] p-12 lg:p-24 text-center relative overflow-hidden shadow-[0_40px_100px_rgba(48,0,0,0.3)]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.15),transparent_70%)]" />
           <div className="relative z-10 max-w-3xl mx-auto">
-            <h2 className={`text-4xl md:text-7xl font-script italic text-[#D4AF37] mb-8`}>
+            <h2 className={`text-4xl md:text-7xl font-bold text-[#D4AF37] mb-8`}>
               {language === 'bn' ? 'আপনার যাত্রা শুরু করুন' : 'Begin Your Legacy'}
             </h2>
             <p className="text-xl text-white/70 mb-12">
@@ -267,9 +267,8 @@ const AboutPage = () => {
       </section>
 
       <style jsx global>{`
-                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
                 .font-script {
-                    font-family: 'Dancing Script', cursive;
+                    font-family: var(--font-poppins);
                 }
             `}</style>
     </div>

@@ -10,10 +10,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { API_URL } from '@/config/api';
 
-const PLATFORM_OPTIONS = [
-    'Figma', 'Photoshop', 'Illustrator', 'Adobe XD', 'Sketch', 'Canva',
-    'HTML/CSS', 'React', 'Next.js', 'Tailwind CSS', 'WordPress',
-    'Elementor', 'Bootstrap', 'InDesign', 'After Effects', 'Premiere Pro', 'Other'
+const DESIGN_TOOLS_OPTIONS = [
+    'Figma', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe XD', 'Sketch', 'Canva',
+    'Adobe InDesign', 'CorelDRAW', 'Affinity Designer', 'GIMP', 'Procreate',
+    'Blender', 'Cinema 4D', 'After Effects', 'Premiere Pro', 'Other'
 ];
 
 const DesignTemplatePage = () => {
@@ -21,7 +21,7 @@ const DesignTemplatePage = () => {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState('all');
-    const [platformFilter, setPlatformFilter] = useState('all');
+    const [designToolsFilter, setDesignToolsFilter] = useState('all');
     const [viewMode, setViewMode] = useState('grid');
     const router = useRouter();
 
@@ -109,8 +109,8 @@ const DesignTemplatePage = () => {
     const filtered = templates.filter(t => {
         const matchSearch = t.title?.toLowerCase().includes(search.toLowerCase());
         const matchStatus = statusFilter === 'all' || t.status === statusFilter;
-        const matchPlatform = platformFilter === 'all' || t.platform === platformFilter;
-        return matchSearch && matchStatus && matchPlatform;
+        const matchDesignTools = designToolsFilter === 'all' || (t.designTools && t.designTools.includes(designToolsFilter));
+        return matchSearch && matchStatus && matchDesignTools;
     });
 
     return (
@@ -200,23 +200,22 @@ const DesignTemplatePage = () => {
                         <button
                             key={status}
                             onClick={() => setStatusFilter(status)}
-                            className={`px-3 py-2 rounded-md text-xs font-medium transition-colors ${
-                                statusFilter === status
+                            className={`px-3 py-2 rounded-md text-xs font-medium transition-colors ${statusFilter === status
                                     ? 'bg-indigo-500 text-white'
                                     : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600'
-                            }`}
+                                }`}
                         >
                             {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
                         </button>
                     ))}
                 </div>
                 <select
-                    value={platformFilter}
-                    onChange={(e) => setPlatformFilter(e.target.value)}
+                    value={designToolsFilter}
+                    onChange={(e) => setDesignToolsFilter(e.target.value)}
                     className="px-3 py-2 rounded-md text-sm bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-slate-700 outline-none text-gray-700 dark:text-slate-300"
                 >
-                    <option value="all">All Platforms</option>
-                    {PLATFORM_OPTIONS.map(p => (
+                    <option value="all">All Tools</option>
+                    {DESIGN_TOOLS_OPTIONS.map(p => (
                         <option key={p} value={p}>{p}</option>
                     ))}
                 </select>
@@ -275,9 +274,11 @@ const DesignTemplatePage = () => {
                                             Featured
                                         </span>
                                     )}
-                                    <span className={`px-2 py-1 rounded-md text-xs font-medium ${getPlatformBadge(item.platform)}`}>
-                                        {item.platform}
-                                    </span>
+                                    {item.designTools?.slice(0, 2).map(tool => (
+                                        <span key={tool} className={`px-2 py-1 rounded-md text-xs font-medium ${getPlatformBadge(tool)}`}>
+                                            {tool}
+                                        </span>
+                                    ))}
                                 </div>
                                 <div className="absolute top-2 right-2">
                                     {getStatusBadge(item.status)}
@@ -288,7 +289,6 @@ const DesignTemplatePage = () => {
                             <div className="p-4">
                                 <h3 className="text-sm font-semibold text-gray-800 dark:text-white line-clamp-1 mb-2">{item.title}</h3>
                                 <div className="flex items-center gap-2 mb-3">
-                                    <span className="text-xs text-gray-500 dark:text-slate-400 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded-md">v{item.version}</span>
                                     <span className="text-xs text-indigo-500 font-medium">{item.templateType}</span>
                                 </div>
                                 <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-slate-400 mb-3 py-2 border-t border-gray-100 dark:border-slate-700">
@@ -313,16 +313,16 @@ const DesignTemplatePage = () => {
                                         )}
                                     </div>
                                     <div className="flex gap-1">
-                                        <button 
-                                            onClick={() => handleEdit(item._id)} 
-                                            className="p-2 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400 hover:bg-indigo-500 hover:text-white rounded-md transition-colors" 
+                                        <button
+                                            onClick={() => handleEdit(item._id)}
+                                            className="p-2 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400 hover:bg-indigo-500 hover:text-white rounded-md transition-colors"
                                             title="Edit"
                                         >
                                             <FiEdit3 size={14} />
                                         </button>
-                                        <button 
-                                            onClick={() => handleDelete(item._id)} 
-                                            className="p-2 bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-md transition-colors" 
+                                        <button
+                                            onClick={() => handleDelete(item._id)}
+                                            className="p-2 bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-md transition-colors"
                                             title="Delete"
                                         >
                                             <FiTrash2 size={14} />
@@ -349,17 +349,18 @@ const DesignTemplatePage = () => {
                                         </div>
                                     )}
                                 </div>
-                                
+
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
                                     <h3 className="text-sm font-medium text-gray-800 dark:text-white truncate">{item.title}</h3>
-                                    <div className="text-xs text-gray-500 dark:text-slate-400 mt-1 flex items-center gap-2">
-                                        <span className={`px-2 py-0.5 rounded-md font-medium ${getPlatformBadge(item.platform)}`}>{item.platform}</span>
+                                    <div className="text-xs text-gray-500 dark:text-slate-400 mt-1 flex items-center gap-2 flex-wrap">
+                                        {item.designTools?.map(tool => (
+                                            <span key={tool} className={`px-2 py-0.5 rounded-md font-medium ${getPlatformBadge(tool)}`}>{tool}</span>
+                                        ))}
                                         <span>{item.templateType}</span>
-                                        <span>v{item.version}</span>
                                     </div>
                                 </div>
-                                
+
                                 {/* Price */}
                                 <div className="text-right shrink-0 px-4 border-l border-gray-100 dark:border-slate-700">
                                     {item.accessType === 'free' ? (
@@ -369,10 +370,10 @@ const DesignTemplatePage = () => {
                                     )}
                                     <p className="text-xs text-gray-400 mt-0.5">{item.salesCount || 0} sold</p>
                                 </div>
-                                
+
                                 {/* Status */}
                                 <div className="shrink-0">{getStatusBadge(item.status)}</div>
-                                
+
                                 {/* Actions */}
                                 <div className="flex gap-1 shrink-0">
                                     {item.previewUrl && (

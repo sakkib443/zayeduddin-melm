@@ -6,7 +6,7 @@ import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
 
 const AboutMe = () => {
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
     const socialLinks = [
@@ -15,7 +15,7 @@ const AboutMe = () => {
     ];
 
     return (
-        <section className="py-16 bg-[#efefef] dark:bg-[#050505] overflow-hidden">
+        <section className="py-16 bg-[#fafafa] dark:bg-[#050505] overflow-hidden">
             <div className="container mx-auto px-4 lg:px-16">
                 <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
@@ -27,21 +27,17 @@ const AboutMe = () => {
                         transition={{ duration: 0.8 }}
                         className="w-full lg:w-1/2 order-2 lg:order-1"
                     >
-                        <h2 className={`text-3xl md:text-4xl lg:text-5xl font-serif italic text-[#300000] mb-6 ${bengaliClass}`}>
-                            {language === 'bn' ? 'আমার সম্পর্কে' : 'About Me'}
+                        <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-[#300000] mb-6 ${bengaliClass}`} style={{ fontFamily: 'var(--font-poppins)' }}>
+                            {t("aboutMe.title")}
                         </h2>
 
                         <div className={`space-y-4 text-slate-700 dark:text-slate-400 text-sm md:text-base leading-relaxed ${bengaliClass}`}>
                             <p>
-                                {language === 'bn'
-                                    ? 'জায়েদ উদ্দিন একজন অভিজ্ঞ গ্রাফিক এবং ইউএক্স/ইউআই ডিজাইন নির্দেশক, যার রয়েছে ২০ বছরেরও বেশি সময়ের পেশাদার অভিজ্ঞতা। বর্তমানে তিনি BITM এবং UIU (IBER)-এর মতো স্বনামধন্য প্রতিষ্ঠানে ডিজাইন প্রশিক্ষক হিসেবে কাজ করছেন।'
-                                    : 'Zayed Uddin is a seasoned Graphic and UX/UI Design instructor with over 20 years of professional experience. He currently leads design training programs at BITM and UIU (IBER), sharing his vast industry expertise with aspiring designers.'}
+                                {t("aboutMe.text1")}
                             </p>
 
                             <p>
-                                {language === 'bn'
-                                    ? '২০০৩ সাল থেকে দেশের শীর্ষস্থানীয় প্রতিষ্ঠান এবং আন্তর্জাতিক অনলাইন মার্কেটপ্লেসে সফলভাবে কাজ করার পর, তিনি এখন নিজেকে নিয়োজিত করেছেন দক্ষ জনবল তৈরিতে। সরকারি এবং আন্তর্জাতিক বিভিন্ন দক্ষতা উন্নয়ন প্রকল্পে (যেমন: ASSET, BYTES) তিনি নিয়মিত মাস্টার ট্রেইনার হিসেবে দায়িত্ব পালন করছেন।'
-                                    : 'Since 2003, he has worked with top-tier organizations and as a successful freelancer on global marketplaces. Beyond professional design, he is deeply committed to education, serving as a master trainer for various government and international projects like ASSET and BYTES.'}
+                                {t("aboutMe.text2")}
                             </p>
                         </div>
 
@@ -113,9 +109,11 @@ const AboutMe = () => {
                             </div>
 
                             {/* Experience Badge */}
-                            <div className="absolute top-10 left-0 -translate-x-1/4 bg-[#300000] text-[#D4AF37] p-4 md:p-6 rounded-full shadow-2xl z-40 flex flex-col items-center justify-center w-24 h-24 md:w-32 md:h-32 border-4 border-white dark:border-[#050505] animate-bounce-slow">
-                                <span className="text-2xl md:text-3xl font-bold font-serif leading-none">20+</span>
-                                <span className="text-[10px] md:text-xs uppercase tracking-wider mt-1 text-center text-white/80">Years Exp.</span>
+                            <div className="absolute top-10 left-0 -translate-x-1/4 bg-[#300000] text-[#D4AF37] p-2 md:p-3 rounded-full shadow-2xl z-40 flex flex-col items-center justify-center w-28 h-28 md:w-36 md:h-36 border-4 border-white dark:border-[#050505] animate-bounce-slow">
+                                <span className="text-2xl md:text-3xl font-bold leading-none" style={{ fontFamily: 'var(--font-poppins)' }}>20+</span>
+                                <span className={`text-[9px] md:text-[10px] uppercase tracking-wider mt-1 text-center text-white/80 leading-tight font-bold ${bengaliClass}`}>
+                                    {t("aboutMe.yearsExp")}
+                                </span>
                             </div>
 
                             {/* Decorative elements */}

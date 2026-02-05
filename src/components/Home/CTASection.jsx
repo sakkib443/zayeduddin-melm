@@ -18,7 +18,7 @@ const CTASection = () => {
                     viewport={{ once: true }}
                     className="max-w-4xl mx-auto bg-[#F9F7F3] dark:bg-white/5 p-8 md:p-14 rounded-[2.5rem] border border-amber-100/50 dark:border-white/10"
                 >
-                    <h2 className={`text-2xl md:text-4xl font-serif italic text-[#300000] mb-4 ${bengaliClass}`}>
+                    <h2 className={`text-2xl md:text-4xl font-bold text-[#300000] mb-4 ${bengaliClass}`} style={{ fontFamily: 'var(--font-poppins)' }}>
                         {language === 'bn'
                             ? 'আপনার শেখার যাত্রা শুরু করতে প্রস্তুত?'
                             : 'Ready to Start Your Learning Journey?'}

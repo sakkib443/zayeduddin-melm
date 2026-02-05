@@ -11,7 +11,7 @@ import { LuCalendar, LuUser, LuArrowRight, LuMessageSquare } from "react-icons/l
 const BlogSection = () => {
     const dispatch = useDispatch();
     const { blogList = [], loading } = useSelector((state) => state.blogs);
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
     useEffect(() => {
@@ -31,16 +31,17 @@ const BlogSection = () => {
                             viewport={{ once: true }}
                             className="inline-block px-4 py-1.5 rounded-full bg-[#300000]/5 text-[#300000] text-[10px] font-bold uppercase tracking-widest mb-4"
                         >
-                            {language === 'bn' ? 'আমাদের ব্লগ' : 'OUR BLOGS'}
+                            {t("blogSection.badge")}
                         </motion.span>
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className={`text-3xl md:text-4xl lg:text-5xl font-serif italic text-[#300000] ${bengaliClass}`}
+                            className={`text-3xl md:text-4xl lg:text-5xl font-bold text-[#300000] ${bengaliClass}`}
+                            style={{ fontFamily: 'var(--font-poppins)' }}
                         >
-                            {language === 'bn' ? 'সর্বশেষ সংবাদ ও নিবন্ধ' : 'Latest News & Articles'}
+                            {t("blogSection.title")}
                         </motion.h2>
                     </div>
                     <motion.div
@@ -49,10 +50,10 @@ const BlogSection = () => {
                         viewport={{ once: true }}
                     >
                         <Link
-                            href="/blogs"
+                            href="/blog"
                             className="group inline-flex items-center gap-2 text-[#300000] font-bold text-sm tracking-widest uppercase hover:gap-4 transition-all"
                         >
-                            {language === 'bn' ? 'সবগুলো দেখুন' : 'VIEW ALL POSTS'}
+                            {t("blogSection.viewAll")}
                             <LuArrowRight className="group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </motion.div>
@@ -77,7 +78,7 @@ const BlogSection = () => {
                             >
                                 {/* Image Wrapper */}
                                 <div className="relative h-64 w-full overflow-hidden shrink-0 p-4">
-                                    <Link href={`/blogs/slug/${blog.slug}`} className="block h-full w-full relative overflow-hidden rounded-[2rem]">
+                                    <Link href={`/blog/${blog.slug}`} className="block h-full w-full relative overflow-hidden rounded-[2rem]">
                                         <Image
                                             src={blog.thumbnail || blog.image || "/images/placeholder.png"}
                                             alt={blog.title}
@@ -100,7 +101,7 @@ const BlogSection = () => {
                                 <div className="p-8 flex flex-col flex-1">
                                     <div className="flex items-center gap-4 mb-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
                                         <span className="px-3 py-1 bg-white dark:bg-white/10 rounded-full border border-slate-100 dark:border-white/10 text-[#D4AF37]">
-                                            {blog.category?.name || 'Article'}
+                                            {language === 'bn' ? (blog.category?.nameBn || blog.category?.name || t("blogSection.category")) : (blog.category?.name || t("blogSection.category"))}
                                         </span>
                                         <span className="flex items-center gap-1.5">
                                             <LuMessageSquare className="text-[#300000]" size={14} />
@@ -108,14 +109,14 @@ const BlogSection = () => {
                                         </span>
                                     </div>
 
-                                    <Link href={`/blogs/slug/${blog.slug}`} className="mb-3 block">
+                                    <Link href={`/blog/${blog.slug}`} className="mb-3 block">
                                         <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
                                             {blog.title}
                                         </h3>
                                     </Link>
 
                                     <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-3 mb-6">
-                                        {blog.summary || blog.shortDescription || "Read the latest update about our activities and industry insights."}
+                                        {language === 'bn' ? (blog.summaryBn || blog.shortDescriptionBn || blog.summary || blog.shortDescription || t("blogSection.summaryFallback")) : (blog.summary || blog.shortDescription || t("blogSection.summaryFallback"))}
                                     </p>
 
                                     <div className="mt-auto flex items-center justify-between pt-6 border-t border-slate-100 dark:border-white/5">
@@ -129,11 +130,11 @@ const BlogSection = () => {
                                                 />
                                             </div>
                                             <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest">
-                                                {blog.author?.name || "Zayed Uddin"}
+                                                {language === 'bn' ? (blog.author?.nameBn || blog.author?.name || t("blogSection.author")) : (blog.author?.name || t("blogSection.author"))}
                                             </span>
                                         </div>
                                         <Link
-                                            href={`/blogs/slug/${blog.slug}`}
+                                            href={`/blog/${blog.slug}`}
                                             className="w-10 h-10 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#300000] dark:text-white border border-slate-100 dark:border-white/10 hover:bg-[#300000] hover:text-white transition-all duration-300"
                                         >
                                             <LuArrowRight size={18} />

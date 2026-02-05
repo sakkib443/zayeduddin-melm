@@ -23,32 +23,32 @@ const TopCategories = () => {
     const categories = [
         {
             icon: LuGraduationCap,
-            title: language === 'bn' ? 'প্রশিক্ষণ' : 'Training',
-            subtitle: language === 'bn' ? 'আপনার দক্ষতা বৃদ্ধি করুন' : 'Skill Up, Stand Out',
+            title: t("topCategories.trainingTitle"),
+            subtitle: t("topCategories.trainingSubtitle"),
             href: '/courses',
             iconBg: 'bg-[#300000]',
             borderColor: 'border-l-[#300000]',
         },
         {
             icon: LuPalette,
-            title: language === 'bn' ? 'গ্রাফিক টেম্পলেট' : 'Graphic Template',
-            subtitle: language === 'bn' ? 'ব্যবহারের জন্য প্রস্তুত ডিজাইন' : 'Ready-to-use Designs',
+            title: t("topCategories.graphicTitle"),
+            subtitle: t("topCategories.graphicSubtitle"),
             href: '/design-template',
             iconBg: 'bg-[#D4AF37]',
             borderColor: 'border-l-[#D4AF37]',
         },
         {
             icon: LuPalette,
-            title: language === 'bn' ? 'ইউআই/ইউএক্স টেম্পলেট' : 'UI/UX Template',
-            subtitle: language === 'bn' ? 'আধুনিক অ্যাপ ও ওয়েব ইউআই' : 'Modern App & Web UI',
+            title: t("topCategories.uiuxTitle"),
+            subtitle: t("topCategories.uiuxSubtitle"),
             href: '/design-template',
             iconBg: 'bg-[#300000]',
             borderColor: 'border-l-[#300000]',
         },
         {
             icon: LuCode,
-            title: language === 'bn' ? 'ওয়েবসাইট টেম্পলেট' : 'Website Template',
-            subtitle: language === 'bn' ? 'প্রফেশনাল ওয়েবসাইট ডিজাইন' : 'Professional Websites',
+            title: t("topCategories.websiteTitle"),
+            subtitle: t("topCategories.websiteSubtitle"),
             href: '/website',
             iconBg: 'bg-[#D4AF37]',
             borderColor: 'border-l-[#D4AF37]',
@@ -56,7 +56,7 @@ const TopCategories = () => {
     ];
 
     return (
-        <section className="py-10 lg:py-12 bg-[#f8f9fa] dark:bg-[#0a0a0a]">
+        <section className="py-8 md:py-10 bg-[#f8f9fa] dark:bg-[#0a0a0a]">
             <div className="container mx-auto px-4 lg:px-16">
                 {/* Categories Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -80,7 +80,7 @@ const TopCategories = () => {
 
                                             {/* Text */}
                                             <div>
-                                                <h3 className={`font-semibold text-gray-800 dark:text-white text-sm ${bengaliClass}`}>
+                                                <h3 className={`font-semibold text-gray-800 dark:text-white text-sm ${bengaliClass}`} style={{ fontFamily: 'var(--font-poppins)' }}>
                                                     {category.title}
                                                 </h3>
                                                 <p className={`text-[11px] text-gray-500 dark:text-gray-400 ${bengaliClass}`}>
@@ -100,12 +100,12 @@ const TopCategories = () => {
                                         <span
                                             className={`text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:hover:text-gray-300 transition-colors ${bengaliClass}`}
                                         >
-                                            {language === 'bn' ? 'অন্বেষণ করুন' : 'Explore more'}
+                                            {t("topCategories.exploreMore")}
                                         </span>
                                         <span
                                             className={`text-sm font-medium text-[#300000] group-hover:text-red-600 transition-colors ${bengaliClass}`}
                                         >
-                                            {language === 'bn' ? 'সব দেখুন' : 'View All'}
+                                            {t("topCategories.viewAll")}
                                         </span>
                                     </div>
                                 </div>

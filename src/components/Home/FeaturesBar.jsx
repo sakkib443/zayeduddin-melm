@@ -59,7 +59,7 @@ const FeaturesBar = () => {
                             </div>
 
                             {/* Text */}
-                            <div className={`text-white ${bengaliClass}`}>
+                            <div className={`text-white ${bengaliClass}`} style={{ fontFamily: 'var(--font-poppins)' }}>
                                 <p className="text-sm font-medium leading-tight">
                                     {feature.title}
                                 </p>

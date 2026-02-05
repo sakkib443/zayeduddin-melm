@@ -7,48 +7,27 @@ import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { LuQuote } from "react-icons/lu";
 
 const Testimonials = () => {
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
     const [activeIndex, setActiveIndex] = useState(0);
     const containerRef = useRef(null);
 
-    const testimonials = [
-        {
-            id: 1,
-            name: "Oliver Beddows",
-            designation: "Designer, Manchester",
-            avatar: "https://i.pravatar.cc/150?img=11",
-            review: "But not all testimonials are created equal. A generic \"Great product!\" doesn't carry much weight. To truly resonate, testimonials need to be well-designed. This means ensuring they're authentic, with specific details that paint a vivid picture of the customer's experience.",
-        },
-        {
-            id: 2,
-            name: "Madley Pondor",
-            designation: "Reporter, San Diego",
-            avatar: "https://i.pravatar.cc/150?img=12",
-            review: "ThemeMove deserves 5 star for theme's features, design quality, flexibility, and support service! If you can include a photo or video, even better! Visuals add a layer of credibility that text alone can't achieve. Ultimately, well-crafted testimonials boost conversions.",
-        },
-        {
-            id: 3,
-            name: "Mina Hollace",
-            designation: "Reporter, London",
-            avatar: "https://i.pravatar.cc/150?img=13",
-            review: "Very good and fast support during the week. They know what you need, exactly when you need it. When people see that others have benefited from your offering, they're far more likely to take the leap themselves. Letting your happy customers do the talking.",
-        },
-        {
-            id: 4,
-            name: "James Wilson",
-            designation: "Developer, New York",
-            avatar: "https://i.pravatar.cc/150?img=14",
-            review: "The courses are beautifully crafted. Every lesson is easy to understand and practical. Visuals add a layer of credibility that text alone can't achieve. Ultimately, well-crafted testimonials boost conversions by addressing potential customers' concerns.",
-        },
-        {
-            id: 5,
-            name: "Sophie Chen",
-            designation: "Student, Singapore",
-            avatar: "https://i.pravatar.cc/150?img=15",
-            review: "Best platform for online learning. All courses are updated and professional. When people see that others have benefited from your offering, they're far more likely to take the leap themselves. It's about letting your experiences speak for themselves.",
-        },
+    const testimonialsList = t("testimonials.items", { returnObjects: true }) || [];
+
+    // Fallback static data if translation fails or is empty
+    const staticAvatars = [
+        "https://i.pravatar.cc/150?img=11",
+        "https://i.pravatar.cc/150?img=12",
+        "https://i.pravatar.cc/150?img=13",
+        "https://i.pravatar.cc/150?img=14",
+        "https://i.pravatar.cc/150?img=15",
     ];
+
+    const testimonials = testimonialsList.map((item, index) => ({
+        id: index + 1,
+        avatar: staticAvatars[index % staticAvatars.length],
+        ...item
+    }));
 
     // Auto-slide effect
     useEffect(() => {
@@ -70,9 +49,10 @@ const Testimonials = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className={`text-2xl md:text-3xl lg:text-4xl font-serif italic text-[#300000] ${bengaliClass}`}
+                        className={`text-2xl md:text-3xl lg:text-4xl font-bold text-[#300000] ${bengaliClass}`}
+                        style={{ fontFamily: 'var(--font-poppins)' }}
                     >
-                        {language === 'bn' ? 'মানুষ আমার সম্পর্কে যা বলে' : 'Peoples Say About me'}
+                        {t("testimonials.title")}
                     </motion.h2>
                 </div>
 
