@@ -90,7 +90,7 @@ const Navbar = () => {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 left-0 w-full z-50 border-b border-white/5"
       >
-        <div className="container mx-auto px-6">
+        <div className="mx-auto px-6 w-full max-w-[1440px]">
           <div className="flex items-center justify-between h-14 lg:h-16">
 
             {/* Mobile Toggle */}
