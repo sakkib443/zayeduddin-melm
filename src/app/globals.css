@@ -3,7 +3,7 @@
 /* =====================================================
    ZAYED DESIGNER - GLOBAL DESIGN SYSTEM
    Colors: Dark Red (#300000) & Gold (#D4AF37)
-   Fonts: Outfit (headings), Poppins (body), Playfair Display (serif)
+   Fonts: Outfit (headings), Poppins (body)
    ===================================================== */
 
 :root {
@@ -29,7 +29,7 @@
   /* Font Families */
   --font-heading: var(--font-outfit), sans-serif;
   --font-body: var(--font-poppins), sans-serif;
-  --font-serif: var(--font-playfair), serif;
+  --font-serif: var(--font-poppins), sans-serif;
   --font-bengali: var(--font-hind-siliguri), "Hind Siliguri", sans-serif;
 }
 

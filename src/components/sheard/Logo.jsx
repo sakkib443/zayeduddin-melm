@@ -36,9 +36,9 @@ const Logo = ({ className = "", color = "#D4AF37", size = "normal", align = "cen
 
     const Styles = () => (
         <style jsx global>{`
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,600&display=swap');
             .font-serif {
-                font-family: 'Playfair Display', serif;
+                font-family: 'Poppins', sans-serif;
             }
         `}</style>
     );

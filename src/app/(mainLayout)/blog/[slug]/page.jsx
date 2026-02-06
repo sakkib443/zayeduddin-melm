@@ -126,7 +126,7 @@ export default function SingleBlogPage() {
 
             setLoading(true);
             try {
-                const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+                const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
                 const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
                 const res = await fetch(`${API_BASE_URL}/blogs/slug/${slug}`, { headers });
@@ -156,7 +156,7 @@ export default function SingleBlogPage() {
     const handleLike = async () => {
         if (!user) { toast.error(language === 'bn' ? 'লগইন করুন' : 'Please login'); return; }
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/toggle-like`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
@@ -178,7 +178,7 @@ export default function SingleBlogPage() {
 
         setSubmittingComment(true);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },

@@ -2,19 +2,24 @@
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
   FiArrowLeft, FiSave, FiLoader, FiTag, FiPlus, FiTrash2,
   FiFileText, FiDollarSign, FiImage, FiCheck, FiLayers,
-  FiMonitor, FiEdit3, FiInfo, FiSettings, FiAlertCircle,
-  FiBold, FiItalic, FiList, FiLink, FiCode, FiAlignLeft,
-  FiAlignCenter, FiAlignRight, FiType, FiEye
+  FiMonitor, FiEdit3, FiInfo, FiSettings, FiAlertCircle
 } from 'react-icons/fi';
 import Link from 'next/link';
 import { API_URL } from '@/config/api';
 import { useTheme } from '@/providers/ThemeProvider';
+import dynamic from 'next/dynamic';
+
+// Dynamically import RichTextEditor to avoid SSR issues
+const RichTextEditor = dynamic(() => import('@/components/Admin/RichTextEditor'), {
+  ssr: false,
+  loading: () => <div className="h-[300px] bg-gray-100 dark:bg-slate-800 animate-pulse rounded-md" />
+});
 
 // Design Tools Options (Multi-selection)
 const DESIGN_TOOLS_OPTIONS = [
@@ -64,6 +69,13 @@ function CreateDesignTemplateContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Image upload states
+  const [uploadingImages, setUploadingImages] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [uploadingDownloadFile, setUploadingDownloadFile] = useState(false);
+  const [downloadFileUrl, setDownloadFileUrl] = useState('');
+  const [dragOver, setDragOver] = useState(false);
+
   const editId = searchParams.get('edit');
   const isEditMode = !!editId;
 
@@ -76,14 +88,139 @@ function CreateDesignTemplateContent() {
       templateType: 'Website Template',
       designTools: [],
       isFeatured: false,
-      images: [''],
+      images: [],
       price: 0,
       regularLicensePrice: 0,
     }
   });
 
-  const imageFields = useFieldArray({ control, name: 'images' });
   const [selectedTools, setSelectedTools] = useState([]);
+
+  // ==================== IMAGE UPLOAD FUNCTIONS ====================
+
+  const uploadImagesToCloudinary = async (files) => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i]);
+    }
+
+    try {
+      setUploadingImages(true);
+      const response = await fetch(`${API_URL}/design-templates/admin/upload-images`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.data?.urls) {
+        const newUrls = result.data.urls;
+        setUploadedImages(prev => [...prev, ...newUrls]);
+        setValue('images', [...uploadedImages, ...newUrls]);
+        return newUrls;
+      } else {
+        throw new Error(result.message || 'Failed to upload images');
+      }
+    } catch (error) {
+      console.error('Image upload failed:', error);
+      setGeneralError(`Image upload failed: ${error.message}`);
+      return [];
+    } finally {
+      setUploadingImages(false);
+    }
+  };
+
+  const uploadDownloadFileToCloudinary = async (file) => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('downloadFile', file);
+
+    try {
+      setUploadingDownloadFile(true);
+      const response = await fetch(`${API_URL}/design-templates/admin/upload-file`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.data?.url) {
+        setDownloadFileUrl(result.data.url);
+        setValue('downloadFile', result.data.url);
+        return result.data.url;
+      } else {
+        throw new Error(result.message || 'Failed to upload file');
+      }
+    } catch (error) {
+      console.error('File upload failed:', error);
+      setGeneralError(`File upload failed: ${error.message}`);
+      return null;
+    } finally {
+      setUploadingDownloadFile(false);
+    }
+  };
+
+  const handleImageDrop = (e) => {
+    e.preventDefault();
+    setDragOver(false);
+    const files = e.dataTransfer?.files || e.target.files;
+    if (files && files.length > 0) {
+      uploadImagesToCloudinary(Array.from(files));
+    }
+  };
+
+  const handleRemoveImage = (index) => {
+    const newImages = uploadedImages.filter((_, i) => i !== index);
+    setUploadedImages(newImages);
+    setValue('images', newImages);
+  };
+
+  // Upload image for rich text editor and insert into content
+  const [uploadingEditorImage, setUploadingEditorImage] = useState(false);
+  const editorImageInputRef = useRef(null);
+
+  const uploadEditorImage = async (file) => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('images', file);
+
+    try {
+      setUploadingEditorImage(true);
+      const response = await fetch(`${API_URL}/design-templates/admin/upload-images`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.data?.urls?.[0]) {
+        const imageUrl = result.data.urls[0];
+        // Insert image into rich text editor
+        document.execCommand('insertHTML', false, `<img src="${imageUrl}" alt="Content Image" style="max-width: 100%; height: auto; border-radius: 8px; margin: 16px 0;" />`);
+        if (contentRef.current) {
+          setValue('longDescription', contentRef.current.innerHTML);
+        }
+      } else {
+        throw new Error(result.message || 'Failed to upload image');
+      }
+    } catch (error) {
+      console.error('Editor image upload failed:', error);
+      setGeneralError(`Image upload failed: ${error.message}`);
+    } finally {
+      setUploadingEditorImage(false);
+    }
+  };
 
   // Check if field has error (from zod or server)
   const hasError = (fieldName) => {
@@ -135,6 +272,9 @@ function CreateDesignTemplateContent() {
           if (data.data) {
             const sw = data.data;
             setSelectedTools(sw.designTools || []);
+            // Set uploaded images and download file for the new upload UI
+            setUploadedImages(sw.images || []);
+            setDownloadFileUrl(sw.downloadFile || '');
             reset({
               title: sw.title || '',
               category: sw.category?._id || sw.category || '',
@@ -148,7 +288,7 @@ function CreateDesignTemplateContent() {
               extendedLicensePrice: sw.extendedLicensePrice || null,
               description: sw.description || '',
               longDescription: sw.longDescription || '',
-              images: sw.images?.length ? sw.images : [''],
+              images: sw.images || [],
               previewUrl: sw.previewUrl || '',
               downloadFile: sw.downloadFile || '',
               documentationUrl: sw.documentationUrl || '',
@@ -181,6 +321,10 @@ function CreateDesignTemplateContent() {
 
   // Editor formatting functions
   const formatText = (command, value = null) => {
+    // Ensure the editor has focus before executing command
+    if (contentRef.current) {
+      contentRef.current.focus();
+    }
     document.execCommand(command, false, value);
     // Small delay to ensure DOM is updated
     setTimeout(() => {
@@ -191,6 +335,10 @@ function CreateDesignTemplateContent() {
   };
 
   const insertHeading = (level) => {
+    // Ensure the editor has focus before executing command
+    if (contentRef.current) {
+      contentRef.current.focus();
+    }
     document.execCommand('formatBlock', false, `h${level}`);
     setTimeout(() => {
       if (contentRef.current) {
@@ -207,13 +355,12 @@ function CreateDesignTemplateContent() {
 
     const token = localStorage.getItem('token');
 
-    const cleanArray = (arr) => arr?.filter(item => item && item.trim() !== '') || [];
-
     // Form data cleaning - remove empty/null values to let backend defaults take over
     const payload = {
       ...values,
       designTools: selectedTools,
-      images: cleanArray(values.images),
+      images: uploadedImages.filter(url => url && url.trim() !== ''),
+      downloadFile: downloadFileUrl || values.downloadFile,
     };
 
     // Remove empty strings, nulls, and undefined from payload
@@ -445,78 +592,13 @@ function CreateDesignTemplateContent() {
             </h2>
             <div className="space-y-4">
               <div>
-                <label className={labelStyle('description')} style={{ fontSize: '11px' }}>Short Description *</label>
-                <textarea
-                  {...register('description')}
-                  rows={3}
-                  className={`${inputStyle('description')} resize-none placeholder:text-gray-300 dark:placeholder:text-slate-600`}
-                  placeholder="Brief description of the template..."
+                <label className={labelStyle('longDescription')} style={{ fontSize: '11px', marginBottom: '8px', display: 'block' }}>Item Description (Rich Text)</label>
+                <RichTextEditor
+                  value={watch('longDescription')}
+                  onChange={(content) => setValue('longDescription', content)}
+                  placeholder="Write a detailed description of your template..."
+                  isDark={isDark}
                 />
-                {(errors.description || serverErrors.description) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                    <FiAlertCircle size={12} /> {getError('description')}
-                  </p>
-                )}
-              </div>
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className={labelStyle('longDescription')} style={{ fontSize: '11px' }}>Long Description (Rich Text)</label>
-                  <button
-                    type="button"
-                    onClick={() => setPreviewMode(!previewMode)}
-                    className={`flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition-all ${previewMode
-                      ? 'bg-blue-500 text-white'
-                      : isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                      }`}
-                  >
-                    {previewMode ? <FiEdit3 size={12} /> : <FiEye size={12} />}
-                    {previewMode ? 'Edit' : 'Preview'}
-                  </button>
-                </div>
-
-                <div className={`rounded-md border overflow-hidden ${isDark ? 'border-slate-700 bg-slate-900/50' : 'border-gray-200 bg-white'}`}>
-                  {/* Toolbar */}
-                  <div className={`px-2 py-1.5 border-b flex flex-wrap gap-0.5 ${isDark ? 'border-slate-700 bg-slate-800' : 'border-gray-100 bg-gray-50'}`}>
-                    <button type="button" onClick={() => formatText('bold')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Bold"><FiBold size={14} /></button>
-                    <button type="button" onClick={() => formatText('italic')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Italic"><FiItalic size={14} /></button>
-                    <div className={`w-px h-4 mx-1.5 self-center ${isDark ? 'bg-slate-700' : 'bg-gray-200'}`} />
-                    <button type="button" onClick={() => insertHeading(2)} className={`px-1.5 py-1 rounded text-[10px] font-bold hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>H2</button>
-                    <button type="button" onClick={() => insertHeading(3)} className={`px-1.5 py-1 rounded text-[10px] font-bold hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>H3</button>
-                    <div className={`w-px h-4 mx-1.5 self-center ${isDark ? 'bg-slate-700' : 'bg-gray-200'}`} />
-                    <button type="button" onClick={() => formatText('insertUnorderedList')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Bullet List"><FiList size={14} /></button>
-                    <button type="button" onClick={() => formatText('justifyLeft')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Align Left"><FiAlignLeft size={14} /></button>
-                    <button type="button" onClick={() => formatText('justifyCenter')} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Align Center"><FiAlignCenter size={14} /></button>
-                    <button type="button" onClick={() => {
-                      const url = prompt('Enter link URL:');
-                      if (url) formatText('createLink', url);
-                    }} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Insert Link"><FiLink size={14} /></button>
-                    <div className={`w-px h-4 mx-1.5 self-center ${isDark ? 'bg-slate-700' : 'bg-gray-200'}`} />
-                    <button type="button" onClick={() => {
-                      const imageUrl = prompt('Enter image URL:');
-                      if (imageUrl) {
-                        document.execCommand('insertHTML', false, `<img src="${imageUrl}" alt="Content Image" style="max-width: 100%; height: auto; border-radius: 8px; margin: 16px 0;" />`);
-                        if (contentRef.current) {
-                          setValue('longDescription', contentRef.current.innerHTML);
-                        }
-                      }
-                    }} className={`p-1.5 rounded hover:bg-blue-500 hover:text-white transition-colors ${isDark ? 'text-slate-400' : 'text-gray-600'}`} title="Insert Image"><FiImage size={14} /></button>
-                  </div>
-
-                  {previewMode ? (
-                    <div
-                      className={`p-4 min-h-[250px] prose prose-sm max-w-none ${isDark ? 'prose-invert' : ''}`}
-                      dangerouslySetInnerHTML={{ __html: watch('longDescription') }}
-                    />
-                  ) : (
-                    <div
-                      ref={contentRef}
-                      contentEditable
-                      onInput={(e) => setValue('longDescription', e.currentTarget.innerHTML)}
-                      className={`p-4 min-h-[250px] focus:outline-none text-sm ${isDark ? 'text-slate-200' : 'text-slate-800'}`}
-                      style={{ lineHeight: 1.6 }}
-                    />
-                  )}
-                </div>
               </div>
             </div>
           </div>
@@ -634,28 +716,66 @@ function CreateDesignTemplateContent() {
           {/* Media */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiImage size={16} className="text-rose-500" /> Media & Links
+              <FiImage size={16} className="text-rose-500" /> Media & Files
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-5">
+
+              {/* Image Upload Zone */}
               <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label className={labelStyle('images')} style={{ fontSize: '11px' }}>Image URLs *</label>
-                  <button type="button" onClick={() => imageFields.append('')} className="text-xs text-blue-500 hover:underline">
-                    <FiPlus className="inline mr-1" size={12} /> Add
-                  </button>
-                </div>
-                <div className="space-y-2">
-                  {imageFields.fields.map((field, idx) => (
-                    <div key={field.id} className="flex gap-2">
-                      <input {...register(`images.${idx}`)} className={`${inputStyle('images')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="https://..." />
-                      {imageFields.fields.length > 1 && (
-                        <button type="button" onClick={() => imageFields.remove(idx)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-colors">
-                          <FiTrash2 size={14} />
-                        </button>
-                      )}
+                <label className={labelStyle('images')} style={{ fontSize: '11px' }}>Thumbnail Image *</label>
+                <div
+                  onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={handleImageDrop}
+                  className={`relative mt-2 border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-all ${dragOver
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-500/10'
+                    : isDark
+                      ? 'border-slate-600 hover:border-slate-500 bg-slate-800/50'
+                      : 'border-gray-300 hover:border-gray-400 bg-gray-50'
+                    }`}
+                >
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageDrop}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  {uploadingImages ? (
+                    <div className="flex flex-col items-center gap-2">
+                      <FiLoader className="animate-spin text-blue-500" size={24} />
+                      <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Uploading image...</span>
                     </div>
-                  ))}
+                  ) : (
+                    <div className="flex flex-col items-center gap-2">
+                      <FiImage className={`${isDark ? 'text-slate-500' : 'text-gray-400'}`} size={32} />
+                      <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+                        <span className="text-blue-500 font-semibold">Click to upload</span> or drag and drop
+                      </p>
+                      <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
+                        PNG, JPG, WEBP up to 5MB
+                      </p>
+                    </div>
+                  )}
                 </div>
+
+                {/* Uploaded Images Preview */}
+                {uploadedImages.length > 0 && (
+                  <div className="mt-4 grid grid-cols-3 gap-3">
+                    {uploadedImages.map((url, index) => (
+                      <div key={index} className="relative group aspect-video rounded-lg overflow-hidden border border-gray-200 dark:border-slate-700">
+                        <img src={url} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImage(index)}
+                          className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                        >
+                          <FiTrash2 size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 {(errors.images || serverErrors.images) && (
                   <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('images')}
@@ -663,32 +783,50 @@ function CreateDesignTemplateContent() {
                 )}
               </div>
 
+              {/* Download File Upload */}
               <div>
-                <label className={labelStyle('previewUrl')} style={{ fontSize: '11px' }}>Preview URL</label>
-                <input {...register('previewUrl')} className={`${inputStyle('previewUrl')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="https://..." />
-                {(errors.previewUrl || serverErrors.previewUrl) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                    <FiAlertCircle size={12} /> {getError('previewUrl')}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className={labelStyle('downloadFile')} style={{ fontSize: '11px' }}>Download File *</label>
-                <input {...register('downloadFile')} className={`${inputStyle('downloadFile')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="Cloud storage link..." />
+                <label className={labelStyle('downloadFile')} style={{ fontSize: '11px' }}>Download File (ZIP/RAR) *</label>
+                <div className={`mt-2 border-2 border-dashed rounded-lg p-4 ${isDark ? 'border-slate-600 bg-slate-800/50' : 'border-gray-300 bg-gray-50'}`}>
+                  {downloadFileUrl ? (
+                    <div className={`flex items-center justify-between p-3 rounded-md ${isDark ? 'bg-emerald-500/10 border border-emerald-500/30' : 'bg-emerald-50 border border-emerald-200'}`}>
+                      <div className="flex items-center gap-2">
+                        <FiCheck className="text-emerald-500" size={18} />
+                        <span className={`text-sm ${isDark ? 'text-emerald-400' : 'text-emerald-700'}`}>File uploaded successfully</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => { setDownloadFileUrl(''); setValue('downloadFile', ''); }}
+                        className="text-red-500 hover:text-red-600 text-xs"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : uploadingDownloadFile ? (
+                    <div className="flex items-center justify-center gap-2 py-4">
+                      <FiLoader className="animate-spin text-blue-500" size={20} />
+                      <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Uploading file...</span>
+                    </div>
+                  ) : (
+                    <label className="flex flex-col items-center cursor-pointer py-4">
+                      <input
+                        type="file"
+                        accept=".zip,.rar,.7z,.tar,.gz"
+                        onChange={(e) => e.target.files?.[0] && uploadDownloadFileToCloudinary(e.target.files[0])}
+                        className="hidden"
+                      />
+                      <FiLayers className={`${isDark ? 'text-slate-500' : 'text-gray-400'}`} size={28} />
+                      <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+                        <span className="text-blue-500 font-semibold">Click to upload</span> template file
+                      </p>
+                      <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
+                        ZIP, RAR, 7z up to 100MB
+                      </p>
+                    </label>
+                  )}
+                </div>
                 {(errors.downloadFile || serverErrors.downloadFile) && (
                   <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('downloadFile')}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className={labelStyle('documentationUrl')} style={{ fontSize: '11px' }}>Documentation URL</label>
-                <input {...register('documentationUrl')} className={`${inputStyle('documentationUrl')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="Docs link..." />
-                {(errors.documentationUrl || serverErrors.documentationUrl) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                    <FiAlertCircle size={12} /> {getError('documentationUrl')}
                   </p>
                 )}
               </div>

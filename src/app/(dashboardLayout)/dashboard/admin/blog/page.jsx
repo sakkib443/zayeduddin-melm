@@ -27,7 +27,7 @@ export default function AdminBlogPage() {
     const fetchBlogs = async () => {
         setLoading(true);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             let url = `${API_BASE_URL}/blogs?page=${currentPage}&limit=10`;
             if (searchTerm) url += `&searchTerm=${searchTerm}`;
             if (statusFilter) url += `&status=${statusFilter}`;
@@ -54,7 +54,7 @@ export default function AdminBlogPage() {
 
     const handleDelete = async () => {
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs/${deleteModal.blogId}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` },

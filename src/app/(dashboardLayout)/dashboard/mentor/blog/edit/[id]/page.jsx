@@ -38,7 +38,7 @@ export default function MentorEditBlogPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('accessToken');
+                const token = localStorage.getItem('token');
                 const blogRes = await fetch(`${API_BASE_URL}/blogs/${blogId}`, { headers: { Authorization: `Bearer ${token}` } });
                 const blogData = await blogRes.json();
 
@@ -87,7 +87,7 @@ export default function MentorEditBlogPage() {
         const uploadData = new FormData();
         uploadData.append('image', file);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/upload/image`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: uploadData });
             const data = await res.json();
             if (data.success && data.data?.url) { setFormData(prev => ({ ...prev, thumbnail: data.data.url })); toast.success('Uploaded!'); }
@@ -113,7 +113,7 @@ export default function MentorEditBlogPage() {
 
         setSaving(true);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },

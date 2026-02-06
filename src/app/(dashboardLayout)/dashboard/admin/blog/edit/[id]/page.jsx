@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import {
     FiArrowLeft,
     FiSave,
@@ -12,14 +13,6 @@ import {
     FiTag,
     FiEye,
     FiEdit3,
-    FiBold,
-    FiItalic,
-    FiList,
-    FiLink,
-    FiCode,
-    FiAlignLeft,
-    FiAlignCenter,
-    FiAlignRight,
     FiUpload,
     FiX,
     FiCheck,
@@ -28,6 +21,12 @@ import {
 import { useTheme } from '@/providers/ThemeProvider';
 import { API_BASE_URL } from '@/config/api';
 import toast from 'react-hot-toast';
+
+// Dynamically import RichTextEditor to avoid SSR issues
+const RichTextEditor = dynamic(() => import('@/components/Admin/RichTextEditor'), {
+    ssr: false,
+    loading: () => <div className="h-[400px] bg-gray-100 dark:bg-slate-800 animate-pulse rounded-md" />
+});
 
 export default function EditBlogPage() {
     const { isDark } = useTheme();
@@ -67,7 +66,7 @@ export default function EditBlogPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('accessToken');
+                const token = localStorage.getItem('token');
 
                 // Fetch blog
                 const blogRes = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
@@ -161,7 +160,7 @@ export default function EditBlogPage() {
         uploadData.append('image', file);
 
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/upload/image`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
@@ -209,7 +208,7 @@ export default function EditBlogPage() {
 
         setSaving(true);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
                 method: 'PATCH',
                 headers: {
@@ -354,66 +353,16 @@ export default function EditBlogPage() {
                     </div>
 
                     {/* Content Editor */}
-                    <div className={`rounded-2xl border overflow-hidden ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <div className={`px-4 py-3 border-b flex flex-wrap gap-1 ${isDark ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
-                            <button onClick={() => formatText('bold')} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                <FiBold size={16} />
-                            </button>
-                            <button onClick={() => formatText('italic')} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                <FiItalic size={16} />
-                            </button>
-                            <div className={`w-px h-6 mx-1 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                            <button onClick={() => insertHeading(2)} className={`px-2 py-1 rounded-lg text-xs font-bold transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                H2
-                            </button>
-                            <button onClick={() => insertHeading(3)} className={`px-2 py-1 rounded-lg text-xs font-bold transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                H3
-                            </button>
-                            <button onClick={() => insertHeading(4)} className={`px-2 py-1 rounded-lg text-xs font-bold transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                H4
-                            </button>
-                            <div className={`w-px h-6 mx-1 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                            <button onClick={() => formatText('insertUnorderedList')} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                <FiList size={16} />
-                            </button>
-                            <button onClick={() => formatText('justifyLeft')} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                <FiAlignLeft size={16} />
-                            </button>
-                            <button onClick={() => formatText('justifyCenter')} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                <FiAlignCenter size={16} />
-                            </button>
-                            <button onClick={() => formatText('justifyRight')} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                <FiAlignRight size={16} />
-                            </button>
-                            <div className={`w-px h-6 mx-1 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                            <button
-                                onClick={() => {
-                                    const url = prompt('Enter link URL:');
-                                    if (url) formatText('createLink', url);
-                                }}
-                                className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}
-                            >
-                                <FiLink size={16} />
-                            </button>
-                            <button onClick={() => formatText('formatBlock', 'pre')} className={`p-2 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>
-                                <FiCode size={16} />
-                            </button>
-                        </div>
-
-                        {previewMode ? (
-                            <div
-                                className={`p-6 min-h-[400px] prose prose-lg max-w-none ${isDark ? 'prose-invert' : ''}`}
-                                dangerouslySetInnerHTML={{ __html: formData.content }}
-                            />
-                        ) : (
-                            <div
-                                ref={contentRef}
-                                contentEditable
-                                onInput={(e) => setFormData(prev => ({ ...prev, content: e.currentTarget.innerHTML }))}
-                                className={`p-6 min-h-[400px] focus:outline-none ${isDark ? 'text-slate-200' : 'text-slate-800'}`}
-                                style={{ lineHeight: 1.8 }}
-                            />
-                        )}
+                    <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
+                        <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            Blog Content <span className="text-red-500">*</span>
+                        </label>
+                        <RichTextEditor
+                            value={formData.content}
+                            onChange={(content) => setFormData(prev => ({ ...prev, content }))}
+                            placeholder="Start writing your blog content here..."
+                            isDark={isDark}
+                        />
                     </div>
                 </div>
 

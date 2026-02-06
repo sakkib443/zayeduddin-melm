@@ -98,7 +98,7 @@ export default function MentorCreateBlogPage() {
         uploadData.append('image', file);
 
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/upload/image`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
@@ -142,7 +142,7 @@ export default function MentorCreateBlogPage() {
 
         setLoading(true);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs`, {
                 method: 'POST',
                 headers: {
