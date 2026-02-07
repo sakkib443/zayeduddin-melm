@@ -209,24 +209,7 @@ const DesignTemplateContent = () => {
             return;
         }
         if (selectedTemplate?.downloadFile) {
-            let downloadUrl = selectedTemplate.downloadFile;
-
-            // If it's a cloudinary URL, force attachment/download
-            if (downloadUrl.includes('res.cloudinary.com') && !downloadUrl.includes('fl_attachment')) {
-                downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
-            }
-
-            // Create a temporary link to trigger download
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.setAttribute('target', '_blank');
-            link.setAttribute('rel', 'noopener noreferrer');
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            toast.success(language === 'bn' ? 'ডাউনলোড শুরু হচ্ছে...' : 'Download starting...');
+            window.open(selectedTemplate.downloadFile, '_blank');
         } else {
             toast.error('Download file not found');
         }

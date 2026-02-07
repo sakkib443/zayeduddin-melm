@@ -148,26 +148,7 @@ const DesignTemplateDetails = () => {
             return;
         }
         if (template?.downloadFile) {
-            let downloadUrl = template.downloadFile;
-
-            // If it's a cloudinary URL, force attachment/download
-            if (downloadUrl.includes('res.cloudinary.com') && !downloadUrl.includes('fl_attachment')) {
-                downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
-            }
-
-            // Create a temporary link to trigger download
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.setAttribute('target', '_blank');
-            link.setAttribute('rel', 'noopener noreferrer');
-
-            // For cross-origin, 'download' attribute only works if server sends Content-Disposition
-            // Cloudinary's fl_attachment handles this.
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            toast.success(language === 'bn' ? 'ডাউনলোড শুরু হচ্ছে...' : 'Download starting...');
+            window.open(template.downloadFile, '_blank');
         } else {
             toast.error('Download file not found');
         }
