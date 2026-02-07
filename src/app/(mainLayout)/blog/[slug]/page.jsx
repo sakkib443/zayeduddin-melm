@@ -398,7 +398,7 @@ export default function SingleBlogPage() {
 
                                 {/* Main Rich Text Content */}
                                 <div
-                                    className={`prose prose-lg md:prose-xl dark:prose-invert max-w-none mb-20
+                                    className={`prose prose-lg md:prose-xl dark:prose-invert max-w-none mb-20 break-words overflow-hidden
                                         prose-headings:font-bold prose-headings:text-[#300000] dark:prose-headings:text-white
                                         prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed
                                         prose-a:text-[#300000] dark:prose-a:text-[#D4AF37] prose-a:font-bold prose-a:no-underline hover:prose-a:underline

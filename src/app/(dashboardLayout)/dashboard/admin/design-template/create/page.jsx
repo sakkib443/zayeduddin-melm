@@ -626,7 +626,7 @@ function CreateDesignTemplateContent() {
                   })}
                   className={inputStyle('accessType')}
                 >
-                  <option value="paid">Paid</option>
+                  <option value="paid">Premium</option>
                   <option value="free">Free</option>
                 </select>
                 {(errors.accessType || serverErrors.accessType) && (
@@ -664,40 +664,6 @@ function CreateDesignTemplateContent() {
                   {(errors.offerPrice || serverErrors.offerPrice) && (
                     <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
                       <FiAlertCircle size={12} /> {getError('offerPrice')}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className={`border-t ${isDark ? 'border-slate-700' : 'border-gray-200'} pt-4`}>
-                <label className={labelStyle('licenseType')} style={{ fontSize: '11px' }}>License Type</label>
-                <select {...register('licenseType')} className={inputStyle('licenseType')}>
-                  <option value="regular">Regular License</option>
-                  <option value="extended">Extended License</option>
-                </select>
-                {(errors.licenseType || serverErrors.licenseType) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                    <FiAlertCircle size={12} /> {getError('licenseType')}
-                  </p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className={labelStyle('regularLicensePrice')} style={{ fontSize: '11px' }}>Regular (৳) *</label>
-                  <input type="number" {...register('regularLicensePrice')} className={`${inputStyle('regularLicensePrice')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="0" />
-                  {(errors.regularLicensePrice || serverErrors.regularLicensePrice) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                      <FiAlertCircle size={12} /> {getError('regularLicensePrice')}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className={labelStyle('extendedLicensePrice')} style={{ fontSize: '11px' }}>Extended (৳)</label>
-                  <input type="number" {...register('extendedLicensePrice')} className={`${inputStyle('extendedLicensePrice')} placeholder:text-gray-300 dark:placeholder:text-slate-600`} placeholder="0" />
-                  {(errors.extendedLicensePrice || serverErrors.extendedLicensePrice) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                      <FiAlertCircle size={12} /> {getError('extendedLicensePrice')}
                     </p>
                   )}
                 </div>

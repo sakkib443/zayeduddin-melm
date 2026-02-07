@@ -720,6 +720,18 @@ const DesignTemplateContent = () => {
                 .font-script {
                     font-family: var(--font-poppins);
                 }
+                .rich-content {
+                    white-space: normal !important;
+                    word-break: normal !important;
+                    overflow-wrap: break-word !important;
+                    text-align: left !important;
+                    max-width: 100%;
+                }
+                .rich-content * {
+                    white-space: normal !important;
+                    word-break: normal !important;
+                    overflow-wrap: break-word !important;
+                }
                 .rich-content h2 { 
                     font-size: 1.5rem; 
                     font-weight: 700; 
@@ -749,7 +761,8 @@ const DesignTemplateContent = () => {
                 .rich-content img { 
                     border-radius: 0.375rem; 
                     margin: 1.5rem 0; 
-                    width: 100%; 
+                    max-width: 100%;
+                    height: auto;
                 }
                 .rich-content a { 
                     color: #2563eb; 
