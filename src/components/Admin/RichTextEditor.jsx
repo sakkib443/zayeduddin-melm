@@ -63,10 +63,10 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write y
       // Check both token keys for compatibility
       const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
       const formData = new FormData();
-      formData.append('images', file);
+      formData.append('image', file);
 
       try {
-        const response = await fetch(`${API_URL}/design-templates/admin/upload-images`, {
+        const response = await fetch(`${API_URL}/upload/single`, {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` },
           body: formData,
@@ -74,11 +74,11 @@ export default function RichTextEditor({ value, onChange, placeholder = "Write y
 
         const result = await response.json();
 
-        if (response.ok && result.data?.urls?.[0]) {
+        if (response.ok && result.data?.url) {
           const quill = quillRef.current?.getEditor?.() || quillRef.current;
           if (quill) {
             const range = quill.getSelection?.(true) || { index: 0 };
-            quill.insertEmbed?.(range.index, 'image', result.data.urls[0]);
+            quill.insertEmbed?.(range.index, 'image', result.data.url);
             quill.setSelection?.(range.index + 1);
           }
         } else {

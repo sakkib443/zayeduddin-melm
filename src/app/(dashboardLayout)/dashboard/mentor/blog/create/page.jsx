@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import {
     FiArrowLeft,
     FiSave,
@@ -14,14 +15,6 @@ import {
     FiTag,
     FiEye,
     FiEdit3,
-    FiBold,
-    FiItalic,
-    FiList,
-    FiLink,
-    FiCode,
-    FiAlignLeft,
-    FiAlignCenter,
-    FiAlignRight,
     FiUpload,
     FiX,
     FiCheck,
@@ -30,10 +23,15 @@ import { useTheme } from '@/providers/ThemeProvider';
 import { API_BASE_URL } from '@/config/api';
 import toast from 'react-hot-toast';
 
+// Dynamically import RichTextEditor to avoid SSR issues
+const RichTextEditor = dynamic(() => import('@/components/Admin/RichTextEditor'), {
+    ssr: false,
+    loading: () => <div className="h-[400px] bg-gray-100 dark:bg-slate-800 animate-pulse rounded-md" />
+});
+
 export default function MentorCreateBlogPage() {
     const { isDark } = useTheme();
     const router = useRouter();
-    const contentRef = useRef(null);
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -98,8 +96,8 @@ export default function MentorCreateBlogPage() {
         uploadData.append('image', file);
 
         try {
-            const token = localStorage.getItem('token');
-            const res = await fetch(`${API_BASE_URL}/upload/image`, {
+            const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
+            const res = await fetch(`${API_BASE_URL}/upload/single`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
                 body: uploadData,
@@ -116,20 +114,6 @@ export default function MentorCreateBlogPage() {
         }
     };
 
-    const formatText = (command, value = null) => {
-        document.execCommand(command, false, value);
-        if (contentRef.current) {
-            setFormData(prev => ({ ...prev, content: contentRef.current.innerHTML }));
-        }
-    };
-
-    const insertHeading = (level) => {
-        document.execCommand('formatBlock', false, `h${level}`);
-        if (contentRef.current) {
-            setFormData(prev => ({ ...prev, content: contentRef.current.innerHTML }));
-        }
-    };
-
     const handleSubmit = async (publishStatus) => {
         if (!formData.title || !formData.excerpt || !formData.content || !formData.category || !formData.thumbnail) {
             toast.error('Please fill all required fields');
@@ -142,7 +126,7 @@ export default function MentorCreateBlogPage() {
 
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs`, {
                 method: 'POST',
                 headers: {
@@ -202,6 +186,9 @@ export default function MentorCreateBlogPage() {
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Title *</label>
                         <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter your blog title..."
                             className={`w-full px-4 py-3 rounded-xl border text-lg font-medium ${isDark ? 'bg-slate-700/50 border-slate-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'} focus:outline-none focus:ring-2 focus:ring-red-500/20`} />
+
+                        <input type="text" name="titleBn" value={formData.titleBn} onChange={handleChange} placeholder="বাংলা শিরোনাম (ঐচ্ছিক)"
+                            className={`w-full mt-3 px-4 py-2.5 rounded-xl border transition-all ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'} focus:outline-none focus:ring-2 focus:ring-red-500/20`} />
                     </div>
 
                     {/* Excerpt */}
@@ -213,24 +200,17 @@ export default function MentorCreateBlogPage() {
                     </div>
 
                     {/* Content Editor */}
-                    <div className={`rounded-2xl border overflow-hidden ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <div className={`px-4 py-3 border-b flex flex-wrap gap-1 ${isDark ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
-                            <button onClick={() => formatText('bold')} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}><FiBold size={16} /></button>
-                            <button onClick={() => formatText('italic')} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}><FiItalic size={16} /></button>
-                            <div className={`w-px h-6 mx-1 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                            <button onClick={() => insertHeading(2)} className={`px-2 py-1 rounded-lg text-xs font-bold ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>H2</button>
-                            <button onClick={() => insertHeading(3)} className={`px-2 py-1 rounded-lg text-xs font-bold ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}>H3</button>
-                            <div className={`w-px h-6 mx-1 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`} />
-                            <button onClick={() => formatText('insertUnorderedList')} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}><FiList size={16} /></button>
-                            <button onClick={() => formatText('justifyLeft')} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}><FiAlignLeft size={16} /></button>
-                            <button onClick={() => formatText('justifyCenter')} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}><FiAlignCenter size={16} /></button>
-                            <button onClick={() => { const url = prompt('Enter URL:'); if (url) formatText('createLink', url); }} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-slate-200 text-slate-600'}`}><FiLink size={16} /></button>
-                        </div>
+                    <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
+                        <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Content *</label>
                         {previewMode ? (
-                            <div className={`p-6 min-h-[400px] prose max-w-none ${isDark ? 'prose-invert' : ''}`} dangerouslySetInnerHTML={{ __html: formData.content }} />
+                            <div className={`p-4 min-h-[400px] prose max-w-none border rounded-xl ${isDark ? 'prose-invert bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`} dangerouslySetInnerHTML={{ __html: formData.content }} />
                         ) : (
-                            <div ref={contentRef} contentEditable onInput={(e) => setFormData(prev => ({ ...prev, content: e.currentTarget.innerHTML }))}
-                                className={`p-6 min-h-[400px] focus:outline-none ${isDark ? 'text-slate-200' : 'text-slate-800'}`} style={{ lineHeight: 1.8 }} data-placeholder="Start writing..." />
+                            <RichTextEditor
+                                value={formData.content}
+                                onChange={(content) => setFormData(prev => ({ ...prev, content }))}
+                                placeholder="Start writing your blog content here..."
+                                isDark={isDark}
+                            />
                         )}
                     </div>
                 </div>
@@ -279,23 +259,47 @@ export default function MentorCreateBlogPage() {
                         </div>
                     </div>
 
+                    {/* Video URL */}
+                    <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
+                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Video URL (Optional)</label>
+                        <div className="relative">
+                            <FiVideo className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} size={16} />
+                            <input type="url" name="videoUrl" value={formData.videoUrl} onChange={handleChange} placeholder="https://youtube.com/..."
+                                className={`w-full pl-10 pr-4 py-2.5 rounded-xl border ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'}`} />
+                        </div>
+                    </div>
+
                     {/* Options */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <h3 className={`text-sm font-medium mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Options</h3>
-                        <label className="flex items-center gap-3 cursor-pointer">
-                            <input type="checkbox" name="allowComments" checked={formData.allowComments} onChange={handleChange} className="w-4 h-4 rounded text-red-500" />
-                            <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Allow Comments</span>
-                        </label>
+                        <h3 className={`text-sm font-medium mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Options</h3>
+                        <div className="space-y-3">
+                            <label className="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Featured Blog</span>
+                            </label>
+                            <label className="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" name="isPopular" checked={formData.isPopular} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Mark as Popular</span>
+                            </label>
+                            <label className="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" name="allowComments" checked={formData.allowComments} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Allow Comments</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* SEO */}
+                    <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
+                        <h3 className={`text-sm font-medium mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>SEO Settings</h3>
+                        <div className="space-y-3">
+                            <input type="text" name="metaTitle" value={formData.metaTitle} onChange={handleChange} placeholder="Meta Title (max 70 chars)" maxLength={70}
+                                className={`w-full px-3 py-2 rounded-lg border text-sm ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'}`} />
+                            <textarea name="metaDescription" value={formData.metaDescription} onChange={handleChange} placeholder="Meta Description (max 160 chars)" maxLength={160} rows={2}
+                                className={`w-full px-3 py-2 rounded-lg border text-sm resize-none ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'}`} />
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <style jsx>{`
-                [contenteditable]:empty:before {
-                    content: attr(data-placeholder);
-                    color: ${isDark ? '#64748b' : '#94a3b8'};
-                }
-            `}</style>
         </div>
     );
 }

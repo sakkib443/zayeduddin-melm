@@ -111,8 +111,8 @@ export default function CreateBlogPage() {
         uploadData.append('image', file);
 
         try {
-            const token = localStorage.getItem('token');
-            const res = await fetch(`${API_BASE_URL}/upload/image`, {
+            const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
+            const res = await fetch(`${API_BASE_URL}/upload/single`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
                 body: uploadData,
@@ -159,7 +159,7 @@ export default function CreateBlogPage() {
 
         setLoading(true);
         try {
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('accessToken') || localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs`, {
                 method: 'POST',
                 headers: {
