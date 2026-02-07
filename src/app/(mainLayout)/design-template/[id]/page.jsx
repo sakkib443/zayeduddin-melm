@@ -10,6 +10,7 @@ import { addToCart } from "@/redux/cartSlice";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/providers/ThemeProvider";
 import { API_URL } from "@/config/api";
+import toast from "react-hot-toast";
 import {
     LuShoppingCart,
     LuCheck,
@@ -75,12 +76,18 @@ const DesignTemplateDetails = () => {
     const { isDark } = useTheme();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
+    const [user, setUser] = useState(null);
     const [template, setTemplate] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeImage, setActiveImage] = useState("");
     const [isAdded, setIsAdded] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) setUser(JSON.parse(storedUser));
+    }, []);
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -101,10 +108,10 @@ const DesignTemplateDetails = () => {
                     setLikeCount(data.data.likeCount || 0);
 
                     // Check if current user has liked this template
-                    const user = JSON.parse(localStorage.getItem('user') || '{}');
-                    if (user._id && data.data.likedBy?.length > 0) {
+                    const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+                    if (currentUser._id && data.data.likedBy?.length > 0) {
                         const hasLiked = data.data.likedBy.some(likedUserId =>
-                            likedUserId === user._id || likedUserId._id === user._id
+                            likedUserId === currentUser._id || likedUserId._id === currentUser._id
                         );
                         setIsLiked(hasLiked);
                     } else {
@@ -135,8 +142,43 @@ const DesignTemplateDetails = () => {
         setTimeout(() => setIsAdded(false), 2000);
     };
 
+    const handleDownload = () => {
+        if (!user) {
+            toast.error(language === 'bn' ? 'ডাউনলোড করতে আগে লগইন করুন' : 'Please login to download');
+            return;
+        }
+        if (template?.downloadFile) {
+            let downloadUrl = template.downloadFile;
+
+            // If it's a cloudinary URL, force attachment/download
+            if (downloadUrl.includes('res.cloudinary.com') && !downloadUrl.includes('fl_attachment')) {
+                downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+            }
+
+            // Create a temporary link to trigger download
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+
+            // For cross-origin, 'download' attribute only works if server sends Content-Disposition
+            // Cloudinary's fl_attachment handles this.
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            toast.success(language === 'bn' ? 'ডাউনলোড শুরু হচ্ছে...' : 'Download starting...');
+        } else {
+            toast.error('Download file not found');
+        }
+    };
+
     const handleBuyNow = () => {
         if (!template) return;
+        if (template.accessType === 'free') {
+            handleDownload();
+            return;
+        }
         dispatch(addToCart({
             id: template._id,
             title: template.title,
@@ -442,42 +484,47 @@ const DesignTemplateDetails = () => {
                         <div className={`w-8 h-px ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
 
 
-                        {/* Cart Button */}
-                        <button
-                            onClick={handleAddToCart}
-                            className="group flex flex-col items-center gap-1.5"
-                        >
-                            <div className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all ${isAdded
-                                ? 'bg-green-500 text-white border-green-500'
-                                : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500'}`}>
-                                {isAdded ? <LuCheck size={16} /> : <LuShoppingCart size={16} />}
-                            </div>
-                            <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-amber-500'}`}>{isAdded ? 'Added' : 'Cart'}</span>
-                        </button>
+                        {template.accessType !== 'free' && (
+                            <button
+                                onClick={handleAddToCart}
+                                className="group flex flex-col items-center gap-1.5"
+                            >
+                                <div className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all ${isAdded
+                                    ? 'bg-green-500 text-white border-green-500'
+                                    : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500'}`}>
+                                    {isAdded ? <LuCheck size={16} /> : <LuShoppingCart size={16} />}
+                                </div>
+                                <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-amber-500'}`}>{isAdded ? 'Added' : 'Cart'}</span>
+                            </button>
+                        )}
 
-                        {/* Price Card */}
                         <div className={`mt-4 p-3 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-gray-50 border-gray-100'}`}>
                             <div className="text-center">
-                                <div className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                    ৳{currentPrice?.toLocaleString()}
-                                </div>
-                                {hasDiscount && (
-                                    <div className="text-xs text-gray-400 line-through">
-                                        ৳{template.price?.toLocaleString()}
-                                    </div>
+                                {template.accessType === 'free' ? (
+                                    <div className="text-lg font-bold text-green-500">Free</div>
+                                ) : (
+                                    <>
+                                        <div className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                            ৳{currentPrice?.toLocaleString()}
+                                        </div>
+                                        {hasDiscount && (
+                                            <div className="text-xs text-gray-400 line-through">
+                                                ৳{template.price?.toLocaleString()}
+                                            </div>
+                                        )}
+                                    </>
                                 )}
                             </div>
                         </div>
 
-                        {/* Buy Now Button */}
                         <button
                             onClick={handleBuyNow}
-                            className={`mt-1 w-full py-3 rounded-md text-sm font-bold transition-all ${isAdded
-                                ? 'bg-green-500 text-white'
-                                : 'bg-[#300000] hover:bg-[#400000] text-white'
+                            className={`mt-1 w-full py-3 rounded-md text-sm font-bold transition-all ${template.accessType === 'free'
+                                ? 'bg-green-600 hover:bg-green-700 text-white'
+                                : isAdded ? 'bg-green-500 text-white' : 'bg-[#300000] hover:bg-[#400000] text-white'
                                 }`}
                         >
-                            {isAdded ? "Added!" : "Buy Now"}
+                            {template.accessType === 'free' ? "Free Download" : isAdded ? "Added!" : "Buy Now"}
                         </button>
 
                     </aside>
@@ -494,15 +541,21 @@ const DesignTemplateDetails = () => {
                     <FiThumbsUp size={18} />
                 </button>
                 <div className="flex-1 text-center">
-                    <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>৳{currentPrice?.toLocaleString()}</span>
-                    {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">৳{template.price?.toLocaleString()}</span>}
+                    {template.accessType === 'free' ? (
+                        <span className="text-lg font-bold text-green-500">Free</span>
+                    ) : (
+                        <>
+                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>৳{currentPrice?.toLocaleString()}</span>
+                            {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">৳{template.price?.toLocaleString()}</span>}
+                        </>
+                    )}
                 </div>
                 <button
-                    onClick={handleAddToCart}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-600/20 flex items-center gap-2"
+                    onClick={template.accessType === 'free' ? handleDownload : handleAddToCart}
+                    className={`px-6 py-3 rounded-xl font-bold text-sm shadow-lg flex items-center gap-2 ${template.accessType === 'free' ? 'bg-green-600 text-white shadow-green-600/20' : 'bg-blue-600 text-white shadow-blue-600/20'}`}
                 >
                     <LuDownload size={16} />
-                    {isAdded ? "Added!" : "Get Now"}
+                    {template.accessType === 'free' ? "Free Download" : isAdded ? "Added!" : "Get Now"}
                 </button>
             </div>
 

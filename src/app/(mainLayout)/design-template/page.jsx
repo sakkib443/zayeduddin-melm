@@ -31,6 +31,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/providers/ThemeProvider";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/cartSlice";
+import toast from "react-hot-toast";
 import {
     SiAdobephotoshop,
     SiAdobeillustrator,
@@ -72,6 +73,7 @@ const DesignTemplateContent = () => {
     const dispatch = useDispatch();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("all");
@@ -86,6 +88,12 @@ const DesignTemplateContent = () => {
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [isAdded, setIsAdded] = useState(false);
+
+    // Initial check for user in localStorage
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) setUser(JSON.parse(storedUser));
+    }, []);
 
     // Fetch design templates from API
     useEffect(() => {
@@ -153,9 +161,9 @@ const DesignTemplateContent = () => {
         setLikeCount(template.likeCount || 0);
 
         // Check if user liked
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        if (user._id && template.likedBy?.length > 0) {
-            const hasLiked = template.likedBy.some(id => id === user._id || id._id === user._id);
+        const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+        if (currentUser._id && template.likedBy?.length > 0) {
+            const hasLiked = template.likedBy.some(id => id === currentUser._id || id._id === currentUser._id);
             setIsLiked(hasLiked);
         } else {
             setIsLiked(false);
@@ -195,9 +203,42 @@ const DesignTemplateContent = () => {
         setTimeout(() => setIsAdded(false), 2000);
     };
 
+    const handleDownload = () => {
+        if (!user) {
+            toast.error(language === 'bn' ? 'ডাউনলোড করতে আগে লগইন করুন' : 'Please login to download');
+            return;
+        }
+        if (selectedTemplate?.downloadFile) {
+            let downloadUrl = selectedTemplate.downloadFile;
+
+            // If it's a cloudinary URL, force attachment/download
+            if (downloadUrl.includes('res.cloudinary.com') && !downloadUrl.includes('fl_attachment')) {
+                downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+            }
+
+            // Create a temporary link to trigger download
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            toast.success(language === 'bn' ? 'ডাউনলোড শুরু হচ্ছে...' : 'Download starting...');
+        } else {
+            toast.error('Download file not found');
+        }
+    };
+
     // Handle buy now
     const handleBuyNow = () => {
         if (!selectedTemplate) return;
+        if (selectedTemplate.accessType === 'free') {
+            handleDownload();
+            return;
+        }
         dispatch(addToCart({
             id: selectedTemplate._id,
             title: selectedTemplate.title,
@@ -424,13 +465,14 @@ const DesignTemplateContent = () => {
                                                 </button>
 
                                                 <div className="flex items-center gap-1.5 md:gap-2.5">
-                                                    {/* Add to Cart Button */}
-                                                    <button
-                                                        onClick={handleAddToCart}
-                                                        className={`p-2.5 border rounded-lg transition-all ${isAdded ? 'text-green-500 border-green-500/30 bg-green-500/5' : isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}
-                                                    >
-                                                        {isAdded ? <LuCheck size={18} /> : <LuShoppingCart size={18} />}
-                                                    </button>
+                                                    {selectedTemplate.accessType !== 'free' && (
+                                                        <button
+                                                            onClick={handleAddToCart}
+                                                            className={`p-2.5 border rounded-lg transition-all ${isAdded ? 'text-green-500 border-green-500/30 bg-green-500/5' : isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}
+                                                        >
+                                                            {isAdded ? <LuCheck size={18} /> : <LuShoppingCart size={18} />}
+                                                        </button>
+                                                    )}
 
                                                     {/* Like Button */}
                                                     <button
@@ -445,13 +487,9 @@ const DesignTemplateContent = () => {
                                                 <div className="flex items-stretch rounded-lg overflow-hidden border-0">
                                                     <button
                                                         onClick={handleBuyNow}
-                                                        className="flex items-center gap-2 px-6 py-2.5 bg-[#00C853] hover:bg-[#00B24A] text-white font-bold text-sm transition-all shadow-none"
+                                                        className={`flex items-center gap-2 px-6 py-2.5 font-bold text-sm transition-all shadow-none ${selectedTemplate.accessType === 'free' ? 'bg-[#00C853] hover:bg-[#00B24A] text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
                                                     >
                                                         {selectedTemplate.accessType === 'free' ? 'Free download' : 'Buy Template'}
-                                                    </button>
-                                                    <div className="w-[1px] bg-white/20" />
-                                                    <button className="px-3 bg-[#00C853] hover:bg-[#00B24A] text-white transition-all shadow-none">
-                                                        <LuChevronDown size={18} />
                                                     </button>
                                                 </div>
 
@@ -649,44 +687,49 @@ const DesignTemplateContent = () => {
                                     <span className="text-[8px] font-bold text-gray-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider">Share</span>
                                 </button>
 
-                                {/* Cart Button */}
-                                <button
-                                    onClick={handleAddToCart}
-                                    className="group flex flex-col items-center gap-1.5"
-                                >
-                                    <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${isAdded
-                                        ? 'bg-green-500 text-white border-green-500'
-                                        : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500'}`}>
-                                        {isAdded ? <LuCheck size={16} /> : <LuShoppingCart size={16} />}
-                                    </div>
-                                    <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-amber-500'}`}>{isAdded ? 'Added' : 'Cart'}</span>
-                                </button>
+                                {selectedTemplate.accessType !== 'free' && (
+                                    <button
+                                        onClick={handleAddToCart}
+                                        className="group flex flex-col items-center gap-1.5"
+                                    >
+                                        <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${isAdded
+                                            ? 'bg-green-500 text-white border-green-500'
+                                            : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500'}`}>
+                                            {isAdded ? <LuCheck size={16} /> : <LuShoppingCart size={16} />}
+                                        </div>
+                                        <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-amber-500'}`}>{isAdded ? 'Added' : 'Cart'}</span>
+                                    </button>
+                                )}
 
                                 <div className={`w-8 h-px ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
 
-                                {/* Price Card */}
                                 <div className={`p-2 rounded-md border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-gray-50 border-gray-100'}`}>
                                     <div className="text-center">
-                                        <div className={`text-base font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                            ৳{currentPrice?.toLocaleString()}
-                                        </div>
-                                        {hasDiscount && (
-                                            <div className="text-[10px] text-gray-400 line-through">
-                                                ৳{selectedTemplate.price?.toLocaleString()}
-                                            </div>
+                                        {selectedTemplate.accessType === 'free' ? (
+                                            <div className="text-base font-bold text-green-500">Free</div>
+                                        ) : (
+                                            <>
+                                                <div className={`text-base font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                                    ৳{currentPrice?.toLocaleString()}
+                                                </div>
+                                                {hasDiscount && (
+                                                    <div className="text-[10px] text-gray-400 line-through">
+                                                        ৳{selectedTemplate.price?.toLocaleString()}
+                                                    </div>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>
 
-                                {/* Buy Now Button */}
                                 <button
                                     onClick={handleBuyNow}
-                                    className={`w-full py-2.5 px-3 rounded-md text-xs font-bold transition-all ${isAdded
-                                        ? 'bg-green-500 text-white'
-                                        : 'bg-[#300000] hover:bg-[#400000] text-white'
+                                    className={`w-full py-2.5 px-3 rounded-md text-xs font-bold transition-all ${selectedTemplate.accessType === 'free'
+                                        ? 'bg-green-600 hover:bg-green-700 text-white'
+                                        : isAdded ? 'bg-green-500 text-white' : 'bg-[#300000] hover:bg-[#400000] text-white'
                                         }`}
                                 >
-                                    {isAdded ? "Added!" : "Buy Now"}
+                                    {selectedTemplate.accessType === 'free' ? "Free Download" : isAdded ? "Added!" : "Buy Now"}
                                 </button>
                             </aside>
 
@@ -699,15 +742,21 @@ const DesignTemplateContent = () => {
                                     <FiThumbsUp size={18} />
                                 </button>
                                 <div className="flex-1 text-center">
-                                    <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>৳{currentPrice?.toLocaleString()}</span>
-                                    {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">৳{selectedTemplate.price?.toLocaleString()}</span>}
+                                    {selectedTemplate.accessType === 'free' ? (
+                                        <span className="text-lg font-bold text-green-500">Free</span>
+                                    ) : (
+                                        <>
+                                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>৳{currentPrice?.toLocaleString()}</span>
+                                            {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">৳{selectedTemplate.price?.toLocaleString()}</span>}
+                                        </>
+                                    )}
                                 </div>
                                 <button
                                     onClick={handleBuyNow}
-                                    className="px-6 py-3 bg-blue-600 text-white rounded-md font-bold text-sm shadow-lg shadow-blue-600/20 flex items-center gap-2"
+                                    className={`px-6 py-3 rounded-md font-bold text-sm shadow-lg flex items-center gap-2 ${selectedTemplate.accessType === 'free' ? 'bg-green-600 text-white shadow-green-600/20' : 'bg-blue-600 text-white shadow-blue-600/20'}`}
                                 >
                                     <LuDownload size={16} />
-                                    Buy Now
+                                    {selectedTemplate.accessType === 'free' ? 'Free Download' : 'Buy Now'}
                                 </button>
                             </div>
                         </div>
