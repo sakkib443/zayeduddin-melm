@@ -142,13 +142,54 @@ const DesignTemplateDetails = () => {
         setTimeout(() => setIsAdded(false), 2000);
     };
 
-    const handleDownload = () => {
+    const handleDownload = async () => {
         if (!user) {
             toast.error(language === 'bn' ? 'ডাউনলোড করতে আগে লগইন করুন' : 'Please login to download');
             return;
         }
-        if (template?.downloadFile) {
-            window.open(template.downloadFile, '_blank');
+
+        if (template?.downloadFile || template?._id) {
+            try {
+                toast.loading(language === 'bn' ? 'ডাউনলোড শুরু হচ্ছে...' : 'Starting download...', { id: 'download-toast' });
+
+                // Use our backend API to download (handles Cloudinary auth)
+                const token = localStorage.getItem('token');
+                const downloadApiUrl = `${API_URL}/design-templates/${template._id}/download`;
+
+                const response = await fetch(downloadApiUrl, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    const filename = `${template.title.replace(/[^a-z0-9]/gi, '_')}.zip`;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    toast.success(language === 'bn' ? 'ডাউনলোড শুরু হয়েছে' : 'Download started', { id: 'download-toast' });
+                    return;
+                } else {
+                    const errorStatus = response.status;
+                    if (errorStatus === 401 && !response.url.includes('cloudinary')) {
+                        toast.error(language === 'bn' ? 'আপনার সেশন শেষ হয়ে গেছে, দয়া করে আবার লগইন করুন' : 'Session expired, please login again', { id: 'download-toast' });
+                    } else if (errorStatus === 404 || response.url.includes('cloudinary')) {
+                        toast.error(language === 'bn' ? 'ডাউনলোড ফাইলটি পাওয়া যায়নি বা এক্সেস সমস্যা' : 'Download file not found or access issue', { id: 'download-toast' });
+                    } else {
+                        toast.error(language === 'bn' ? 'ডাউনলোড করতে সমস্যা হয়েছে' : 'Download failed', { id: 'download-toast' });
+                    }
+                    return;
+                }
+            } catch (error) {
+                console.error('Download error:', error);
+                toast.error(language === 'bn' ? 'ডাউনলোড করতে সমস্যা হয়েছে' : 'Download failed', { id: 'download-toast' });
+            }
         } else {
             toast.error('Download file not found');
         }

@@ -75,9 +75,9 @@ const Login = () => {
   };
 
   const features = [
-    { icon: FiShield, text: language === "bn" ? "?????? ????" : "Secure Login" },
-    { icon: FiClock, text: language === "bn" ? "??/? ?????????" : "24/7 Access" },
-    { icon: FiHeadphones, text: language === "bn" ? "??????? ???" : "Support Team" },
+    { icon: FiShield, text: language === "bn" ? "নিরাপদ লগইন" : "Secure Login" },
+    { icon: FiClock, text: language === "bn" ? "২৪/৭ অ্যাক্সেস" : "24/7 Access" },
+    { icon: FiHeadphones, text: language === "bn" ? "সাপোর্ট টিম" : "Support Team" },
   ];
 
   return (
@@ -101,11 +101,11 @@ const Login = () => {
                     <Logo color="#ffffff" align="left" size="large" />
                   </div>
                   <h2 className={`text-3xl font-bold mb-2 outfit ${bengaliClass}`}>
-                    {language === "bn" ? "???????!" : "Welcome Back!"}
+                    {language === "bn" ? "স্বাগতম!" : "Welcome Back!"}
                   </h2>
                   <p className={`text-white/80 text-sm ${bengaliClass}`}>
                     {language === "bn"
-                      ? "????? ??????????? ???? ????"
+                      ? "আপনার শেখার যাত্রা চালিয়ে যান"
                       : "Sign in to continue your learning"}
                   </p>
                 </div>
@@ -129,7 +129,7 @@ const Login = () => {
                 <div className="mt-auto pt-6 border-t border-white/20">
                   <p className={`text-sm text-white/80 italic ${bengaliClass}`}>
                     {language === "bn"
-                      ? "\"?????? ??? ??????? ????????? ?????? ?? ????? ???? ??????? ?????? ??????\""
+                      ? "\"শিক্ষা হলো সবচেয়ে শক্তিশালী অস্ত্র যা আপনি পৃথিবী পরিবর্তন করতে পারেন।\""
                       : "\"Education is the most powerful weapon you can use to change the world.\""}
                   </p>
                   <p className="text-xs text-white/60 mt-2">- Nelson Mandela</p>
@@ -142,12 +142,12 @@ const Login = () => {
               <div className="w-full max-w-md mx-auto">
                 <div className="mb-8">
                   <h3 className={`text-2xl font-bold text-gray-800 mb-2 outfit ${bengaliClass}`}>
-                    {language === "bn" ? "???? ?? ????" : "Sign In"}
+                    {language === "bn" ? "লগইন করুন" : "Sign In"}
                   </h3>
                   <p className={`text-gray-500 text-sm ${bengaliClass}`}>
-                    {language === "bn" ? "?????????? ???? " : "Don't have an account? "}
+                    {language === "bn" ? "অ্যাকাউন্ট নেই? " : "Don't have an account? "}
                     <Link href="/register" className="text-[#E62D26] font-semibold hover:underline">
-                      {language === "bn" ? "????????? ????" : "Create one"}
+                      {language === "bn" ? "রেজিস্টার করুন" : "Create one"}
                     </Link>
                   </p>
                 </div>
@@ -156,7 +156,7 @@ const Login = () => {
                   {/* Email */}
                   <div>
                     <label className={`block text-sm font-medium text-gray-700 mb-2 ${bengaliClass}`}>
-                      {language === "bn" ? "????? ??????" : "Email Address"}
+                      {language === "bn" ? "ইমেইল ঠিকানা" : "Email Address"}
                     </label>
                     <div className="relative">
                       <FiMail className="absolute left-4 top-3.5 text-gray-400" size={18} />
@@ -165,7 +165,7 @@ const Login = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        placeholder={language === "bn" ? "????? ?????" : "you@example.com"}
+                        placeholder={language === "bn" ? "আপনার ইমেইল" : "you@example.com"}
                         className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
                       />
                     </div>
@@ -174,7 +174,7 @@ const Login = () => {
                   {/* Password */}
                   <div>
                     <label className={`block text-sm font-medium text-gray-700 mb-2 ${bengaliClass}`}>
-                      {language === "bn" ? "??????????" : "Password"}
+                      {language === "bn" ? "পাসওয়ার্ড" : "Password"}
                     </label>
                     <div className="relative">
                       <FiLock className="absolute left-4 top-3.5 text-gray-400" size={18} />
@@ -183,7 +183,7 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        placeholder={language === "bn" ? "?????????? ???" : "Enter password"}
+                        placeholder={language === "bn" ? "পাসওয়ার্ড দিন" : "Enter password"}
                         className={`w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
                       />
                       <button
@@ -209,11 +209,11 @@ const Login = () => {
                         className="hidden"
                       />
                       <span className={`text-sm text-gray-600 ${bengaliClass}`}>
-                        {language === "bn" ? "??? ?????" : "Remember me"}
+                        {language === "bn" ? "মনে রাখুন" : "Remember me"}
                       </span>
                     </label>
                     <Link href="/forgot-password" className={`text-sm text-[#E62D26] hover:underline font-medium ${bengaliClass}`}>
-                      {language === "bn" ? "?????????? ???? ??????" : "Forgot password?"}
+                      {language === "bn" ? "পাসওয়ার্ড ভুলে গেছেন?" : "Forgot password?"}
                     </Link>
                   </div>
 
@@ -236,10 +236,10 @@ const Login = () => {
                     {loading ? (
                       <span className="flex items-center justify-center gap-2">
                         <span className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></span>
-                        {language === "bn" ? "???? ?? ?????..." : "Signing in..."}
+                        {language === "bn" ? "লগইন হচ্ছে..." : "Signing in..."}
                       </span>
                     ) : (
-                      language === "bn" ? "???? ?? ????" : "Sign In"
+                      language === "bn" ? "লগইন করুন" : "Sign In"
                     )}
                   </button>
                 </form>
@@ -247,7 +247,7 @@ const Login = () => {
                 {/* Help Text */}
                 <p className={`text-xs text-gray-400 text-center mt-6 ${bengaliClass}`}>
                   {language === "bn"
-                    ? "???? ???? ?????? ??? ??????? ????? ???? ??????? ????"
+                    ? "সমস্যা হচ্ছে? আমাদের সাপোর্ট টিমে যোগায়োগ করুন"
                     : "Having trouble? Contact our support team"}
                 </p>
               </div>

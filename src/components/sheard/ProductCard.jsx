@@ -117,9 +117,15 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                         animate={{ opacity: isHovered ? 1 : 0 }}
                         className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-all duration-300"
                     >
-                        <Link href={detailUrl} className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl">
-                            <LuEye size={20} />
-                        </Link>
+                        {disableLink ? (
+                            <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl cursor-pointer">
+                                <LuEye size={20} />
+                            </div>
+                        ) : (
+                            <Link href={detailUrl} className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl">
+                                <LuEye size={20} />
+                            </Link>
+                        )}
                     </motion.div>
                 </div>
 
@@ -133,11 +139,19 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                     </div>
 
                     {/* Title */}
-                    <Link href={detailUrl} className="mb-4 block">
-                        <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
-                            {title}
-                        </h3>
-                    </Link>
+                    {disableLink ? (
+                        <div className="mb-4 block cursor-pointer">
+                            <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
+                                {title}
+                            </h3>
+                        </div>
+                    ) : (
+                        <Link href={detailUrl} className="mb-4 block">
+                            <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
+                                {title}
+                            </h3>
+                        </Link>
+                    )}
 
                     {/* Stats Bar */}
                     <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-50 dark:border-white/5">
@@ -189,12 +203,18 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                             >
                                 {isAdded ? <LuCheck size={18} /> : <LuShoppingCart size={18} />}
                             </button>
-                            <Link
-                                href={detailUrl}
-                                className="w-10 h-10 rounded-full bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20"
-                            >
-                                <FaArrowRight size={14} />
-                            </Link>
+                            {disableLink ? (
+                                <div className="w-10 h-10 rounded-full bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20 cursor-pointer">
+                                    <FaArrowRight size={14} />
+                                </div>
+                            ) : (
+                                <Link
+                                    href={detailUrl}
+                                    className="w-10 h-10 rounded-full bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20"
+                                >
+                                    <FaArrowRight size={14} />
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>

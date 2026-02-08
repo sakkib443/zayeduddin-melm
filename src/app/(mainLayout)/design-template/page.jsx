@@ -203,13 +203,64 @@ const DesignTemplateContent = () => {
         setTimeout(() => setIsAdded(false), 2000);
     };
 
-    const handleDownload = () => {
+    const handleDownload = async () => {
         if (!user) {
             toast.error(language === 'bn' ? 'ডাউনলোড করতে আগে লগইন করুন' : 'Please login to download');
             return;
         }
+
         if (selectedTemplate?.downloadFile) {
-            window.open(selectedTemplate.downloadFile, '_blank');
+            try {
+                let downloadUrl = selectedTemplate.downloadFile;
+
+                // If it's a relative URL (starts with /api), prepend base URL
+                if (downloadUrl.startsWith('/api')) {
+                    const cleanBase = API_URL.endsWith('/api') ? API_URL.replace(/\/api$/, '') : API_URL;
+                    downloadUrl = `${cleanBase}${downloadUrl}`;
+                }
+
+                // Try to download using fetch if it's our own API, to include token
+                if (downloadUrl.includes('/api/')) {
+                    toast.loading(language === 'bn' ? 'ফাইলটি তৈরি করা হচ্ছে...' : 'Preparing file...', { id: 'download-toast' });
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(downloadUrl, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        const filename = `${selectedTemplate.title.replace(/[^a-z0-9]/gi, '_')}.zip`;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                        toast.success(language === 'bn' ? 'ডাউনলোড শুরু হয়েছে' : 'Download started', { id: 'download-toast' });
+                        return;
+                    } else if (response.status === 401) {
+                        toast.error(language === 'bn' ? 'আপনার সেশন শেষ হয়ে গেছে, দয়া করে আবার লগইন করুন' : 'Session expired, please login again', { id: 'download-toast' });
+                        return;
+                    }
+                }
+
+                // Direct link fallback
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                toast.success(language === 'bn' ? 'ডাউনলোড শুরু হচ্ছে...' : 'Download starting...');
+            } catch (error) {
+                console.error('Download error:', error);
+                window.open(selectedTemplate.downloadFile, '_blank');
+            }
         } else {
             toast.error('Download file not found');
         }
