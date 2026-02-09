@@ -15,12 +15,21 @@ export default function UserNotificationsPage() {
 
     // Fetch notifications from API
     useEffect(() => {
-        fetchNotifications();
+        const initialFetch = async () => {
+            setLoading(true);
+            await fetchNotifications();
+            setLoading(false);
+        };
+
+        initialFetch();
+
+        // Polling every 10 seconds for real-time feel
+        const interval = setInterval(fetchNotifications, 10000);
+        return () => clearInterval(interval);
     }, []);
 
     const fetchNotifications = async () => {
         try {
-            setLoading(true);
             const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/notifications/student/my-notifications`, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -32,10 +41,9 @@ export default function UserNotificationsPage() {
             }
         } catch (error) {
             console.error('Error fetching notifications:', error);
-        } finally {
-            setLoading(false);
         }
     };
+
 
     const filteredNotifications = notifications.filter(n => {
         if (filter === 'unread') return !n.isRead;

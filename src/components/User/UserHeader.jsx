@@ -27,23 +27,56 @@ const UserHeader = () => {
     const [showProfile, setShowProfile] = useState(false);
     const { toggleTheme, isDark } = useTheme();
     const [user, setUser] = useState(null);
+    const [notifications, setNotifications] = useState([]);
+    const [unreadCount, setUnreadCount] = useState(0);
+
+    const fetchNotifications = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://melm-backend.vercel.app/api'}/notifications/student/my-notifications?limit=5`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await res.json();
+            if (data.success) {
+                setNotifications(data.data || []);
+                const unread = (data.data || []).filter(n => !n.isRead).length;
+                setUnreadCount(unread);
+            }
+        } catch (error) {
+            console.error('Error fetching header notifications:', error);
+        }
+    };
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
         if (userData) {
             setUser(JSON.parse(userData));
         }
+
+        // Initial fetch
+        fetchNotifications();
+
+        // Polling every 10 seconds for real-time feel
+        const interval = setInterval(fetchNotifications, 10000);
+        return () => clearInterval(interval);
     }, []);
 
-    // Student specific notifications
-    const notifications = [
-        { id: 1, title: 'New Lesson Available', message: 'Module 5: Advanced React Patterns is now live!', time: '2 min ago', read: false, type: 'course' },
-        { id: 2, title: 'Certificate Ready', message: 'Your Web Development certificate is ready to download', time: '1 hour ago', read: false, type: 'certificate' },
-        { id: 3, title: 'Course Completed', message: 'Congratulations on completing JavaScript Basics!', time: '2 hours ago', read: true, type: 'success' },
-        { id: 4, title: 'New Resource', message: 'PDF study guide added to your enrolled course', time: '5 hours ago', read: true, type: 'resource' },
-    ];
+    const formatTime = (date) => {
+        if (!date) return '';
+        const now = new Date();
+        const notifDate = new Date(date);
+        const diffMs = now - notifDate;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
 
-    const unreadCount = notifications.filter(n => !n.read).length;
+        if (diffMins < 1) return 'Just now';
+        if (diffMins < 60) return `${diffMins} min ago`;
+        if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+        return notifDate.toLocaleDateString();
+    };
+
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -152,25 +185,33 @@ const UserHeader = () => {
                                     )}
                                 </div>
                                 <div className="max-h-80 overflow-y-auto">
-                                    {notifications.map((notif) => (
-                                        <div key={notif.id} className={`flex items-start gap-3 px-4 py-3 transition-colors cursor-pointer border-l-2 ${notif.read
-                                            ? `border-transparent ${isDark ? 'hover:bg-slate-700/50' : 'hover:bg-slate-50'}`
-                                            : `border-[#E62D26] ${isDark ? 'bg-[#E62D26]/5 hover:bg-[#E62D26]/10' : 'bg-[#E62D26]/5 hover:bg-[#E62D26]/10'}`
-                                            }`}>
-                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isDark ? 'bg-slate-700' : 'bg-gray-100'}`}>
-                                                {getNotificationIcon(notif.type)}
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className={`text-sm font-medium ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{notif.title}</p>
-                                                <p className={`text-xs truncate ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{notif.message}</p>
-                                                <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{notif.time}</p>
-                                            </div>
-                                            {!notif.read && (
-                                                <div className="w-2 h-2 rounded-full bg-[#E62D26] mt-2"></div>
-                                            )}
+                                    {notifications.length === 0 ? (
+                                        <div className="p-8 text-center">
+                                            <FiBell size={24} className="mx-auto mb-2 text-slate-400" />
+                                            <p className="text-xs text-slate-500">No new notifications</p>
                                         </div>
-                                    ))}
+                                    ) : (
+                                        notifications.map((notif) => (
+                                            <div key={notif._id} className={`flex items-start gap-3 px-4 py-3 transition-colors cursor-pointer border-l-2 ${notif.isRead
+                                                ? `border-transparent ${isDark ? 'hover:bg-slate-700/50' : 'hover:bg-slate-50'}`
+                                                : `border-[#E62D26] ${isDark ? 'bg-[#E62D26]/5 hover:bg-[#E62D26]/10' : 'bg-[#E62D26]/5 hover:bg-[#E62D26]/10'}`
+                                                }`}>
+                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-slate-700' : 'bg-gray-100'}`}>
+                                                    {getNotificationIcon(notif.type)}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className={`text-sm font-medium ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{notif.title}</p>
+                                                    <p className={`text-xs truncate ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{notif.message}</p>
+                                                    <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{formatTime(notif.createdAt)}</p>
+                                                </div>
+                                                {!notif.isRead && (
+                                                    <div className="w-2 h-2 rounded-full bg-[#E62D26] mt-2 flex-shrink-0"></div>
+                                                )}
+                                            </div>
+                                        ))
+                                    )}
                                 </div>
+
                                 <Link
                                     href="/dashboard/user/notifications"
                                     onClick={() => setShowNotifications(false)}
