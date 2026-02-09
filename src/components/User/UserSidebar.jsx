@@ -27,8 +27,10 @@ import {
     FiGlobe,
     FiShoppingBag,
     FiSettings,
-    FiHeart
+    FiHeart,
+    FiUsers
 } from 'react-icons/fi';
+
 import { useTheme } from '@/providers/ThemeProvider';
 import Logo from '../sheard/Logo';
 import { fetchMyStats } from '@/redux/enrollmentSlice';
@@ -100,10 +102,12 @@ const UserSidebar = () => {
             gradient: 'from-[#E62D26] to-[#f79952]',
             submenu: [
                 { title: 'My Courses', href: '/dashboard/user/courses', icon: FiBook, count: stats?.totalEnrolled },
+                { title: 'My Batches', href: '/dashboard/user/batches', icon: FiUsers },
                 { title: 'Live Classes', href: '/dashboard/user/live-classes', icon: FiCalendar },
                 { title: 'My Schedule', href: '/dashboard/user/schedule', icon: FiClock },
                 { title: 'Assignments', href: '/dashboard/user/assignments', icon: FiLayout },
             ],
+
         },
         {
             title: 'Achievements',

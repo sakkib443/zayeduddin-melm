@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMyDownloads } from '@/redux/downloadSlice';
 import { fetchMyEnrollments, fetchMyStats } from '@/redux/enrollmentSlice';
+import { fetchMyBatches } from '@/redux/batchSlice';
 import {
     FiBook, FiAward, FiClock, FiTrendingUp, FiArrowRight,
     FiUser, FiMail, FiPhone, FiCalendar, FiLoader,
     FiShield, FiPlay, FiStar, FiRefreshCw, FiGrid, FiExternalLink,
-    FiCheck, FiChevronRight, FiDownload, FiCode, FiGlobe, FiZap, FiTarget
+    FiCheck, FiChevronRight, FiDownload, FiCode, FiGlobe, FiZap, FiTarget,
+    FiUsers, FiVideo
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -22,6 +24,7 @@ export default function UserDashboard() {
 
     const { enrollments, stats: enrollmentStats, loading: enrollLoading } = useSelector((state) => state.enrollment);
     const { downloads, loading: downloadLoading } = useSelector((state) => state.download);
+    const { myBatches, loading: batchLoading } = useSelector((state) => state.batch);
 
     useEffect(() => {
         setHasMounted(true);
@@ -35,6 +38,7 @@ export default function UserDashboard() {
         dispatch(fetchMyEnrollments());
         dispatch(fetchMyStats());
         dispatch(fetchMyDownloads());
+        dispatch(fetchMyBatches());
     }, [dispatch]);
 
     const handleSync = () => {
@@ -42,8 +46,10 @@ export default function UserDashboard() {
         dispatch(fetchMyEnrollments());
         dispatch(fetchMyStats());
         dispatch(fetchMyDownloads());
+        dispatch(fetchMyBatches());
         setTimeout(() => setIsSyncing(false), 1000);
     };
+
 
     const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
         ? 'bg-slate-800/50 border-white/5 hover:border-[#E62D26]/20'
@@ -165,7 +171,75 @@ export default function UserDashboard() {
                 </div>
             </div>
 
+            {/* Upcoming Live Classes Notification */}
+            {myBatches && myBatches.length > 0 && myBatches.some(b => b.status === 'ongoing' || b.status === 'upcoming') && (
+                <div className={`relative overflow-hidden rounded-2xl border ${isDark
+                    ? 'bg-gradient-to-r from-emerald-900/20 to-emerald-800/10 border-emerald-500/20'
+                    : 'bg-gradient-to-r from-emerald-50 to-emerald-100/50 border-emerald-200'
+                    }`}>
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-[50px] rounded-full" />
+                    <div className="relative z-10 p-5">
+                        <div className="flex items-center gap-2 mb-3">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white shadow-md">
+                                <FiVideo size={20} />
+                            </div>
+                            <div>
+                                <h3 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                    Upcoming Live Classes
+                                </h3>
+                                <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                    Your scheduled classes from enrolled batches
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                            {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').slice(0, 3).map((batch) => (
+                                <div key={batch._id} className={`flex-1 min-w-[250px] p-4 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-white'} border ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div className="flex-1 min-w-0">
+                                            <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase mb-2 ${batch.status === 'ongoing' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-blue-500/10 text-blue-500'
+                                                }`}>
+                                                {batch.status === 'ongoing' ? '🟢 Live Now' : '🔵 Upcoming'}
+                                            </span>
+                                            <h4 className={`font-bold text-sm truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                                {batch.batchName}
+                                            </h4>
+                                            <p className={`text-xs truncate ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                {batch.course?.title || 'Course'}
+                                            </p>
+                                            {batch.schedule && batch.schedule.length > 0 && (
+                                                <p className={`text-xs mt-1 flex items-center gap-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                                    <FiClock size={10} />
+                                                    {batch.schedule[0]?.startTime} - {batch.schedule[0]?.endTime}
+                                                </p>
+                                            )}
+                                        </div>
+                                        {batch.meetingLink && batch.status === 'ongoing' && (
+                                            <a
+                                                href={batch.meetingLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="shrink-0 px-3 py-2 bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white rounded-lg text-xs font-bold shadow-md hover:scale-105 transition-all flex items-center gap-1"
+                                            >
+                                                <FiVideo size={12} />
+                                                Join
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').length > 3 && (
+                            <Link href="/dashboard/user/batches" className="inline-flex items-center gap-1 mt-3 text-xs font-bold text-emerald-500 hover:text-emerald-400">
+                                View all batches <FiArrowRight size={12} />
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            )}
+
             {/* Stats Cards */}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Enrolled Courses */}
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
@@ -251,6 +325,108 @@ export default function UserDashboard() {
                     <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E62D26] to-[#f79952] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
             </div>
+
+            {/* My Batches Section */}
+            {myBatches && myBatches.length > 0 && (
+                <div className={`${cardClass} overflow-hidden`}>
+                    <div className={`flex items-center justify-between p-5 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
+                        <h2 className={`font-bold flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                            <FiUsers size={18} className="text-[#E62D26]" />
+                            My Batches
+                        </h2>
+                        <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-[#E62D26]/10 text-[#E62D26]' : 'bg-[#E62D26]/10 text-[#E62D26]'}`}>
+                            {myBatches.length} Batch
+                        </span>
+                    </div>
+                    <div className="divide-y divide-slate-100 dark:divide-white/5">
+                        {myBatches.map((batch) => (
+                            <div key={batch._id} className={`p-5 transition-colors ${isDark ? 'hover:bg-slate-800/30' : 'hover:bg-slate-50'}`}>
+                                <div className="flex flex-col md:flex-row md:items-start gap-4">
+                                    {/* Batch Info */}
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${batch.status === 'ongoing' ? 'bg-emerald-500/10 text-emerald-500' :
+                                                batch.status === 'upcoming' ? 'bg-blue-500/10 text-blue-500' :
+                                                    batch.status === 'completed' ? 'bg-slate-500/10 text-slate-500' :
+                                                        'bg-red-500/10 text-red-500'
+                                                }`}>
+                                                {batch.status === 'ongoing' ? '🟢 Ongoing' :
+                                                    batch.status === 'upcoming' ? '🔵 Upcoming' :
+                                                        batch.status === 'completed' ? '⚫ Completed' : '🔴 Cancelled'}
+                                            </span>
+                                        </div>
+                                        <h3 className={`font-bold text-lg mb-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                            {batch.batchName}
+                                        </h3>
+                                        <p className={`text-sm mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                            <span className="font-semibold">Course:</span> {batch.course?.title || 'N/A'}
+                                        </p>
+
+                                        {/* Schedule */}
+                                        {batch.schedule && batch.schedule.length > 0 && (
+                                            <div className={`mb-3 p-3 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-slate-50'}`}>
+                                                <p className={`text-xs font-bold uppercase mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                    <FiCalendar size={12} className="inline mr-1" /> Class Schedule
+                                                </p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {batch.schedule.map((sch, idx) => (
+                                                        <span key={idx} className={`text-xs px-2 py-1 rounded-md ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-white text-slate-600 border border-slate-200'}`}>
+                                                            {sch.day === 'saturday' && 'Saturday'}
+                                                            {sch.day === 'sunday' && 'Sunday'}
+                                                            {sch.day === 'monday' && 'Monday'}
+                                                            {sch.day === 'tuesday' && 'Tuesday'}
+                                                            {sch.day === 'wednesday' && 'Wednesday'}
+                                                            {sch.day === 'thursday' && 'Thursday'}
+                                                            {sch.day === 'friday' && 'Friday'}
+                                                            {' '}{sch.startTime} - {sch.endTime}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Date Range */}
+                                        <div className="flex flex-wrap gap-4 text-xs">
+                                            <span className={`flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                <FiClock size={12} /> Starts: {batch.startDate ? new Date(batch.startDate).toLocaleDateString() : 'N/A'}
+                                            </span>
+                                            <span className={`flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                                <FiClock size={12} /> Ends: {batch.endDate ? new Date(batch.endDate).toLocaleDateString() : 'N/A'}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex flex-col gap-2 shrink-0">
+                                        {batch.meetingLink && batch.status === 'ongoing' && (
+                                            <a
+                                                href={batch.meetingLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
+                                            >
+                                                <FiVideo size={16} />
+                                                Join Live Class
+                                            </a>
+                                        )}
+                                        <Link
+                                            href={`/learn/${batch.course?._id}`}
+                                            className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${isDark
+                                                ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
+                                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                                }`}
+                                        >
+                                            <FiPlay size={14} />
+                                            View Course
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Continue Learning Section */}

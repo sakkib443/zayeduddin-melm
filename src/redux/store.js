@@ -7,6 +7,7 @@ import cartReducer from "./cartSlice";
 import orderReducer from "./orderSlice";
 import downloadReducer from "./downloadSlice";
 import enrollmentReducer from "./enrollmentSlice";
+import batchReducer from "./batchSlice";
 
 import designTemplateReducer from "./designTemplateSlice";
 import reviewReducer from "./reviewSlice";
@@ -23,10 +24,12 @@ export default configureStore({
     order: orderReducer,
     download: downloadReducer,
     enrollment: enrollmentReducer,
+    batch: batchReducer,
     reviews: reviewReducer,
     blogs: blogReducer,
   },
 });
+
 
 
 
