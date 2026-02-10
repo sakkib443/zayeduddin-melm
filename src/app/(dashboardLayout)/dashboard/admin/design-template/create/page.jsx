@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -494,7 +494,7 @@ function CreateDesignTemplateContent() {
             {Object.keys(serverErrors).length > 0 && (
               <ul className="mt-2 text-xs text-red-600 dark:text-red-300 space-y-1">
                 {Object.entries(serverErrors).map(([field, message]) => (
-                  <li key={field}>• <strong>{field}:</strong> {message}</li>
+                  <li key={field}>â€¢ <strong>{field}:</strong> {message}</li>
                 ))}
               </ul>
             )}
@@ -638,7 +638,7 @@ function CreateDesignTemplateContent() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className={labelStyle('price')} style={{ fontSize: '11px' }}>Price (৳) *</label>
+                  <label className={labelStyle('price')} style={{ fontSize: '11px' }}>Price (à§³) *</label>
                   <input
                     type="number"
                     {...register('price')}
@@ -653,7 +653,7 @@ function CreateDesignTemplateContent() {
                   )}
                 </div>
                 <div>
-                  <label className={labelStyle('offerPrice')} style={{ fontSize: '11px' }}>Offer Price (৳)</label>
+                  <label className={labelStyle('offerPrice')} style={{ fontSize: '11px' }}>Offer Price (à§³)</label>
                   <input
                     type="number"
                     {...register('offerPrice')}
@@ -749,45 +749,96 @@ function CreateDesignTemplateContent() {
                 )}
               </div>
 
-              {/* Download File Upload */}
+              {/* Download File - Link or Upload */}
               <div>
-                <label className={labelStyle('downloadFile')} style={{ fontSize: '11px' }}>Download File (ZIP/RAR) *</label>
+                <label className={labelStyle('downloadFile')} style={{ fontSize: '11px' }}>Download File (Google Drive Link / Upload) *</label>
                 <div className={`mt-2 border-2 border-dashed rounded-lg p-4 ${isDark ? 'border-slate-600 bg-slate-800/50' : 'border-gray-300 bg-gray-50'}`}>
                   {downloadFileUrl ? (
                     <div className={`flex items-center justify-between p-3 rounded-md ${isDark ? 'bg-emerald-500/10 border border-emerald-500/30' : 'bg-emerald-50 border border-emerald-200'}`}>
-                      <div className="flex items-center gap-2">
-                        <FiCheck className="text-emerald-500" size={18} />
-                        <span className={`text-sm ${isDark ? 'text-emerald-400' : 'text-emerald-700'}`}>File uploaded successfully</span>
+                      <div className="flex items-center gap-2 min-w-0 flex-1">
+                        <FiCheck className="text-emerald-500 shrink-0" size={18} />
+                        <span className={`text-sm truncate ${isDark ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                          {downloadFileUrl.includes('drive.google.com') ? 'âœ… Google Drive Link Added' : 'âœ… File ready'}
+                        </span>
                       </div>
                       <button
                         type="button"
                         onClick={() => { setDownloadFileUrl(''); setValue('downloadFile', ''); }}
-                        className="text-red-500 hover:text-red-600 text-xs"
+                        className="text-red-500 hover:text-red-600 text-xs shrink-0 ml-2"
                       >
                         Remove
                       </button>
                     </div>
-                  ) : uploadingDownloadFile ? (
-                    <div className="flex items-center justify-center gap-2 py-4">
-                      <FiLoader className="animate-spin text-blue-500" size={20} />
-                      <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Uploading file...</span>
-                    </div>
                   ) : (
-                    <label className="flex flex-col items-center cursor-pointer py-4">
-                      <input
-                        type="file"
-                        accept=".zip,.rar,.7z,.tar,.gz"
-                        onChange={(e) => e.target.files?.[0] && uploadDownloadFileToCloudinary(e.target.files[0])}
-                        className="hidden"
-                      />
-                      <FiLayers className={`${isDark ? 'text-slate-500' : 'text-gray-400'}`} size={28} />
-                      <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
-                        <span className="text-blue-500 font-semibold">Click to upload</span> template file
-                      </p>
-                      <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
-                        ZIP, RAR, 7z up to 100MB
-                      </p>
-                    </label>
+                    <div className="space-y-3">
+                      {/* Google Drive Link Input */}
+                      <div>
+                        <p className={`text-xs font-medium mb-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+                          ðŸ“Ž Paste Google Drive / Download Link:
+                        </p>
+                        <div className="flex gap-2">
+                          <input
+                            type="url"
+                            placeholder="https://drive.google.com/file/d/xxxxx/view?usp=sharing"
+                            className={`${inputStyle('downloadFile')} flex-1 text-xs`}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                const url = e.target.value.trim();
+                                if (url) {
+                                  setDownloadFileUrl(url);
+                                  setValue('downloadFile', url);
+                                }
+                              }
+                            }}
+                            id="driveLink"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const url = document.getElementById('driveLink')?.value?.trim();
+                              if (url) {
+                                setDownloadFileUrl(url);
+                                setValue('downloadFile', url);
+                              }
+                            }}
+                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-md font-medium transition-colors shrink-0"
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className={`flex items-center gap-3 ${isDark ? 'text-slate-600' : 'text-gray-300'}`}>
+                        <div className="flex-1 h-px bg-current"></div>
+                        <span className="text-xs font-medium">OR</span>
+                        <div className="flex-1 h-px bg-current"></div>
+                      </div>
+
+                      {/* File Upload */}
+                      {uploadingDownloadFile ? (
+                        <div className="flex items-center justify-center gap-2 py-4">
+                          <FiLoader className="animate-spin text-blue-500" size={20} />
+                          <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Uploading file...</span>
+                        </div>
+                      ) : (
+                        <label className="flex flex-col items-center cursor-pointer py-3">
+                          <input
+                            type="file"
+                            accept=".zip,.rar,.7z,.tar,.gz"
+                            onChange={(e) => e.target.files?.[0] && uploadDownloadFileToCloudinary(e.target.files[0])}
+                            className="hidden"
+                          />
+                          <FiLayers className={`${isDark ? 'text-slate-500' : 'text-gray-400'}`} size={24} />
+                          <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+                            <span className="text-blue-500 font-semibold">Upload file</span> directly
+                          </p>
+                          <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
+                            ZIP, RAR, 7z up to 100MB
+                          </p>
+                        </label>
+                      )}
+                    </div>
                   )}
                 </div>
                 {(errors.downloadFile || serverErrors.downloadFile) && (
@@ -796,35 +847,35 @@ function CreateDesignTemplateContent() {
                   </p>
                 )}
               </div>
-            </div>
-          </div>
-
-          {/* Status */}
-          <div className={cardClass}>
-            <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiSettings size={16} className="text-amber-500" /> Status
-            </h2>
-            <div>
-              <label className={labelStyle('status')} style={{ fontSize: '11px' }}>Listing Status</label>
-              <select {...register('status')} className={inputStyle('status')}>
-                <option value="approved">Live / Approved</option>
-                <option value="pending">Pending Review</option>
-                <option value="draft">Draft</option>
-                <option value="rejected">Rejected</option>
-              </select>
-              {(errors.status || serverErrors.status) && (
-                <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                  <FiAlertCircle size={12} /> {getError('status')}
-                </p>
-              )}
-            </div>
-            <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'} mt-3`}>
-              Templates marked as Live will be visible to customers.
-            </p>
           </div>
         </div>
-      </form>
+
+        {/* Status */}
+        <div className={cardClass}>
+          <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
+            <FiSettings size={16} className="text-amber-500" /> Status
+          </h2>
+          <div>
+            <label className={labelStyle('status')} style={{ fontSize: '11px' }}>Listing Status</label>
+            <select {...register('status')} className={inputStyle('status')}>
+              <option value="approved">Live / Approved</option>
+              <option value="pending">Pending Review</option>
+              <option value="draft">Draft</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            {(errors.status || serverErrors.status) && (
+              <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                <FiAlertCircle size={12} /> {getError('status')}
+              </p>
+            )}
+          </div>
+          <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'} mt-3`}>
+            Templates marked as Live will be visible to customers.
+          </p>
+        </div>
     </div>
+      </form >
+    </div >
   );
 }
 

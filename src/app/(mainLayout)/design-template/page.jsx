@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { API_URL } from '@/config/api';
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
@@ -204,65 +204,61 @@ const DesignTemplateContent = () => {
     };
 
     const handleDownload = async () => {
+        if (!selectedTemplate) {
+            toast.error('No template selected');
+            return;
+        }
+
+        // For free templates - direct download without login
+        if (selectedTemplate.accessType === 'free') {
+            const fileUrl = selectedTemplate.downloadFile;
+            if (!fileUrl) {
+                toast.error(language === 'bn' ? 'ডাউনলোড ফাইল পাওয়া যায়নি' : 'Download file not available');
+                return;
+            }
+
+            let downloadUrl = fileUrl;
+
+            // Convert Google Drive share link to direct download link
+            // Share link: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+            // Direct link: https://drive.google.com/uc?export=download&id=FILE_ID
+            if (fileUrl.includes('drive.google.com')) {
+                const fileIdMatch = fileUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (fileIdMatch && fileIdMatch[1]) {
+                    downloadUrl = `https://drive.google.com/uc?export=download&id=${fileIdMatch[1]}`;
+                }
+            }
+
+            // Open download in new tab
+            window.open(downloadUrl, '_blank');
+            toast.success(language === 'bn' ? 'ডাউনলোড শুরু হয়েছে!' : 'Download started!');
+            return;
+        }
+
+        // For paid templates - require login and use backend API
         if (!user) {
             toast.error(language === 'bn' ? 'ডাউনলোড করতে আগে লগইন করুন' : 'Please login to download');
             return;
         }
 
-        if (selectedTemplate?.downloadFile) {
-            try {
-                let downloadUrl = selectedTemplate.downloadFile;
+        try {
+            toast.loading(language === 'bn' ? 'ফাইলটি তৈরি করা হচ্ছে...' : 'Preparing file...', { id: 'download-toast' });
+            const token = localStorage.getItem('token');
 
-                // If it's a relative URL (starts with /api), prepend base URL
-                if (downloadUrl.startsWith('/api')) {
-                    const cleanBase = API_URL.endsWith('/api') ? API_URL.replace(/\/api$/, '') : API_URL;
-                    downloadUrl = `${cleanBase}${downloadUrl}`;
-                }
+            const response = await fetch(`${API_URL}/design-templates/${selectedTemplate._id}/download`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await response.json();
 
-                // Try to download using fetch if it's our own API, to include token
-                if (downloadUrl.includes('/api/')) {
-                    toast.loading(language === 'bn' ? 'ফাইলটি তৈরি করা হচ্ছে...' : 'Preparing file...', { id: 'download-toast' });
-                    const token = localStorage.getItem('token');
-                    const response = await fetch(downloadUrl, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-
-                    if (response.ok) {
-                        const blob = await response.blob();
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        const filename = `${selectedTemplate.title.replace(/[^a-z0-9]/gi, '_')}.zip`;
-                        a.download = filename;
-                        document.body.appendChild(a);
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                        document.body.removeChild(a);
-                        toast.success(language === 'bn' ? 'ডাউনলোড শুরু হয়েছে' : 'Download started', { id: 'download-toast' });
-                        return;
-                    } else if (response.status === 401) {
-                        toast.error(language === 'bn' ? 'আপনার সেশন শেষ হয়ে গেছে, দয়া করে আবার লগইন করুন' : 'Session expired, please login again', { id: 'download-toast' });
-                        return;
-                    }
-                }
-
-                // Direct link fallback
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                link.setAttribute('target', '_blank');
-                link.setAttribute('rel', 'noopener noreferrer');
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                toast.success(language === 'bn' ? 'ডাউনলোড শুরু হচ্ছে...' : 'Download starting...');
-            } catch (error) {
-                console.error('Download error:', error);
-                window.open(selectedTemplate.downloadFile, '_blank');
+            if (data.success && data.redirectUrl) {
+                window.open(data.redirectUrl, '_blank');
+                toast.success(language === 'bn' ? 'ডাউনলোড শুরু হয়েছে' : 'Download started!', { id: 'download-toast' });
+            } else {
+                toast.error(language === 'bn' ? 'ফাইল পাওয়া যায়নি' : 'File not found', { id: 'download-toast' });
             }
-        } else {
-            toast.error('Download file not found');
+        } catch (error) {
+            console.error('Download error:', error);
+            toast.error(language === 'bn' ? 'ডাউনলোড করতে সমস্যা হয়েছে' : 'Download failed', { id: 'download-toast' });
         }
     };
 
@@ -333,11 +329,11 @@ const DesignTemplateContent = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <h1 className={`text-4xl md:text-[50px] font-bold text-[#300000] mb-4 ${bengaliClass}`}>
-                            {language === 'bn' ? 'গ্রাফিক টেম্পলেট' : 'Graphic Templates'}
+                            {language === 'bn' ? 'à¦—à§à¦°à¦¾à¦«à¦¿à¦• à¦Ÿà§‡à¦®à§à¦ªà¦²à§‡à¦Ÿ' : 'Graphic Templates'}
                         </h1>
                         <p className={`text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10 ${bengaliClass}`}>
                             {language === 'bn'
-                                ? 'আপনার সৃজনশীল প্রজেক্টের জন্য প্রিমিয়াম গ্রাফিক্স এবং UI/UX টেমপ্লেট।'
+                                ? 'à¦†à¦ªà¦¨à¦¾à¦° à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦² à¦ªà§à¦°à¦œà§‡à¦•à§à¦Ÿà§‡à¦° à¦œà¦¨à§à¦¯ à¦ªà§à¦°à¦¿à¦®à¦¿à¦¯à¦¼à¦¾à¦® à¦—à§à¦°à¦¾à¦«à¦¿à¦•à§à¦¸ à¦à¦¬à¦‚ UI/UX à¦Ÿà§‡à¦®à¦ªà§à¦²à§‡à¦Ÿà¥¤'
                                 : 'Premium graphics and UI/UX templates for your creative projects.'}
                         </p>
 
@@ -349,7 +345,7 @@ const DesignTemplateContent = () => {
                                     type="text"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    placeholder={language === 'bn' ? 'ডিজাইন খুঁজুন...' : 'Search design...'}
+                                    placeholder={language === 'bn' ? 'à¦¡à¦¿à¦œà¦¾à¦‡à¦¨ à¦–à§à¦à¦œà§à¦¨...' : 'Search design...'}
                                     className="w-full pl-16 pr-8 py-5 md:py-6 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-full shadow-lg shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white"
                                 />
                             </div>
@@ -366,7 +362,7 @@ const DesignTemplateContent = () => {
                                         }`}
                                 >
                                     <LuGrid3X3 size={14} />
-                                    <span>{language === 'bn' ? 'সব' : 'All'}</span>
+                                    <span>{language === 'bn' ? 'à¦¸à¦¬' : 'All'}</span>
                                     <span className={`w-6 h-6 flex items-center justify-center rounded-full text-[10px] ${selectedCategory === "all" ? "bg-white/20" : "bg-slate-200 dark:bg-white/10"}`}>{templates.length}</span>
                                 </button>
 
@@ -394,7 +390,7 @@ const DesignTemplateContent = () => {
                                         onChange={(e) => setSelectedTool(e.target.value)}
                                         className="appearance-none pl-12 pr-10 py-2.5 bg-slate-50 dark:bg-white/5 text-slate-500 rounded-full text-xs font-bold hover:bg-slate-100 transition-all outline-none cursor-pointer border-none ring-0 focus:ring-1 focus:ring-[#300000]/20"
                                     >
-                                        <option value="all">{language === 'bn' ? 'সব টুলস' : 'All Tools'}</option>
+                                        <option value="all">{language === 'bn' ? 'à¦¸à¦¬ à¦Ÿà§à¦²à¦¸' : 'All Tools'}</option>
                                         {DESIGN_TOOLS_OPTIONS.map(tool => (
                                             <option key={tool} value={tool}>{tool}</option>
                                         ))}
@@ -404,7 +400,7 @@ const DesignTemplateContent = () => {
 
                                 <div className="relative group">
                                     <button className="flex items-center gap-3 px-6 py-2.5 bg-slate-50 dark:bg-white/5 text-slate-500 rounded-full text-xs font-bold hover:bg-slate-100 transition-all">
-                                        <span>{language === 'bn' ? 'জনপ্রিয়' : 'Most Popular'}</span>
+                                        <span>{language === 'bn' ? 'à¦œà¦¨à¦ªà§à¦°à¦¿à§Ÿ' : 'Most Popular'}</span>
                                         <LuChevronDown size={14} />
                                     </button>
                                 </div>
@@ -744,11 +740,11 @@ const DesignTemplateContent = () => {
                                         ) : (
                                             <>
                                                 <div className={`text-base font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                    ৳{currentPrice?.toLocaleString()}
+                                                    à§³{currentPrice?.toLocaleString()}
                                                 </div>
                                                 {hasDiscount && (
                                                     <div className="text-[10px] text-gray-400 line-through">
-                                                        ৳{selectedTemplate.price?.toLocaleString()}
+                                                        à§³{selectedTemplate.price?.toLocaleString()}
                                                     </div>
                                                 )}
                                             </>
@@ -780,8 +776,8 @@ const DesignTemplateContent = () => {
                                         <span className="text-lg font-bold text-green-500">Free</span>
                                     ) : (
                                         <>
-                                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>৳{currentPrice?.toLocaleString()}</span>
-                                            {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">৳{selectedTemplate.price?.toLocaleString()}</span>}
+                                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>à§³{currentPrice?.toLocaleString()}</span>
+                                            {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">à§³{selectedTemplate.price?.toLocaleString()}</span>}
                                         </>
                                     )}
                                 </div>
