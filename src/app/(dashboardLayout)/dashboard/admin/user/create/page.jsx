@@ -3,7 +3,7 @@ import { API_URL, API_BASE_URL, API_URL as BASE_URL } from '@/config/api';
 
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
     FiUser, FiArrowLeft, FiSave, FiMail, FiPhone, FiLock, FiUserCheck, FiMapPin, FiGlobe
 } from 'react-icons/fi';
@@ -22,26 +22,68 @@ const countryCodes = [
     { code: '+86', country: 'CN' },
 ];
 
+const initialFormData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    countryCode: '+880',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    role: 'student',
+    status: 'active',
+    address: '',
+    postalCode: '',
+    country: 'Bangladesh',
+    state: '',
+    city: '',
+    gender: '',
+    aboutStudent: '',
+};
+
 export default function CreateUserPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const editId = searchParams.get('edit');
+    const isEditMode = !!editId;
+
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        countryCode: '+880',
-        phone: '',
-        password: '',
-        confirmPassword: '',
-        role: 'student',
-        address: '',
-        postalCode: '',
-        country: 'Bangladesh',
-        state: '',
-        city: '',
-        gender: '',
-        aboutStudent: '',
-    });
+    const [fetching, setFetching] = useState(false);
+    const [formData, setFormData] = useState(initialFormData);
+
+    // Fetch user data if in edit mode
+    React.useEffect(() => {
+        if (isEditMode && editId) {
+            const fetchUser = async () => {
+                setFetching(true);
+                const token = localStorage.getItem('token');
+                try {
+                    const res = await fetch(`${BASE_URL}/users/admin/all`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const data = await res.json();
+                    if (data.success && data.data) {
+                        const user = data.data.find(u => u._id === editId);
+                        if (user) {
+                            setFormData({
+                                ...initialFormData,
+                                ...user,
+                                password: '', // Keep password empty by default on edit
+                                confirmPassword: '',
+                                status: user.status || 'active',
+                                role: user.role || 'student'
+                            });
+                        }
+                    }
+                } catch (err) {
+                    console.error('Fetch user error:', err);
+                } finally {
+                    setFetching(false);
+                }
+            };
+            fetchUser();
+        }
+    }, [isEditMode, editId]);
 
 
 
@@ -53,56 +95,83 @@ export default function CreateUserPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (formData.password !== formData.confirmPassword) {
-            alert('Passwords do not match!');
-            return;
-        }
+        // Validation for creation
+        if (!isEditMode) {
+            if (formData.password !== formData.confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
 
-        // Validate strong password
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if (!passwordRegex.test(formData.password)) {
-            alert('Password must be at least 8 characters and contain uppercase, lowercase, number, and special character (@$!%*?&)');
-            return;
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(formData.password)) {
+                alert('Password must be at least 8 characters and contain uppercase, lowercase, number, and special character (@$!%*?&)');
+                return;
+            }
+        } else {
+            // Password logic for edit: only validate if user starts typing a new password
+            if (formData.password) {
+                if (formData.password !== formData.confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                if (!passwordRegex.test(formData.password)) {
+                    alert('Password must be at least 8 characters and contain uppercase, lowercase, number, and special character (@$!%*?&)');
+                    return;
+                }
+            }
         }
 
         setLoading(true);
 
         try {
             const token = localStorage.getItem('token');
-            // Use auth/register endpoint for creating users
-            const res = await fetch(`${BASE_URL}/auth/register`, {
-                method: 'POST',
+            const url = isEditMode
+                ? `${BASE_URL}/users/admin/${editId}`
+                : `${BASE_URL}/auth/register`;
+
+            const method = isEditMode ? 'PATCH' : 'POST';
+
+            const payload = {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                countryCode: formData.countryCode,
+                phone: formData.phone,
+                role: formData.role,
+                status: formData.status,
+                address: formData.address,
+                postalCode: formData.postalCode,
+                country: formData.country,
+                state: formData.state,
+                city: formData.city,
+                gender: formData.gender,
+                aboutStudent: formData.aboutStudent,
+            };
+
+            // Only send password if it's being set/changed
+            if (formData.password) {
+                payload.password = formData.password;
+            }
+
+            const res = await fetch(url, {
+                method: method,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    email: formData.email,
-                    countryCode: formData.countryCode,
-                    phone: formData.phone,
-                    password: formData.password,
-                    role: formData.role,
-                    address: formData.address,
-                    postalCode: formData.postalCode,
-                    country: formData.country,
-                    state: formData.state,
-                    city: formData.city,
-                    gender: formData.gender,
-                    aboutStudent: formData.aboutStudent,
-                })
+                body: JSON.stringify(payload)
             });
 
             if (res.ok) {
                 router.push('/dashboard/admin/user');
             } else {
                 const error = await res.json();
-                alert(error.message || 'Failed to create user');
+                alert(error.message || `Failed to ${isEditMode ? 'update' : 'create'} user`);
             }
         } catch (err) {
-            console.error('Create error:', err);
-            alert('Error creating user');
+            console.error('Submit error:', err);
+            alert(`Error ${isEditMode ? 'updating' : 'creating'} user`);
         } finally {
             setLoading(false);
         }
@@ -119,8 +188,12 @@ export default function CreateUserPage() {
                     <FiArrowLeft size={20} className="text-slate-600 dark:text-slate-300" />
                 </button>
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Create New User</h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Add a new user to the platform</p>
+                    <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
+                        {isEditMode ? 'Edit User' : 'Create New User'}
+                    </h1>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                        {isEditMode ? `Updating information for user ${editId}` : 'Add a new user to the platform'}
+                    </p>
                 </div>
             </div>
 
@@ -206,8 +279,8 @@ export default function CreateUserPage() {
                     </div>
                 </div>
 
-                {/* Role & Gender */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Role, Status & Gender */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">User Role *</label>
                         <div className="relative">
@@ -224,6 +297,20 @@ export default function CreateUserPage() {
                                 <option value="admin">Admin</option>
                             </select>
                         </div>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Account Status *</label>
+                        <select
+                            name="status"
+                            value={formData.status}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                        >
+                            <option value="active">Active</option>
+                            <option value="blocked">Blocked</option>
+                            <option value="pending">Pending</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Gender</label>
@@ -346,15 +433,13 @@ export default function CreateUserPage() {
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                required
-                                minLength={8}
-                                placeholder="Strong password"
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                                placeholder={isEditMode ? "Leave blank to keep current" : "Strong password"}
+                                className={`w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all ${isEditMode ? 'bg-slate-50 dark:bg-slate-800' : ''}`}
                             />
                         </div>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Confirm Password *</label>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Confirm Password {isEditMode ? '' : '*'}</label>
                         <div className="relative">
                             <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input
@@ -362,9 +447,9 @@ export default function CreateUserPage() {
                                 name="confirmPassword"
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
-                                required
-                                placeholder="Re-enter password"
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                                required={!isEditMode}
+                                placeholder={isEditMode ? "Leave blank to keep current" : "Re-enter password"}
+                                className={`w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all ${isEditMode ? 'bg-slate-50 dark:bg-slate-800' : ''}`}
                             />
                         </div>
                     </div>
@@ -381,11 +466,11 @@ export default function CreateUserPage() {
                     </button>
                     <button
                         type="submit"
-                        disabled={loading}
+                        disabled={loading || fetching}
                         className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all disabled:opacity-50"
                     >
                         <FiSave size={18} />
-                        {loading ? 'Creating...' : 'Create User'}
+                        {loading ? (isEditMode ? 'Updating...' : 'Creating...') : (isEditMode ? 'Update User' : 'Create User')}
                     </button>
                 </div>
             </form>

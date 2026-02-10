@@ -1,21 +1,17 @@
 'use client';
-import { API_URL, API_BASE_URL } from '@/config/api';
-
-
+import { API_URL } from '@/config/api';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
-  FiSearch, FiUsers, FiTrash2, FiPlus, FiCalendar, FiLoader, FiCheck, FiX, FiRefreshCw
+  FiSearch, FiUsers, FiTrash2, FiPlus, FiCalendar, FiLoader, FiCheck, FiRefreshCw, FiEdit3, FiX
 } from 'react-icons/fi';
-
-
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [editingUser, setEditingUser] = useState(null);
-  const [editData, setEditData] = useState({});
+  const router = useRouter();
 
   const fetchUsers = async () => {
     const token = localStorage.getItem('token');
@@ -37,31 +33,8 @@ const UserManagement = () => {
 
   useEffect(() => { fetchUsers(); }, []);
 
-  const handleEdit = (user) => {
-    setEditingUser(user._id);
-    setEditData({ role: user.role, status: user.status });
-  };
-
-  const handleSave = async (userId) => {
-    const token = localStorage.getItem('token');
-    try {
-      const res = await fetch(`${API_URL}/users/admin/${userId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(editData),
-      });
-      if (res.ok) {
-        setEditingUser(null);
-        fetchUsers();
-      } else {
-        alert('Failed to update');
-      }
-    } catch (err) {
-      alert('Error updating');
-    }
+  const handleEdit = (id) => {
+    router.push(`/dashboard/admin/user/create?edit=${id}`);
   };
 
   const handleDelete = async (userId) => {
@@ -148,25 +121,7 @@ const UserManagement = () => {
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.total}</span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Total Users</p>
-        </div>
-        <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-              <FiUsers className="text-white" size={14} />
-            </div>
-            <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.students}</span>
-          </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Students</p>
-        </div>
-        <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-rose-500 rounded-md flex items-center justify-center">
-              <FiUsers className="text-white" size={14} />
-            </div>
-            <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.admins}</span>
-          </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Admins</p>
+          <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Users</p>
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
@@ -175,25 +130,41 @@ const UserManagement = () => {
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.active}</span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Active</p>
+          <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Users</p>
         </div>
-      </div>
-
-      {/* Search */}
-      <div className="flex flex-col md:flex-row md:items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-md border border-slate-200 dark:border-slate-700">
-        <div className="relative flex-1">
-          <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-          <input
-            placeholder="Search users..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 focus:border-indigo-400 outline-none text-sm transition-all"
-          />
+        <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+              <FiUsers className="text-white" size={14} />
+            </div>
+            <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.students}</span>
+          </div>
+          <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Students</p>
+        </div>
+        <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-8 h-8 bg-rose-500 rounded-md flex items-center justify-center">
+              <FiX className="text-white" size={14} />
+            </div>
+            <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.total - stats.active}</span>
+          </div>
+          <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Inactive/Blocked</p>
         </div>
       </div>
 
       {/* Table */}
       <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 overflow-hidden">
+        <div className="p-4 border-b border-slate-100 dark:border-slate-700">
+          <div className="relative max-w-sm">
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+            <input
+              placeholder="Search by name or email..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 focus:border-indigo-400 outline-none text-xs transition-all"
+            />
+          </div>
+        </div>
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <FiLoader className="animate-spin text-indigo-500" size={28} />
@@ -234,38 +205,14 @@ const UserManagement = () => {
                       <span className="text-sm text-slate-600 dark:text-slate-300">{user.email}</span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      {editingUser === user._id ? (
-                        <select
-                          value={editData.role}
-                          onChange={(e) => setEditData({ ...editData, role: e.target.value })}
-                          className="px-2 py-1 rounded-md border border-slate-300 dark:border-slate-600 dark:bg-slate-700 text-xs focus:border-indigo-500 outline-none"
-                        >
-                          <option value="student">Student</option>
-                          <option value="mentor">Mentor</option>
-                          <option value="admin">Admin</option>
-                        </select>
-                      ) : (
-                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getRoleBadge(user.role)}`}>
-                          {user.role?.toUpperCase()}
-                        </span>
-                      )}
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getRoleBadge(user.role)}`}>
+                        {user.role?.toUpperCase()}
+                      </span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      {editingUser === user._id ? (
-                        <select
-                          value={editData.status}
-                          onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-                          className="px-2 py-1 rounded-md border border-slate-300 dark:border-slate-600 dark:bg-slate-700 text-xs focus:border-indigo-500 outline-none"
-                        >
-                          <option value="active">Active</option>
-                          <option value="pending">Pending</option>
-                          <option value="blocked">Blocked</option>
-                        </select>
-                      ) : (
-                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getStatusBadge(user.status)}`}>
-                          {user.status?.toUpperCase()}
-                        </span>
-                      )}
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getStatusBadge(user.status)}`}>
+                        {user.status?.toUpperCase()}
+                      </span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
@@ -273,39 +220,22 @@ const UserManagement = () => {
                         {user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }) : 'N/A'}
                       </div>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-center">
                       <div className="flex items-center justify-center gap-1">
-                        {editingUser === user._id ? (
-                          <>
-                            <button
-                              onClick={() => handleSave(user._id)}
-                              className="p-1.5 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition-colors"
-                            >
-                              <FiCheck size={14} />
-                            </button>
-                            <button
-                              onClick={() => setEditingUser(null)}
-                              className="p-1.5 bg-slate-400 text-white rounded-md hover:bg-slate-500 transition-colors"
-                            >
-                              <FiX size={14} />
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              onClick={() => handleEdit(user)}
-                              className="px-2 py-1 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-500/30 transition-colors"
-                            >
-                              Edit
-                            </button>
-                            <button
-                              onClick={() => handleDelete(user._id)}
-                              className="p-1.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-md transition-colors"
-                            >
-                              <FiTrash2 size={14} />
-                            </button>
-                          </>
-                        )}
+                        <button
+                          onClick={() => handleEdit(user._id)}
+                          className="p-1.5 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-md hover:bg-indigo-500 hover:text-white transition-all shadow-sm"
+                          title="Edit User"
+                        >
+                          <FiEdit3 size={14} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(user._id)}
+                          className="p-1.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-md transition-colors"
+                          title="Delete User"
+                        >
+                          <FiTrash2 size={14} />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -320,4 +250,3 @@ const UserManagement = () => {
 };
 
 export default UserManagement;
-

@@ -272,28 +272,29 @@ function CreateDesignTemplateContent() {
           if (data.data) {
             const sw = data.data;
             setSelectedTools(sw.designTools || []);
-            // Set uploaded images and download file for the new upload UI
             setUploadedImages(sw.images || []);
             setDownloadFileUrl(sw.downloadFile || '');
+            setSelectedTools(sw.designTools || []);
+
             reset({
-              title: sw.title || '',
+              ...sw,
               category: sw.category?._id || sw.category || '',
-              designTools: sw.designTools || [],
-              templateType: sw.templateType || 'Website Template',
-              accessType: sw.accessType || 'paid',
-              price: sw.price || 0,
-              offerPrice: sw.offerPrice || null,
-              licenseType: sw.licenseType || 'regular',
-              regularLicensePrice: sw.regularLicensePrice || 0,
-              extendedLicensePrice: sw.extendedLicensePrice || null,
-              description: sw.description || '',
-              longDescription: sw.longDescription || '',
-              images: sw.images || [],
-              previewUrl: sw.previewUrl || '',
-              downloadFile: sw.downloadFile || '',
-              documentationUrl: sw.documentationUrl || '',
-              status: sw.status || 'approved',
-              isFeatured: sw.isFeatured || false,
+              // Ensure these are explicitly set even if spread has them
+              title: sw.title,
+              templateType: sw.templateType,
+              accessType: sw.accessType,
+              price: sw.price,
+              offerPrice: sw.offerPrice,
+              description: sw.description,
+              longDescription: sw.longDescription,
+              status: sw.status,
+              isFeatured: sw.isFeatured,
+              previewUrl: sw.previewUrl,
+              downloadFile: sw.downloadFile,
+              documentationUrl: sw.documentationUrl,
+              licenseType: sw.licenseType,
+              regularLicensePrice: sw.regularLicensePrice,
+              extendedLicensePrice: sw.extendedLicensePrice
             });
           }
         } catch (err) {
@@ -847,33 +848,33 @@ function CreateDesignTemplateContent() {
                   </p>
                 )}
               </div>
+            </div>
           </div>
-        </div>
 
-        {/* Status */}
-        <div className={cardClass}>
-          <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-            <FiSettings size={16} className="text-amber-500" /> Status
-          </h2>
-          <div>
-            <label className={labelStyle('status')} style={{ fontSize: '11px' }}>Listing Status</label>
-            <select {...register('status')} className={inputStyle('status')}>
-              <option value="approved">Live / Approved</option>
-              <option value="pending">Pending Review</option>
-              <option value="draft">Draft</option>
-              <option value="rejected">Rejected</option>
-            </select>
-            {(errors.status || serverErrors.status) && (
-              <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                <FiAlertCircle size={12} /> {getError('status')}
-              </p>
-            )}
+          {/* Status */}
+          <div className={cardClass}>
+            <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
+              <FiSettings size={16} className="text-amber-500" /> Status
+            </h2>
+            <div>
+              <label className={labelStyle('status')} style={{ fontSize: '11px' }}>Listing Status</label>
+              <select {...register('status')} className={inputStyle('status')}>
+                <option value="approved">Live / Approved</option>
+                <option value="pending">Pending Review</option>
+                <option value="draft">Draft</option>
+                <option value="rejected">Rejected</option>
+              </select>
+              {(errors.status || serverErrors.status) && (
+                <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                  <FiAlertCircle size={12} /> {getError('status')}
+                </p>
+              )}
+            </div>
+            <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'} mt-3`}>
+              Templates marked as Live will be visible to customers.
+            </p>
           </div>
-          <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'} mt-3`}>
-            Templates marked as Live will be visible to customers.
-          </p>
         </div>
-    </div>
       </form >
     </div >
   );
