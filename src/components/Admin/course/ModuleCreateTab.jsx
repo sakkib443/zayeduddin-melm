@@ -7,12 +7,16 @@ import {
     FiLayers, FiBook, FiPlus, FiArrowRight, FiCheck, FiChevronDown, FiChevronUp
 } from 'react-icons/fi';
 
+const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all";
+const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer";
+const labelClass = "block text-sm font-medium text-slate-700 mb-1.5";
+
 export default function ModuleCreateTab({ onSuccess }) {
     const router = useRouter();
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [createdModules, setCreatedModules] = useState([]);
-    const [showCreatedList, setShowCreatedList] = useState(false); // Collapsed by default
+    const [showCreatedList, setShowCreatedList] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         titleBn: '',
@@ -90,12 +94,12 @@ export default function ModuleCreateTab({ onSuccess }) {
                     order: prev.order + 1,
                 }));
 
-                alert('Module Created Successfully! ?');
+                alert('Module Created Successfully!');
             } else {
                 const errorMsg = result.errorMessages
                     ? result.errorMessages.map(err => `${err.path}: ${err.message}`).join('\n')
                     : result.message;
-                alert(`Error ?\n\n${errorMsg}`);
+                alert(`Error:\n\n${errorMsg}`);
             }
         } catch (err) {
             console.error('Create error:', err);
@@ -113,34 +117,29 @@ export default function ModuleCreateTab({ onSuccess }) {
         if (onSuccess) onSuccess();
     };
 
-    const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none text-sm transition-all bg-white text-gray-700 placeholder:text-gray-400";
-    const labelClass = "block text-sm font-medium text-gray-700 mb-1.5";
-
     const lastCourseTitle = typeof window !== 'undefined' ? localStorage.getItem('lastCreatedCourseTitle') : null;
 
     return (
         <div className="max-w-4xl mx-auto space-y-5">
 
-            {/* Compact Header with Course Info & Actions */}
-            <div className="bg-white border border-gray-200 rounded-xl p-4">
+            {/* Header with Course Info & Actions */}
+            <div className="bg-white border border-slate-200 rounded-md p-4 shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                    {/* Course Info */}
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center text-white">
-                            <FiBook size={18} />
+                        <div className="w-9 h-9 rounded-md bg-indigo-100 flex items-center justify-center text-indigo-600">
+                            <FiBook size={16} />
                         </div>
                         <div>
-                            <p className="text-xs text-gray-500">Selected Course</p>
-                            <p className="font-semibold text-gray-800 text-sm">{lastCourseTitle || 'Not Selected'}</p>
+                            <p className="text-xs text-slate-500">Selected Course</p>
+                            <p className="font-medium text-slate-800 text-sm">{lastCourseTitle || 'Not Selected'}</p>
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="flex items-center gap-3">
                         <button
                             onClick={handleSubmit}
                             disabled={loading || !formData.title || !formData.course}
-                            className="flex items-center gap-2 bg-[#E62D26] hover:bg-[#c41e18] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all disabled:opacity-50"
+                            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-md font-medium text-sm transition-all disabled:opacity-50"
                         >
                             <FiPlus size={16} />
                             {loading ? 'Creating...' : 'Add Module'}
@@ -149,7 +148,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                         <button
                             onClick={handleContinueToLessons}
                             disabled={createdModules.length === 0}
-                            className="flex items-center gap-2 bg-[#F79952] hover:bg-[#f59e0b] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all disabled:opacity-50"
+                            className="flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-5 py-2.5 rounded-md font-medium text-sm transition-all disabled:opacity-50"
                         >
                             Next: Lessons <FiArrowRight size={14} />
                         </button>
@@ -157,42 +156,42 @@ export default function ModuleCreateTab({ onSuccess }) {
                 </div>
             </div>
 
-            {/* Collapsible Created Modules - Compact */}
+            {/* Collapsible Created Modules */}
             {createdModules.length > 0 && (
-                <div className="bg-[#E62D26]/10 border border-[#E62D26]/30 rounded-xl overflow-hidden">
+                <div className="bg-emerald-50 border border-emerald-200 rounded-md overflow-hidden">
                     <button
                         onClick={() => setShowCreatedList(!showCreatedList)}
-                        className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#E62D26]/5 transition-colors"
+                        className="w-full flex items-center justify-between px-4 py-3 hover:bg-emerald-100/50 transition-colors"
                     >
                         <div className="flex items-center gap-2">
-                            <FiCheck className="text-[#E62D26]" size={16} />
-                            <span className="font-semibold text-[#E62D26] text-sm">
+                            <FiCheck className="text-emerald-600" size={16} />
+                            <span className="font-medium text-emerald-700 text-sm">
                                 {createdModules.length} Module{createdModules.length > 1 ? 's' : ''} Created
                             </span>
                             <div className="flex items-center gap-1 ml-2">
                                 {createdModules.slice(0, 3).map((mod, idx) => (
-                                    <span key={idx} className="px-2 py-0.5 bg-white rounded text-xs text-gray-600 font-medium">
+                                    <span key={idx} className="px-2 py-0.5 bg-white rounded-md text-xs text-slate-600 font-medium border border-slate-200">
                                         {mod.order}. {mod.title.length > 12 ? mod.title.slice(0, 12) + '...' : mod.title}
                                     </span>
                                 ))}
                                 {createdModules.length > 3 && (
-                                    <span className="text-xs text-gray-500">+{createdModules.length - 3} more</span>
+                                    <span className="text-xs text-slate-500">+{createdModules.length - 3} more</span>
                                 )}
                             </div>
                         </div>
-                        {showCreatedList ? <FiChevronUp size={18} /> : <FiChevronDown size={18} />}
+                        {showCreatedList ? <FiChevronUp size={18} className="text-slate-500" /> : <FiChevronDown size={18} className="text-slate-500" />}
                     </button>
 
                     {showCreatedList && (
-                        <div className="px-4 pb-3 border-t border-[#E62D26]/20 pt-2">
+                        <div className="px-4 pb-3 border-t border-emerald-200 pt-2">
                             <div className="flex flex-wrap gap-2">
                                 {createdModules.map((mod, idx) => (
-                                    <div key={mod._id || idx} className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
-                                        <span className="w-5 h-5 rounded bg-[#E62D26] text-white flex items-center justify-center font-bold text-xs">
+                                    <div key={mod._id || idx} className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-md border border-slate-200">
+                                        <span className="w-5 h-5 rounded-md bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">
                                             {mod.order}
                                         </span>
-                                        <span className="text-sm text-gray-700">{mod.title}</span>
-                                        <FiCheck className="text-[#E62D26]" size={12} />
+                                        <span className="text-sm text-slate-700">{mod.title}</span>
+                                        <FiCheck className="text-emerald-500" size={12} />
                                     </div>
                                 ))}
                             </div>
@@ -202,114 +201,112 @@ export default function ModuleCreateTab({ onSuccess }) {
             )}
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="bg-white p-5 rounded-xl border border-gray-200 space-y-4">
-                <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center">
-                        <FiLayers className="text-white" size={16} />
-                    </div>
-                    <div>
-                        <h2 className="font-semibold text-gray-800">Add New Module</h2>
-                        <p className="text-xs text-gray-500">Modules group related lessons together</p>
-                    </div>
+            <form onSubmit={handleSubmit} className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+                <div className="px-5 py-3 border-b border-slate-100 bg-slate-50">
+                    <h2 className="font-semibold text-sm text-slate-800 flex items-center gap-2">
+                        <FiLayers size={16} className="text-indigo-600" />
+                        Add New Module
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Modules group related lessons together</p>
                 </div>
 
-                {/* Course Selection */}
-                <div>
-                    <label className={labelClass}>Select Course *</label>
-                    <select
-                        name="course"
-                        value={formData.course}
-                        onChange={handleChange}
-                        required
-                        className={inputClass}
-                    >
-                        <option value="">Choose a course</option>
-                        {courses.map(course => (
-                            <option key={course._id} value={course._id}>{course.title}</option>
-                        ))}
-                    </select>
-                </div>
-
-                {/* Titles */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-5 space-y-4">
+                    {/* Course Selection */}
                     <div>
-                        <label className={labelClass}>Module Title (English) *</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
+                        <label className={labelClass}>Select Course <span className="text-red-500">*</span></label>
+                        <select
+                            name="course"
+                            value={formData.course}
                             onChange={handleChange}
                             required
-                            placeholder="e.g. Getting Started"
-                            className={inputClass}
-                        />
+                            className={selectBase}
+                        >
+                            <option value="">Choose a course</option>
+                            {courses.map(course => (
+                                <option key={course._id} value={course._id}>{course.title}</option>
+                            ))}
+                        </select>
                     </div>
+
+                    {/* Titles */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label className={labelClass}>Module Title (English) <span className="text-red-500">*</span></label>
+                            <input
+                                type="text"
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                required
+                                placeholder="e.g. Getting Started"
+                                className={inputBase}
+                            />
+                        </div>
+                        <div>
+                            <label className={labelClass}>Module Title (বাংলা) <span className="text-xs text-slate-400 font-normal">(Optional)</span></label>
+                            <input
+                                type="text"
+                                name="titleBn"
+                                value={formData.titleBn}
+                                onChange={handleChange}
+                                placeholder="মড্যুলের বাংলা শিরোনাম"
+                                className={inputBase}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Description */}
                     <div>
-                        <label className={labelClass}>Module Title (Bengali)</label>
-                        <input
-                            type="text"
-                            name="titleBn"
-                            value={formData.titleBn}
+                        <label className={labelClass}>Description</label>
+                        <textarea
+                            name="description"
+                            value={formData.description}
                             onChange={handleChange}
-                            placeholder="Optional"
-                            className={inputClass}
-                        />
-                    </div>
-                </div>
-
-                {/* Description */}
-                <div>
-                    <label className={labelClass}>Description</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        rows={2}
-                        placeholder="Brief description of this module..."
-                        className={`${inputClass} resize-none`}
-                    />
-                </div>
-
-                {/* Order & Status */}
-                <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-gray-100">
-                    {/* Order */}
-                    <div className="flex items-center gap-2">
-                        <label className="text-sm font-medium text-gray-700">Order:</label>
-                        <input
-                            type="number"
-                            name="order"
-                            value={formData.order}
-                            onChange={handleChange}
-                            required
-                            min="1"
-                            className="w-16 px-2 py-1.5 rounded-lg border border-gray-200 text-sm text-center focus:border-[#E62D26] outline-none"
+                            rows={2}
+                            placeholder="Brief description of this module..."
+                            className={`${inputBase} resize-none`}
                         />
                     </div>
 
-                    {/* Status Toggle */}
-                    <div className="flex items-center gap-3">
-                        <label className="text-sm font-medium text-gray-700">Status:</label>
-                        <div className="flex bg-gray-100 rounded-lg p-0.5">
-                            <button
-                                type="button"
-                                onClick={() => setFormData(prev => ({ ...prev, isPublished: true }))}
-                                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${formData.isPublished
-                                    ? 'bg-[#E62D26] text-white shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-700'
-                                    }`}
-                            >
-                                Active
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setFormData(prev => ({ ...prev, isPublished: false }))}
-                                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${!formData.isPublished
-                                    ? 'bg-[#F79952] text-white shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-700'
-                                    }`}
-                            >
-                                Draft
-                            </button>
+                    {/* Order & Status */}
+                    <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-100">
+                        <div className="flex items-center gap-2">
+                            <label className="text-sm font-medium text-slate-700">Order:</label>
+                            <input
+                                type="number"
+                                name="order"
+                                value={formData.order}
+                                onChange={handleChange}
+                                required
+                                min="1"
+                                className="w-16 px-2 py-1.5 rounded-md border border-slate-200 text-sm text-center focus:border-indigo-500 outline-none"
+                            />
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <label className="text-sm font-medium text-slate-700">Status:</label>
+                            <div className="flex bg-slate-100 rounded-md p-0.5">
+                                <button
+                                    type="button"
+                                    onClick={() => setFormData(prev => ({ ...prev, isPublished: true }))}
+                                    className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${formData.isPublished
+                                        ? 'bg-indigo-600 text-white shadow-sm'
+                                        : 'text-slate-500 hover:text-slate-700'
+                                        }`}
+                                >
+                                    Active
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setFormData(prev => ({ ...prev, isPublished: false }))}
+                                    className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${!formData.isPublished
+                                        ? 'bg-slate-600 text-white shadow-sm'
+                                        : 'text-slate-500 hover:text-slate-700'
+                                        }`}
+                                >
+                                    Draft
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

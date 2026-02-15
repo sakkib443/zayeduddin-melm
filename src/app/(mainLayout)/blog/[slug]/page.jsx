@@ -24,8 +24,10 @@ import {
     FiCopy,
     FiCheck,
     FiArrowRight,
-    FiBookmark,
-    FiPlay,
+    FiTrash2,
+    FiCornerDownRight,
+    FiX,
+    FiMail,
 } from 'react-icons/fi';
 import { API_BASE_URL } from '@/config/api';
 import { useSelector } from 'react-redux';
@@ -46,10 +48,15 @@ export default function SingleBlogPage() {
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [commentText, setCommentText] = useState('');
+    const [guestName, setGuestName] = useState('');
+    const [guestEmail, setGuestEmail] = useState('');
     const [submittingComment, setSubmittingComment] = useState(false);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [copied, setCopied] = useState(false);
     const [readProgress, setReadProgress] = useState(0);
+    const [replyingTo, setReplyingTo] = useState(null);
+    const [replyText, setReplyText] = useState('');
+    const [deletingComment, setDeletingComment] = useState(null);
 
     const bengaliClass = language === 'bn' ? 'hind-siliguri' : '';
 
@@ -66,7 +73,7 @@ export default function SingleBlogPage() {
             comments: 'মন্তব্য',
             commentsCount: 'টি মন্তব্য',
             writeComment: 'আপনার মতামত লিখুন...',
-            loginToComment: 'মন্তব্য করতে লগইন করুন',
+            loginToComment: 'মন্তব্য করতে লগইন করুন অথবা নাম দিন',
             posting: 'পোস্ট হচ্ছে...',
             submitComment: 'মন্তব্য করুন',
             noComments: 'কোনো মন্তব্য নেই। প্রথম মন্তব্য করুন!',
@@ -79,6 +86,15 @@ export default function SingleBlogPage() {
             loginRequired: 'লগইন করুন',
             commentAdded: 'মন্তব্য যোগ হয়েছে!',
             linkCopied: 'লিংক কপি হয়েছে!',
+            yourName: 'আপনার নাম',
+            yourEmail: 'ইমেইল (ঐচ্ছিক)',
+            reply: 'উত্তর দিন',
+            replies: 'টি উত্তর',
+            cancel: 'বাতিল',
+            delete: 'মুছুন',
+            deleteConfirm: 'আপনি কি নিশ্চিত মুছতে চান?',
+            guest: 'অতিথি',
+            liked: 'পছন্দ করেছেন',
         },
         en: {
             blog: 'Blog',
@@ -91,7 +107,7 @@ export default function SingleBlogPage() {
             comments: 'Comments',
             commentsCount: 'comments',
             writeComment: 'Write your comment...',
-            loginToComment: 'Please login to comment',
+            loginToComment: 'Login or enter your name to comment',
             posting: 'Posting...',
             submitComment: 'Submit',
             noComments: 'No comments yet. Be the first to comment!',
@@ -104,8 +120,35 @@ export default function SingleBlogPage() {
             loginRequired: 'Please login',
             commentAdded: 'Comment added!',
             linkCopied: 'Link copied!',
+            yourName: 'Your name',
+            yourEmail: 'Email (optional)',
+            reply: 'Reply',
+            replies: 'replies',
+            cancel: 'Cancel',
+            delete: 'Delete',
+            deleteConfirm: 'Are you sure you want to delete?',
+            guest: 'Guest',
+            liked: 'Liked',
         }
-    }[language] || t.en;
+    }[language] || {};
+
+    // Check anonymous like from localStorage
+    useEffect(() => {
+        if (blog?._id) {
+            const likedBlogs = JSON.parse(localStorage.getItem('likedBlogs') || '[]');
+            if (likedBlogs.includes(blog._id)) {
+                setIsLiked(true);
+            }
+        }
+    }, [blog?._id]);
+
+    // Load guest info from localStorage
+    useEffect(() => {
+        const savedName = localStorage.getItem('guestCommentName');
+        const savedEmail = localStorage.getItem('guestCommentEmail');
+        if (savedName) setGuestName(savedName);
+        if (savedEmail) setGuestEmail(savedEmail);
+    }, []);
 
     // Reading progress bar
     useEffect(() => {
@@ -138,6 +181,12 @@ export default function SingleBlogPage() {
                     setIsLiked(data.data.isLiked || false);
                     setLikeCount(data.data.likeCount || 0);
 
+                    // Check local storage for anonymous likes
+                    const likedBlogs = JSON.parse(localStorage.getItem('likedBlogs') || '[]');
+                    if (likedBlogs.includes(data.data._id)) {
+                        setIsLiked(true);
+                    }
+
                     const commentsRes = await fetch(`${API_BASE_URL}/blogs/${data.data._id}/comments`);
                     const commentsData = await commentsRes.json();
                     if (commentsData.success) setComments(commentsData.data || []);
@@ -154,17 +203,39 @@ export default function SingleBlogPage() {
     }, [slug, router]);
 
     const handleLike = async () => {
-        if (!user) { toast.error(language === 'bn' ? 'লগইন করুন' : 'Please login'); return; }
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/toggle-like`, {
-                method: 'POST',
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const data = await res.json();
-            if (data.success) {
-                setIsLiked(data.data.isLiked);
-                setLikeCount(data.data.likeCount);
+
+            if (user && token) {
+                // Authenticated like
+                const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/toggle-like`, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const data = await res.json();
+                if (data.success) {
+                    setIsLiked(data.data.isLiked);
+                    setLikeCount(data.data.likeCount);
+                }
+            } else {
+                // Anonymous like using localStorage
+                const likedBlogs = JSON.parse(localStorage.getItem('likedBlogs') || '[]');
+
+                if (likedBlogs.includes(blog._id)) {
+                    // Already liked, remove
+                    const filtered = likedBlogs.filter(id => id !== blog._id);
+                    localStorage.setItem('likedBlogs', JSON.stringify(filtered));
+                    setIsLiked(false);
+                    setLikeCount(prev => Math.max(0, prev - 1));
+                    toast.success(language === 'bn' ? 'লাইক সরানো হয়েছে' : 'Like removed');
+                } else {
+                    // Add like
+                    likedBlogs.push(blog._id);
+                    localStorage.setItem('likedBlogs', JSON.stringify(likedBlogs));
+                    setIsLiked(true);
+                    setLikeCount(prev => prev + 1);
+                    toast.success(language === 'bn' ? 'পছন্দ করেছেন!' : 'Liked!');
+                }
             }
         } catch (error) {
             toast.error('Failed to like');
@@ -173,28 +244,146 @@ export default function SingleBlogPage() {
 
     const handleSubmitComment = async (e) => {
         e.preventDefault();
-        if (!user) { toast.error(language === 'bn' ? 'লগইন করুন' : 'Please login'); return; }
         if (!commentText.trim()) return;
+
+        // Check if user or guest name is provided
+        if (!user && !guestName.trim()) {
+            toast.error(language === 'bn' ? 'অনুগ্রহ করে আপনার নাম দিন' : 'Please provide your name');
+            return;
+        }
 
         setSubmittingComment(true);
         try {
             const token = localStorage.getItem('token');
+            const headers = { 'Content-Type': 'application/json' };
+            if (token) headers.Authorization = `Bearer ${token}`;
+
+            const bodyData = { content: commentText };
+            if (!user) {
+                bodyData.guestName = guestName;
+                bodyData.guestEmail = guestEmail;
+                // Save to localStorage for future
+                localStorage.setItem('guestCommentName', guestName);
+                if (guestEmail) localStorage.setItem('guestCommentEmail', guestEmail);
+            }
+
             const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/comments`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                body: JSON.stringify({ content: commentText }),
+                headers,
+                body: JSON.stringify(bodyData),
             });
             const data = await res.json();
             if (data.success) {
                 setComments([data.data, ...comments]);
                 setCommentText('');
                 toast.success(language === 'bn' ? 'মন্তব্য যোগ হয়েছে!' : 'Comment added!');
+            } else {
+                toast.error(data.message || 'Failed to add comment');
             }
         } catch (error) {
             toast.error('Failed to add comment');
         } finally {
             setSubmittingComment(false);
         }
+    };
+
+    const handleReply = async (parentCommentId) => {
+        if (!replyText.trim()) return;
+
+        if (!user && !guestName.trim()) {
+            toast.error(language === 'bn' ? 'অনুগ্রহ করে আপনার নাম দিন' : 'Please provide your name');
+            return;
+        }
+
+        setSubmittingComment(true);
+        try {
+            const token = localStorage.getItem('token');
+            const headers = { 'Content-Type': 'application/json' };
+            if (token) headers.Authorization = `Bearer ${token}`;
+
+            const bodyData = { content: replyText, parentComment: parentCommentId };
+            if (!user) {
+                bodyData.guestName = guestName;
+                bodyData.guestEmail = guestEmail;
+            }
+
+            const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/comments`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(bodyData),
+            });
+            const data = await res.json();
+            if (data.success) {
+                // Add reply to the parent comment
+                setComments(comments.map(c => {
+                    if (c._id === parentCommentId) {
+                        return { ...c, replies: [...(c.replies || []), data.data] };
+                    }
+                    return c;
+                }));
+                setReplyText('');
+                setReplyingTo(null);
+                toast.success(language === 'bn' ? 'উত্তর যোগ হয়েছে!' : 'Reply added!');
+            }
+        } catch (error) {
+            toast.error('Failed to add reply');
+        } finally {
+            setSubmittingComment(false);
+        }
+    };
+
+    const handleDeleteComment = async (commentId, isReply = false, parentId = null) => {
+        if (!confirm(text.deleteConfirm)) return;
+
+        setDeletingComment(commentId);
+        try {
+            const token = localStorage.getItem('token');
+            const headers = { 'Content-Type': 'application/json' };
+            if (token) headers.Authorization = `Bearer ${token}`;
+
+            const bodyData = {};
+            if (!user && guestEmail) {
+                bodyData.guestEmail = guestEmail;
+            }
+
+            const res = await fetch(`${API_BASE_URL}/blogs/comments/${commentId}`, {
+                method: 'DELETE',
+                headers,
+                body: JSON.stringify(bodyData),
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                if (isReply && parentId) {
+                    setComments(comments.map(c => {
+                        if (c._id === parentId) {
+                            return { ...c, replies: c.replies.filter(r => r._id !== commentId) };
+                        }
+                        return c;
+                    }));
+                } else {
+                    setComments(comments.filter(c => c._id !== commentId));
+                }
+                toast.success(language === 'bn' ? 'মন্তব্য মুছে ফেলা হয়েছে!' : 'Comment deleted!');
+            } else {
+                toast.error(data.message || 'Failed to delete');
+            }
+        } catch (error) {
+            toast.error('Failed to delete comment');
+        } finally {
+            setDeletingComment(null);
+        }
+    };
+
+    const canDeleteComment = (comment) => {
+        if (!comment) return false;
+        // Admin can delete any
+        if (user?.role === 'admin') return true;
+        // Owner can delete own
+        if (user && comment.user && comment.user._id === user._id) return true;
+        // Guest can delete own by email
+        if (!comment.user && guestEmail && comment.guestEmail === guestEmail) return true;
+        return false;
     };
 
     const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
@@ -216,6 +405,19 @@ export default function SingleBlogPage() {
         toast.success(language === 'bn' ? 'লিংক কপি হয়েছে!' : 'Link copied!');
         setTimeout(() => setCopied(false), 2000);
         setShowShareMenu(false);
+    };
+
+    const getCommentAuthor = (comment) => {
+        if (comment.user) {
+            return `${comment.user.firstName || ''} ${comment.user.lastName || ''}`.trim() || 'User';
+        }
+        return comment.guestName || text.guest;
+    };
+
+    const getCommentAvatar = (comment) => {
+        if (comment.user?.avatar) return comment.user.avatar;
+        const name = comment.user?.firstName || comment.guestName || 'G';
+        return name[0]?.toUpperCase() || 'G';
     };
 
     if (loading) {
@@ -455,23 +657,47 @@ export default function SingleBlogPage() {
                                         {text.comments} ({comments.length})
                                     </h3>
 
-                                    {/* Form */}
+                                    {/* Comment Form */}
                                     <div className="bg-slate-50 dark:bg-white/5 rounded-[2.5rem] p-8 md:p-12 mb-16 border border-slate-100 dark:border-white/5">
                                         <form onSubmit={handleSubmitComment}>
+                                            {/* Guest Name & Email fields - Only show if not logged in */}
+                                            {!user && (
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                                    <div className="relative">
+                                                        <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                                        <input
+                                                            type="text"
+                                                            value={guestName}
+                                                            onChange={(e) => setGuestName(e.target.value)}
+                                                            placeholder={text.yourName + ' *'}
+                                                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#300000]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#300000] dark:focus:border-[#D4AF37] transition-all"
+                                                        />
+                                                    </div>
+                                                    <div className="relative">
+                                                        <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                                        <input
+                                                            type="email"
+                                                            value={guestEmail}
+                                                            onChange={(e) => setGuestEmail(e.target.value)}
+                                                            placeholder={text.yourEmail}
+                                                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#300000]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#300000] dark:focus:border-[#D4AF37] transition-all"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
                                             <div className="relative group mb-6">
                                                 <textarea
                                                     value={commentText}
                                                     onChange={(e) => setCommentText(e.target.value)}
-                                                    placeholder={user ? text.writeComment : text.loginToComment}
-                                                    disabled={!user}
+                                                    placeholder={text.writeComment}
                                                     rows={4}
-                                                    className={`w-full p-8 rounded-3xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#300000]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#300000] dark:focus:border-[#D4AF37] transition-all resize-none shadow-inner ${bengaliClass} disabled:opacity-50`}
+                                                    className={`w-full p-8 rounded-3xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#300000]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#300000] dark:focus:border-[#D4AF37] transition-all resize-none shadow-inner ${bengaliClass}`}
                                                 />
                                             </div>
                                             <div className="flex justify-end">
                                                 <button
                                                     type="submit"
-                                                    disabled={!user || !commentText.trim() || submittingComment}
+                                                    disabled={!commentText.trim() || submittingComment || (!user && !guestName.trim())}
                                                     className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-[#300000] text-white font-bold disabled:opacity-50 hover:shadow-2xl hover:scale-105 transition-all"
                                                 >
                                                     {submittingComment ? text.posting : text.submitComment}
@@ -481,7 +707,7 @@ export default function SingleBlogPage() {
                                         </form>
                                     </div>
 
-                                    {/* List */}
+                                    {/* Comments List */}
                                     <div className="space-y-6">
                                         {comments.length === 0 ? (
                                             <div className="text-center py-20 bg-slate-50 dark:bg-white/5 rounded-3xl border border-dashed border-slate-200 dark:border-white/10">
@@ -490,16 +716,149 @@ export default function SingleBlogPage() {
                                             </div>
                                         ) : (
                                             comments.map((comment) => (
-                                                <div key={comment._id} className="p-8 bg-white dark:bg-[#0d0d0d] rounded-3xl border border-slate-100 dark:border-white/10 shadow-sm flex gap-6">
-                                                    <div className="w-14 h-14 rounded-2xl bg-[#300000]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center font-bold text-[#300000] dark:text-[#D4AF37] shrink-0">
-                                                        {comment.user?.firstName?.[0] || 'U'}
-                                                    </div>
-                                                    <div className="flex-1">
-                                                        <div className="flex items-center gap-3 mb-3">
-                                                            <h5 className="font-bold text-[#300000] dark:text-white">{comment.user?.firstName} {comment.user?.lastName}</h5>
-                                                            <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">{new Date(comment.createdAt).toLocaleDateString()}</span>
+                                                <div key={comment._id} className="p-8 bg-white dark:bg-[#0d0d0d] rounded-3xl border border-slate-100 dark:border-white/10 shadow-sm">
+                                                    <div className="flex gap-6">
+                                                        <div className="w-14 h-14 rounded-2xl bg-[#300000]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center font-bold text-[#300000] dark:text-[#D4AF37] shrink-0 overflow-hidden relative">
+                                                            {comment.user?.avatar ? (
+                                                                <Image src={comment.user.avatar} alt="" fill className="object-cover" />
+                                                            ) : (
+                                                                getCommentAvatar(comment)
+                                                            )}
                                                         </div>
-                                                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{comment.content}</p>
+                                                        <div className="flex-1">
+                                                            <div className="flex items-center justify-between mb-3">
+                                                                <div className="flex items-center gap-3">
+                                                                    <h5 className="font-bold text-[#300000] dark:text-white">
+                                                                        {getCommentAuthor(comment)}
+                                                                        {!comment.user && (
+                                                                            <span className="ml-2 text-[10px] px-2 py-0.5 bg-slate-200 dark:bg-white/10 rounded-full text-slate-500 dark:text-slate-400">
+                                                                                {text.guest}
+                                                                            </span>
+                                                                        )}
+                                                                    </h5>
+                                                                    <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
+                                                                        {new Date(comment.createdAt).toLocaleDateString()}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="flex items-center gap-2">
+                                                                    <button
+                                                                        onClick={() => setReplyingTo(replyingTo === comment._id ? null : comment._id)}
+                                                                        className="text-xs font-bold text-slate-400 hover:text-[#300000] dark:hover:text-[#D4AF37] transition-colors flex items-center gap-1"
+                                                                    >
+                                                                        <FiCornerDownRight size={12} />
+                                                                        {text.reply}
+                                                                    </button>
+                                                                    {canDeleteComment(comment) && (
+                                                                        <button
+                                                                            onClick={() => handleDeleteComment(comment._id)}
+                                                                            disabled={deletingComment === comment._id}
+                                                                            className="text-xs font-bold text-red-400 hover:text-red-600 transition-colors flex items-center gap-1"
+                                                                        >
+                                                                            <FiTrash2 size={12} />
+                                                                            {text.delete}
+                                                                        </button>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{comment.content}</p>
+
+                                                            {/* Reply Form */}
+                                                            <AnimatePresence>
+                                                                {replyingTo === comment._id && (
+                                                                    <motion.div
+                                                                        initial={{ opacity: 0, height: 0 }}
+                                                                        animate={{ opacity: 1, height: 'auto' }}
+                                                                        exit={{ opacity: 0, height: 0 }}
+                                                                        className="mt-4 pl-4 border-l-2 border-[#300000]/20 dark:border-[#D4AF37]/20"
+                                                                    >
+                                                                        {!user && (
+                                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
+                                                                                <input
+                                                                                    type="text"
+                                                                                    value={guestName}
+                                                                                    onChange={(e) => setGuestName(e.target.value)}
+                                                                                    placeholder={text.yourName + ' *'}
+                                                                                    className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm focus:outline-none focus:border-[#300000] dark:focus:border-[#D4AF37]"
+                                                                                />
+                                                                                <input
+                                                                                    type="email"
+                                                                                    value={guestEmail}
+                                                                                    onChange={(e) => setGuestEmail(e.target.value)}
+                                                                                    placeholder={text.yourEmail}
+                                                                                    className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm focus:outline-none focus:border-[#300000] dark:focus:border-[#D4AF37]"
+                                                                                />
+                                                                            </div>
+                                                                        )}
+                                                                        <div className="flex gap-2">
+                                                                            <input
+                                                                                type="text"
+                                                                                value={replyText}
+                                                                                onChange={(e) => setReplyText(e.target.value)}
+                                                                                placeholder={text.writeComment}
+                                                                                className="flex-1 px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:border-[#300000] dark:focus:border-[#D4AF37]"
+                                                                            />
+                                                                            <button
+                                                                                onClick={() => handleReply(comment._id)}
+                                                                                disabled={!replyText.trim() || submittingComment || (!user && !guestName.trim())}
+                                                                                className="px-4 py-3 rounded-xl bg-[#300000] text-white font-bold disabled:opacity-50 hover:bg-[#500000] transition-all"
+                                                                            >
+                                                                                <FiSend />
+                                                                            </button>
+                                                                            <button
+                                                                                onClick={() => { setReplyingTo(null); setReplyText(''); }}
+                                                                                className="px-4 py-3 rounded-xl bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-white/20 transition-all"
+                                                                            >
+                                                                                <FiX />
+                                                                            </button>
+                                                                        </div>
+                                                                    </motion.div>
+                                                                )}
+                                                            </AnimatePresence>
+
+                                                            {/* Replies */}
+                                                            {comment.replies && comment.replies.length > 0 && (
+                                                                <div className="mt-6 space-y-4 pl-4 border-l-2 border-[#300000]/10 dark:border-[#D4AF37]/10">
+                                                                    {comment.replies.map((reply) => (
+                                                                        <div key={reply._id} className="flex gap-4 p-4 bg-slate-50 dark:bg-white/5 rounded-2xl">
+                                                                            <div className="w-10 h-10 rounded-xl bg-[#300000]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center font-bold text-[#300000] dark:text-[#D4AF37] text-sm shrink-0 overflow-hidden relative">
+                                                                                {reply.user?.avatar ? (
+                                                                                    <Image src={reply.user.avatar} alt="" fill className="object-cover" />
+                                                                                ) : (
+                                                                                    getCommentAvatar(reply)
+                                                                                )}
+                                                                            </div>
+                                                                            <div className="flex-1">
+                                                                                <div className="flex items-center justify-between mb-2">
+                                                                                    <div className="flex items-center gap-2">
+                                                                                        <h6 className="font-bold text-sm text-[#300000] dark:text-white">
+                                                                                            {getCommentAuthor(reply)}
+                                                                                            {!reply.user && (
+                                                                                                <span className="ml-1 text-[9px] px-1.5 py-0.5 bg-slate-200 dark:bg-white/10 rounded-full text-slate-500 dark:text-slate-400">
+                                                                                                    {text.guest}
+                                                                                                </span>
+                                                                                            )}
+                                                                                        </h6>
+                                                                                        <span className="text-[9px] uppercase font-black text-slate-400 tracking-widest">
+                                                                                            {new Date(reply.createdAt).toLocaleDateString()}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    {canDeleteComment(reply) && (
+                                                                                        <button
+                                                                                            onClick={() => handleDeleteComment(reply._id, true, comment._id)}
+                                                                                            disabled={deletingComment === reply._id}
+                                                                                            className="text-[10px] font-bold text-red-400 hover:text-red-600 transition-colors"
+                                                                                        >
+                                                                                            <FiTrash2 size={10} />
+                                                                                        </button>
+                                                                                    )}
+                                                                                </div>
+                                                                                <p className="text-sm text-slate-600 dark:text-slate-400">{reply.content}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))
@@ -561,6 +920,30 @@ export default function SingleBlogPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Mobile Social Bar */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0d0d0d] border-t border-slate-100 dark:border-white/10 p-4 z-50">
+                <div className="flex items-center justify-around">
+                    <button
+                        onClick={handleLike}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${isLiked ? 'bg-[#300000] text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300'}`}
+                    >
+                        <FiHeart className={isLiked ? 'fill-current' : ''} />
+                        <span className="font-bold">{likeCount}</span>
+                    </button>
+                    <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300">
+                        <FiMessageCircle />
+                        <span className="font-bold">{comments.length}</span>
+                    </button>
+                    <button
+                        onClick={() => setShowShareMenu(!showShareMenu)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
+                    >
+                        <FiShare2 />
+                        <span className="font-bold">Share</span>
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }

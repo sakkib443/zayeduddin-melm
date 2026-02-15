@@ -3,16 +3,20 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import { API_BASE_URL } from '@/config/api';
 import {
-    FiPlay, FiArrowLeft, FiSave, FiClock, FiBook, FiLayers,
-    FiFileText, FiHelpCircle, FiFile, FiType, FiSettings, FiTrash2,
-    FiMonitor, FiTrendingUp, FiCheckCircle, FiRefreshCw
+    FiPlay, FiArrowLeft, FiSave, FiBook, FiLayers,
+    FiFileText, FiHelpCircle, FiFile, FiType, FiSettings, FiCheck,
+    FiTrash2, FiRefreshCw, FiClock
 } from 'react-icons/fi';
 
 import QuestionBuilder from '@/components/Admin/lesson/QuestionBuilder';
 import DocumentManager from '@/components/Admin/lesson/DocumentManager';
 import TextContentManager from '@/components/Admin/lesson/TextContentManager';
-import { API_BASE_URL } from '@/config/api';
+
+const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all";
+const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer";
+const labelClass = "block text-sm font-medium text-slate-700 mb-1.5";
 
 export default function EditLessonPage() {
     const router = useRouter();
@@ -177,24 +181,24 @@ export default function EditLessonPage() {
             const result = await res.json();
 
             if (res.ok) {
-                alert('Lesson Metadata Upgraded! 🚀');
+                alert('লেসন সফলভাবে আপডেট হয়েছে! ✅');
                 router.push('/dashboard/admin/lesson');
             } else {
                 const errorMsg = result.errorMessages
                     ? result.errorMessages.map(err => `${err.path.split('.').pop()}: ${err.message}`).join('\n')
                     : result.message;
-                alert(`Sync Failed ❌\n\n${errorMsg}`);
+                alert(`আপডেট ব্যর্থ ❌\n\n${errorMsg}`);
             }
         } catch (err) {
             console.error('Update error:', err);
-            alert('Network error!');
+            alert('নেটওয়ার্ক ত্রুটি!');
         } finally {
             setSaving(false);
         }
     };
 
     const handleDelete = async () => {
-        if (!confirm('Are you sure you want to purge this knowledge unit? This action is irreversible.')) return;
+        if (!confirm('আপনি কি নিশ্চিত এই লেসনটি মুছে ফেলতে চান? এটি পূর্বাবস্থায় ফেরানো যাবে না।')) return;
 
         try {
             const token = localStorage.getItem('token');
@@ -206,281 +210,282 @@ export default function EditLessonPage() {
             if (res.ok) {
                 router.push('/dashboard/admin/lesson');
             } else {
-                alert('Failed to delete asset');
+                alert('লেসন মুছতে ব্যর্থ হয়েছে');
             }
         } catch (err) {
-            alert('Error during purge operation');
+            alert('মুছে ফেলার সময় ত্রুটি');
         }
     };
 
-    const inputClass = "w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-bold placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white";
-    const labelClass = "text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-2";
-
     const tabs = [
-        { id: 'video', label: 'Video', icon: FiPlay, color: 'rose' },
-        { id: 'text', label: 'Payload', icon: FiType, color: 'amber' },
-        { id: 'documents', label: 'Assets', icon: FiFile, color: 'emerald', badge: formData.documents?.length || 0 },
-        { id: 'questions', label: 'Quizzes', icon: FiHelpCircle, color: 'indigo', badge: formData.questions?.length || 0 },
-        { id: 'settings', label: 'Config', icon: FiSettings, color: 'slate' },
+        { id: 'video', label: 'ভিডিও', icon: FiPlay },
+        { id: 'text', label: 'টেক্সট', icon: FiType },
+        { id: 'documents', label: 'ডকুমেন্ট', icon: FiFile, badge: formData.documents?.length || 0 },
+        { id: 'questions', label: 'কুইজ', icon: FiHelpCircle, badge: formData.questions?.length || 0 },
+        { id: 'settings', label: 'সেটিংস', icon: FiSettings },
     ];
 
     if (loading) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-                <FiRefreshCw className="animate-spin text-indigo-500" size={40} />
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Synchronizing asset buffers...</p>
+            <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3">
+                <FiRefreshCw className="animate-spin text-indigo-500" size={28} />
+                <p className="text-sm text-slate-500">লেসন ডেটা লোড হচ্ছে...</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen p-4 md:p-8 space-y-10 bg-slate-50 dark:bg-slate-950">
+        <div className="min-h-screen p-4 md:p-6 space-y-6 bg-slate-50">
             {/* Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 animate-in fade-in slide-in-from-top-4 duration-500">
-                <div className="flex items-center gap-6">
-                    <Link href="/dashboard/admin/lesson" className="w-14 h-14 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl flex items-center justify-center text-slate-500 hover:text-indigo-500 transition-all shadow-xl active:scale-90">
-                        <FiArrowLeft size={24} />
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                    <Link href="/dashboard/admin/lesson" className="w-9 h-9 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500 hover:text-indigo-600 hover:border-indigo-300 transition-all">
+                        <FiArrowLeft size={18} />
                     </Link>
                     <div>
-                        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter leading-none mb-2">Content Architect</h1>
-                        <div className="flex items-center gap-3">
-                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Node ID:</span>
-                            <span className="text-xs font-black text-indigo-500 uppercase tracking-tight line-clamp-1">{formData.title || 'UNKNOWN_UNIT'}</span>
-                        </div>
+                        <h1 className="text-xl font-bold text-slate-800">লেসন এডিট করুন</h1>
+                        <p className="text-xs text-slate-500 mt-0.5 truncate max-w-xs">{formData.title || 'Untitled Lesson'}</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
                     <button
                         onClick={handleDelete}
-                        className="p-5 rounded-2xl bg-rose-500/10 text-rose-500 hover:bg-rose-500 hover:text-white transition-all shadow-sm active:scale-95"
+                        className="px-3 py-2 rounded-md border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 text-sm font-medium transition-all flex items-center gap-1.5"
                     >
-                        <FiTrash2 size={22} />
+                        <FiTrash2 size={14} />
+                        মুছুন
                     </button>
                     <button
                         onClick={handleSubmit}
                         disabled={saving}
-                        className="flex items-center justify-center gap-4 px-10 py-5 bg-slate-900 dark:bg-indigo-600 hover:scale-[1.02] text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl transition-all active:scale-95 group"
+                        className="px-5 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-all flex items-center gap-2 disabled:opacity-50"
                     >
-                        {saving ? <FiRefreshCw className="animate-spin" size={20} /> : <FiSave size={20} />}
-                        Modify Unit
+                        {saving ? <FiRefreshCw className="animate-spin" size={14} /> : <FiSave size={14} />}
+                        আপডেট করুন
                     </button>
                 </div>
             </div>
 
-            {/* Architecture Scope */}
-            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 border border-slate-100 dark:border-slate-800 shadow-2xl shadow-indigo-500/5 space-y-10">
-                <div className="flex items-center gap-4 border-b border-slate-50 dark:border-slate-800 pb-6 mb-2">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
-                        <FiLayers size={18} />
+            {/* Basic Info Section */}
+            <div className="bg-white rounded-md border border-slate-200 p-5 space-y-5">
+                <div className="flex items-center gap-2 mb-1">
+                    <div className="w-7 h-7 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <FiLayers size={14} />
                     </div>
-                    <h3 className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em]">Structural Placement</h3>
+                    <h3 className="text-sm font-semibold text-slate-700">মৌলিক তথ্য</h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div className="md:col-span-2 space-y-6">
-                        <div>
-                            <label className={labelClass}>Operational Title (EN) *</label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleChange}
-                                required
-                                placeholder="e.g. Asynchronous Lifecycle Patterns"
-                                className={inputClass}
-                            />
-                        </div>
-                        <div>
-                            <label className={labelClass}>Local Identifier (BN)</label>
-                            <input
-                                type="text"
-                                name="titleBn"
-                                value={formData.titleBn}
-                                onChange={handleChange}
-                                placeholder="বিষয়বস্তুর স্থানীয় নাম"
-                                className={inputClass}
-                            />
-                        </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className={labelClass}>লেসন শিরোনাম (EN) *</label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            required
+                            placeholder="Enter lesson title"
+                            className={inputBase}
+                        />
                     </div>
-
-                    <div className="space-y-6">
-                        <div>
-                            <label className={labelClass}>Target Series *</label>
-                            <select
-                                name="course"
-                                value={formData.course}
-                                onChange={handleChange}
-                                required
-                                className={inputClass}
-                            >
-                                <option value="">Select Domain</option>
-                                {courses.map(course => (
-                                    <option key={course._id} value={course._id}>{course.title}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label className={labelClass}>Architecture Node *</label>
-                            <select
-                                name="module"
-                                value={formData.module}
-                                onChange={handleChange}
-                                required
-                                disabled={!formData.course || fetchingModules}
-                                className={`${inputClass} disabled:opacity-50`}
-                            >
-                                <option value="">{fetchingModules ? 'Syncing...' : 'Select Module'}</option>
-                                {modules.map(mod => (
-                                    <option key={mod._id} value={mod._id}>{mod.order}. {mod.title}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="space-y-6">
-                        <div>
-                            <label className={labelClass}>Asset Type</label>
-                            <select
-                                name="lessonType"
-                                value={formData.lessonType}
-                                onChange={handleChange}
-                                className={inputClass}
-                            >
-                                <option value="video">Stream Focus</option>
-                                <option value="text">Document Focus</option>
-                                <option value="quiz">Assessment Focus</option>
-                                <option value="mixed">Hybrid Model</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className={labelClass}>Sequence ID</label>
-                            <input
-                                type="number"
-                                name="order"
-                                value={formData.order}
-                                onChange={handleChange}
-                                min="1"
-                                className={inputClass}
-                            />
-                        </div>
+                    <div>
+                        <label className={labelClass}>লেসন শিরোনাম (BN)</label>
+                        <input
+                            type="text"
+                            name="titleBn"
+                            value={formData.titleBn}
+                            onChange={handleChange}
+                            placeholder="লেসনের বাংলা শিরোনাম"
+                            className={inputBase}
+                        />
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 outline-none border-t border-slate-50 dark:border-slate-800 pt-10">
-                    <div className="space-y-2">
-                        <label className={labelClass}>Semantic Context (EN)</label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label className={labelClass}>কোর্স নির্বাচন করুন *</label>
+                        <select
+                            name="course"
+                            value={formData.course}
+                            onChange={handleChange}
+                            required
+                            className={selectBase}
+                        >
+                            <option value="">কোর্স নির্বাচন করুন</option>
+                            {courses.map(course => (
+                                <option key={course._id} value={course._id}>{course.title}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label className={labelClass}>মডিউল নির্বাচন করুন *</label>
+                        <select
+                            name="module"
+                            value={formData.module}
+                            onChange={handleChange}
+                            required
+                            disabled={!formData.course || fetchingModules}
+                            className={`${selectBase} disabled:opacity-50 disabled:bg-slate-50`}
+                        >
+                            <option value="">{fetchingModules ? 'লোড হচ্ছে...' : 'মডিউল বাছুন'}</option>
+                            {modules.map(mod => (
+                                <option key={mod._id} value={mod._id}>{mod.order}. {mod.title}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label className={labelClass}>লেসনের ধরন</label>
+                        <select
+                            name="lessonType"
+                            value={formData.lessonType}
+                            onChange={handleChange}
+                            className={selectBase}
+                        >
+                            <option value="video">ভিডিও</option>
+                            <option value="text">টেক্সট</option>
+                            <option value="quiz">কুইজ</option>
+                            <option value="mixed">মিক্সড</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className={labelClass}>বর্ণনা (EN)</label>
                         <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
                             rows={3}
-                            placeholder="Define the core objectives and deliverables..."
-                            className={`${inputClass} resize-none h-32 leading-relaxed`}
+                            placeholder="Lesson description..."
+                            className={`${inputBase} resize-none`}
                         />
                     </div>
-                    <div className="space-y-2">
-                        <label className={labelClass}>Context Translation (BN)</label>
+                    <div>
+                        <label className={labelClass}>বর্ণনা (BN)</label>
                         <textarea
                             name="descriptionBn"
                             value={formData.descriptionBn}
                             onChange={handleChange}
                             rows={3}
-                            placeholder="বিষয়বস্তুর সংক্ষিপ্ত ব্যাখ্যা..."
-                            className={`${inputClass} resize-none h-32 leading-relaxed`}
+                            placeholder="লেসনের বিস্তারিত বর্ণনা..."
+                            className={`${inputBase} resize-none`}
+                        />
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className={labelClass}>ক্রম (Order)</label>
+                        <input
+                            type="number"
+                            name="order"
+                            value={formData.order}
+                            onChange={handleChange}
+                            min="1"
+                            className={inputBase}
                         />
                     </div>
                 </div>
             </div>
 
-            {/* Content Engineering Space */}
-            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-2xl shadow-indigo-500/5 overflow-hidden animate-in slide-in-from-bottom-6 duration-700">
-                {/* Navigation Bar */}
-                <div className="flex border-b border-slate-50 dark:border-slate-800 overflow-x-auto custom-scrollbar">
+            {/* Content Tabs */}
+            <div className="bg-white rounded-md border border-slate-200 overflow-hidden">
+                {/* Tab Headers */}
+                <div className="flex border-b border-slate-200 overflow-x-auto bg-slate-50">
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
                             type="button"
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-4 px-10 py-8 font-black text-[10px] uppercase tracking-[0.3em] transition-all whitespace-nowrap relative group ${activeTab === tab.id
-                                ? `text-indigo-500 bg-indigo-500/5`
-                                : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                            className={`flex items-center gap-2 px-5 py-3 text-sm font-medium transition-all whitespace-nowrap border-b-2 -mb-[1px] ${activeTab === tab.id
+                                    ? 'text-indigo-600 border-indigo-500 bg-white'
+                                    : 'text-slate-500 border-transparent hover:text-slate-700'
                                 }`}
                         >
-                            <tab.icon size={18} className={activeTab === tab.id ? 'transform scale-125 transition-transform' : ''} />
+                            <tab.icon size={15} />
                             {tab.label}
-                            {tab.badge >= 0 && (
-                                <span className="ml-2 w-5 h-5 rounded-full flex items-center justify-center bg-indigo-500 text-white text-[9px] font-black">
-                                    {tab.badge < 10 && tab.badge > 0 ? `0${tab.badge}` : tab.badge}
+                            {tab.badge > 0 && (
+                                <span className="ml-1 px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-600 text-[10px] font-bold">
+                                    {tab.badge}
                                 </span>
                             )}
-                            {activeTab === tab.id && <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-indigo-500 animate-pulse"></div>}
                         </button>
                     ))}
                 </div>
 
-                {/* Engineering Canvas */}
-                <div className="p-10 min-h-[400px]">
+                {/* Tab Content */}
+                <div className="p-5">
+                    {/* Video Tab */}
                     {activeTab === 'video' && (
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 animate-in fade-in duration-500">
-                            <div className="lg:col-span-8 space-y-10">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div className="space-y-3">
-                                        <label className={labelClass}>Source Link (Video URL)</label>
-                                        <div className="relative">
-                                            <FiPlay className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
-                                            <input
-                                                type="url"
-                                                name="videoUrl"
-                                                value={formData.videoUrl}
-                                                onChange={handleChange}
-                                                placeholder="https://content.cdn.com/..."
-                                                className={`${inputClass} pl-16`}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-3">
-                                        <label className={labelClass}>Infrastructural Provider</label>
-                                        <select
-                                            name="videoProvider"
-                                            value={formData.videoProvider}
-                                            onChange={handleChange}
-                                            className={inputClass}
-                                        >
-                                            <option value="youtube">YouTube Engine</option>
-                                            <option value="vimeo">Vimeo Enterprise</option>
-                                            <option value="bunny">Bunny Stream</option>
-                                            <option value="cloudinary">Cloudinary Media</option>
-                                            <option value="custom">Custom Implementation</option>
-                                        </select>
-                                    </div>
+                        <div className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className={labelClass}>ভিডিও URL</label>
+                                    <input
+                                        type="url"
+                                        name="videoUrl"
+                                        value={formData.videoUrl}
+                                        onChange={handleChange}
+                                        placeholder="https://youtube.com/watch?v=..."
+                                        className={inputBase}
+                                    />
                                 </div>
-                                <div className="space-y-3">
-                                    <label className={labelClass}>Runtime Duration (Seconds)</label>
-                                    <div className="relative w-full md:w-1/2">
-                                        <FiClock className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
-                                        <input
-                                            type="number"
-                                            name="videoDuration"
-                                            value={formData.videoDuration}
-                                            onChange={handleChange}
-                                            placeholder="e.g. 1800 for 30m coverage"
-                                            className={`${inputClass} pl-16`}
-                                        />
-                                    </div>
+                                <div>
+                                    <label className={labelClass}>ভিডিও প্রোভাইডার</label>
+                                    <select
+                                        name="videoProvider"
+                                        value={formData.videoProvider}
+                                        onChange={handleChange}
+                                        className={selectBase}
+                                    >
+                                        <option value="youtube">YouTube</option>
+                                        <option value="vimeo">Vimeo</option>
+                                        <option value="bunny">Bunny Stream</option>
+                                        <option value="cloudinary">Cloudinary</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div className="lg:col-span-4 bg-slate-50 dark:bg-slate-800/30 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center space-y-4">
-                                <div className="w-20 h-20 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500">
-                                    <FiMonitor size={32} />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className={labelClass}>ভিডিও Duration (সেকেন্ড)</label>
+                                    <input
+                                        type="number"
+                                        name="videoDuration"
+                                        value={formData.videoDuration}
+                                        onChange={handleChange}
+                                        placeholder="1800"
+                                        className={inputBase}
+                                    />
                                 </div>
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Stream Analytics</h4>
-                                <p className="text-xs font-bold text-slate-400 leading-relaxed px-4">Modifying the duration affects student progress completion algorithms. Map accurately.</p>
+                                <div>
+                                    <label className={labelClass}>ভিডিও থাম্বনেইল URL</label>
+                                    <input
+                                        type="url"
+                                        name="videoThumbnail"
+                                        value={formData.videoThumbnail}
+                                        onChange={handleChange}
+                                        placeholder="https://..."
+                                        className={inputBase}
+                                    />
+                                </div>
                             </div>
+
+                            {formData.videoUrl && (
+                                <div className="mt-3 p-3 bg-slate-50 rounded-md border border-slate-100">
+                                    <p className="text-xs text-slate-500">
+                                        <FiPlay className="inline mr-1" size={12} />
+                                        ভিডিও লিংক সেট করা হয়েছে
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     )}
 
+                    {/* Text Tab */}
                     {activeTab === 'text' && (
-                        <div className="animate-in fade-in duration-500">
+                        <div>
                             <TextContentManager
                                 textBlocks={formData.textBlocks}
                                 mainContent={formData.textContent}
@@ -491,8 +496,9 @@ export default function EditLessonPage() {
                         </div>
                     )}
 
+                    {/* Documents Tab */}
                     {activeTab === 'documents' && (
-                        <div className="animate-in fade-in duration-500">
+                        <div>
                             <DocumentManager
                                 documents={formData.documents}
                                 onChange={(docs) => handleNestedChange('documents', docs)}
@@ -500,75 +506,69 @@ export default function EditLessonPage() {
                         </div>
                     )}
 
+                    {/* Quiz Tab */}
                     {activeTab === 'questions' && (
-                        <div className="space-y-10 animate-in fade-in duration-500">
+                        <div className="space-y-5">
                             <QuestionBuilder
                                 questions={formData.questions}
                                 onChange={(qs) => handleNestedChange('questions', qs)}
                             />
 
                             {formData.questions?.length > 0 && (
-                                <div className="mt-10 p-10 bg-slate-900 dark:bg-indigo-600 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform">
-                                        <FiSettings size={150} />
+                                <div className="bg-slate-50 rounded-md border border-slate-200 p-4">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <FiSettings size={14} className="text-indigo-500" />
+                                        <h4 className="text-sm font-semibold text-slate-700">কুইজ সেটিংস</h4>
                                     </div>
-                                    <div className="relative z-10 space-y-8">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-                                                <FiCheckCircle className="text-white" />
-                                            </div>
-                                            <h4 className="text-xs font-black text-white uppercase tracking-[0.3em]">Assessment Governance</h4>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                                        <div>
+                                            <label className="block text-xs font-medium text-slate-500 mb-1">পাস মার্ক (%)</label>
+                                            <input
+                                                type="number"
+                                                value={formData.quizSettings.passingScore}
+                                                onChange={(e) => handleQuizSettingsChange('passingScore', Number(e.target.value))}
+                                                className={inputBase}
+                                            />
                                         </div>
-                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                                            <div className="space-y-3">
-                                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest px-1">Pass Threshold (%)</label>
+                                        <div>
+                                            <label className="block text-xs font-medium text-slate-500 mb-1">সর্বোচ্চ চেষ্টা</label>
+                                            <input
+                                                type="number"
+                                                value={formData.quizSettings.maxAttempts}
+                                                onChange={(e) => handleQuizSettingsChange('maxAttempts', Number(e.target.value))}
+                                                className={inputBase}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-medium text-slate-500 mb-1">সময়সীমা (মিনিট)</label>
+                                            <input
+                                                type="number"
+                                                value={formData.quizSettings.timeLimit}
+                                                onChange={(e) => handleQuizSettingsChange('timeLimit', Number(e.target.value))}
+                                                className={inputBase}
+                                            />
+                                        </div>
+                                        <div className="flex items-end pb-1">
+                                            <label className="flex items-center gap-2 cursor-pointer">
                                                 <input
-                                                    type="number"
-                                                    value={formData.quizSettings.passingScore}
-                                                    onChange={(e) => handleQuizSettingsChange('passingScore', Number(e.target.value))}
-                                                    className="w-full h-14 px-6 bg-white/10 border border-white/20 rounded-2xl outline-none text-white font-black text-lg focus:bg-white/20"
+                                                    type="checkbox"
+                                                    checked={formData.quizSettings.showCorrectAnswers}
+                                                    onChange={(e) => handleQuizSettingsChange('showCorrectAnswers', e.target.checked)}
+                                                    className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
-                                            </div>
-                                            <div className="space-y-3">
-                                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest px-1">Attempt Quota</label>
+                                                <span className="text-xs text-slate-600">উত্তর দেখান</span>
+                                            </label>
+                                        </div>
+                                        <div className="flex items-end pb-1">
+                                            <label className="flex items-center gap-2 cursor-pointer">
                                                 <input
-                                                    type="number"
-                                                    value={formData.quizSettings.maxAttempts}
-                                                    onChange={(e) => handleQuizSettingsChange('maxAttempts', Number(e.target.value))}
-                                                    className="w-full h-14 px-6 bg-white/10 border border-white/20 rounded-2xl outline-none text-white font-black text-lg focus:bg-white/20"
+                                                    type="checkbox"
+                                                    checked={formData.quizSettings.shuffleQuestions}
+                                                    onChange={(e) => handleQuizSettingsChange('shuffleQuestions', e.target.checked)}
+                                                    className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                                                 />
-                                            </div>
-                                            <div className="space-y-3">
-                                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest px-1">Timer (Minutes)</label>
-                                                <input
-                                                    type="number"
-                                                    value={formData.quizSettings.timeLimit}
-                                                    onChange={(e) => handleQuizSettingsChange('timeLimit', Number(e.target.value))}
-                                                    className="w-full h-14 px-6 bg-white/10 border border-white/20 rounded-2xl outline-none text-white font-black text-lg focus:bg-white/20"
-                                                />
-                                            </div>
-                                            <div className="flex flex-col justify-end pb-3 gap-3">
-                                                <label className="flex items-center gap-3 cursor-pointer group/item">
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={formData.quizSettings.showCorrectAnswers}
-                                                        onChange={(e) => handleQuizSettingsChange('showCorrectAnswers', e.target.checked)}
-                                                        className="w-5 h-5 rounded-lg border-white/20 text-white bg-transparent accent-white"
-                                                    />
-                                                    <span className="text-[10px] font-black text-white/80 uppercase tracking-widest group-hover/item:text-white transition-colors">Reveal Keys</span>
-                                                </label>
-                                            </div>
-                                            <div className="flex flex-col justify-end pb-3 gap-3">
-                                                <label className="flex items-center gap-3 cursor-pointer group/item">
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={formData.quizSettings.shuffleQuestions}
-                                                        onChange={(e) => handleQuizSettingsChange('shuffleQuestions', e.target.checked)}
-                                                        className="w-5 h-5 rounded-lg border-white/20 text-white bg-transparent accent-white"
-                                                    />
-                                                    <span className="text-[10px] font-black text-white/80 uppercase tracking-widest group-hover/item:text-white transition-colors">Randomize Order</span>
-                                                </label>
-                                            </div>
+                                                <span className="text-xs text-slate-600">শাফল করুন</span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -576,66 +576,74 @@ export default function EditLessonPage() {
                         </div>
                     )}
 
+                    {/* Settings Tab */}
                     {activeTab === 'settings' && (
-                        <div className="space-y-10 animate-in fade-in duration-500">
-                            <div className="flex flex-col md:flex-row gap-8">
+                        <div className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {/* Published Toggle */}
                                 <div
                                     onClick={() => setFormData(prev => ({ ...prev, isPublished: !prev.isPublished }))}
-                                    className={`flex-1 p-8 rounded-[2rem] border-2 transition-all cursor-pointer group flex items-center gap-6 ${formData.isPublished ? 'bg-emerald-500 border-emerald-400 shadow-2xl shadow-emerald-500/20' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800'}`}
+                                    className={`p-4 rounded-md border-2 cursor-pointer transition-all flex items-center gap-3 ${formData.isPublished
+                                            ? 'bg-emerald-50 border-emerald-300'
+                                            : 'bg-white border-slate-200 hover:border-slate-300'
+                                        }`}
                                 >
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${formData.isPublished ? 'bg-white text-emerald-500' : 'bg-white dark:bg-slate-700 text-slate-400 group-hover:scale-110'}`}>
-                                        <FiCheckCircle size={24} />
+                                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${formData.isPublished ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400'
+                                        }`}>
+                                        <FiCheck size={16} />
                                     </div>
                                     <div>
-                                        <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 block ${formData.isPublished ? 'text-emerald-100' : 'text-slate-400'}`}>Availability</span>
-                                        <span className={`text-sm font-black uppercase tracking-tight ${formData.isPublished ? 'text-white' : 'text-slate-800 dark:text-slate-200'}`}>{formData.isPublished ? 'Live & Operational' : 'Offline Staging'}</span>
+                                        <p className="text-sm font-semibold text-slate-700">
+                                            {formData.isPublished ? 'পাবলিশড ✅' : 'ড্রাফট'}
+                                        </p>
+                                        <p className="text-xs text-slate-500">
+                                            {formData.isPublished ? 'লেসনটি সবার কাছে দৃশ্যমান' : 'শুধু অ্যাডমিন দেখতে পারবে'}
+                                        </p>
                                     </div>
                                 </div>
 
+                                {/* Free Preview Toggle */}
                                 <div
                                     onClick={() => setFormData(prev => ({ ...prev, isFree: !prev.isFree }))}
-                                    className={`flex-1 p-8 rounded-[2rem] border-2 transition-all cursor-pointer group flex items-center gap-6 ${formData.isFree ? 'bg-indigo-600 border-indigo-500 shadow-2xl shadow-indigo-600/20' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800'}`}
+                                    className={`p-4 rounded-md border-2 cursor-pointer transition-all flex items-center gap-3 ${formData.isFree
+                                            ? 'bg-indigo-50 border-indigo-300'
+                                            : 'bg-white border-slate-200 hover:border-slate-300'
+                                        }`}
                                 >
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${formData.isFree ? 'bg-white text-indigo-600' : 'bg-white dark:bg-slate-700 text-slate-400 group-hover:scale-110'}`}>
-                                        <FiTrendingUp size={24} />
+                                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${formData.isFree ? 'bg-indigo-500 text-white' : 'bg-slate-100 text-slate-400'
+                                        }`}>
+                                        <FiPlay size={16} />
                                     </div>
                                     <div>
-                                        <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 block ${formData.isFree ? 'text-indigo-200' : 'text-slate-400'}`}>Market Reach</span>
-                                        <span className={`text-sm font-black uppercase tracking-tight ${formData.isFree ? 'text-white' : 'text-slate-800 dark:text-slate-200'}`}>{formData.isFree ? 'Free Preview Active' : 'Restricted Access'}</span>
+                                        <p className="text-sm font-semibold text-slate-700">
+                                            {formData.isFree ? 'ফ্রি প্রিভিউ ✅' : 'প্রিমিয়াম'}
+                                        </p>
+                                        <p className="text-xs text-slate-500">
+                                            {formData.isFree ? 'সবাই বিনামূল্যে দেখতে পারবে' : 'শুধু এনরোলড শিক্ষার্থীদের জন্য'}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group shadow-2xl">
-                                <div className="absolute top-0 right-0 p-10 opacity-5 transition-opacity group-hover:opacity-10">
-                                    <FiTrendingUp size={180} />
-                                </div>
-                                <div className="relative z-10 flex flex-wrap gap-12">
-                                    <div className="flex-1 min-w-[300px] space-y-4">
-                                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400 flex items-center gap-3">
-                                            <span className="w-8 h-px bg-emerald-400"></span> Node Telemetry
-                                        </h4>
-                                        <p className="text-xs font-bold leading-relaxed text-slate-400">
-                                            Syncing node configuration... Modifications will propagate to all <span className="text-white">Active Enrollments</span> instantly. Verify integrity before commit.
-                                        </p>
+                            {/* Summary */}
+                            <div className="bg-slate-50 rounded-md border border-slate-200 p-4">
+                                <h4 className="text-sm font-semibold text-slate-700 mb-3">লেসন সারাংশ</h4>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    <div className="text-center p-2 bg-white rounded-md border border-slate-100">
+                                        <p className="text-lg font-bold text-indigo-600">{formData.videoUrl ? '1' : '0'}</p>
+                                        <p className="text-[10px] text-slate-500 font-medium">ভিডিও</p>
                                     </div>
-                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 flex-1 min-w-[300px]">
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-indigo-500">{formData.videoUrl ? '01' : '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Video</p>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-emerald-500">{formData.documents?.length || '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Assets</p>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-amber-500">{formData.questions?.length || '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Quiz</p>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-rose-500">{formData.textBlocks?.length || '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Blocks</p>
-                                        </div>
+                                    <div className="text-center p-2 bg-white rounded-md border border-slate-100">
+                                        <p className="text-lg font-bold text-emerald-600">{formData.documents?.length || 0}</p>
+                                        <p className="text-[10px] text-slate-500 font-medium">ডকুমেন্ট</p>
+                                    </div>
+                                    <div className="text-center p-2 bg-white rounded-md border border-slate-100">
+                                        <p className="text-lg font-bold text-amber-600">{formData.questions?.length || 0}</p>
+                                        <p className="text-[10px] text-slate-500 font-medium">কুইজ প্রশ্ন</p>
+                                    </div>
+                                    <div className="text-center p-2 bg-white rounded-md border border-slate-100">
+                                        <p className="text-lg font-bold text-rose-600">{formData.textBlocks?.length || 0}</p>
+                                        <p className="text-[10px] text-slate-500 font-medium">টেক্সট ব্লক</p>
                                     </div>
                                 </div>
                             </div>
@@ -644,22 +652,22 @@ export default function EditLessonPage() {
                 </div>
             </div>
 
-            {/* Strategic Actions */}
-            <div className="flex items-center justify-end gap-6 pt-10 border-t border-slate-100 dark:border-slate-800">
+            {/* Bottom Action Bar */}
+            <div className="flex items-center justify-between pt-2 pb-6">
                 <button
                     type="button"
                     onClick={() => router.back()}
-                    className="px-10 py-5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white font-black text-[10px] uppercase tracking-[0.2em] transition-all bg-white dark:bg-slate-900 active:scale-95"
+                    className="px-4 py-2 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 text-sm font-medium transition-all"
                 >
-                    Discard Changes
+                    বাতিল করুন
                 </button>
                 <button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="px-14 py-5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[10px] uppercase tracking-[0.3em] transition-all shadow-2xl shadow-indigo-500/20 active:scale-95 flex items-center gap-3"
+                    className="px-6 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-all flex items-center gap-2 disabled:opacity-50"
                 >
-                    {saving ? <FiRefreshCw className="animate-spin" /> : <FiSave />}
-                    Synchronize Unit
+                    {saving ? <FiRefreshCw className="animate-spin" size={14} /> : <FiSave size={14} />}
+                    লেসন আপডেট করুন
                 </button>
             </div>
         </div>

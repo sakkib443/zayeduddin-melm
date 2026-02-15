@@ -204,7 +204,7 @@ export default function AllModulesPage() {
                                         <td className="px-4 py-3">
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
-                                                    href={`/dashboard/admin/module/edit/${mod._id}`}
+                                                    href={`/dashboard/admin/module/create?edit=${mod._id}`}
                                                     className="p-2 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-500/10 text-gray-500 hover:text-indigo-600 transition-colors"
                                                 >
                                                     <FiEdit2 size={16} />

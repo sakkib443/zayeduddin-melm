@@ -62,8 +62,26 @@ const SingleCourse = () => {
   const [isLiking, setIsLiking] = useState(false);
   const [batches, setBatches] = useState([]);
   const [loadingBatches, setLoadingBatches] = useState(false);
+  const [expandedModules, setExpandedModules] = useState([0]); // First module expanded by default
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+
+  // Helper to convert YouTube URL to embed URL
+  const getYouTubeEmbedUrl = (url) => {
+    if (!url) return null;
+    let videoId = null;
+    // youtube.com/watch?v=ID
+    const match1 = url.match(/[?&]v=([^&#]+)/);
+    // youtu.be/ID
+    const match2 = url.match(/youtu\.be\/([^?&#]+)/);
+    // youtube.com/embed/ID
+    const match3 = url.match(/youtube\.com\/embed\/([^?&#]+)/);
+    videoId = match1?.[1] || match2?.[1] || match3?.[1];
+    return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0` : null;
+  };
+
+  const courseVideoUrl = currentCourse?.previewVideo || currentCourse?.videoUrl || currentCourse?.introVideo || null;
 
   useEffect(() => {
     dispatch(fetchSingleCourse(id));
@@ -330,7 +348,18 @@ const SingleCourse = () => {
             <div className="lg:col-span-8 space-y-6">
               {/* Mobile Pricing Card */}
               <div className="lg:hidden bg-white dark:bg-slate-900 rounded-md border border-gray-200 dark:border-slate-800 overflow-hidden">
-                <img src={currentCourse.thumbnail || currentCourse.image || "/images/placeholder.png"} alt={currentCourse.title} className="w-full aspect-video object-cover" />
+                <div className="relative group cursor-pointer" onClick={() => { if (courseVideoUrl) setShowVideoModal(true); }}>
+                  <img src={currentCourse.thumbnail || currentCourse.image || "/images/placeholder.png"} alt={currentCourse.title} className="w-full aspect-video object-cover" />
+                  {courseVideoUrl && (
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-14 h-14 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" className="ml-1">
+                          <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <div className="p-5">
                   <div className="flex items-baseline gap-2 mb-4">
                     <span className="text-2xl font-bold text-gray-900 outfit">৳{price.toLocaleString()}</span>
@@ -421,39 +450,116 @@ const SingleCourse = () => {
                         transition={{ duration: 0.2 }}
                         className="space-y-6"
                       >
-                        <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
-                          <span className="w-1 h-5 bg-red-500 rounded-full"></span>
-                          Learning Modules
-                        </h2>
-                        <div className="space-y-4">
-                          {currentCourse.curriculum?.map((module, idx) => (
-                            <div key={idx} className="bg-gray-50 border border-gray-100 rounded-md overflow-hidden">
-                              <div className="flex items-center justify-between p-4 bg-white border-b border-gray-100">
-                                <div className="flex items-center gap-3">
-                                  <span className="w-8 h-8 rounded bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs outfit">
-                                    {idx + 1}
-                                  </span>
-                                  <div>
-                                    <h3 className="font-bold text-gray-900 outfit text-sm">{module.moduleTitle}</h3>
-                                    <p className="text-[10px] text-gray-400 poppins uppercase tracking-wider">{module.totalLessons} Lessons • {module.totalDuration} min</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="divide-y divide-gray-100/50">
-                                {module.lessons?.map((lesson, lIdx) => (
-                                  <div key={lIdx} className="flex items-center justify-between p-4 pl-12 hover:bg-white transition-colors group">
-                                    <div className="flex items-center gap-3">
-                                      <MdPlayCircleOutline className="text-red-400" size={18} />
-                                      <span className="text-sm font-medium text-gray-600 poppins group-hover:text-red-600">{lesson.title}</span>
-                                      {lesson.isFree && <span className="text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded border border-red-100">FREE</span>}
-                                    </div>
-                                    <span className="text-[11px] font-medium text-gray-400 poppins">{lesson.videoDuration}s</span>
-                                  </div>
-                                ))}
-                              </div>
+                        <div className="flex items-center justify-between">
+                          <h2 className="text-lg font-bold outfit text-gray-900 dark:text-white flex items-center gap-2">
+                            <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                            Course Curriculum
+                          </h2>
+                          {currentCourse.curriculum?.length > 0 && (
+                            <div className="flex items-center gap-3 text-xs text-gray-500 poppins">
+                              <span className="flex items-center gap-1.5">
+                                <LuLayoutGrid size={13} />
+                                {currentCourse.curriculum.length} Modules
+                              </span>
+                              <span className="flex items-center gap-1.5">
+                                <MdPlayCircleOutline size={14} />
+                                {currentCourse.curriculum.reduce((sum, m) => sum + (m.totalLessons || 0), 0)} Lessons
+                              </span>
                             </div>
-                          ))}
-                          {!currentCourse.curriculum?.length && <p className="text-gray-400 text-sm poppins py-10 text-center border border-dashed rounded-md">Curriculum details coming soon.</p>}
+                          )}
+                        </div>
+
+                        <div className="space-y-3">
+                          {currentCourse.curriculum?.map((module, idx) => {
+                            const isExpanded = expandedModules?.includes(idx);
+                            const durationMinutes = module.totalDuration || 0;
+                            const durationText = durationMinutes >= 60
+                              ? `${Math.floor(durationMinutes / 60)}h ${durationMinutes % 60}m`
+                              : `${durationMinutes} min`;
+
+                            return (
+                              <div key={idx} className="border border-gray-200 dark:border-slate-700 rounded-md overflow-hidden bg-white dark:bg-slate-900">
+                                {/* Module Header - Clickable */}
+                                <button
+                                  onClick={() => {
+                                    setExpandedModules(prev => {
+                                      if (prev.includes(idx)) {
+                                        return prev.filter(i => i !== idx);
+                                      } else {
+                                        return [...prev, idx];
+                                      }
+                                    });
+                                  }}
+                                  className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors text-left"
+                                >
+                                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                                    <span className="w-8 h-8 rounded-md bg-red-50 dark:bg-red-500/10 text-red-600 flex items-center justify-center font-bold text-xs outfit shrink-0">
+                                      {String(idx + 1).padStart(2, '0')}
+                                    </span>
+                                    <div className="min-w-0">
+                                      <h3 className="font-semibold text-gray-900 dark:text-white outfit text-sm truncate">{module.moduleTitle}</h3>
+                                      <p className="text-[11px] text-gray-400 poppins mt-0.5">
+                                        {module.totalLessons || 0} Lessons {durationMinutes > 0 && `• ${durationText}`}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-all shrink-0 ${isExpanded ? 'bg-red-50 dark:bg-red-500/10 text-red-500 rotate-180' : 'bg-gray-100 dark:bg-slate-800 text-gray-400'}`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                      <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                  </div>
+                                </button>
+
+                                {/* Lessons List - Collapsible */}
+                                {isExpanded && module.lessons?.length > 0 && (
+                                  <div className="border-t border-gray-100 dark:border-slate-800 divide-y divide-gray-50 dark:divide-slate-800/50">
+                                    {module.lessons.map((lesson, lIdx) => {
+                                      const lessonDuration = lesson.videoDuration || 0;
+                                      const lessonDurText = lessonDuration >= 60
+                                        ? `${Math.floor(lessonDuration / 60)}:${String(lessonDuration % 60).padStart(2, '0')}`
+                                        : `0:${String(lessonDuration).padStart(2, '0')}`;
+
+                                      return (
+                                        <div key={lIdx} className="flex items-center justify-between px-4 py-3 pl-[52px] hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors group">
+                                          <div className="flex items-center gap-3 min-w-0 flex-1">
+                                            <MdPlayCircleOutline className="text-gray-300 dark:text-slate-600 group-hover:text-red-400 transition-colors shrink-0" size={18} />
+                                            <span className="text-sm text-gray-600 dark:text-gray-400 poppins group-hover:text-gray-900 dark:group-hover:text-white transition-colors truncate">
+                                              {lesson.title}
+                                            </span>
+                                            {lesson.isFree && (
+                                              <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-100 dark:border-emerald-500/20 shrink-0">
+                                                FREE
+                                              </span>
+                                            )}
+                                          </div>
+                                          {lessonDuration > 0 && (
+                                            <span className="text-[11px] font-medium text-gray-400 poppins ml-3 shrink-0">
+                                              {lessonDurText}
+                                            </span>
+                                          )}
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+
+                                {/* Empty module */}
+                                {isExpanded && (!module.lessons || module.lessons.length === 0) && (
+                                  <div className="border-t border-gray-100 dark:border-slate-800 px-4 py-6 text-center">
+                                    <p className="text-xs text-gray-400 poppins">No lessons available in this module yet.</p>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+
+                          {/* Empty State */}
+                          {!currentCourse.curriculum?.length && (
+                            <div className="text-center py-12 border border-dashed border-gray-200 dark:border-slate-700 rounded-md">
+                              <MdOutlineMenuBook className="mx-auto text-3xl text-gray-300 dark:text-slate-600 mb-3" />
+                              <p className="text-gray-400 text-sm poppins">Curriculum details coming soon.</p>
+                            </div>
+                          )}
                         </div>
                       </motion.div>
                     )}
@@ -561,15 +667,23 @@ const SingleCourse = () => {
                 {/* Pricing Card */}
                 <div className="bg-white rounded-md border border-gray-200 shadow-sm overflow-hidden">
                   {/* Image mirroring Website Gallery/Preview */}
-                  <div className="relative aspect-video group cursor-pointer overflow-hidden bg-gray-100">
+                  <div className="relative aspect-video group cursor-pointer overflow-hidden bg-gray-100"
+                    onClick={() => { if (courseVideoUrl) setShowVideoModal(true); }}
+                  >
                     <img
                       src={currentCourse.thumbnail || currentCourse.image || "/images/placeholder.png"}
                       alt={currentCourse.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <MdPlayCircleOutline className="text-white text-5xl" />
-                    </div>
+                    {courseVideoUrl && (
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="white" className="ml-1">
+                            <polygon points="5,3 19,12 5,21" />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Content */}
@@ -638,24 +752,22 @@ const SingleCourse = () => {
                     </div>
                     <div className="p-4 space-y-3">
                       {batches.slice(0, 3).map((batch, idx) => (
-                        <div 
-                          key={batch._id} 
-                          className={`relative p-4 rounded-lg border-2 transition-all hover:shadow-md ${
-                            idx === 0 
-                              ? 'bg-white border-indigo-200 shadow-sm' 
-                              : 'bg-gray-50/50 border-gray-200 hover:border-indigo-200'
-                          }`}
+                        <div
+                          key={batch._id}
+                          className={`relative p-4 rounded-lg border-2 transition-all hover:shadow-md ${idx === 0
+                            ? 'bg-white border-indigo-200 shadow-sm'
+                            : 'bg-gray-50/50 border-gray-200 hover:border-indigo-200'
+                            }`}
                         >
                           {/* Batch Header */}
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
-                              <span className={`px-2.5 py-1 rounded-md text-xs font-bold ${
-                                batch.status === 'upcoming' 
-                                  ? 'bg-amber-100 text-amber-700' 
-                                  : batch.status === 'ongoing'
+                              <span className={`px-2.5 py-1 rounded-md text-xs font-bold ${batch.status === 'upcoming'
+                                ? 'bg-amber-100 text-amber-700'
+                                : batch.status === 'ongoing'
                                   ? 'bg-green-100 text-green-700'
                                   : 'bg-gray-100 text-gray-600'
-                              }`}>
+                                }`}>
                                 {batch.status?.toUpperCase()}
                               </span>
                               {idx === 0 && (
@@ -693,7 +805,7 @@ const SingleCourse = () => {
                               <div>
                                 <p className="text-[10px] text-gray-400 uppercase tracking-wider">Last Date</p>
                                 <p className="text-xs font-semibold text-gray-800">
-                                  {batch.enrollmentDeadline 
+                                  {batch.enrollmentDeadline
                                     ? new Date(batch.enrollmentDeadline).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
                                     : new Date(batch.startDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
                                   }
@@ -720,7 +832,7 @@ const SingleCourse = () => {
                               <span>{Math.round(((batch.enrolledStudents?.length || 0) / batch.maxStudents) * 100)}%</span>
                             </div>
                             <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                              <div 
+                              <div
                                 className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all"
                                 style={{ width: `${((batch.enrolledStudents?.length || 0) / batch.maxStudents) * 100}%` }}
                               />
@@ -733,11 +845,10 @@ const SingleCourse = () => {
                               handleAddToCart();
                               router.push('/cart');
                             }}
-                            className={`w-full py-2.5 rounded-md font-semibold text-sm transition-all poppins ${
-                              idx === 0
-                                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:shadow-indigo-200'
-                                : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'
-                            }`}
+                            className={`w-full py-2.5 rounded-md font-semibold text-sm transition-all poppins ${idx === 0
+                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:shadow-indigo-200'
+                              : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'
+                              }`}
                           >
                             Enroll in {batch.batchName}
                           </button>
@@ -789,6 +900,52 @@ const SingleCourse = () => {
           </div>
         </div>
       </section >
+
+      {/* Video Preview Modal */}
+      <AnimatePresence>
+        {showVideoModal && courseVideoUrl && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowVideoModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="absolute -top-10 right-0 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors z-10"
+              >
+                <LuX size={18} />
+              </button>
+              {getYouTubeEmbedUrl(courseVideoUrl) ? (
+                <iframe
+                  src={getYouTubeEmbedUrl(courseVideoUrl)}
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="Course Preview Video"
+                />
+              ) : (
+                <video
+                  src={courseVideoUrl}
+                  className="w-full h-full object-contain bg-black"
+                  controls
+                  autoPlay
+                />
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div >
   );
 };

@@ -1,23 +1,34 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { API_BASE_URL } from '@/config/api';
 import {
-    FiPlay, FiArrowLeft, FiSave, FiClock, FiBook, FiLayers,
-    FiFileText, FiHelpCircle, FiFile, FiType, FiSettings, FiCheck,
-    FiMonitor, FiTrendingUp, FiCheckCircle
+    FiPlay, FiArrowLeft, FiSave, FiBook, FiLayers,
+    FiFileText, FiHelpCircle, FiFile, FiType, FiSettings, FiCheck, FiPlus,
+    FiChevronDown, FiChevronUp
 } from 'react-icons/fi';
 
 import QuestionBuilder from '@/components/Admin/lesson/QuestionBuilder';
 import DocumentManager from '@/components/Admin/lesson/DocumentManager';
 import TextContentManager from '@/components/Admin/lesson/TextContentManager';
-import { API_BASE_URL } from '@/config/api';
+
+const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all";
+const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer";
+const labelClass = "block text-sm font-medium text-slate-700 mb-1.5";
 
 export default function CreateLessonPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const editId = searchParams.get('edit');
+    const isEditMode = !!editId;
+
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [fetchingLesson, setFetchingLesson] = useState(false);
+    const [createdLessons, setCreatedLessons] = useState([]);
+    const [showCreatedList, setShowCreatedList] = useState(false);
     const [activeTab, setActiveTab] = useState('video');
     const [formData, setFormData] = useState({
         title: '',
@@ -50,6 +61,7 @@ export default function CreateLessonPage() {
     const [modules, setModules] = useState([]);
     const [fetchingModules, setFetchingModules] = useState(false);
 
+    // Fetch courses on mount
     useEffect(() => {
         const fetchCourses = async () => {
             try {
@@ -65,6 +77,59 @@ export default function CreateLessonPage() {
         };
         fetchCourses();
     }, []);
+
+    // Fetch lesson data when in edit mode
+    useEffect(() => {
+        if (!editId) return;
+        const fetchLesson = async () => {
+            setFetchingLesson(true);
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(`${API_BASE_URL}/lessons/${editId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.data) {
+                    const l = data.data;
+                    const courseId = l.course?._id || l.course || '';
+                    setFormData({
+                        title: l.title || '',
+                        titleBn: l.titleBn || '',
+                        description: l.description || '',
+                        descriptionBn: l.descriptionBn || '',
+                        course: courseId,
+                        module: l.module?._id || l.module || '',
+                        lessonType: l.lessonType || 'video',
+                        videoUrl: l.videoUrl || '',
+                        videoDuration: l.videoDuration || 0,
+                        videoProvider: l.videoProvider || 'youtube',
+                        videoThumbnail: l.videoThumbnail || '',
+                        textContent: l.textContent || '',
+                        textContentBn: l.textContentBn || '',
+                        textBlocks: l.textBlocks || [],
+                        documents: l.documents || [],
+                        questions: l.questions || [],
+                        quizSettings: l.quizSettings || {
+                            passingScore: 70,
+                            maxAttempts: 0,
+                            showCorrectAnswers: true,
+                            shuffleQuestions: false,
+                            timeLimit: 0,
+                        },
+                        order: l.order || 1,
+                        isPublished: l.isPublished || false,
+                        isFree: l.isFree || false,
+                    });
+                    if (courseId) fetchModules(courseId);
+                }
+            } catch (err) {
+                console.error('Error fetching lesson:', err);
+            } finally {
+                setFetchingLesson(false);
+            }
+        };
+        fetchLesson();
+    }, [editId]);
 
     const fetchModules = async (courseId) => {
         if (!courseId) {
@@ -123,8 +188,11 @@ export default function CreateLessonPage() {
             if (payload.questions?.length === 0) delete payload.questions;
             if (payload.textBlocks?.length === 0) delete payload.textBlocks;
 
-            const res = await fetch(`${API_BASE_URL}/lessons`, {
-                method: 'POST',
+            const url = isEditMode ? `${API_BASE_URL}/lessons/${editId}` : `${API_BASE_URL}/lessons`;
+            const method = isEditMode ? 'PATCH' : 'POST';
+
+            const res = await fetch(url, {
+                method,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -135,272 +203,417 @@ export default function CreateLessonPage() {
             const result = await res.json();
 
             if (res.ok) {
-                alert('Lesson Created Successfully! 🚀');
-                router.push('/dashboard/admin/lesson');
+                if (isEditMode) {
+                    alert('লেসন সফলভাবে আপডেট হয়েছে! ✅');
+                    router.push('/dashboard/admin/lesson');
+                } else {
+                    setCreatedLessons(prev => [...prev, {
+                        _id: result.data?._id,
+                        title: result.data?.title || formData.title,
+                        order: result.data?.order || formData.order,
+                        lessonType: formData.lessonType
+                    }]);
+
+                    setFormData(prev => ({
+                        ...prev,
+                        title: '',
+                        titleBn: '',
+                        description: '',
+                        descriptionBn: '',
+                        videoUrl: '',
+                        videoDuration: 0,
+                        textContent: '',
+                        textContentBn: '',
+                        textBlocks: [],
+                        documents: [],
+                        questions: [],
+                        order: prev.order + 1,
+                        isPublished: false,
+                        isFree: false,
+                    }));
+
+                    alert('লেসন সফলভাবে তৈরি হয়েছে! ✅');
+                }
             } else {
                 const errorMsg = result.errorMessages
                     ? result.errorMessages.map(err => `${err.path.split('.').pop()}: ${err.message}`).join('\n')
                     : result.message;
-                alert(`Validation Error ❌\n\n${errorMsg}`);
+                alert(`ত্রুটি ❌\n\n${errorMsg}`);
             }
         } catch (err) {
-            console.error('Create error:', err);
-            alert('Network error!');
+            console.error('Submit error:', err);
+            alert('নেটওয়ার্ক ত্রুটি!');
         } finally {
             setLoading(false);
         }
     };
 
-    const inputClass = "w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-bold placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white";
-    const labelClass = "text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-2";
-
     const tabs = [
-        { id: 'video', label: 'Video', icon: FiPlay, color: 'rose' },
-        { id: 'text', label: 'Payload', icon: FiType, color: 'amber' },
-        { id: 'documents', label: 'Assets', icon: FiFile, color: 'emerald' },
-        { id: 'questions', label: 'Quizzes', icon: FiHelpCircle, color: 'indigo', badge: formData.questions?.length || 0 },
-        { id: 'settings', label: 'Config', icon: FiSettings, color: 'slate' },
+        { id: 'video', label: 'Video', icon: FiPlay },
+        { id: 'text', label: 'Text', icon: FiType },
+        { id: 'documents', label: 'Docs', icon: FiFile },
+        { id: 'questions', label: 'Quiz', icon: FiHelpCircle, badge: formData.questions?.length },
+        { id: 'settings', label: 'Settings', icon: FiSettings },
     ];
 
     return (
-        <div className="min-h-screen p-4 md:p-8 space-y-10 bg-slate-50 dark:bg-slate-950">
-            {/* Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 animate-in fade-in slide-in-from-top-4 duration-500">
-                <div className="flex items-center gap-6">
-                    <Link href="/dashboard/admin/lesson" className="w-14 h-14 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl flex items-center justify-center text-slate-500 hover:text-indigo-500 transition-all shadow-xl active:scale-90">
-                        <FiArrowLeft size={24} />
-                    </Link>
-                    <div>
-                        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Content Deployer</h1>
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1 italic flex items-center gap-2">
-                            <span className="w-8 h-px bg-slate-200"></span> Provisioning new knowledge unit
-                        </p>
-                    </div>
-                </div>
-                <button
-                    onClick={handleSubmit}
-                    disabled={loading}
-                    className="flex items-center justify-center gap-4 px-10 py-5 bg-slate-900 dark:bg-indigo-600 hover:scale-[1.02] text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl transition-all active:scale-95 group"
-                >
-                    {loading ? <FiRefreshCw className="animate-spin" size={20} /> : <FiSave size={20} />}
-                    Commit Asset
-                </button>
-            </div>
+        <div className="min-h-screen bg-slate-50">
+            <div className="max-w-5xl mx-auto p-4 md:p-6 space-y-5">
 
-            {/* Architecture Scope */}
-            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 border border-slate-100 dark:border-slate-800 shadow-2xl shadow-indigo-500/5 space-y-10">
-                <div className="flex items-center gap-4 border-b border-slate-50 dark:border-slate-800 pb-6 mb-2">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
-                        <FiLayers size={18} />
-                    </div>
-                    <h3 className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em]">Structural Placement</h3>
-                </div>
+                {/* Header */}
+                <div className="bg-white border border-slate-200 rounded-md p-4 shadow-sm">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                            <Link href="/dashboard/admin/lesson" className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-md transition-all">
+                                <FiArrowLeft size={16} />
+                            </Link>
+                            <div className="w-9 h-9 rounded-md bg-indigo-100 flex items-center justify-center text-indigo-600">
+                                <FiPlay size={16} />
+                            </div>
+                            <div>
+                                <h1 className="text-base font-semibold text-slate-800">
+                                    {isEditMode ? 'লেসন এডিট করুন' : 'নতুন লেসন তৈরি করুন'}
+                                </h1>
+                                <p className="text-xs text-slate-500">
+                                    {isEditMode ? formData.title || 'লেসন আপডেট করুন' : 'ভিডিও, টেক্সট, ডকুমেন্ট ও কুইজ যোগ করুন'}
+                                </p>
+                            </div>
+                        </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div className="md:col-span-2 space-y-6">
-                        <div>
-                            <label className={labelClass}>Operational Title (EN) *</label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleChange}
-                                required
-                                placeholder="e.g. Asynchronous Lifecycle Patterns"
-                                className={inputClass}
-                            />
-                        </div>
-                        <div>
-                            <label className={labelClass}>Local Identifier (BN)</label>
-                            <input
-                                type="text"
-                                name="titleBn"
-                                value={formData.titleBn}
-                                onChange={handleChange}
-                                placeholder="বিষয়বস্তুর স্থানীয় নাম"
-                                className={inputClass}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="space-y-6">
-                        <div>
-                            <label className={labelClass}>Target Series *</label>
-                            <select
-                                name="course"
-                                value={formData.course}
-                                onChange={handleChange}
-                                required
-                                className={inputClass}
-                            >
-                                <option value="">Select Domain</option>
-                                {courses.map(course => (
-                                    <option key={course._id} value={course._id}>{course.title}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label className={labelClass}>Architecture Node *</label>
-                            <select
-                                name="module"
-                                value={formData.module}
-                                onChange={handleChange}
-                                required
-                                disabled={!formData.course || fetchingModules}
-                                className={`${inputClass} disabled:opacity-50`}
-                            >
-                                <option value="">{fetchingModules ? 'Syncing...' : 'Select Module'}</option>
-                                {modules.map(mod => (
-                                    <option key={mod._id} value={mod._id}>{mod.order}. {mod.title}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="space-y-6">
-                        <div>
-                            <label className={labelClass}>Asset Type</label>
-                            <select
-                                name="lessonType"
-                                value={formData.lessonType}
-                                onChange={handleChange}
-                                className={inputClass}
-                            >
-                                <option value="video">Stream Focus</option>
-                                <option value="text">Document Focus</option>
-                                <option value="quiz">Assessment Focus</option>
-                                <option value="mixed">Hybrid Model</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className={labelClass}>Sequence ID</label>
-                            <input
-                                type="number"
-                                name="order"
-                                value={formData.order}
-                                onChange={handleChange}
-                                min="1"
-                                className={inputClass}
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 outline-none border-t border-slate-50 dark:border-slate-800 pt-10">
-                    <div className="space-y-2">
-                        <label className={labelClass}>Semantic Context (EN)</label>
-                        <textarea
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            rows={3}
-                            placeholder="Define the core objectives and deliverables..."
-                            className={`${inputClass} resize-none h-32 leading-relaxed`}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <label className={labelClass}>Context Translation (BN)</label>
-                        <textarea
-                            name="descriptionBn"
-                            value={formData.descriptionBn}
-                            onChange={handleChange}
-                            rows={3}
-                            placeholder="বিষয়বস্তুর সংক্ষিপ্ত ব্যাখ্যা..."
-                            className={`${inputClass} resize-none h-32 leading-relaxed`}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Content Engineering Space */}
-            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-2xl shadow-indigo-500/5 overflow-hidden animate-in slide-in-from-bottom-6 duration-700">
-                {/* Navigation Bar */}
-                <div className="flex border-b border-slate-50 dark:border-slate-800 overflow-x-auto custom-scrollbar">
-                    {tabs.map(tab => (
-                        <button
-                            key={tab.id}
-                            type="button"
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-4 px-10 py-8 font-black text-[10px] uppercase tracking-[0.3em] transition-all whitespace-nowrap relative group ${activeTab === tab.id
-                                ? `text-indigo-500 bg-indigo-500/5`
-                                : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
-                                }`}
-                        >
-                            <tab.icon size={18} className={activeTab === tab.id ? 'transform scale-125 transition-transform' : ''} />
-                            {tab.label}
-                            {tab.badge > 0 && (
-                                <span className="ml-2 w-5 h-5 rounded-full flex items-center justify-center bg-indigo-500 text-white text-[9px] font-black">
-                                    {tab.badge}
-                                </span>
+                        <div className="flex items-center gap-3">
+                            {isEditMode && (
+                                <button
+                                    onClick={() => router.push('/dashboard/admin/lesson/create')}
+                                    className="flex items-center gap-2 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-2.5 rounded-md font-medium text-sm transition-all"
+                                >
+                                    <FiPlus size={16} />
+                                    নতুন তৈরি করুন
+                                </button>
                             )}
-                            {activeTab === tab.id && <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-indigo-500 animate-pulse"></div>}
-                        </button>
-                    ))}
+                            <button
+                                onClick={handleSubmit}
+                                disabled={loading || fetchingLesson || !formData.title || !formData.course || !formData.module}
+                                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-md font-medium text-sm transition-all disabled:opacity-50"
+                            >
+                                {isEditMode ? <FiSave size={16} /> : <FiPlus size={16} />}
+                                {loading ? (isEditMode ? 'আপডেট হচ্ছে...' : 'তৈরি হচ্ছে...') : (isEditMode ? 'আপডেট করুন' : 'লেসন যোগ করুন')}
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Engineering Canvas */}
-                <div className="p-10 min-h-[400px]">
-                    {activeTab === 'video' && (
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 animate-in fade-in duration-500">
-                            <div className="lg:col-span-8 space-y-10">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div className="space-y-3">
-                                        <label className={labelClass}>Source Link (Video URL)</label>
-                                        <div className="relative">
-                                            <FiPlay className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
-                                            <input
-                                                type="url"
-                                                name="videoUrl"
-                                                value={formData.videoUrl}
-                                                onChange={handleChange}
-                                                placeholder="https://content.cdn.com/..."
-                                                className={`${inputClass} pl-16`}
-                                            />
+                {/* Collapsible Created Lessons */}
+                {createdLessons.length > 0 && (
+                    <div className="bg-emerald-50 border border-emerald-200 rounded-md overflow-hidden">
+                        <button
+                            onClick={() => setShowCreatedList(!showCreatedList)}
+                            className="w-full flex items-center justify-between px-4 py-3 hover:bg-emerald-100/50 transition-colors"
+                        >
+                            <div className="flex items-center gap-2">
+                                <FiCheck className="text-emerald-600" size={16} />
+                                <span className="font-medium text-emerald-700 text-sm">
+                                    {createdLessons.length} Lesson{createdLessons.length > 1 ? 's' : ''} Created
+                                </span>
+                                <div className="flex items-center gap-1 ml-2">
+                                    {createdLessons.slice(0, 2).map((lesson, idx) => (
+                                        <span key={idx} className="px-2 py-0.5 bg-white rounded-md text-xs text-slate-600 font-medium border border-slate-200">
+                                            {lesson.order}. {lesson.title.length > 10 ? lesson.title.slice(0, 10) + '...' : lesson.title}
+                                        </span>
+                                    ))}
+                                    {createdLessons.length > 2 && (
+                                        <span className="text-xs text-slate-500">+{createdLessons.length - 2} more</span>
+                                    )}
+                                </div>
+                            </div>
+                            {showCreatedList ? <FiChevronUp size={18} className="text-slate-500" /> : <FiChevronDown size={18} className="text-slate-500" />}
+                        </button>
+
+                        {showCreatedList && (
+                            <div className="px-4 pb-3 border-t border-emerald-200 pt-2">
+                                <div className="flex flex-wrap gap-2">
+                                    {createdLessons.map((lesson, idx) => (
+                                        <div key={lesson._id || idx} className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-md border border-slate-200">
+                                            <span className="w-5 h-5 rounded-md bg-purple-600 text-white flex items-center justify-center font-bold text-xs">
+                                                {lesson.order}
+                                            </span>
+                                            <span className="text-sm text-slate-700">{lesson.title}</span>
+                                            <span className="text-[10px] text-slate-400 capitalize">({lesson.lessonType})</span>
+                                            <FiCheck className="text-emerald-500" size={12} />
                                         </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* Form */}
+                <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="px-5 py-3 border-b border-slate-100 bg-slate-50">
+                        <h2 className="font-semibold text-sm text-slate-800 flex items-center gap-2">
+                            <FiPlay size={16} className="text-indigo-600" />
+                            Lesson Details
+                        </h2>
+                        <p className="text-xs text-slate-500 mt-0.5">Fill in the lesson information below</p>
+                    </div>
+
+                    <div className="p-5 space-y-4">
+                        {/* Titles */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className={labelClass}>Lesson Title (English) <span className="text-red-500">*</span></label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="e.g. Introduction to React"
+                                    className={inputBase}
+                                />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Lesson Title (বাংলা) <span className="text-xs text-slate-400 font-normal">(Optional)</span></label>
+                                <input
+                                    type="text"
+                                    name="titleBn"
+                                    value={formData.titleBn}
+                                    onChange={handleChange}
+                                    placeholder="লেসনের বাংলা শিরোনাম"
+                                    className={inputBase}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Descriptions */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className={labelClass}>Description (English)</label>
+                                <textarea
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
+                                    rows={2}
+                                    placeholder="Brief description of this lesson..."
+                                    className={`${inputBase} resize-none`}
+                                />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Description (বাংলা) <span className="text-xs text-slate-400 font-normal">(Optional)</span></label>
+                                <textarea
+                                    name="descriptionBn"
+                                    value={formData.descriptionBn}
+                                    onChange={handleChange}
+                                    rows={2}
+                                    placeholder="সংক্ষিপ্ত বিবরণ..."
+                                    className={`${inputBase} resize-none`}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Course & Module Selection */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className={labelClass}>Select Course <span className="text-red-500">*</span></label>
+                                <select
+                                    name="course"
+                                    value={formData.course}
+                                    onChange={handleChange}
+                                    required
+                                    className={selectBase}
+                                >
+                                    <option value="">Choose a course</option>
+                                    {courses.map(course => (
+                                        <option key={course._id} value={course._id}>{course.title}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label className={labelClass}>Select Module <span className="text-red-500">*</span></label>
+                                <select
+                                    name="module"
+                                    value={formData.module}
+                                    onChange={handleChange}
+                                    required
+                                    disabled={!formData.course || fetchingModules}
+                                    className={`${selectBase} disabled:bg-slate-50 disabled:text-slate-400`}
+                                >
+                                    <option value="">{fetchingModules ? 'Loading...' : (formData.course ? 'Choose a module' : 'Select course first')}</option>
+                                    {modules.map(mod => (
+                                        <option key={mod._id} value={mod._id}>{mod.order}. {mod.title}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        {/* Lesson Type */}
+                        <div>
+                            <label className={labelClass}>Lesson Type</label>
+                            <div className="flex flex-wrap gap-2">
+                                {[
+                                    { value: 'video', label: 'Video', icon: FiPlay },
+                                    { value: 'text', label: 'Text', icon: FiFileText },
+                                    { value: 'quiz', label: 'Quiz', icon: FiHelpCircle },
+                                    { value: 'mixed', label: 'Mixed', icon: FiLayers },
+                                ].map(type => (
+                                    <button
+                                        key={type.value}
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, lessonType: type.value }))}
+                                        className={`flex items-center gap-1.5 px-3 py-2 rounded-md border text-sm font-medium transition-all ${formData.lessonType === type.value
+                                            ? 'border-indigo-500 bg-indigo-600 text-white'
+                                            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                                            }`}
+                                    >
+                                        <type.icon size={14} />
+                                        {type.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Status & Order Row */}
+                        <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-100">
+                            <div className="flex items-center gap-3">
+                                <label className="text-sm font-medium text-slate-700">Status:</label>
+                                <div className="flex bg-slate-100 rounded-md p-0.5">
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, isPublished: true }))}
+                                        className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${formData.isPublished
+                                            ? 'bg-indigo-600 text-white shadow-sm'
+                                            : 'text-slate-500 hover:text-slate-700'
+                                            }`}
+                                    >
+                                        Active
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData(prev => ({ ...prev, isPublished: false }))}
+                                        className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${!formData.isPublished
+                                            ? 'bg-slate-600 text-white shadow-sm'
+                                            : 'text-slate-500 hover:text-slate-700'
+                                            }`}
+                                    >
+                                        Draft
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <input
+                                    type="checkbox"
+                                    id="isFree"
+                                    name="isFree"
+                                    checked={formData.isFree}
+                                    onChange={handleChange}
+                                    className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <label htmlFor="isFree" className="text-sm text-slate-600 cursor-pointer">Free Preview</label>
+                            </div>
+
+                            <div className="flex items-center gap-2 ml-auto">
+                                <label className="text-sm font-medium text-slate-700">Order:</label>
+                                <input
+                                    type="number"
+                                    name="order"
+                                    value={formData.order}
+                                    onChange={handleChange}
+                                    min="1"
+                                    className="w-16 px-2 py-1.5 rounded-md border border-slate-200 text-sm text-center focus:border-indigo-500 outline-none"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Content Tabs */}
+                <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+                    {/* Tab Navigation */}
+                    <div className="flex border-b border-slate-200 overflow-x-auto">
+                        {tabs.map(tab => (
+                            <button
+                                key={tab.id}
+                                type="button"
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`flex items-center gap-1.5 px-4 py-3 font-medium text-sm border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
+                                    ? 'border-indigo-600 text-indigo-600 bg-indigo-50/50'
+                                    : 'border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                                    }`}
+                            >
+                                <tab.icon size={14} />
+                                {tab.label}
+                                {tab.badge > 0 && (
+                                    <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-600">
+                                        {tab.badge}
+                                    </span>
+                                )}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Tab Content */}
+                    <div className="p-5">
+                        {/* Video Tab */}
+                        {activeTab === 'video' && (
+                            <div className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className={labelClass}>Video URL</label>
+                                        <input
+                                            type="url"
+                                            name="videoUrl"
+                                            value={formData.videoUrl}
+                                            onChange={handleChange}
+                                            placeholder="https://youtube.com/watch?v=..."
+                                            className={inputBase}
+                                        />
                                     </div>
-                                    <div className="space-y-3">
-                                        <label className={labelClass}>Infrastructural Provider</label>
+                                    <div>
+                                        <label className={labelClass}>Video Provider</label>
                                         <select
                                             name="videoProvider"
                                             value={formData.videoProvider}
                                             onChange={handleChange}
-                                            className={inputClass}
+                                            className={selectBase}
                                         >
-                                            <option value="youtube">YouTube Engine</option>
-                                            <option value="vimeo">Vimeo Enterprise</option>
-                                            <option value="bunny">Bunny Stream</option>
-                                            <option value="cloudinary">Cloudinary Media</option>
-                                            <option value="custom">Custom Implementation</option>
+                                            <option value="youtube">YouTube</option>
+                                            <option value="vimeo">Vimeo</option>
+                                            <option value="bunny">Bunny</option>
+                                            <option value="cloudinary">Cloudinary</option>
+                                            <option value="custom">Custom</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div className="space-y-3">
-                                    <label className={labelClass}>Runtime Duration (Seconds)</label>
-                                    <div className="relative w-full md:w-1/2">
-                                        <FiClock className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className={labelClass}>Duration (seconds)</label>
                                         <input
                                             type="number"
                                             name="videoDuration"
                                             value={formData.videoDuration}
                                             onChange={handleChange}
-                                            placeholder="e.g. 1800 for 30m coverage"
-                                            className={`${inputClass} pl-16`}
+                                            placeholder="e.g. 900"
+                                            className={inputBase}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className={labelClass}>Order in Module</label>
+                                        <input
+                                            type="number"
+                                            name="order"
+                                            value={formData.order}
+                                            onChange={handleChange}
+                                            min="1"
+                                            className={inputBase}
                                         />
                                     </div>
                                 </div>
                             </div>
-                            <div className="lg:col-span-4 bg-slate-50 dark:bg-slate-800/30 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center space-y-4">
-                                <div className="w-20 h-20 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500">
-                                    <FiMonitor size={32} />
-                                </div>
-                                <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Stream Analytics</h4>
-                                <p className="text-xs font-bold text-slate-400 leading-relaxed px-4">Provide the exact timestamp in seconds for accurate student tracking and certification.</p>
-                            </div>
-                        </div>
-                    )}
+                        )}
 
-                    {activeTab === 'text' && (
-                        <div className="animate-in fade-in duration-500">
+                        {/* Text Content Tab */}
+                        {activeTab === 'text' && (
                             <TextContentManager
                                 textBlocks={formData.textBlocks}
                                 mainContent={formData.textContent}
@@ -408,179 +621,165 @@ export default function CreateLessonPage() {
                                 onChangeBlocks={(blocks) => handleNestedChange('textBlocks', blocks)}
                                 onChangeMain={handleNestedChange}
                             />
-                        </div>
-                    )}
+                        )}
 
-                    {activeTab === 'documents' && (
-                        <div className="animate-in fade-in duration-500">
+                        {/* Documents Tab */}
+                        {activeTab === 'documents' && (
                             <DocumentManager
                                 documents={formData.documents}
                                 onChange={(docs) => handleNestedChange('documents', docs)}
                             />
-                        </div>
-                    )}
+                        )}
 
-                    {activeTab === 'questions' && (
-                        <div className="space-y-10 animate-in fade-in duration-500">
-                            <QuestionBuilder
-                                questions={formData.questions}
-                                onChange={(qs) => handleNestedChange('questions', qs)}
-                            />
+                        {/* Questions Tab */}
+                        {activeTab === 'questions' && (
+                            <div className="space-y-4">
+                                <QuestionBuilder
+                                    questions={formData.questions}
+                                    onChange={(qs) => handleNestedChange('questions', qs)}
+                                />
 
-                            {formData.questions?.length > 0 && (
-                                <div className="mt-10 p-10 bg-slate-900 dark:bg-indigo-600 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform">
-                                        <FiSettings size={150} />
-                                    </div>
-                                    <div className="relative z-10 space-y-8">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-                                                <FiCheckCircle className="text-white" />
-                                            </div>
-                                            <h4 className="text-xs font-black text-white uppercase tracking-[0.3em]">Assessment Governance</h4>
-                                        </div>
-                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                                            <div className="space-y-3">
-                                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest px-1">Pass Threshold (%)</label>
+                                {formData.questions?.length > 0 && (
+                                    <div className="mt-4 p-4 bg-slate-50 rounded-md border border-slate-200 space-y-3">
+                                        <h4 className="font-semibold text-slate-800 text-sm flex items-center gap-2">
+                                            <FiSettings className="text-indigo-600" />
+                                            Quiz Settings
+                                        </h4>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                            <div>
+                                                <label className="text-xs font-medium text-slate-500 mb-1 block">Passing %</label>
                                                 <input
                                                     type="number"
                                                     value={formData.quizSettings.passingScore}
                                                     onChange={(e) => handleQuizSettingsChange('passingScore', Number(e.target.value))}
-                                                    className="w-full h-14 px-6 bg-white/10 border border-white/20 rounded-2xl outline-none text-white font-black text-lg focus:bg-white/20"
+                                                    min="0"
+                                                    max="100"
+                                                    className={inputBase}
                                                 />
                                             </div>
-                                            <div className="space-y-3">
-                                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest px-1">Attempt Quota</label>
+                                            <div>
+                                                <label className="text-xs font-medium text-slate-500 mb-1 block">Max Attempts</label>
                                                 <input
                                                     type="number"
                                                     value={formData.quizSettings.maxAttempts}
                                                     onChange={(e) => handleQuizSettingsChange('maxAttempts', Number(e.target.value))}
-                                                    className="w-full h-14 px-6 bg-white/10 border border-white/20 rounded-2xl outline-none text-white font-black text-lg focus:bg-white/20"
+                                                    min="0"
+                                                    className={inputBase}
                                                 />
                                             </div>
-                                            <div className="space-y-3">
-                                                <label className="text-[9px] font-black text-indigo-200 uppercase tracking-widest px-1">Timer (Minutes)</label>
+                                            <div>
+                                                <label className="text-xs font-medium text-slate-500 mb-1 block">Time (min)</label>
                                                 <input
                                                     type="number"
                                                     value={formData.quizSettings.timeLimit}
                                                     onChange={(e) => handleQuizSettingsChange('timeLimit', Number(e.target.value))}
-                                                    className="w-full h-14 px-6 bg-white/10 border border-white/20 rounded-2xl outline-none text-white font-black text-lg focus:bg-white/20"
+                                                    min="0"
+                                                    className={inputBase}
                                                 />
                                             </div>
-                                            <div className="flex flex-col justify-end pb-3 gap-3">
-                                                <label className="flex items-center gap-3 cursor-pointer group/item">
+                                            <div className="flex flex-col justify-center gap-1.5">
+                                                <label className="flex items-center gap-2 text-xs">
                                                     <input
                                                         type="checkbox"
                                                         checked={formData.quizSettings.showCorrectAnswers}
                                                         onChange={(e) => handleQuizSettingsChange('showCorrectAnswers', e.target.checked)}
-                                                        className="w-5 h-5 rounded-lg border-white/20 text-white bg-transparent accent-white"
+                                                        className="w-3.5 h-3.5 rounded border-slate-300 text-indigo-600"
                                                     />
-                                                    <span className="text-[10px] font-black text-white/80 uppercase tracking-widest group-hover/item:text-white transition-colors">Reveal Keys</span>
+                                                    Show Answers
                                                 </label>
-                                            </div>
-                                            <div className="flex flex-col justify-end pb-3 gap-3">
-                                                <label className="flex items-center gap-3 cursor-pointer group/item">
+                                                <label className="flex items-center gap-2 text-xs">
                                                     <input
                                                         type="checkbox"
                                                         checked={formData.quizSettings.shuffleQuestions}
                                                         onChange={(e) => handleQuizSettingsChange('shuffleQuestions', e.target.checked)}
-                                                        className="w-5 h-5 rounded-lg border-white/20 text-white bg-transparent accent-white"
+                                                        className="w-3.5 h-3.5 rounded border-slate-300 text-indigo-600"
                                                     />
-                                                    <span className="text-[10px] font-black text-white/80 uppercase tracking-widest group-hover/item:text-white transition-colors">Randomize Order</span>
+                                                    Shuffle
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {activeTab === 'settings' && (
-                        <div className="space-y-10 animate-in fade-in duration-500">
-                            <div className="flex flex-col md:flex-row gap-8">
-                                <div
-                                    onClick={() => setFormData(prev => ({ ...prev, isPublished: !prev.isPublished }))}
-                                    className={`flex-1 p-8 rounded-[2rem] border-2 transition-all cursor-pointer group flex items-center gap-6 ${formData.isPublished ? 'bg-emerald-500 border-emerald-400 shadow-2xl shadow-emerald-500/20' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800'}`}
-                                >
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${formData.isPublished ? 'bg-white text-emerald-500' : 'bg-white dark:bg-slate-700 text-slate-400 group-hover:scale-110'}`}>
-                                        <FiCheckCircle size={24} />
-                                    </div>
-                                    <div>
-                                        <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 block ${formData.isPublished ? 'text-emerald-100' : 'text-slate-400'}`}>Availability</span>
-                                        <span className={`text-sm font-black uppercase tracking-tight ${formData.isPublished ? 'text-white' : 'text-slate-800 dark:text-slate-200'}`}>{formData.isPublished ? 'Live & Operational' : 'Offline Staging'}</span>
-                                    </div>
-                                </div>
-
-                                <div
-                                    onClick={() => setFormData(prev => ({ ...prev, isFree: !prev.isFree }))}
-                                    className={`flex-1 p-8 rounded-[2rem] border-2 transition-all cursor-pointer group flex items-center gap-6 ${formData.isFree ? 'bg-indigo-600 border-indigo-500 shadow-2xl shadow-indigo-600/20' : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800'}`}
-                                >
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${formData.isFree ? 'bg-white text-indigo-600' : 'bg-white dark:bg-slate-700 text-slate-400 group-hover:scale-110'}`}>
-                                        <FiTrendingUp size={24} />
-                                    </div>
-                                    <div>
-                                        <span className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 block ${formData.isFree ? 'text-indigo-200' : 'text-slate-400'}`}>Market Reach</span>
-                                        <span className={`text-sm font-black uppercase tracking-tight ${formData.isFree ? 'text-white' : 'text-slate-800 dark:text-slate-200'}`}>{formData.isFree ? 'Free Preview Active' : 'Restricted Access'}</span>
-                                    </div>
-                                </div>
+                                )}
                             </div>
+                        )}
 
-                            <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group shadow-2xl">
-                                <div className="absolute top-0 right-0 p-10 opacity-5 transition-opacity group-hover:opacity-10">
-                                    <FiTrendingUp size={180} />
+                        {/* Settings Tab */}
+                        {activeTab === 'settings' && (
+                            <div className="space-y-4">
+                                <div className="flex flex-wrap gap-3">
+                                    <label className="flex items-center gap-3 cursor-pointer p-3 bg-slate-50 rounded-md border border-slate-200 flex-1">
+                                        <input
+                                            type="checkbox"
+                                            name="isPublished"
+                                            checked={formData.isPublished}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                        />
+                                        <div>
+                                            <span className="text-sm font-medium text-slate-700 block">Publish</span>
+                                            <span className="text-xs text-slate-500">Make visible to students</span>
+                                        </div>
+                                    </label>
+                                    <label className="flex items-center gap-3 cursor-pointer p-3 bg-slate-50 rounded-md border border-slate-200 flex-1">
+                                        <input
+                                            type="checkbox"
+                                            name="isFree"
+                                            checked={formData.isFree}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                        />
+                                        <div>
+                                            <span className="text-sm font-medium text-slate-700 block">Free Preview</span>
+                                            <span className="text-xs text-slate-500">Allow free access</span>
+                                        </div>
+                                    </label>
                                 </div>
-                                <div className="relative z-10 flex flex-wrap gap-12">
-                                    <div className="flex-1 min-w-[300px] space-y-4">
-                                        <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400 flex items-center gap-3">
-                                            <span className="w-8 h-px bg-emerald-400"></span> Node Telemetry
-                                        </h4>
-                                        <p className="text-xs font-bold leading-relaxed text-slate-400">
-                                            Reviewing system configuration... Each unit requires a verified <span className="text-white">Video Path</span>, <span className="text-white">Assessment Points</span>, and <span className="text-white">Doc Assets</span> to maximize learning conversion.
-                                        </p>
-                                    </div>
-                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 flex-1 min-w-[300px]">
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-indigo-500">{formData.videoUrl ? '01' : '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Video</p>
+
+                                {/* Summary */}
+                                <div className="p-4 bg-slate-50 rounded-md border border-slate-200">
+                                    <h4 className="font-semibold text-slate-800 text-sm mb-3">Content Summary</h4>
+                                    <div className="grid grid-cols-4 gap-3 text-center">
+                                        <div className="p-2 bg-white rounded-md border border-slate-100">
+                                            <p className="text-xl font-bold text-indigo-600">{formData.videoUrl ? '1' : '0'}</p>
+                                            <p className="text-xs text-slate-500">Video</p>
                                         </div>
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-emerald-500">{formData.documents?.length || '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Docs</p>
+                                        <div className="p-2 bg-white rounded-md border border-slate-100">
+                                            <p className="text-xl font-bold text-purple-600">{formData.documents?.length || 0}</p>
+                                            <p className="text-xs text-slate-500">Docs</p>
                                         </div>
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-amber-500">{formData.questions?.length || '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Quiz</p>
+                                        <div className="p-2 bg-white rounded-md border border-slate-100">
+                                            <p className="text-xl font-bold text-emerald-600">{formData.questions?.length || 0}</p>
+                                            <p className="text-xs text-slate-500">Quiz</p>
                                         </div>
-                                        <div className="space-y-2">
-                                            <p className="text-[20px] font-black text-rose-500">{formData.textBlocks?.length || '00'}</p>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">Blocks</p>
+                                        <div className="p-2 bg-white rounded-md border border-slate-100">
+                                            <p className="text-xl font-bold text-amber-600">{formData.textBlocks?.length || 0}</p>
+                                            <p className="text-xs text-slate-500">Text</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
-            </div>
 
-            {/* Strategic Actions */}
-            <div className="flex items-center justify-end gap-6 pt-10 border-t border-slate-100 dark:border-slate-800">
-                <button
-                    type="button"
-                    onClick={() => router.back()}
-                    className="px-10 py-5 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white font-black text-[10px] uppercase tracking-[0.2em] transition-all bg-white dark:bg-slate-900 active:scale-95"
-                >
-                    Discard Changes
-                </button>
-                <button
-                    onClick={handleSubmit}
-                    disabled={loading}
-                    className="px-14 py-5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[10px] uppercase tracking-[0.3em] transition-all shadow-2xl shadow-indigo-500/20 active:scale-95 flex items-center gap-3"
-                >
-                    {loading ? <FiRefreshCw className="animate-spin" /> : <FiSave />}
-                    Commit Knowledge Unit
-                </button>
+                {/* Bottom Actions */}
+                <div className="flex items-center justify-end gap-3">
+                    <button
+                        type="button"
+                        onClick={() => router.back()}
+                        className="px-5 py-2.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-medium transition-colors"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition-all disabled:opacity-50"
+                    >
+                        <FiSave size={16} />
+                        {loading ? 'Creating...' : 'Create Lesson'}
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -237,7 +237,7 @@ export default function LessonsPage() {
                                         <td className="px-4 py-3">
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
-                                                    href={`/dashboard/admin/lesson/edit/${lesson._id}`}
+                                                    href={`/dashboard/admin/lesson/create?edit=${lesson._id}`}
                                                     className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-500 hover:text-indigo-600 transition-colors"
                                                 >
                                                     <FiEdit2 size={16} />
