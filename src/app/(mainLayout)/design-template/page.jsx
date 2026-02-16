@@ -24,6 +24,7 @@ import {
     LuCalendar,
     LuRefreshCw,
     LuBookmark,
+    LuArrowUpDown,
 } from "react-icons/lu";
 import { FiMessageSquare, FiShare2, FiChevronLeft, FiThumbsUp } from "react-icons/fi";
 import ProductCard from "@/components/sheard/ProductCard";
@@ -68,7 +69,7 @@ const getSoftwareIcon = (platform) => {
 const DesignTemplateContent = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const { isDark } = useTheme();
     const dispatch = useDispatch();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
@@ -78,6 +79,9 @@ const DesignTemplateContent = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [selectedTool, setSelectedTool] = useState("all");
+    const [selectedPrice, setSelectedPrice] = useState("all");
+    const [selectedRating, setSelectedRating] = useState("all");
+    const [selectedSort, setSelectedSort] = useState("popular");
     const [templates, setTemplates] = useState([]);
     const [categories, setCategories] = useState([]);
 
@@ -146,7 +150,35 @@ const DesignTemplateContent = () => {
             template.category === selectedCategory;
         const matchesTool = selectedTool === "all" ||
             (template.designTools && template.designTools.includes(selectedTool));
-        return matchesSearch && matchesCategory && matchesTool;
+
+        // Price filter
+        let matchesPrice = true;
+        if (selectedPrice !== "all") {
+            const price = template.discountPrice || template.price || 0;
+            if (selectedPrice === "free") matchesPrice = template.accessType === 'free' || price === 0;
+            else if (selectedPrice === "under500") matchesPrice = price > 0 && price < 500;
+            else if (selectedPrice === "500to1000") matchesPrice = price >= 500 && price <= 1000;
+            else if (selectedPrice === "1000to5000") matchesPrice = price >= 1000 && price <= 5000;
+            else if (selectedPrice === "above5000") matchesPrice = price > 5000;
+        }
+
+        // Rating filter
+        let matchesRating = true;
+        if (selectedRating !== "all") {
+            const rating = template.rating || 0;
+            if (selectedRating === "4plus") matchesRating = rating >= 4;
+            else if (selectedRating === "3plus") matchesRating = rating >= 3;
+            else if (selectedRating === "2plus") matchesRating = rating >= 2;
+        }
+
+        return matchesSearch && matchesCategory && matchesTool && matchesPrice && matchesRating;
+    }).sort((a, b) => {
+        if (selectedSort === "popular") return (b.salesCount || 0) - (a.salesCount || 0);
+        if (selectedSort === "newest") return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+        if (selectedSort === "oldest") return new Date(a.createdAt || 0) - new Date(b.createdAt || 0);
+        if (selectedSort === "priceLow") return (a.discountPrice || a.price || 0) - (b.discountPrice || b.price || 0);
+        if (selectedSort === "priceHigh") return (b.discountPrice || b.price || 0) - (a.discountPrice || a.price || 0);
+        return 0;
     });
 
     const getCategoryCount = (categoryId) => {
@@ -285,7 +317,7 @@ const DesignTemplateContent = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                alert('Please login to save this design');
+                alert(t('designTemplatePage.loginToSave'));
                 return;
             }
 
@@ -321,88 +353,134 @@ const DesignTemplateContent = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-[#020202]">
             {/* Header Section */}
-            <header className="pt-24 pb-6 bg-white dark:bg-[#020202]">
+            <header className="pt-20 pb-2 bg-white dark:bg-[#020202]">
                 <div className="container mx-auto px-4 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className={`text-4xl md:text-[50px] font-bold text-[#300000] mb-4 ${bengaliClass}`}>
-                            {language === 'bn' ? 'à¦—à§à¦°à¦¾à¦«à¦¿à¦• à¦Ÿà§‡à¦®à§à¦ªà¦²à§‡à¦Ÿ' : 'Graphic Templates'}
+                        <h1 className={`text-3xl md:text-4xl font-bold text-[#300000] mb-2 ${bengaliClass}`}>
+                            {t('designTemplatePage.title')}
                         </h1>
-                        <p className={`text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10 ${bengaliClass}`}>
-                            {language === 'bn'
-                                ? 'à¦†à¦ªà¦¨à¦¾à¦° à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦² à¦ªà§à¦°à¦œà§‡à¦•à§à¦Ÿà§‡à¦° à¦œà¦¨à§à¦¯ à¦ªà§à¦°à¦¿à¦®à¦¿à¦¯à¦¼à¦¾à¦® à¦—à§à¦°à¦¾à¦«à¦¿à¦•à§à¦¸ à¦à¦¬à¦‚ UI/UX à¦Ÿà§‡à¦®à¦ªà§à¦²à§‡à¦Ÿà¥¤'
-                                : 'Premium graphics and UI/UX templates for your creative projects.'}
+                        <p className={`text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed mb-6 ${bengaliClass}`}>
+                            {t('designTemplatePage.subtitle')}
                         </p>
 
                         {/* Search Bar */}
-                        <div className="max-w-2xl mx-auto mb-16 px-4">
+                        <div className="max-w-xl mx-auto mb-8 px-4">
                             <div className="relative group">
-                                <LuSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#300000] transition-colors" size={20} />
+                                <LuSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#300000] transition-colors" size={18} />
                                 <input
                                     type="text"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    placeholder={language === 'bn' ? 'à¦¡à¦¿à¦œà¦¾à¦‡à¦¨ à¦–à§à¦à¦œà§à¦¨...' : 'Search design...'}
-                                    className="w-full pl-16 pr-8 py-5 md:py-6 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-full shadow-lg shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white"
+                                    placeholder={t('designTemplatePage.searchPlaceholder')}
+                                    className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white text-sm"
                                 />
                             </div>
                         </div>
 
                         {/* Filter Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-50 dark:border-white/5 pb-8 lg:px-16">
+                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-50 dark:border-white/5 pb-8 lg:px-16">
+                            {/* Left side: All + Category + Price + Rating */}
                             <div className="flex flex-wrap items-center gap-3">
                                 <button
-                                    onClick={() => setSelectedCategory("all")}
-                                    className={`flex items-center gap-3 px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 ${selectedCategory === "all"
+                                    onClick={() => { setSelectedCategory("all"); setSelectedPrice("all"); setSelectedRating("all"); setSelectedSort("popular"); setSelectedTool("all"); }}
+                                    className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-normal transition-all duration-300 ${selectedCategory === "all" && selectedPrice === "all" && selectedRating === "all"
                                         ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
-                                        : "bg-slate-50 dark:bg-white/5 text-slate-500 hover:bg-slate-100"
+                                        : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"
                                         }`}
                                 >
                                     <LuGrid3X3 size={14} />
-                                    <span>{language === 'bn' ? 'à¦¸à¦¬' : 'All'}</span>
-                                    <span className={`w-6 h-6 flex items-center justify-center rounded-full text-[10px] ${selectedCategory === "all" ? "bg-white/20" : "bg-slate-200 dark:bg-white/10"}`}>{templates.length}</span>
+                                    <span className={bengaliClass}>{t('designTemplatePage.all')}</span>
+                                    <span className={`w-5 h-5 flex items-center justify-center rounded-md text-[10px] ${selectedCategory === "all" && selectedPrice === "all" && selectedRating === "all" ? "bg-white/20" : "bg-slate-200 dark:bg-white/10"}`}>{templates.length}</span>
                                 </button>
 
-                                {categories.map((cat) => (
-                                    <button
-                                        key={cat._id}
-                                        onClick={() => setSelectedCategory(cat._id)}
-                                        className={`flex items-center gap-3 px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 ${selectedCategory === cat._id
-                                            ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
-                                            : "bg-slate-50 dark:bg-white/5 text-slate-500 hover:bg-slate-100"
-                                            }`}
+                                {/* Category Dropdown */}
+                                <div className="relative">
+                                    <LuPalette className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none" size={14} />
+                                    <select
+                                        value={selectedCategory}
+                                        onChange={(e) => setSelectedCategory(e.target.value)}
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedCategory !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
                                     >
-                                        <LuPalette size={14} />
-                                        <span>{cat.name}</span>
-                                        <span className={`w-6 h-6 flex items-center justify-center rounded-full text-[10px] ${selectedCategory === cat._id ? "bg-white/20" : "bg-slate-200 dark:bg-white/10"}`}>{getCategoryCount(cat._id)}</span>
-                                    </button>
-                                ))}
+                                        <option value="all">{t('designTemplatePage.allCategories')}</option>
+                                        {categories.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>{cat.name} ({getCategoryCount(cat._id)})</option>
+                                        ))}
+                                    </select>
+                                    <LuChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-current opacity-50 pointer-events-none" size={12} />
+                                </div>
+
+                                {/* Price Dropdown */}
+                                <div className="relative">
+                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none text-[13px]">৳</span>
+                                    <select
+                                        value={selectedPrice}
+                                        onChange={(e) => setSelectedPrice(e.target.value)}
+                                        className={`appearance-none pl-9 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedPrice !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
+                                    >
+                                        <option value="all">{t('designTemplatePage.allPrices')}</option>
+                                        <option value="free">{t('designTemplatePage.priceFree')}</option>
+                                        <option value="under500">{t('designTemplatePage.priceUnder500')}</option>
+                                        <option value="500to1000">{t('designTemplatePage.price500to1000')}</option>
+                                        <option value="1000to5000">{t('designTemplatePage.price1000to5000')}</option>
+                                        <option value="above5000">{t('designTemplatePage.priceAbove5000')}</option>
+                                    </select>
+                                    <LuChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-current opacity-50 pointer-events-none" size={12} />
+                                </div>
+
+                                {/* Rating Dropdown */}
+                                <div className="relative">
+                                    <LuStar className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400 z-10 pointer-events-none" size={14} />
+                                    <select
+                                        value={selectedRating}
+                                        onChange={(e) => setSelectedRating(e.target.value)}
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedRating !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
+                                    >
+                                        <option value="all">{t('designTemplatePage.allRatings')}</option>
+                                        <option value="4plus">{t('designTemplatePage.rating4plus')}</option>
+                                        <option value="3plus">{t('designTemplatePage.rating3plus')}</option>
+                                        <option value="2plus">{t('designTemplatePage.rating2plus')}</option>
+                                    </select>
+                                    <LuChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-current opacity-50 pointer-events-none" size={12} />
+                                </div>
                             </div>
 
+                            {/* Right side: All Tools + Sort */}
                             <div className="flex flex-wrap items-center gap-3">
-                                <div className="relative group">
-                                    <LuLayers className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-[#300000] z-10" size={14} />
+                                {/* All Tools Dropdown */}
+                                <div className="relative">
+                                    <LuLayers className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none" size={14} />
                                     <select
                                         value={selectedTool}
                                         onChange={(e) => setSelectedTool(e.target.value)}
-                                        className="appearance-none pl-12 pr-10 py-2.5 bg-slate-50 dark:bg-white/5 text-slate-500 rounded-full text-xs font-bold hover:bg-slate-100 transition-all outline-none cursor-pointer border-none ring-0 focus:ring-1 focus:ring-[#300000]/20"
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedTool !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
                                     >
-                                        <option value="all">{language === 'bn' ? 'à¦¸à¦¬ à¦Ÿà§à¦²à¦¸' : 'All Tools'}</option>
+                                        <option value="all">{t('designTemplatePage.allTools')}</option>
                                         {DESIGN_TOOLS_OPTIONS.map(tool => (
                                             <option key={tool} value={tool}>{tool}</option>
                                         ))}
                                     </select>
-                                    <LuChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={14} />
+                                    <LuChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-current opacity-50 pointer-events-none" size={12} />
                                 </div>
 
-                                <div className="relative group">
-                                    <button className="flex items-center gap-3 px-6 py-2.5 bg-slate-50 dark:bg-white/5 text-slate-500 rounded-full text-xs font-bold hover:bg-slate-100 transition-all">
-                                        <span>{language === 'bn' ? 'à¦œà¦¨à¦ªà§à¦°à¦¿à§Ÿ' : 'Most Popular'}</span>
-                                        <LuChevronDown size={14} />
-                                    </button>
+                                {/* Sort Dropdown */}
+                                <div className="relative">
+                                    <LuArrowUpDown className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none" size={14} />
+                                    <select
+                                        value={selectedSort}
+                                        onChange={(e) => setSelectedSort(e.target.value)}
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100 ${bengaliClass}`}
+                                    >
+                                        <option value="popular">{t('designTemplatePage.mostPopular')}</option>
+                                        <option value="newest">{t('designTemplatePage.sortNewest')}</option>
+                                        <option value="oldest">{t('designTemplatePage.sortOldest')}</option>
+                                        <option value="priceLow">{t('designTemplatePage.sortPriceLow')}</option>
+                                        <option value="priceHigh">{t('designTemplatePage.sortPriceHigh')}</option>
+                                    </select>
+                                    <LuChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-current opacity-50 pointer-events-none" size={12} />
                                 </div>
                             </div>
                         </div>
@@ -422,8 +500,8 @@ const DesignTemplateContent = () => {
                     ) : filteredTemplates.length === 0 ? (
                         <div className="text-center py-24">
                             <LuPalette className="mx-auto text-slate-200 mb-6" size={64} />
-                            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">No templates found</h3>
-                            <p className="text-slate-500">Try adjusting your search or filters.</p>
+                            <h3 className={`text-xl font-bold text-slate-800 dark:text-white mb-2 ${bengaliClass}`}>{t('designTemplatePage.noTemplatesTitle')}</h3>
+                            <p className={`text-slate-500 ${bengaliClass}`}>{t('designTemplatePage.noTemplatesDesc')}</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -477,7 +555,7 @@ const DesignTemplateContent = () => {
                                             <nav className="flex items-center gap-2 text-sm overflow-hidden">
                                                 <button onClick={closeModal} className={`hover:text-blue-600 transition-colors shrink-0 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                                                     <FiChevronLeft size={20} className="inline mr-1" />
-                                                    Back
+                                                    {t('designTemplatePage.back')}
                                                 </button>
                                                 <span className={`shrink-0 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>/</span>
                                                 <span className={`font-medium truncate max-w-[100px] md:max-w-[300px] ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -491,7 +569,7 @@ const DesignTemplateContent = () => {
                                                     className={`hidden md:flex items-center gap-3 px-5 py-2.5 border rounded-lg transition-all ${isDark ? 'border-white/10 hover:bg-white/5 text-white' : 'border-gray-200 hover:bg-gray-50 text-gray-900 font-medium'}`}
                                                 >
                                                     <FiMessageSquare className="text-green-500" size={18} />
-                                                    <span className="text-sm">Contact us</span>
+                                                    <span className={`text-sm ${bengaliClass}`}>{t('designTemplatePage.contactUs')}</span>
                                                 </button>
 
                                                 <div className="flex items-center gap-1.5 md:gap-2.5">
@@ -519,7 +597,7 @@ const DesignTemplateContent = () => {
                                                         onClick={handleBuyNow}
                                                         className={`flex items-center gap-2 px-6 py-2.5 font-bold text-sm transition-all shadow-none ${selectedTemplate.accessType === 'free' ? 'bg-[#00C853] hover:bg-[#00B24A] text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
                                                     >
-                                                        {selectedTemplate.accessType === 'free' ? 'Free download' : 'Buy Template'}
+                                                        {selectedTemplate.accessType === 'free' ? t('designTemplatePage.freeDownload') : t('designTemplatePage.buyTemplate')}
                                                     </button>
                                                 </div>
 
@@ -551,7 +629,7 @@ const DesignTemplateContent = () => {
                                                         />
                                                     ) : (
                                                         <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-                                                            <span className="text-gray-400">No Image</span>
+                                                            <span className="text-gray-400">{t('designTemplatePage.noImage')}</span>
                                                         </div>
                                                     )}
                                                 </div>
@@ -587,7 +665,7 @@ const DesignTemplateContent = () => {
                                                         {selectedTemplate.templateType}
                                                     </span>
                                                     {selectedTemplate.accessType === 'free' && (
-                                                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-green-500 text-white">FREE</span>
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-bold bg-green-500 text-white ${bengaliClass}`}>{t('designTemplatePage.free').toUpperCase()}</span>
                                                     )}
                                                 </div>
 
@@ -597,27 +675,27 @@ const DesignTemplateContent = () => {
 
                                                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
                                                     <span className="flex items-center gap-1.5">
-                                                        <LuEye size={16} /> {selectedTemplate.viewCount || 0} views
+                                                        <LuEye size={16} /> {selectedTemplate.viewCount || 0} {t('designTemplatePage.views')}
                                                     </span>
                                                     <span className="flex items-center gap-1.5">
-                                                        <LuHeart size={16} className={isLiked ? "text-red-500 fill-red-500" : ""} /> {likeCount} likes
+                                                        <LuHeart size={16} className={isLiked ? "text-red-500 fill-red-500" : ""} /> {likeCount} {t('designTemplatePage.likes')}
                                                     </span>
                                                     <span className="flex items-center gap-1.5">
-                                                        <LuStar size={16} className="text-amber-500" /> {selectedTemplate.rating || 0} ({selectedTemplate.reviewCount || 0} reviews)
+                                                        <LuStar size={16} className="text-amber-500" /> {selectedTemplate.rating || 0} ({selectedTemplate.reviewCount || 0} {t('designTemplatePage.reviews')})
                                                     </span>
                                                     <span className="flex items-center gap-1.5">
-                                                        <LuDownload size={16} /> {selectedTemplate.salesCount || 0} sales
+                                                        <LuDownload size={16} /> {selectedTemplate.salesCount || 0} {t('designTemplatePage.sales')}
                                                     </span>
                                                 </div>
                                             </div>
 
                                             {/* Description */}
                                             <div className={`py-6 border-t ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
-                                                <h2 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Description</h2>
+                                                <h2 className={`text-lg font-bold mb-4 ${bengaliClass} ${isDark ? 'text-white' : 'text-gray-900'}`}>{t('designTemplatePage.description')}</h2>
                                                 <div className={`prose max-w-none ${isDark ? 'prose-invert' : ''}`}>
                                                     <div
                                                         className={`rich-content ${bengaliClass}`}
-                                                        dangerouslySetInnerHTML={{ __html: selectedTemplate.longDescription || selectedTemplate.description || "<p>No description provided.</p>" }}
+                                                        dangerouslySetInnerHTML={{ __html: selectedTemplate.longDescription || selectedTemplate.description || `<p>${t('designTemplatePage.noDescription')}</p>` }}
                                                     />
                                                 </div>
                                             </div>
@@ -627,7 +705,7 @@ const DesignTemplateContent = () => {
                                                 {/* Design Tools Card */}
                                                 <div className={`p-5 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-white border-gray-200'}`}>
                                                     <h3 className={`font-bold mb-4 flex items-center gap-2 text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                        <LuLayers className="text-blue-600" size={16} /> Design Tools
+                                                        <LuLayers className="text-blue-600" size={16} /> {t('designTemplatePage.designTools')}
                                                     </h3>
                                                     <div className="flex flex-wrap gap-2">
                                                         {(selectedTemplate.designTools?.length > 0 ? selectedTemplate.designTools : [selectedTemplate.platform || "Other"]).map((tool, i) => (
@@ -641,20 +719,20 @@ const DesignTemplateContent = () => {
                                                 {/* Meta Info Card */}
                                                 <div className={`p-5 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-white border-gray-200'}`}>
                                                     <h3 className={`font-bold mb-4 flex items-center gap-2 text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                        <LuCalendar className="text-cyan-500" size={16} /> Info
+                                                        <LuCalendar className="text-cyan-500" size={16} /> {t('designTemplatePage.info')}
                                                     </h3>
                                                     <div className="space-y-2 text-sm">
                                                         <div className="flex justify-between">
-                                                            <span className="text-gray-500">Published</span>
+                                                            <span className={`text-gray-500 ${bengaliClass}`}>{t('designTemplatePage.published')}</span>
                                                             <span className={isDark ? 'text-white' : 'text-gray-900'}>{formatDate(selectedTemplate.publishDate)}</span>
                                                         </div>
                                                         <div className="flex justify-between">
-                                                            <span className="text-gray-500">Last Update</span>
+                                                            <span className={`text-gray-500 ${bengaliClass}`}>{t('designTemplatePage.lastUpdate')}</span>
                                                             <span className={isDark ? 'text-white' : 'text-gray-900'}>{formatDate(selectedTemplate.lastUpdate)}</span>
                                                         </div>
                                                         <div className="flex justify-between">
-                                                            <span className="text-gray-500">License</span>
-                                                            <span className={`capitalize ${isDark ? 'text-white' : 'text-gray-900'}`}>{selectedTemplate.licenseType || "Regular"}</span>
+                                                            <span className={`text-gray-500 ${bengaliClass}`}>{t('designTemplatePage.license')}</span>
+                                                            <span className={`capitalize ${bengaliClass} ${isDark ? 'text-white' : 'text-gray-900'}`}>{selectedTemplate.licenseType || t('designTemplatePage.regular')}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -674,7 +752,7 @@ const DesignTemplateContent = () => {
                                     <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500 ${isDark ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
                                         <LuX size={16} />
                                     </div>
-                                    <span className="text-[8px] font-bold text-gray-400 group-hover:text-red-500 transition-colors uppercase tracking-wider">Close</span>
+                                    <span className={`text-[8px] font-bold text-gray-400 group-hover:text-red-500 transition-colors uppercase tracking-wider ${bengaliClass}`}>{t('designTemplatePage.close')}</span>
                                 </button>
 
                                 <div className={`w-8 h-px ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
@@ -687,7 +765,7 @@ const DesignTemplateContent = () => {
                                     <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all group-hover:bg-green-500 group-hover:text-white group-hover:border-green-500 ${isDark ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
                                         <FiMessageSquare size={16} />
                                     </div>
-                                    <span className="text-[8px] font-bold text-gray-400 group-hover:text-green-500 transition-colors uppercase tracking-wider">Message</span>
+                                    <span className={`text-[8px] font-bold text-gray-400 group-hover:text-green-500 transition-colors uppercase tracking-wider ${bengaliClass}`}>{t('designTemplatePage.message')}</span>
                                 </button>
 
                                 {/* Save/Like */}
@@ -700,21 +778,21 @@ const DesignTemplateContent = () => {
                                         : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500'}`}>
                                         <LuHeart size={16} className={isLiked ? 'fill-white' : ''} />
                                     </div>
-                                    <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${isLiked ? 'text-red-500' : 'text-gray-400 group-hover:text-red-500'}`}>Save</span>
+                                    <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${bengaliClass} ${isLiked ? 'text-red-500' : 'text-gray-400 group-hover:text-red-500'}`}>{t('designTemplatePage.save')}</span>
                                 </button>
 
                                 {/* Share - Copy Link */}
                                 <button
                                     onClick={() => {
                                         navigator.clipboard.writeText(window.location.origin + `/design-template/${selectedTemplate.slug || selectedTemplate._id}`);
-                                        alert('Link copied to clipboard!');
+                                        alert(t('designTemplatePage.linkCopied'));
                                     }}
                                     className="group flex flex-col items-center gap-1.5"
                                 >
                                     <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 ${isDark ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
                                         <FiShare2 size={16} />
                                     </div>
-                                    <span className="text-[8px] font-bold text-gray-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider">Share</span>
+                                    <span className={`text-[8px] font-bold text-gray-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider ${bengaliClass}`}>{t('designTemplatePage.share')}</span>
                                 </button>
 
                                 {selectedTemplate.accessType !== 'free' && (
@@ -727,7 +805,7 @@ const DesignTemplateContent = () => {
                                             : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500'}`}>
                                             {isAdded ? <LuCheck size={16} /> : <LuShoppingCart size={16} />}
                                         </div>
-                                        <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-amber-500'}`}>{isAdded ? 'Added' : 'Cart'}</span>
+                                        <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${bengaliClass} ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-amber-500'}`}>{isAdded ? t('designTemplatePage.added') : t('designTemplatePage.cart')}</span>
                                     </button>
                                 )}
 
@@ -736,7 +814,7 @@ const DesignTemplateContent = () => {
                                 <div className={`p-2 rounded-md border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-gray-50 border-gray-100'}`}>
                                     <div className="text-center">
                                         {selectedTemplate.accessType === 'free' ? (
-                                            <div className="text-base font-bold text-green-500">Free</div>
+                                            <div className={`text-base font-bold text-green-500 ${bengaliClass}`}>{t('designTemplatePage.free')}</div>
                                         ) : (
                                             <>
                                                 <div className={`text-base font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -759,7 +837,7 @@ const DesignTemplateContent = () => {
                                         : isAdded ? 'bg-green-500 text-white' : 'bg-[#300000] hover:bg-[#400000] text-white'
                                         }`}
                                 >
-                                    {selectedTemplate.accessType === 'free' ? "Free Download" : isAdded ? "Added!" : "Buy Now"}
+                                    {selectedTemplate.accessType === 'free' ? t('designTemplatePage.freeDownloadBtn') : isAdded ? t('designTemplatePage.added') + '!' : t('designTemplatePage.buyNow')}
                                 </button>
                             </aside>
 
@@ -773,7 +851,7 @@ const DesignTemplateContent = () => {
                                 </button>
                                 <div className="flex-1 text-center">
                                     {selectedTemplate.accessType === 'free' ? (
-                                        <span className="text-lg font-bold text-green-500">Free</span>
+                                        <span className={`text-lg font-bold text-green-500 ${bengaliClass}`}>{t('designTemplatePage.free')}</span>
                                     ) : (
                                         <>
                                             <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>à§³{currentPrice?.toLocaleString()}</span>
@@ -786,7 +864,7 @@ const DesignTemplateContent = () => {
                                     className={`px-6 py-3 rounded-md font-bold text-sm shadow-lg flex items-center gap-2 ${selectedTemplate.accessType === 'free' ? 'bg-green-600 text-white shadow-green-600/20' : 'bg-blue-600 text-white shadow-blue-600/20'}`}
                                 >
                                     <LuDownload size={16} />
-                                    {selectedTemplate.accessType === 'free' ? 'Free Download' : 'Buy Now'}
+                                    {selectedTemplate.accessType === 'free' ? t('designTemplatePage.freeDownloadBtn') : t('designTemplatePage.buyNow')}
                                 </button>
                             </div>
                         </div>
@@ -861,7 +939,7 @@ const DesignTemplatePage = () => {
             <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#020202]">
                 <div className="animate-pulse flex flex-col items-center gap-4">
                     <LuPalette className="text-blue-600 mb-2" size={48} />
-                    <p className="text-gray-500 font-medium tracking-wider text-sm uppercase">Loading Gallery...</p>
+                    <p className="text-gray-500 font-medium tracking-wider text-sm uppercase">Loading...</p>
                 </div>
             </div>
         }>

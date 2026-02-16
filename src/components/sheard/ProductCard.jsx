@@ -28,7 +28,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
     const [isAdded, setIsAdded] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const { isDark } = useTheme();
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
     // Use slug for URL if available, otherwise fallback to _id
@@ -81,10 +81,10 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="group w-full h-full flex flex-col pt-4"
         >
-            <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-3xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#300000]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
+            <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-md border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#300000]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
 
                 {/* Image Section */}
-                <div className="relative h-56 w-full overflow-hidden shrink-0">
+                <div className="relative h-64 w-full overflow-hidden shrink-0">
                     {disableLink ? (
                         <div className="block h-full w-full cursor-pointer">
                             <img
@@ -105,7 +105,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
 
                     {/* Type Badge (Top Left) */}
                     <div className="absolute top-4 left-4">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold text-white shadow-lg backdrop-blur-md bg-[#300000]/80">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold text-white shadow-lg backdrop-blur-md bg-[#300000]/80">
                             <LuSparkles size={10} />
                             {type.replace('-', ' ').toUpperCase()}
                         </span>
@@ -118,11 +118,11 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                         className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-all duration-300"
                     >
                         {disableLink ? (
-                            <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl cursor-pointer">
+                            <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-md flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl cursor-pointer">
                                 <LuEye size={20} />
                             </div>
                         ) : (
-                            <Link href={detailUrl} className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl">
+                            <Link href={detailUrl} className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-md flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl">
                                 <LuEye size={20} />
                             </Link>
                         )}
@@ -130,9 +130,9 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                 </div>
 
                 {/* Content Section */}
-                <div className="p-6 flex flex-col flex-1 relative">
+                <div className="px-5 py-4 flex flex-col flex-1 relative">
                     {/* Category */}
-                    <div className="mb-3">
+                    <div className="mb-1.5">
                         <span className={`text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest ${bengaliClass}`}>
                             {categoryName}
                         </span>
@@ -140,13 +140,13 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
 
                     {/* Title */}
                     {disableLink ? (
-                        <div className="mb-4 block cursor-pointer">
+                        <div className="mb-2 block cursor-pointer">
                             <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
                                 {title}
                             </h3>
                         </div>
                     ) : (
-                        <Link href={detailUrl} className="mb-4 block">
+                        <Link href={detailUrl} className="mb-2 block">
                             <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
                                 {title}
                             </h3>
@@ -154,7 +154,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                     )}
 
                     {/* Stats Bar */}
-                    <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-50 dark:border-white/5">
+                    <div className="flex items-center justify-between mb-3 pb-3 border-b border-slate-50 dark:border-white/5">
                         <div className="flex items-center gap-3 text-[10px] font-medium text-slate-500">
                             {type === 'design-template' && product.designTools?.length > 0 ? (
                                 <div className="flex items-center gap-1">
@@ -169,7 +169,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                             ) : null}
                             <div className="flex items-center gap-1">
                                 <LuUsers className="text-[#300000]" size={12} />
-                                <span>{sales}+ Sales</span>
+                                <span>{sales}+ {t('designTemplatePage.salesCount')}</span>
                             </div>
                         </div>
                         <div className="flex items-center gap-1">
@@ -181,7 +181,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                     {/* Price & Action */}
                     <div className="flex items-center justify-between mt-auto gap-4">
                         <div className="flex flex-col">
-                            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">PRICE</span>
+                            <span className={`text-[10px] text-slate-400 font-bold uppercase tracking-tighter ${bengaliClass}`}>{t('designTemplatePage.price')}</span>
                             <div className="flex items-center gap-2">
                                 <span className="text-xl font-serif italic font-bold text-[#300000]">
                                     ৳{displayPrice?.toLocaleString()}
@@ -196,7 +196,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                             <button
                                 onClick={handleAddToCart}
                                 disabled={isAdded}
-                                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${isAdded
+                                className={`w-10 h-10 rounded-md flex items-center justify-center transition-all ${isAdded
                                     ? 'bg-emerald-500 text-white'
                                     : 'bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-white hover:bg-[#300000] hover:text-white'
                                     }`}
@@ -204,13 +204,13 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                                 {isAdded ? <LuCheck size={18} /> : <LuShoppingCart size={18} />}
                             </button>
                             {disableLink ? (
-                                <div className="w-10 h-10 rounded-full bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20 cursor-pointer">
+                                <div className="w-10 h-10 rounded-md bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20 cursor-pointer">
                                     <FaArrowRight size={14} />
                                 </div>
                             ) : (
                                 <Link
                                     href={detailUrl}
-                                    className="w-10 h-10 rounded-full bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20"
+                                    className="w-10 h-10 rounded-md bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20"
                                 >
                                     <FaArrowRight size={14} />
                                 </Link>

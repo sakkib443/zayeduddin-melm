@@ -23,7 +23,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const LoadingSkeleton = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {[1, 2, 3, 4, 5, 6].map(i => (
-      <div key={i} className="animate-pulse bg-slate-50 dark:bg-white/5 rounded-3xl h-[400px]"></div>
+      <div key={i} className="animate-pulse bg-slate-50 dark:bg-white/5 rounded-md h-[400px]"></div>
     ))}
   </div>
 );
@@ -48,9 +48,9 @@ const FilterDropdown = ({ label, options, value, onChange, icon: Icon, language,
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-3 px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 border ${isOpen || (value && value !== 'All' && value !== 'default' && (Array.isArray(value) ? value.length !== 0 : true))
+        className={`flex items-center gap-3 px-6 py-2.5 rounded-md text-xs font-normal transition-all duration-300 border ${isOpen || (value && value !== 'All' && value !== 'default' && (Array.isArray(value) ? value.length !== 0 : true))
           ? "bg-[#300000] text-white border-[#300000] shadow-lg shadow-[#300000]/20"
-          : "bg-white dark:bg-white/5 text-slate-500 border-slate-100 dark:border-white/10 hover:border-slate-300"
+          : "bg-white dark:bg-white/5 text-gray-800 dark:text-gray-300 border-slate-100 dark:border-white/10 hover:border-slate-300"
           }`}
       >
         {Icon && <Icon size={14} />}
@@ -64,7 +64,7 @@ const FilterDropdown = ({ label, options, value, onChange, icon: Icon, language,
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className={`absolute top-full mt-2 w-64 bg-white dark:bg-[#0d0d0d] rounded-2xl shadow-2xl border border-slate-100 dark:border-white/10 z-50 py-2 max-h-80 overflow-y-auto ${align === 'right' ? 'right-0' : 'left-0'}`}
+            className={`absolute top-full mt-2 w-64 bg-white dark:bg-[#0d0d0d] rounded-md shadow-2xl border border-slate-100 dark:border-white/10 z-50 py-2 max-h-80 overflow-y-auto ${align === 'right' ? 'right-0' : 'left-0'}`}
           >
             {options.map((opt) => (
               <button
@@ -73,14 +73,14 @@ const FilterDropdown = ({ label, options, value, onChange, icon: Icon, language,
                   onChange(opt.value);
                   setIsOpen(false);
                 }}
-                className={`w-full text-left px-5 py-3 text-xs font-bold transition-colors flex items-center justify-between ${(Array.isArray(value) ? value.includes(opt.value) : value === opt.value)
+                className={`w-full text-left px-5 py-3 text-xs font-normal transition-colors flex items-center justify-between ${(Array.isArray(value) ? value.includes(opt.value) : value === opt.value)
                   ? "text-[#300000] bg-slate-50 dark:bg-white/5"
-                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5"
+                  : "text-gray-800 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5"
                   }`}
               >
                 <span>{opt.label.toUpperCase()}</span>
                 {opt.count !== undefined && (
-                  <span className="text-[10px] opacity-50 bg-slate-100 dark:bg-white/10 px-2 py-0.5 rounded-full">{opt.count}</span>
+                  <span className="text-[10px] opacity-50 bg-slate-100 dark:bg-white/10 px-2 py-0.5 rounded-md">{opt.count}</span>
                 )}
               </button>
             ))}
@@ -174,32 +174,32 @@ const CourseContent = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-[#020202]">
       {/* Header Section */}
-      <header className="pt-24 pb-6 bg-white dark:bg-[#020202]">
+      <header className="pt-20 pb-2 bg-white dark:bg-[#020202]">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className={`text-4xl md:text-[50px] font-bold text-[#300000] mb-4 ${bengaliClass}`}>
+            <h1 className={`text-3xl md:text-4xl font-bold text-[#300000] mb-2 ${bengaliClass}`}>
               {language === 'bn' ? 'ট্রেনিং কোর্স' : 'Training Courses'}
             </h1>
-            <p className={`text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10 ${bengaliClass}`}>
+            <p className={`text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed mb-6 ${bengaliClass}`}>
               {language === 'bn'
-                ? 'আপনার দক্ষতা বাড়িয়ে পেশাদার ক্যারিয়ার গড়তে আমাদের প্রিমিয়াম কোর্সগুলো বেছে নিন।'
+                ? 'আপনার দক্ষতা বাড়িয়ে পেশাদার ক্যারিয়ার গড়তে আমাদের প্রিমিয়াম কোর্সগুলো বেছে নিন।'
                 : 'Choose our premium courses to enhance your skills and build a professional career with industry experts.'}
             </p>
 
             {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-16 px-4">
+            <div className="max-w-xl mx-auto mb-8 px-4">
               <div className="relative group">
-                <LuSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#300000] transition-colors" size={20} />
+                <LuSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#300000] transition-colors" size={18} />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={language === 'bn' ? 'কোর্স বা টেকনোলজি খুঁজুন...' : 'Search courses or technology...'}
-                  className="w-full pl-16 pr-8 py-5 md:py-6 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-full shadow-lg shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white dark:placeholder-slate-500"
+                  className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white dark:placeholder-slate-500 text-sm"
                 />
                 {searchQuery && (
                   <button onClick={() => setSearchQuery("")} className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors">
@@ -210,18 +210,18 @@ const CourseContent = () => {
             </div>
 
             {/* New Filter Bar Layout */}
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-6 border-b border-slate-50 dark:border-white/5 pb-8 lg:px-16">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 border-b border-slate-50 dark:border-white/5 pb-8 lg:px-16">
               {/* Left Part: Type Pills & Category Dropdown */}
               <div className="flex flex-wrap items-center gap-4">
                 {/* Type Pills */}
-                <div className="flex items-center p-1 bg-slate-50 dark:bg-white/5 rounded-full">
+                <div className="flex items-center p-1 bg-slate-50 dark:bg-white/5 rounded-md">
                   {courseTypes.map((type) => (
                     <button
                       key={type.value}
                       onClick={() => setSelectedType(type.value)}
-                      className={`px-5 py-2 rounded-full text-[10px] font-bold transition-all duration-300 ${selectedType === type.value
+                      className={`px-5 py-2 rounded-md text-[10px] font-normal transition-all duration-300 ${selectedType === type.value
                         ? "bg-[#300000] text-white shadow-md shadow-[#300000]/20"
-                        : "text-slate-500 hover:text-[#300000]"
+                        : "text-gray-800 dark:text-gray-300 hover:text-[#300000]"
                         }`}
                     >
                       {type.label.toUpperCase()}
@@ -256,7 +256,7 @@ const CourseContent = () => {
                       setSortBy('default');
                       setSearchQuery("");
                     }}
-                    className="flex items-center gap-2 px-4 py-2 text-[10px] font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-full transition-all"
+                    className="flex items-center gap-2 px-4 py-2 text-[10px] font-normal text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-all"
                   >
                     <LuX size={12} />
                     <span>{language === 'bn' ? 'সব মুছুন' : 'CLEAR'}</span>
@@ -275,10 +275,10 @@ const CourseContent = () => {
                 />
 
                 {/* View Mode Toggle */}
-                <div className="flex items-center gap-1 bg-slate-50 dark:bg-white/5 p-1 rounded-full border border-slate-100 dark:border-white/10">
+                <div className="flex items-center gap-1 bg-slate-50 dark:bg-white/5 p-1 rounded-md border border-slate-100 dark:border-white/10">
                   <button
                     onClick={() => setViewMode("grid")}
-                    className={`p-2 rounded-full transition-all ${viewMode === "grid"
+                    className={`p-2 rounded-md transition-all ${viewMode === "grid"
                       ? "bg-[#300000] text-white shadow-sm"
                       : "text-slate-400 hover:text-slate-600"
                       }`}
@@ -287,7 +287,7 @@ const CourseContent = () => {
                   </button>
                   <button
                     onClick={() => setViewMode("list")}
-                    className={`p-2 rounded-full transition-all ${viewMode === "list"
+                    className={`p-2 rounded-md transition-all ${viewMode === "list"
                       ? "bg-[#300000] text-white shadow-sm"
                       : "text-slate-400 hover:text-slate-600"
                       }`}

@@ -141,6 +141,15 @@ const AdminSidebar = () => {
       ],
     },
     {
+      title: 'Instructors',
+      icon: FiUserCheck,
+      gradient: 'from-blue-600 to-indigo-600',
+      submenu: [
+        { title: 'All Instructors', href: '/dashboard/admin/instructor', icon: FiUsers },
+        { title: 'Create Instructor', href: '/dashboard/admin/instructor/create', icon: FiFileText },
+      ],
+    },
+    {
       title: 'Orders',
       href: '/dashboard/admin/orders',
       icon: FiShoppingBag,

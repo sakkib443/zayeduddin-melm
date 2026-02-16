@@ -265,7 +265,7 @@ const DigitalAssets = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#300000]/5 border border-[#300000]/10 mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-[#300000]/5 border border-[#300000]/10 mb-6"
                     >
                         <LuSparkles className="text-[#300000]" size={16} />
                         <span className="text-[10px] font-bold text-[#300000] uppercase tracking-[0.2em]">
@@ -299,7 +299,7 @@ const DigitalAssets = () => {
                 <div className="flex flex-wrap justify-center gap-3 mb-10">
                     <button
                         onClick={() => handleCategoryChange("all")}
-                        className={`px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === "all"
+                        className={`px-8 py-3.5 rounded-md text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === "all"
                             ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
                             : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                             }`}
@@ -313,7 +313,7 @@ const DigitalAssets = () => {
                             <button
                                 key={cat._id}
                                 onClick={() => handleCategoryChange(cat._id)}
-                                className={`px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === cat._id
+                                className={`px-8 py-3.5 rounded-md text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === cat._id
                                     ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
                                     : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                                     }`}
@@ -329,7 +329,7 @@ const DigitalAssets = () => {
                         {loading ? (
                             // Skeletons
                             [...Array(4)].map((_, i) => (
-                                <div key={i} className="animate-pulse bg-white dark:bg-white/5 rounded-3xl h-[400px]"></div>
+                                <div key={i} className="animate-pulse bg-white dark:bg-white/5 rounded-md h-[400px]"></div>
                             ))
                         ) : (
                             templates.map((template) => (

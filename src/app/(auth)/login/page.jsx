@@ -56,7 +56,7 @@ const Login = () => {
             router.push("/dashboard/admin");
             break;
           case "mentor":
-            router.push("/dashboard/mentor");
+            router.push("/dashboard/instructor");
             break;
           case "student":
           case "user":
@@ -260,3 +260,4 @@ const Login = () => {
 };
 
 export default Login;
+

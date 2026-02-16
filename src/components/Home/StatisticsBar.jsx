@@ -2,8 +2,9 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { FiUsers, FiBookOpen, FiDownload, FiCheckCircle } from "react-icons/fi";
+import { FiUsers, FiBookOpen, FiDownload, FiCheckCircle, FiArrowDownCircle } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
+import { API_URL } from "@/config/api";
 
 const CounterItem = ({ icon: Icon, target, label, suffix = "+", delay = 0 }) => {
     const ref = useRef(null);
@@ -11,7 +12,7 @@ const CounterItem = ({ icon: Icon, target, label, suffix = "+", delay = 0 }) => 
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        if (isInView) {
+        if (isInView && target > 0) {
             let start = 0;
             const end = parseInt(target);
             const duration = 2000;
@@ -39,13 +40,13 @@ const CounterItem = ({ icon: Icon, target, label, suffix = "+", delay = 0 }) => 
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-[#300000]/10 transition-all duration-500 overflow-hidden"
+            className="group relative p-8 rounded-md bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-[#300000]/10 transition-all duration-500 overflow-hidden"
         >
             {/* Subtle background element */}
             <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#300000]/5 dark:bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
 
             <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-[#300000] to-[#500000] dark:from-[#D4AF37] dark:to-[#B8860B] flex items-center justify-center text-[#D4AF37] dark:text-[#300000] shadow-xl group-hover:rotate-[10deg] transition-transform duration-300">
+                <div className="w-16 h-16 mb-6 rounded-md bg-gradient-to-br from-[#300000] to-[#500000] dark:from-[#D4AF37] dark:to-[#B8860B] flex items-center justify-center text-[#D4AF37] dark:text-[#300000] shadow-xl group-hover:rotate-[10deg] transition-transform duration-300">
                     <Icon size={28} />
                 </div>
 
@@ -67,30 +68,53 @@ const CounterItem = ({ icon: Icon, target, label, suffix = "+", delay = 0 }) => 
 const StatisticsBar = () => {
     const { language, t } = useLanguage();
     const bengaliClass = language === 'bn' ? 'hind-siliguri' : '';
+    const [apiStats, setApiStats] = useState(null);
+
+    // Fetch real-time stats from backend
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const res = await fetch(`${API_URL}/stats/dashboard`);
+                const data = await res.json();
+                if (data.success && data.data) {
+                    setApiStats(data.data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch stats:', error);
+            }
+        };
+        fetchStats();
+    }, []);
 
     const stats = [
         {
             icon: FiBookOpen,
-            target: 50,
+            target: apiStats?.breakdown?.courses || 50,
             label: t("statisticsBar.totalCourses"),
             suffix: "+"
         },
         {
             icon: FiUsers,
-            target: 5000,
+            target: apiStats?.activeUsers || 5000,
             label: t("statisticsBar.totalStudents"),
             suffix: "+"
         },
         {
             icon: FiCheckCircle,
-            target: 3500,
+            target: apiStats?.breakdown?.enrollments || apiStats?.downloads || 3500,
             label: t("statisticsBar.totalEnrollment"),
             suffix: "+"
         },
         {
             icon: FiDownload,
-            target: 1200,
+            target: apiStats?.breakdown?.designTemplates || 1200,
             label: t("statisticsBar.totalTemplates"),
+            suffix: "+"
+        },
+        {
+            icon: FiArrowDownCircle,
+            target: apiStats?.breakdown?.downloads || apiStats?.totalDownloads || 0,
+            label: t("statisticsBar.totalDownloads"),
             suffix: "+"
         }
     ];
@@ -98,7 +122,7 @@ const StatisticsBar = () => {
     return (
         <section className="py-20 bg-white dark:bg-[#050505]">
             <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10">
                     {stats.map((stat, idx) => (
                         <CounterItem
                             key={idx}

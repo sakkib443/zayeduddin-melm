@@ -38,7 +38,7 @@ const ProtectedRoute = ({ children, role, allowedRoles = [] }) => {
         // Redirect to user's own dashboard
         switch (userRole) {
           case "mentor":
-            router.replace("/dashboard/mentor");
+            router.replace("/dashboard/instructor");
             break;
           case "user":
           case "student":
@@ -69,3 +69,4 @@ const ProtectedRoute = ({ children, role, allowedRoles = [] }) => {
 };
 
 export default ProtectedRoute;
+

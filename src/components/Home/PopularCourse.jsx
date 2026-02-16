@@ -7,7 +7,7 @@ import SharedCourseCard from "@/components/sheard/CourseCard";
 
 const CourseCardSkeleton = () => (
   <div className="w-full animate-pulse">
-    <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm">
+    <div className="bg-white dark:bg-gray-900 rounded-md overflow-hidden shadow-sm">
       <div className="aspect-video bg-gray-200 dark:bg-gray-800" />
       <div className="p-6 space-y-4">
         <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-1/4" />
@@ -89,7 +89,7 @@ const PopularCourse = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
               onClick={() => setActiveCategory(filter.id)}
-              className={`px-6 py-2.5 md:px-8 md:py-3 rounded-full text-[10px] md:text-xs font-bold tracking-widest border transition-all duration-300 shadow-sm
+              className={`px-6 py-2.5 md:px-8 md:py-3 rounded-md text-[10px] md:text-xs font-bold tracking-widest border transition-all duration-300 shadow-sm
                 ${activeCategory === filter.id
                   ? 'text-white border-transparent'
                   : 'bg-white text-gray-500 border-gray-100 hover:border-gray-200 hover:bg-gray-50'}`}

@@ -22,15 +22,15 @@ const cardVariants = {
 
 // Skeleton Component
 const ProductCardSkeleton = () => (
-    <div className="bg-white dark:bg-[#0d0d0d] rounded-2xl p-4 border border-gray-100 dark:border-white/5 space-y-4">
-        <div className="h-48 rounded-xl bg-gray-200 dark:bg-white/5 animate-pulse"></div>
+    <div className="bg-white dark:bg-[#0d0d0d] rounded-md p-4 border border-gray-100 dark:border-white/5 space-y-4">
+        <div className="h-48 rounded-md bg-gray-200 dark:bg-white/5 animate-pulse"></div>
         <div className="space-y-2">
             <div className="h-4 w-3/4 bg-gray-200 dark:bg-white/5 rounded animate-pulse"></div>
             <div className="h-4 w-1/2 bg-gray-200 dark:bg-white/5 rounded animate-pulse"></div>
         </div>
         <div className="flex justify-between items-center pt-2">
-            <div className="h-8 w-24 bg-gray-200 dark:bg-white/5 rounded-lg animate-pulse"></div>
-            <div className="h-8 w-8 bg-gray-200 dark:bg-white/5 rounded-full animate-pulse"></div>
+            <div className="h-8 w-24 bg-gray-200 dark:bg-white/5 rounded-md animate-pulse"></div>
+            <div className="h-8 w-8 bg-gray-200 dark:bg-white/5 rounded-md animate-pulse"></div>
         </div>
     </div>
 );
@@ -160,8 +160,8 @@ const DigitalProducts = () => {
                     transition={{ duration: 0.6 }}
                 >
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-full bg-white dark:bg-black/50 border border-[#F79952]/30 dark:border-[#F79952]/20 shadow-sm backdrop-blur-md">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#F79952]/20 to-amber-500/20 flex items-center justify-center">
+                    <div className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-md bg-white dark:bg-black/50 border border-[#F79952]/30 dark:border-[#F79952]/20 shadow-sm backdrop-blur-md">
+                        <div className="w-8 h-8 rounded-md bg-gradient-to-r from-[#F79952]/20 to-amber-500/20 flex items-center justify-center">
                             <LuSparkles className="text-[#F79952]" size={14} />
                         </div>
                         <span className={`text-xs font-black text-[#F79952] uppercase tracking-[0.2em] ${bengaliClass}`}>
@@ -202,10 +202,10 @@ const DigitalProducts = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.4 }}
                 >
-                    <div className="inline-flex bg-white dark:bg-[#0d0d0d] rounded-2xl p-2 border border-gray-200 dark:border-white/10 shadow-sm">
+                    <div className="inline-flex bg-white dark:bg-[#0d0d0d] rounded-md p-2 border border-gray-200 dark:border-white/10 shadow-sm">
                         <button
                             onClick={() => setActiveType('software')}
-                            className={`group relative flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${activeType === 'software'
+                            className={`group relative flex items-center gap-2 px-6 py-3 rounded-md text-sm font-bold transition-all duration-300 ${activeType === 'software'
                                 ? 'bg-[#E62D26]/10 text-[#E62D26]'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white'
                                 }`}
@@ -213,12 +213,12 @@ const DigitalProducts = () => {
                             <LuCpu size={18} />
                             <span className={bengaliClass}>{getSoftwareTab()}</span>
                             {activeType === 'software' && (
-                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#E62D26] to-[#c41e18] rounded-b-xl"></div>
+                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#E62D26] to-[#c41e18] rounded-b-md"></div>
                             )}
                         </button>
                         <button
                             onClick={() => setActiveType('website')}
-                            className={`group relative flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${activeType === 'website'
+                            className={`group relative flex items-center gap-2 px-6 py-3 rounded-md text-sm font-bold transition-all duration-300 ${activeType === 'website'
                                 ? 'bg-[#F79952]/10 text-[#F79952]'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white'
                                 }`}
@@ -226,13 +226,13 @@ const DigitalProducts = () => {
                             <LuGlobe size={18} />
                             <span className={bengaliClass}>{getWebsiteTab()}</span>
                             {activeType === 'website' && (
-                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#F79952] to-[#fb923c] rounded-b-xl"></div>
+                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#F79952] to-[#fb923c] rounded-b-md"></div>
                             )}
                         </button>
                     </div>
 
                     {/* Count Badge */}
-                    <div className="hidden sm:flex items-center gap-2 ml-4 px-4 py-2 bg-white dark:bg-[#0d0d0d] rounded-xl border border-gray-200 dark:border-white/10">
+                    <div className="hidden sm:flex items-center gap-2 ml-4 px-4 py-2 bg-white dark:bg-[#0d0d0d] rounded-md border border-gray-200 dark:border-white/10">
                         <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
                         <span className={`text-xs font-bold text-gray-500 dark:text-gray-400 ${bengaliClass}`}>
                             {isLoading ? (
@@ -276,7 +276,7 @@ const DigitalProducts = () => {
 
                     {/* Only show "Not Found" if NOT loading AND list is empty */}
                     {!isLoading && displayList.length === 0 && (
-                        <div className="col-span-full py-20 text-center bg-white dark:bg-[#0d0d0d] rounded-[2rem] border border-dashed border-gray-200 dark:border-white/10">
+                        <div className="col-span-full py-20 text-center bg-white dark:bg-[#0d0d0d] rounded-md border border-dashed border-gray-200 dark:border-white/10">
                             <LuSparkles className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
                             <p className={`text-gray-400 font-medium ${bengaliClass}`}>
                                 {language === 'bn' ? t("concerns.noProducts") : 'No products found in this category yet.'}
@@ -287,7 +287,7 @@ const DigitalProducts = () => {
 
                 {/* CTA Section */}
                 <motion.div
-                    className="relative bg-white dark:bg-[#0d0d0d] rounded-[2rem] p-8 lg:p-12 border border-gray-200 dark:border-white/10 overflow-hidden"
+                    className="relative bg-white dark:bg-[#0d0d0d] rounded-md p-8 lg:p-12 border border-gray-200 dark:border-white/10 overflow-hidden"
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -309,18 +309,18 @@ const DigitalProducts = () => {
 
                         <Link
                             href={activeType === 'software' ? '/software' : '/website'}
-                            className={`group relative bg-white dark:bg-[#0d0d0d] rounded-2xl px-8 py-4 border border-gray-200 dark:border-white/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center gap-4 ${bengaliClass}`}
+                            className={`group relative bg-white dark:bg-[#0d0d0d] rounded-md px-8 py-4 border border-gray-200 dark:border-white/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center gap-4 ${bengaliClass}`}
                         >
                             <span className="font-bold text-gray-900 dark:text-white">
                                 {language === 'bn'
                                     ? t("concerns.exploreAll")
                                     : `Explore All ${activeType === 'software' ? 'Software' : 'Websites'}`}
                             </span>
-                            <div className="w-10 h-10 rounded-xl bg-[#F79952]/10 flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#F79952] group-hover:to-[#fb923c]">
+                            <div className="w-10 h-10 rounded-md bg-[#F79952]/10 flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#F79952] group-hover:to-[#fb923c]">
                                 <LuArrowRight size={18} className="text-[#F79952] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5" />
                             </div>
                             {/* Bottom Accent Line */}
-                            <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-[#F79952] to-[#fb923c] group-hover:w-full transition-all duration-500 rounded-b-2xl"></div>
+                            <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-[#F79952] to-[#fb923c] group-hover:w-full transition-all duration-500 rounded-b-md"></div>
                         </Link>
                     </div>
                 </motion.div>
