@@ -3,8 +3,9 @@ import { API_URL, API_BASE_URL } from '@/config/api';
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
-    FiUser, FiArrowLeft, FiSave, FiMail, FiPhone, FiLock, FiAward, FiGlobe, FiFacebook, FiLinkedin, FiTwitter, FiYoutube, FiInstagram, FiGithub, FiPlus, FiX, FiCheck
+    FiUser, FiArrowLeft, FiSave, FiMail, FiPhone, FiLock, FiAward, FiGlobe, FiFacebook, FiLinkedin, FiTwitter, FiYoutube, FiInstagram, FiGithub, FiPlus, FiX, FiCheck, FiBookOpen, FiBriefcase, FiMessageCircle
 } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const InstructorForm = () => {
     const router = useRouter();
@@ -15,6 +16,8 @@ const InstructorForm = () => {
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(false);
     const [expertiseInput, setExpertiseInput] = useState('');
+    const [educationInput, setEducationInput] = useState('');
+    const [workExpInput, setWorkExpInput] = useState('');
 
     const initialFormData = {
         // User account fields
@@ -34,12 +37,16 @@ const InstructorForm = () => {
         longBioBn: '',
         expertise: [],
         experience: 0,
-        education: '',
+        specializations: 0,
+        education: [],
+        workExperience: [],
+        whatsAppNumber: '',
         avatar: '',
         coverImage: '',
         isPublished: true,
         status: 'active',
         order: 0,
+        totalStudents: 0,
         socialLinks: {
             facebook: '',
             linkedin: '',
@@ -125,6 +132,44 @@ const InstructorForm = () => {
         setFormData(prev => ({
             ...prev,
             expertise: prev.expertise.filter(t => t !== tag)
+        }));
+    };
+
+    // Education handlers
+    const handleAddEducation = (e) => {
+        e.preventDefault();
+        if (educationInput.trim() && !formData.education.includes(educationInput.trim())) {
+            setFormData(prev => ({
+                ...prev,
+                education: [...prev.education, educationInput.trim()]
+            }));
+            setEducationInput('');
+        }
+    };
+
+    const removeEducation = (item) => {
+        setFormData(prev => ({
+            ...prev,
+            education: prev.education.filter(t => t !== item)
+        }));
+    };
+
+    // Work Experience handlers
+    const handleAddWorkExp = (e) => {
+        e.preventDefault();
+        if (workExpInput.trim() && !formData.workExperience.includes(workExpInput.trim())) {
+            setFormData(prev => ({
+                ...prev,
+                workExperience: [...prev.workExperience, workExpInput.trim()]
+            }));
+            setWorkExpInput('');
+        }
+    };
+
+    const removeWorkExp = (item) => {
+        setFormData(prev => ({
+            ...prev,
+            workExperience: prev.workExperience.filter(t => t !== item)
         }));
     };
 
@@ -283,19 +328,12 @@ const InstructorForm = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Experience (Years)</label>
-                            <input
-                                type="number" name="experience" value={formData.experience} onChange={handleChange} min={0}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
-                            />
-                        </div>
-                        <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Expertise Area</label>
                             <div className="flex gap-2">
                                 <input
                                     type="text" value={expertiseInput} onChange={(e) => setExpertiseInput(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && handleAddExpertise(e)}
-                                    placeholder="e.g. React.js"
+                                    placeholder="e.g. User Experience Design"
                                     className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
                                 />
                                 <button type="button" onClick={handleAddExpertise} className="px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all">
@@ -311,6 +349,113 @@ const InstructorForm = () => {
                                 ))}
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Experience & Stats Section */}
+                <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+                    <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
+                        <FiBriefcase className="text-indigo-600" />
+                        <h3 className="font-semibold text-slate-800 dark:text-white">Experience & Stats</h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Experience (Years)</label>
+                            <input
+                                type="number" name="experience" value={formData.experience} onChange={handleChange} min={0}
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Total Students Trained</label>
+                            <input
+                                type="number" name="totalStudents" value={formData.totalStudents} onChange={handleChange} min={0}
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Specializations</label>
+                            <input
+                                type="number" name="specializations" value={formData.specializations} onChange={handleChange} min={0}
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">WhatsApp Number</label>
+                            <input
+                                type="text" name="whatsAppNumber" value={formData.whatsAppNumber} onChange={handleChange}
+                                placeholder="e.g. 01XXXXXXXXX"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Life Journey / Long Bio */}
+                <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+                    <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
+                        <FiMessageCircle className="text-indigo-600" />
+                        <h3 className="font-semibold text-slate-800 dark:text-white">Life Journey (Detailed Bio)</h3>
+                    </div>
+                    <textarea
+                        name="longBio" value={formData.longBio} onChange={handleChange} rows={6}
+                        placeholder="Write the instructor's full life journey / detailed biography here..."
+                        className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm resize-none"
+                    />
+                </div>
+
+                {/* Education Section */}
+                <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+                    <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
+                        <FiBookOpen className="text-indigo-600" />
+                        <h3 className="font-semibold text-slate-800 dark:text-white">Education</h3>
+                    </div>
+                    <div className="flex gap-2">
+                        <input
+                            type="text" value={educationInput} onChange={(e) => setEducationInput(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && handleAddEducation(e)}
+                            placeholder="e.g. BSc in Computer Science"
+                            className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                        />
+                        <button type="button" onClick={handleAddEducation} className="px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all">
+                            <FiPlus />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {formData.education.map((item, idx) => (
+                            <div key={idx} className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700">
+                                <span className="text-sm text-slate-700 dark:text-slate-300">📚 {item}</span>
+                                <FiX size={14} className="cursor-pointer text-slate-400 hover:text-rose-500" onClick={() => removeEducation(item)} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Work Experience Section */}
+                <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+                    <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
+                        <FiBriefcase className="text-indigo-600" />
+                        <h3 className="font-semibold text-slate-800 dark:text-white">Work Experience</h3>
+                    </div>
+                    <div className="flex gap-2">
+                        <input
+                            type="text" value={workExpInput} onChange={(e) => setWorkExpInput(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && handleAddWorkExp(e)}
+                            placeholder="e.g. Lead UX Designer at Creative IT"
+                            className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                        />
+                        <button type="button" onClick={handleAddWorkExp} className="px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all">
+                            <FiPlus />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {formData.workExperience.map((item, idx) => (
+                            <div key={idx} className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700">
+                                <span className="text-sm text-slate-700 dark:text-slate-300">💼 {item}</span>
+                                <FiX size={14} className="cursor-pointer text-slate-400 hover:text-rose-500" onClick={() => removeWorkExp(item)} />
+                            </div>
+                        ))}
                     </div>
                 </div>
 

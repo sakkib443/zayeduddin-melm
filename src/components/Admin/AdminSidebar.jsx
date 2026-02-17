@@ -112,6 +112,15 @@ const AdminSidebar = () => {
       ],
     },
     {
+      title: 'Instructors',
+      icon: FiUserCheck,
+      gradient: 'from-blue-600 to-indigo-600',
+      submenu: [
+        { title: 'All Instructors', href: '/dashboard/admin/instructor', icon: FiUsers },
+        { title: 'Create Instructor', href: '/dashboard/admin/instructor/create', icon: FiFileText },
+      ],
+    },
+    {
       title: 'Marketplace',
       icon: FiGlobe,
       gradient: 'from-emerald-500 to-red-500',
@@ -140,15 +149,7 @@ const AdminSidebar = () => {
         { title: 'Create User', href: '/dashboard/admin/user/create', icon: FiFileText },
       ],
     },
-    {
-      title: 'Instructors',
-      icon: FiUserCheck,
-      gradient: 'from-blue-600 to-indigo-600',
-      submenu: [
-        { title: 'All Instructors', href: '/dashboard/admin/instructor', icon: FiUsers },
-        { title: 'Create Instructor', href: '/dashboard/admin/instructor/create', icon: FiFileText },
-      ],
-    },
+
     {
       title: 'Orders',
       href: '/dashboard/admin/orders',
