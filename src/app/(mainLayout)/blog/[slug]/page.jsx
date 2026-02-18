@@ -426,7 +426,7 @@ export default function SingleBlogPage() {
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-16 h-16 border-4 border-[#300000]/20 border-t-[#300000] rounded-full"
+                    className="w-16 h-16 border-4 border-[#021E14]/20 border-t-[#021E14] rounded-full"
                 />
             </div>
         );
@@ -440,7 +440,7 @@ export default function SingleBlogPage() {
             <div className="fixed top-0 left-0 right-0 h-1.5 z-[60]">
                 <motion.div
                     style={{ width: `${readProgress}%` }}
-                    className="h-full bg-[#300000] dark:bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.5)]"
+                    className="h-full bg-[#021E14] dark:bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.5)]"
                 />
             </div>
 
@@ -453,7 +453,7 @@ export default function SingleBlogPage() {
                     className="object-cover"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#300000] via-[#300000]/60 to-[#300000]/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#021E14] via-[#021E14]/60 to-[#021E14]/40" />
 
                 {/* Banner Content */}
                 <div className="absolute inset-x-0 bottom-0 py-12 md:py-20">
@@ -472,7 +472,7 @@ export default function SingleBlogPage() {
                                     <FiArrowLeft size={14} />
                                     {text.blog}
                                 </Link>
-                                <span className="px-4 py-1.5 rounded-full bg-[#D4AF37] text-[#300000] text-xs font-bold uppercase tracking-widest">
+                                <span className="px-4 py-1.5 rounded-full bg-[#D4AF37] text-[#021E14] text-xs font-bold uppercase tracking-widest">
                                     {blog.category?.name || 'Article'}
                                 </span>
                             </div>
@@ -487,7 +487,7 @@ export default function SingleBlogPage() {
                                         {blog.author?.avatar ? (
                                             <Image src={blog.author.avatar} alt="Author" fill className="object-cover" />
                                         ) : (
-                                            <div className="w-full h-full bg-[#D4AF37] text-[#300000] flex items-center justify-center font-bold">
+                                            <div className="w-full h-full bg-[#D4AF37] text-[#021E14] flex items-center justify-center font-bold">
                                                 {blog.author?.firstName?.[0]}
                                             </div>
                                         )}
@@ -529,15 +529,15 @@ export default function SingleBlogPage() {
                                     whileTap={{ scale: 0.95 }}
                                     onClick={handleLike}
                                     className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center transition-all shadow-lg ${isLiked
-                                        ? 'bg-[#300000] text-white shadow-[#300000]/20'
-                                        : 'bg-slate-50 dark:bg-white/5 text-slate-400 hover:text-[#300000] dark:hover:text-[#D4AF37]'
+                                        ? 'bg-[#021E14] text-white shadow-[#021E14]/20'
+                                        : 'bg-slate-50 dark:bg-white/5 text-slate-400 hover:text-[#021E14] dark:hover:text-[#D4AF37]'
                                         }`}
                                 >
                                     <FiHeart size={20} className={isLiked ? 'fill-current' : ''} />
                                     <span className="text-[10px] font-bold mt-1">{likeCount}</span>
                                 </motion.button>
 
-                                <button className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-white/5 text-slate-400 flex flex-col items-center justify-center hover:text-[#300000] dark:hover:text-[#D4AF37] transition-all">
+                                <button className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-white/5 text-slate-400 flex flex-col items-center justify-center hover:text-[#021E14] dark:hover:text-[#D4AF37] transition-all">
                                     <FiMessageCircle size={20} />
                                     <span className="text-[10px] font-bold mt-1">{comments.length}</span>
                                 </button>
@@ -547,7 +547,7 @@ export default function SingleBlogPage() {
                                 <div className="relative group">
                                     <button
                                         onClick={() => setShowShareMenu(!showShareMenu)}
-                                        className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-white/5 text-slate-400 flex items-center justify-center hover:text-[#300000] dark:hover:text-[#D4AF37] transition-all"
+                                        className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-white/5 text-slate-400 flex items-center justify-center hover:text-[#021E14] dark:hover:text-[#D4AF37] transition-all"
                                     >
                                         <FiShare2 size={20} />
                                     </button>
@@ -564,14 +564,14 @@ export default function SingleBlogPage() {
                                                     <FiTwitter className="text-sky-500" /> <span className="text-xs font-bold">Twitter</span>
                                                 </button>
                                                 <button onClick={() => handleShare('facebook')} className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 transition-all">
-                                                    <FiFacebook className="text-blue-600" /> <span className="text-xs font-bold">Facebook</span>
+                                                    <FiFacebook className="text-[#021E14]" /> <span className="text-xs font-bold">Facebook</span>
                                                 </button>
                                                 <button onClick={() => handleShare('linkedin')} className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 transition-all">
-                                                    <FiLinkedin className="text-blue-700" /> <span className="text-xs font-bold">LinkedIn</span>
+                                                    <FiLinkedin className="text-[#021E14]" /> <span className="text-xs font-bold">LinkedIn</span>
                                                 </button>
                                                 <div className="h-px bg-slate-100 dark:bg-white/10 my-1" />
                                                 <button onClick={copyLink} className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 transition-all">
-                                                    {copied ? <FiCheck className="text-emerald-500" /> : <FiCopy />}
+                                                    {copied ? <FiCheck className="text-[#021E14]" /> : <FiCopy />}
                                                     <span className="text-xs font-bold">{copied ? 'Copied!' : 'Copy Link'}</span>
                                                 </button>
                                             </motion.div>
@@ -586,9 +586,9 @@ export default function SingleBlogPage() {
                             <article className="max-w-none">
                                 {/* Excerpt / Summary */}
                                 <div className="mb-14 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#300000]/5 dark:bg-[#D4AF37]/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#021E14]/5 dark:bg-[#D4AF37]/5 rounded-full -translate-y-1/2 translate-x-1/2" />
                                     <div className="relative z-10">
-                                        <div className="flex items-center gap-2 text-[#300000] dark:text-[#D4AF37] text-xs font-black uppercase tracking-[0.2em] mb-4">
+                                        <div className="flex items-center gap-2 text-[#021E14] dark:text-[#D4AF37] text-xs font-black uppercase tracking-[0.2em] mb-4">
                                             <FiBookOpen size={14} />
                                             {text.summary}
                                         </div>
@@ -601,10 +601,10 @@ export default function SingleBlogPage() {
                                 {/* Main Rich Text Content */}
                                 <div
                                     className={`prose prose-lg md:prose-xl dark:prose-invert max-w-none mb-20 break-words overflow-hidden
-                                        prose-headings:font-bold prose-headings:text-[#300000] dark:prose-headings:text-white
+                                        prose-headings:font-bold prose-headings:text-[#021E14] dark:prose-headings:text-white
                                         prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed
-                                        prose-a:text-[#300000] dark:prose-a:text-[#D4AF37] prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                                        prose-blockquote:border-[#300000] dark:prose-blockquote:border-[#D4AF37] prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-white/5 prose-blockquote:rounded-r-3xl prose-blockquote:py-4 prose-blockquote:px-8
+                                        prose-a:text-[#021E14] dark:prose-a:text-[#D4AF37] prose-a:font-bold prose-a:no-underline hover:prose-a:underline
+                                        prose-blockquote:border-[#021E14] dark:prose-blockquote:border-[#D4AF37] prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-white/5 prose-blockquote:rounded-r-3xl prose-blockquote:py-4 prose-blockquote:px-8
                                         prose-img:rounded-[2.5rem] prose-img:shadow-2xl
                                         prose-li:text-slate-600 dark:prose-li:text-slate-400
                                         ${bengaliClass}`}
@@ -622,7 +622,7 @@ export default function SingleBlogPage() {
                                             <Link
                                                 key={idx}
                                                 href={`/blog?tag=${tag}`}
-                                                className="px-5 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 text-sm font-bold hover:bg-[#300000] hover:text-white dark:hover:bg-[#D4AF37] dark:hover:text-[#300000] transition-all"
+                                                className="px-5 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 text-sm font-bold hover:bg-[#021E14] hover:text-white dark:hover:bg-[#D4AF37] dark:hover:text-[#021E14] transition-all"
                                             >
                                                 #{tag}
                                             </Link>
@@ -631,7 +631,7 @@ export default function SingleBlogPage() {
                                 )}
 
                                 {/* Author Signature */}
-                                <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-[#300000] to-[#6b0f0f] text-white shadow-2xl relative overflow-hidden mb-20">
+                                <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-[#021E14] to-[#6b0f0f] text-white shadow-2xl relative overflow-hidden mb-20">
                                     <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
                                     <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
                                         <div className="w-24 h-24 rounded-3xl border-2 border-[#D4AF37]/30 p-1 shrink-0">
@@ -644,7 +644,7 @@ export default function SingleBlogPage() {
                                         <div className="flex-1 text-center md:text-left">
                                             <h4 className="text-2xl font-bold mb-3">{blog.author?.firstName} {blog.author?.lastName}</h4>
                                             <p className="text-white/70 text-base mb-6 leading-relaxed">{text.authorDesc}</p>
-                                            <Link href="/about" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4AF37] text-[#300000] font-bold hover:shadow-xl hover:-translate-y-1 transition-all">
+                                            <Link href="/about" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#D4AF37] text-[#021E14] font-bold hover:shadow-xl hover:-translate-y-1 transition-all">
                                                 About the Author <FiArrowRight />
                                             </Link>
                                         </div>
@@ -653,7 +653,7 @@ export default function SingleBlogPage() {
 
                                 {/* Comments Section */}
                                 <div className="pt-20 border-t border-slate-100 dark:border-white/5">
-                                    <h3 className={`text-3xl font-bold text-[#300000] dark:text-white mb-12 ${bengaliClass}`}>
+                                    <h3 className={`text-3xl font-bold text-[#021E14] dark:text-white mb-12 ${bengaliClass}`}>
                                         {text.comments} ({comments.length})
                                     </h3>
 
@@ -670,7 +670,7 @@ export default function SingleBlogPage() {
                                                             value={guestName}
                                                             onChange={(e) => setGuestName(e.target.value)}
                                                             placeholder={text.yourName + ' *'}
-                                                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#300000]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#300000] dark:focus:border-[#D4AF37] transition-all"
+                                                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#021E14]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#021E14] dark:focus:border-[#D4AF37] transition-all"
                                                         />
                                                     </div>
                                                     <div className="relative">
@@ -680,7 +680,7 @@ export default function SingleBlogPage() {
                                                             value={guestEmail}
                                                             onChange={(e) => setGuestEmail(e.target.value)}
                                                             placeholder={text.yourEmail}
-                                                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#300000]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#300000] dark:focus:border-[#D4AF37] transition-all"
+                                                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#021E14]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#021E14] dark:focus:border-[#D4AF37] transition-all"
                                                         />
                                                     </div>
                                                 </div>
@@ -691,14 +691,14 @@ export default function SingleBlogPage() {
                                                     onChange={(e) => setCommentText(e.target.value)}
                                                     placeholder={text.writeComment}
                                                     rows={4}
-                                                    className={`w-full p-8 rounded-3xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#300000]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#300000] dark:focus:border-[#D4AF37] transition-all resize-none shadow-inner ${bengaliClass}`}
+                                                    className={`w-full p-8 rounded-3xl bg-white dark:bg-[#0d0d0d] border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-4 focus:ring-[#021E14]/5 dark:focus:ring-[#D4AF37]/5 focus:border-[#021E14] dark:focus:border-[#D4AF37] transition-all resize-none shadow-inner ${bengaliClass}`}
                                                 />
                                             </div>
                                             <div className="flex justify-end">
                                                 <button
                                                     type="submit"
                                                     disabled={!commentText.trim() || submittingComment || (!user && !guestName.trim())}
-                                                    className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-[#300000] text-white font-bold disabled:opacity-50 hover:shadow-2xl hover:scale-105 transition-all"
+                                                    className="inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-[#021E14] text-white font-bold disabled:opacity-50 hover:shadow-2xl hover:scale-105 transition-all"
                                                 >
                                                     {submittingComment ? text.posting : text.submitComment}
                                                     <FiSend />
@@ -718,7 +718,7 @@ export default function SingleBlogPage() {
                                             comments.map((comment) => (
                                                 <div key={comment._id} className="p-8 bg-white dark:bg-[#0d0d0d] rounded-3xl border border-slate-100 dark:border-white/10 shadow-sm">
                                                     <div className="flex gap-6">
-                                                        <div className="w-14 h-14 rounded-2xl bg-[#300000]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center font-bold text-[#300000] dark:text-[#D4AF37] shrink-0 overflow-hidden relative">
+                                                        <div className="w-14 h-14 rounded-2xl bg-[#021E14]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center font-bold text-[#021E14] dark:text-[#D4AF37] shrink-0 overflow-hidden relative">
                                                             {comment.user?.avatar ? (
                                                                 <Image src={comment.user.avatar} alt="" fill className="object-cover" />
                                                             ) : (
@@ -728,7 +728,7 @@ export default function SingleBlogPage() {
                                                         <div className="flex-1">
                                                             <div className="flex items-center justify-between mb-3">
                                                                 <div className="flex items-center gap-3">
-                                                                    <h5 className="font-bold text-[#300000] dark:text-white">
+                                                                    <h5 className="font-bold text-[#021E14] dark:text-white">
                                                                         {getCommentAuthor(comment)}
                                                                         {!comment.user && (
                                                                             <span className="ml-2 text-[10px] px-2 py-0.5 bg-slate-200 dark:bg-white/10 rounded-full text-slate-500 dark:text-slate-400">
@@ -743,7 +743,7 @@ export default function SingleBlogPage() {
                                                                 <div className="flex items-center gap-2">
                                                                     <button
                                                                         onClick={() => setReplyingTo(replyingTo === comment._id ? null : comment._id)}
-                                                                        className="text-xs font-bold text-slate-400 hover:text-[#300000] dark:hover:text-[#D4AF37] transition-colors flex items-center gap-1"
+                                                                        className="text-xs font-bold text-slate-400 hover:text-[#021E14] dark:hover:text-[#D4AF37] transition-colors flex items-center gap-1"
                                                                     >
                                                                         <FiCornerDownRight size={12} />
                                                                         {text.reply}
@@ -752,7 +752,7 @@ export default function SingleBlogPage() {
                                                                         <button
                                                                             onClick={() => handleDeleteComment(comment._id)}
                                                                             disabled={deletingComment === comment._id}
-                                                                            className="text-xs font-bold text-red-400 hover:text-red-600 transition-colors flex items-center gap-1"
+                                                                            className="text-xs font-bold text-[#021E14] hover:text-[#021E14] transition-colors flex items-center gap-1"
                                                                         >
                                                                             <FiTrash2 size={12} />
                                                                             {text.delete}
@@ -769,7 +769,7 @@ export default function SingleBlogPage() {
                                                                         initial={{ opacity: 0, height: 0 }}
                                                                         animate={{ opacity: 1, height: 'auto' }}
                                                                         exit={{ opacity: 0, height: 0 }}
-                                                                        className="mt-4 pl-4 border-l-2 border-[#300000]/20 dark:border-[#D4AF37]/20"
+                                                                        className="mt-4 pl-4 border-l-2 border-[#021E14]/20 dark:border-[#D4AF37]/20"
                                                                     >
                                                                         {!user && (
                                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
@@ -778,14 +778,14 @@ export default function SingleBlogPage() {
                                                                                     value={guestName}
                                                                                     onChange={(e) => setGuestName(e.target.value)}
                                                                                     placeholder={text.yourName + ' *'}
-                                                                                    className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm focus:outline-none focus:border-[#300000] dark:focus:border-[#D4AF37]"
+                                                                                    className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm focus:outline-none focus:border-[#021E14] dark:focus:border-[#D4AF37]"
                                                                                 />
                                                                                 <input
                                                                                     type="email"
                                                                                     value={guestEmail}
                                                                                     onChange={(e) => setGuestEmail(e.target.value)}
                                                                                     placeholder={text.yourEmail}
-                                                                                    className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm focus:outline-none focus:border-[#300000] dark:focus:border-[#D4AF37]"
+                                                                                    className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm focus:outline-none focus:border-[#021E14] dark:focus:border-[#D4AF37]"
                                                                                 />
                                                                             </div>
                                                                         )}
@@ -795,12 +795,12 @@ export default function SingleBlogPage() {
                                                                                 value={replyText}
                                                                                 onChange={(e) => setReplyText(e.target.value)}
                                                                                 placeholder={text.writeComment}
-                                                                                className="flex-1 px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:border-[#300000] dark:focus:border-[#D4AF37]"
+                                                                                className="flex-1 px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:border-[#021E14] dark:focus:border-[#D4AF37]"
                                                                             />
                                                                             <button
                                                                                 onClick={() => handleReply(comment._id)}
                                                                                 disabled={!replyText.trim() || submittingComment || (!user && !guestName.trim())}
-                                                                                className="px-4 py-3 rounded-xl bg-[#300000] text-white font-bold disabled:opacity-50 hover:bg-[#500000] transition-all"
+                                                                                className="px-4 py-3 rounded-xl bg-[#021E14] text-white font-bold disabled:opacity-50 hover:bg-[#500000] transition-all"
                                                                             >
                                                                                 <FiSend />
                                                                             </button>
@@ -817,10 +817,10 @@ export default function SingleBlogPage() {
 
                                                             {/* Replies */}
                                                             {comment.replies && comment.replies.length > 0 && (
-                                                                <div className="mt-6 space-y-4 pl-4 border-l-2 border-[#300000]/10 dark:border-[#D4AF37]/10">
+                                                                <div className="mt-6 space-y-4 pl-4 border-l-2 border-[#021E14]/10 dark:border-[#D4AF37]/10">
                                                                     {comment.replies.map((reply) => (
                                                                         <div key={reply._id} className="flex gap-4 p-4 bg-slate-50 dark:bg-white/5 rounded-2xl">
-                                                                            <div className="w-10 h-10 rounded-xl bg-[#300000]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center font-bold text-[#300000] dark:text-[#D4AF37] text-sm shrink-0 overflow-hidden relative">
+                                                                            <div className="w-10 h-10 rounded-xl bg-[#021E14]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center font-bold text-[#021E14] dark:text-[#D4AF37] text-sm shrink-0 overflow-hidden relative">
                                                                                 {reply.user?.avatar ? (
                                                                                     <Image src={reply.user.avatar} alt="" fill className="object-cover" />
                                                                                 ) : (
@@ -830,7 +830,7 @@ export default function SingleBlogPage() {
                                                                             <div className="flex-1">
                                                                                 <div className="flex items-center justify-between mb-2">
                                                                                     <div className="flex items-center gap-2">
-                                                                                        <h6 className="font-bold text-sm text-[#300000] dark:text-white">
+                                                                                        <h6 className="font-bold text-sm text-[#021E14] dark:text-white">
                                                                                             {getCommentAuthor(reply)}
                                                                                             {!reply.user && (
                                                                                                 <span className="ml-1 text-[9px] px-1.5 py-0.5 bg-slate-200 dark:bg-white/10 rounded-full text-slate-500 dark:text-slate-400">
@@ -846,7 +846,7 @@ export default function SingleBlogPage() {
                                                                                         <button
                                                                                             onClick={() => handleDeleteComment(reply._id, true, comment._id)}
                                                                                             disabled={deletingComment === reply._id}
-                                                                                            className="text-[10px] font-bold text-red-400 hover:text-red-600 transition-colors"
+                                                                                            className="text-[10px] font-bold text-[#021E14] hover:text-[#021E14] transition-colors"
                                                                                         >
                                                                                             <FiTrash2 size={10} />
                                                                                         </button>
@@ -873,7 +873,7 @@ export default function SingleBlogPage() {
                             {/* Related Posts */}
                             {relatedBlogs.length > 0 && (
                                 <div className="bg-white dark:bg-[#0d0d0d] rounded-[2.5rem] p-8 border border-slate-100 dark:border-white/10 shadow-xl shadow-black/5">
-                                    <h3 className="text-xl font-bold text-[#300000] dark:text-white mb-8 flex items-center gap-3">
+                                    <h3 className="text-xl font-bold text-[#021E14] dark:text-white mb-8 flex items-center gap-3">
                                         <FiTrendingUp className="text-[#D4AF37]" />
                                         {text.relatedPosts}
                                     </h3>
@@ -884,12 +884,12 @@ export default function SingleBlogPage() {
                                                     <Image src={related.thumbnail || "/images/blog-placeholder.jpg"} alt={related.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                                     <div className="absolute bottom-4 left-4">
-                                                        <span className="px-2 py-1 rounded-lg bg-[#D4AF37] text-[#300000] text-[10px] font-bold uppercase tracking-tighter">
+                                                        <span className="px-2 py-1 rounded-lg bg-[#D4AF37] text-[#021E14] text-[10px] font-bold uppercase tracking-tighter">
                                                             {related.category?.name}
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <h4 className={`text-sm md:text-base font-bold text-[#300000] dark:text-white line-clamp-2 group-hover:text-[#D4AF37] transition-colors ${bengaliClass}`}>
+                                                <h4 className={`text-sm md:text-base font-bold text-[#021E14] dark:text-white line-clamp-2 group-hover:text-[#D4AF37] transition-colors ${bengaliClass}`}>
                                                     {related.title}
                                                 </h4>
                                                 <div className="flex items-center gap-3 mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
@@ -903,15 +903,15 @@ export default function SingleBlogPage() {
                             )}
 
                             {/* Sidebar Ad / CTA */}
-                            <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-[#300000] to-[#1a0000] text-center relative overflow-hidden shadow-2xl">
+                            <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-[#021E14] to-[#1a0000] text-center relative overflow-hidden shadow-2xl">
                                 <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
                                 <div className="relative z-10">
                                     <div className="w-16 h-16 bg-[#D4AF37] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-[#D4AF37]/20">
-                                        <FiRocket className="text-[#300000]" size={30} />
+                                        <FiRocket className="text-[#021E14]" size={30} />
                                     </div>
                                     <h3 className="text-xl font-bold text-white mb-4">{text.learnMore}</h3>
                                     <p className="text-white/60 text-sm mb-8 leading-relaxed">{text.allBlogsHere}</p>
-                                    <Link href="/blog" className="block w-full py-4 rounded-2xl bg-white text-[#300000] font-bold hover:shadow-2xl hover:bg-[#D4AF37] transition-all">
+                                    <Link href="/blog" className="block w-full py-4 rounded-2xl bg-white text-[#021E14] font-bold hover:shadow-2xl hover:bg-[#D4AF37] transition-all">
                                         {text.viewAllBlogs}
                                     </Link>
                                 </div>
@@ -926,7 +926,7 @@ export default function SingleBlogPage() {
                 <div className="flex items-center justify-around">
                     <button
                         onClick={handleLike}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${isLiked ? 'bg-[#300000] text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300'}`}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${isLiked ? 'bg-[#021E14] text-white' : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300'}`}
                     >
                         <FiHeart className={isLiked ? 'fill-current' : ''} />
                         <span className="font-bold">{likeCount}</span>

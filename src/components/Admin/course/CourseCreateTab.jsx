@@ -14,8 +14,8 @@ import {
 } from 'react-icons/fi';
 
 // Style constants
-const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all";
-const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer";
+const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/10 outline-none transition-all";
+const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/10 outline-none transition-all appearance-none cursor-pointer";
 
 // FormField component
 const FormField = ({ label, icon: Icon, error, children, required, optional }) => (
@@ -23,11 +23,11 @@ const FormField = ({ label, icon: Icon, error, children, required, optional }) =
         <label className="flex items-center gap-1.5 text-sm font-medium text-slate-700">
             {Icon && <Icon size={14} className="text-slate-400" />}
             {label}
-            {required && <span className="text-red-500">*</span>}
+            {required && <span className="text-[#021E14]">*</span>}
             {optional && <span className="text-xs text-slate-400 font-normal">(Optional)</span>}
         </label>
         {children}
-        {error && <p className="text-red-500 text-xs">{error.message}</p>}
+        {error && <p className="text-[#021E14] text-xs">{error.message}</p>}
     </div>
 );
 
@@ -35,7 +35,7 @@ const FormField = ({ label, icon: Icon, error, children, required, optional }) =
 const SectionHeader = ({ title, icon: Icon }) => (
     <div className="px-5 py-3 border-b border-slate-100 bg-slate-50">
         <h2 className="font-semibold text-sm text-slate-800 flex items-center gap-2">
-            {Icon && <Icon size={16} className="text-indigo-600" />}
+            {Icon && <Icon size={16} className="text-[#021E14]" />}
             {title}
         </h2>
     </div>
@@ -223,7 +223,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                 <button
                     onClick={handleSubmit(onSubmit)}
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-md shadow-sm transition-all disabled:opacity-50"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-[#021E14] hover:bg-[#01140D] text-white font-medium text-sm rounded-md shadow-sm transition-all disabled:opacity-50"
                 >
                     {loading ? <><FiLoader className="animate-spin" /> Creating...</> : <><FiSave /> Create Course & Continue <FiArrowRight className="ml-1" /></>}
                 </button>
@@ -276,7 +276,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                 <label className="flex items-center gap-1.5 text-sm font-medium text-slate-700">
                                     <FiImage size={14} className="text-slate-400" />
                                     Thumbnail Image
-                                    <span className="text-red-500">*</span>
+                                    <span className="text-[#021E14]">*</span>
                                 </label>
 
                                 {/* Toggle between Upload and Link */}
@@ -285,7 +285,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                         type="button"
                                         onClick={() => setThumbnailMode('upload')}
                                         className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${thumbnailMode === 'upload'
-                                            ? 'bg-indigo-50 border-indigo-300 text-indigo-700'
+                                            ? 'bg-[#021E14] border-[#021E14] text-[#01140D]'
                                             : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
                                             }`}
                                     >
@@ -295,7 +295,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                         type="button"
                                         onClick={() => setThumbnailMode('link')}
                                         className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${thumbnailMode === 'link'
-                                            ? 'bg-indigo-50 border-indigo-300 text-indigo-700'
+                                            ? 'bg-[#021E14] border-[#021E14] text-[#01140D]'
                                             : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
                                             }`}
                                     >
@@ -311,7 +311,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                                 <button
                                                     type="button"
                                                     onClick={removeThumbnail}
-                                                    className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full shadow-sm hover:bg-red-600"
+                                                    className="absolute -top-2 -right-2 p-1 bg-[#021E14] text-white rounded-full shadow-sm hover:bg-[#021E14]"
                                                 >
                                                     <FiX size={12} />
                                                 </button>
@@ -319,18 +319,18 @@ const CourseCreateTab = ({ onSuccess }) => {
                                         ) : (
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
-                                                className="border-2 border-dashed border-slate-300 rounded-md p-6 text-center cursor-pointer hover:border-indigo-400 transition-all"
+                                                className="border-2 border-dashed border-slate-300 rounded-md p-6 text-center cursor-pointer hover:border-[#021E14] transition-all"
                                             >
                                                 {uploadingThumbnail ? (
                                                     <div className="flex flex-col items-center gap-2">
-                                                        <FiLoader className="animate-spin text-indigo-500" size={24} />
+                                                        <FiLoader className="animate-spin text-[#021E14]" size={24} />
                                                         <span className="text-sm text-slate-500">Uploading...</span>
                                                     </div>
                                                 ) : (
                                                     <div className="flex flex-col items-center gap-2">
                                                         <FiUpload className="text-slate-400" size={24} />
                                                         <p className="text-sm text-slate-500">
-                                                            <span className="text-indigo-500 font-medium">Click to upload</span> thumbnail image
+                                                            <span className="text-[#021E14] font-medium">Click to upload</span> thumbnail image
                                                         </p>
                                                         <p className="text-xs text-slate-400">PNG, JPG, WEBP up to 5MB</p>
                                                     </div>
@@ -358,7 +358,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                                 <button
                                                     type="button"
                                                     onClick={removeThumbnail}
-                                                    className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full shadow-sm hover:bg-red-600"
+                                                    className="absolute -top-2 -right-2 p-1 bg-[#021E14] text-white rounded-full shadow-sm hover:bg-[#021E14]"
                                                 >
                                                     <FiX size={12} />
                                                 </button>
@@ -366,7 +366,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                         )}
                                     </div>
                                 )}
-                                {errors.thumbnail && <p className="text-red-500 text-xs">{errors.thumbnail.message}</p>}
+                                {errors.thumbnail && <p className="text-[#021E14] text-xs">{errors.thumbnail.message}</p>}
                             </div>
 
                             <FormField label="Preview Video URL (YouTube/Vimeo)" icon={FiVideo} error={errors.previewVideo}>
@@ -380,14 +380,14 @@ const CourseCreateTab = ({ onSuccess }) => {
                         {/* Features */}
                         <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiCheck className="text-emerald-500" size={14} /> Features</h3>
-                                <button type="button" onClick={() => featuresFields.append('')} className="p-1 bg-emerald-600 text-white rounded-md hover:bg-emerald-700"><FiPlus size={14} /></button>
+                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiCheck className="text-[#021E14]" size={14} /> Features</h3>
+                                <button type="button" onClick={() => featuresFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-emerald-700"><FiPlus size={14} /></button>
                             </div>
                             <div className="p-4 space-y-2">
                                 {featuresFields.fields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2">
                                         <input {...register(`features.${index}`)} className={`${inputBase} py-2`} placeholder="Feature..." />
-                                        <button type="button" onClick={() => featuresFields.remove(index)} className="text-red-400 hover:text-red-600"><FiTrash2 size={14} /></button>
+                                        <button type="button" onClick={() => featuresFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
                                     </div>
                                 ))}
                             </div>
@@ -396,14 +396,14 @@ const CourseCreateTab = ({ onSuccess }) => {
                         {/* What You'll Learn */}
                         <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTarget className="text-indigo-500" size={14} /> What You Will Learn</h3>
-                                <button type="button" onClick={() => learningFields.append('')} className="p-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"><FiPlus size={14} /></button>
+                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTarget className="text-[#021E14]" size={14} /> What You Will Learn</h3>
+                                <button type="button" onClick={() => learningFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#01140D]"><FiPlus size={14} /></button>
                             </div>
                             <div className="p-4 space-y-2">
                                 {learningFields.fields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2">
                                         <input {...register(`whatYouWillLearn.${index}`)} className={`${inputBase} py-2`} placeholder="Outcome..." />
-                                        <button type="button" onClick={() => learningFields.remove(index)} className="text-red-400 hover:text-red-600"><FiTrash2 size={14} /></button>
+                                        <button type="button" onClick={() => learningFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
                                     </div>
                                 ))}
                             </div>
@@ -412,14 +412,14 @@ const CourseCreateTab = ({ onSuccess }) => {
                         {/* Requirements / Roadmap */}
                         <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiList className="text-rose-500" size={14} /> Roadmap</h3>
-                                <button type="button" onClick={() => requirementsFields.append('')} className="p-1 bg-rose-600 text-white rounded-md hover:bg-rose-700"><FiPlus size={14} /></button>
+                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiList className="text-[#021E14]" size={14} /> Roadmap</h3>
+                                <button type="button" onClick={() => requirementsFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#021E14]"><FiPlus size={14} /></button>
                             </div>
                             <div className="p-4 space-y-2">
                                 {requirementsFields.fields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2">
                                         <input {...register(`requirements.${index}`)} className={`${inputBase} py-2`} placeholder="Requirement..." />
-                                        <button type="button" onClick={() => requirementsFields.remove(index)} className="text-red-400 hover:text-red-600"><FiTrash2 size={14} /></button>
+                                        <button type="button" onClick={() => requirementsFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
                                     </div>
                                 ))}
                             </div>
@@ -431,14 +431,14 @@ const CourseCreateTab = ({ onSuccess }) => {
                         {/* Tags */}
                         <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTag className="text-blue-500" size={14} /> Search Tags</h3>
-                                <button type="button" onClick={() => tagsFields.append('')} className="p-1 bg-blue-600 text-white rounded-md hover:bg-blue-700"><FiPlus size={14} /></button>
+                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTag className="text-[#021E14]" size={14} /> Search Tags</h3>
+                                <button type="button" onClick={() => tagsFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#021E14]"><FiPlus size={14} /></button>
                             </div>
                             <div className="p-4 space-y-2">
                                 {tagsFields.fields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2">
                                         <input {...register(`tags.${index}`)} className={`${inputBase} py-2`} placeholder="Tag..." />
-                                        <button type="button" onClick={() => tagsFields.remove(index)} className="text-red-400 hover:text-red-600"><FiTrash2 size={14} /></button>
+                                        <button type="button" onClick={() => tagsFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
                                     </div>
                                 ))}
                             </div>
@@ -447,14 +447,14 @@ const CourseCreateTab = ({ onSuccess }) => {
                         {/* Target Audience */}
                         <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTarget className="text-purple-500" size={14} /> Target Audience</h3>
-                                <button type="button" onClick={() => audienceFields.append('')} className="p-1 bg-purple-600 text-white rounded-md hover:bg-purple-700"><FiPlus size={14} /></button>
+                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTarget className="text-[#021E14]" size={14} /> Target Audience</h3>
+                                <button type="button" onClick={() => audienceFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#021E14]"><FiPlus size={14} /></button>
                             </div>
                             <div className="p-4 space-y-2">
                                 {audienceFields.fields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2">
                                         <input {...register(`targetAudience.${index}`)} className={`${inputBase} py-2`} placeholder="Audience..." />
-                                        <button type="button" onClick={() => audienceFields.remove(index)} className="text-red-400 hover:text-red-600"><FiTrash2 size={14} /></button>
+                                        <button type="button" onClick={() => audienceFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
                                     </div>
                                 ))}
                             </div>
@@ -542,11 +542,11 @@ const CourseCreateTab = ({ onSuccess }) => {
                             </FormField>
                             <div className="flex flex-wrap gap-4 pt-2">
                                 <label className="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" {...register('isFeatured')} className="w-4 h-4 rounded text-indigo-600" />
+                                    <input type="checkbox" {...register('isFeatured')} className="w-4 h-4 rounded text-[#021E14]" />
                                     <span className="text-xs font-medium text-slate-600">Featured Course</span>
                                 </label>
                                 <label className="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" {...register('isPopular')} className="w-4 h-4 rounded text-purple-600" />
+                                    <input type="checkbox" {...register('isPopular')} className="w-4 h-4 rounded text-[#021E14]" />
                                     <span className="text-xs font-medium text-slate-600">Popular Course</span>
                                 </label>
                             </div>

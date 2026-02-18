@@ -46,7 +46,7 @@ const StatsCard = ({ title, value, change, changeType, icon: Icon, gradient, loa
     const { isDark } = useTheme();
     return (
         <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#021E14]/20 to-[#01140D]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className={`relative rounded-2xl p-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden border ${isDark
                 ? 'bg-slate-800 border-slate-700 shadow-none'
                 : 'bg-white/80 backdrop-blur-sm border-gray-100/50 shadow-lg shadow-gray-200/50'
@@ -66,8 +66,8 @@ const StatsCard = ({ title, value, change, changeType, icon: Icon, gradient, loa
                         {subtitle && <p className="text-xs text-slate-400 mb-2">{subtitle}</p>}
                         {change && (
                             <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${changeType === 'up'
-                                ? (isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-50 text-emerald-600')
-                                : (isDark ? 'bg-red-500/20 text-red-400' : 'bg-red-50 text-red-500')
+                                ? (isDark ? 'bg-[#021E14]/20 text-emerald-400' : 'bg-emerald-50 text-[#021E14]')
+                                : (isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]')
                                 }`}>
                                 {changeType === 'up' ? <FiTrendingUp size={12} /> : <FiTrendingDown size={12} />}
                                 <span>{change}</span>
@@ -170,7 +170,7 @@ export default function MentorDashboard() {
             change: '+15.2%',
             changeType: 'up',
             icon: FiHeart,
-            gradient: 'from-rose-500 to-pink-500',
+            gradient: 'from-[#021E14] to-[#01140D]',
         },
         {
             title: 'Today Revenue',
@@ -179,7 +179,7 @@ export default function MentorDashboard() {
             change: '+8.5%',
             changeType: 'up',
             icon: FiDollarSign,
-            gradient: 'from-emerald-500 to-red-500',
+            gradient: 'from-[#021E14] to-[#01140D]',
         },
         {
             title: 'This Month Revenue',
@@ -188,7 +188,7 @@ export default function MentorDashboard() {
             change: '+18.2%',
             changeType: 'up',
             icon: FiTrendingUp,
-            gradient: 'from-amber-500 to-orange-500',
+            gradient: 'from-[#D4AF37] to-[#01140D]',
         },
         {
             title: 'Total Orders',
@@ -197,24 +197,24 @@ export default function MentorDashboard() {
             change: '+24.5%',
             changeType: 'up',
             icon: FiPackage,
-            gradient: 'from-violet-500 to-purple-500',
+            gradient: 'from-[#021E14] to-[#01140D]',
         },
     ];
 
     // Product stats for cards - Updated to mentor links
     const productStats = [
-        { title: 'All Courses', value: dashboardData.totalCourses, icon: FiBook, gradient: 'from-indigo-500 to-purple-500', href: '/dashboard/instructor/course' },
-        { title: 'All Softwares', value: dashboardData.totalSoftware, icon: FiCode, gradient: 'from-cyan-500 to-red-500', href: '/dashboard/instructor/software' },
-        { title: 'All Websites', value: dashboardData.totalWebsites, icon: FiGlobe, gradient: 'from-pink-500 to-rose-500', href: '/dashboard/instructor/website' },
-        { title: 'All Categories', value: dashboardData.categories, icon: FiLayers, gradient: 'from-amber-500 to-orange-500', href: '/dashboard/instructor/category' },
+        { title: 'All Courses', value: dashboardData.totalCourses, icon: FiBook, gradient: 'from-[#021E14] to-[#01140D]', href: '/dashboard/instructor/course' },
+        { title: 'All Softwares', value: dashboardData.totalSoftware, icon: FiCode, gradient: 'from-cyan-500 to-[#01140D]', href: '/dashboard/instructor/software' },
+        { title: 'All Websites', value: dashboardData.totalWebsites, icon: FiGlobe, gradient: 'from-[#021E14] to-[#01140D]', href: '/dashboard/instructor/website' },
+        { title: 'All Categories', value: dashboardData.categories, icon: FiLayers, gradient: 'from-[#D4AF37] to-[#01140D]', href: '/dashboard/instructor/category' },
     ];
 
     // Quick actions - Updated to mentor links
     const quickActions = [
-        { title: 'Add Course', href: '/dashboard/instructor/course/create', icon: FiBook, gradient: 'from-amber-500 to-orange-500' },
-        { title: 'Add Website', href: '/dashboard/instructor/website/create', icon: FiGlobe, gradient: 'from-pink-500 to-rose-500' },
-        { title: 'Add Software', href: '/dashboard/instructor/software/create', icon: FiCode, gradient: 'from-cyan-500 to-red-500' },
-        { title: 'Add Category', href: '/dashboard/instructor/category/create', icon: FiLayers, gradient: 'from-violet-500 to-purple-500' },
+        { title: 'Add Course', href: '/dashboard/instructor/course/create', icon: FiBook, gradient: 'from-[#D4AF37] to-[#01140D]' },
+        { title: 'Add Website', href: '/dashboard/instructor/website/create', icon: FiGlobe, gradient: 'from-[#021E14] to-[#01140D]' },
+        { title: 'Add Software', href: '/dashboard/instructor/software/create', icon: FiCode, gradient: 'from-cyan-500 to-[#01140D]' },
+        { title: 'Add Category', href: '/dashboard/instructor/category/create', icon: FiLayers, gradient: 'from-[#021E14] to-[#01140D]' },
     ];
 
     return (
@@ -225,13 +225,13 @@ export default function MentorDashboard() {
                 : 'bg-white border-slate-200/60 shadow-sm'
                 }`}>
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 flex items-center justify-center shadow-lg shadow-amber-500/25">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D4AF37] via-orange-500 to-[#01140D] flex items-center justify-center shadow-lg shadow-[#D4AF37]/25">
                         <FiGrid className="text-white text-xl" />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Mentor Dashboard</h1>
-                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">
+                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">
                                 Mentor
                             </span>
                         </div>
@@ -300,7 +300,7 @@ export default function MentorDashboard() {
                     : 'bg-white border-slate-200 shadow-sm'
                     }`}>
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="w-14 h-14 bg-amber-500/10 text-amber-600 rounded-2xl flex items-center justify-center">
+                        <div className="w-14 h-14 bg-[#D4AF37]/10 text-amber-600 rounded-2xl flex items-center justify-center">
                             <FiZap size={28} />
                         </div>
                         <div>
@@ -337,7 +337,7 @@ export default function MentorDashboard() {
                     : 'bg-white border-slate-200 shadow-sm'
                     }`}>
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="w-14 h-14 bg-red-500/10 text-red-600 rounded-2xl flex items-center justify-center">
+                        <div className="w-14 h-14 bg-[#021E14]/10 text-[#021E14] rounded-2xl flex items-center justify-center">
                             <FiActivity size={28} />
                         </div>
                         <div>
@@ -366,14 +366,14 @@ export default function MentorDashboard() {
                             : 'bg-slate-50 border-slate-100'
                             }`}>
                             <span className="text-sm text-slate-500">Active Enrollments</span>
-                            <span className="text-lg font-bold text-indigo-600">{dashboardData.activeEnrollments}</span>
+                            <span className="text-lg font-bold text-[#021E14]">{dashboardData.activeEnrollments}</span>
                         </div>
                         <div className={`flex justify-between items-center p-3 rounded-xl border ${isDark
                             ? 'bg-slate-900/50 border-slate-700'
                             : 'bg-slate-50 border-slate-100'
                             }`}>
                             <span className="text-sm text-slate-500">Total Enrollments</span>
-                            <span className="text-lg font-bold text-emerald-600">{dashboardData.totalEnrollments}</span>
+                            <span className="text-lg font-bold text-[#021E14]">{dashboardData.totalEnrollments}</span>
                         </div>
                     </div>
                 </div>
@@ -381,15 +381,15 @@ export default function MentorDashboard() {
 
             {/* ==================== INFO NOTICE ==================== */}
             <div className={`p-6 rounded-2xl border ${isDark
-                ? 'bg-amber-500/10 border-amber-500/30'
+                ? 'bg-[#D4AF37]/10 border-[#D4AF37]/30'
                 : 'bg-amber-50 border-amber-200'
                 }`}>
                 <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-500/20 text-amber-600 rounded-xl flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 bg-[#D4AF37]/20 text-amber-600 rounded-xl flex items-center justify-center shrink-0">
                         <FiAlertCircle size={24} />
                     </div>
                     <div>
-                        <h3 className={`text-lg font-bold mb-2 ${isDark ? 'text-amber-400' : 'text-amber-800'}`}>
+                        <h3 className={`text-lg font-bold mb-2 ${isDark ? 'text-[#D4AF37]' : 'text-amber-800'}`}>
                             Mentor Access Notice
                         </h3>
                         <p className={`text-sm ${isDark ? 'text-amber-300/80' : 'text-amber-700'}`}>

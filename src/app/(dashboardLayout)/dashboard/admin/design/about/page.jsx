@@ -10,49 +10,49 @@ const sections = [
         description: 'Main banner with headline and description',
         href: '/dashboard/admin/design/about/hero',
         icon: FiImage,
-        gradient: 'from-red-500 to-cyan-500'
+        gradient: 'from-[#021E14] to-cyan-500'
     },
     {
         title: 'Mission & Vision',
         description: 'Company mission and vision statements',
         href: '/dashboard/admin/design/about/mission',
         icon: FiTarget,
-        gradient: 'from-orange-500 to-amber-500'
+        gradient: 'from-[#D4AF37] to-[#D4AF37]'
     },
     {
         title: 'Statistics',
         description: 'Company stats and achievements',
         href: '/dashboard/admin/design/about/stats',
         icon: FiBarChart2,
-        gradient: 'from-purple-500 to-pink-500'
+        gradient: 'from-[#021E14] to-[#01140D]'
     },
     {
         title: 'Features',
         description: 'Why choose us features section',
         href: '/dashboard/admin/design/about/features',
         icon: FiStar,
-        gradient: 'from-blue-500 to-indigo-500'
+        gradient: 'from-[#021E14] to-[#021E14]'
     },
     {
         title: 'Founder',
         description: 'Founder information and quote',
         href: '/dashboard/admin/design/about/founder',
         icon: FiUser,
-        gradient: 'from-green-500 to-emerald-500'
+        gradient: 'from-green-500 to-[#021E14]'
     },
     {
         title: 'Global Reach',
         description: 'Global presence and partnerships',
         href: '/dashboard/admin/design/about/global',
         icon: FiGlobe,
-        gradient: 'from-cyan-500 to-blue-500'
+        gradient: 'from-cyan-500 to-[#021E14]'
     },
     {
         title: 'Call to Action',
         description: 'Bottom CTA section with contact info',
         href: '/dashboard/admin/design/about/cta',
         icon: FiMessageCircle,
-        gradient: 'from-rose-500 to-pink-500'
+        gradient: 'from-[#021E14] to-[#01140D]'
     }
 ];
 
@@ -80,7 +80,7 @@ const AboutDesignPage = () => {
                             <div className="flex-1">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{section.title}</h3>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{section.description}</p>
-                                <div className="flex items-center gap-2 text-sm font-medium text-red-500">
+                                <div className="flex items-center gap-2 text-sm font-medium text-[#021E14]">
                                     <span>Edit Section</span>
                                     <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                 </div>

@@ -236,7 +236,7 @@ export default function EditBlogPage() {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="text-center">
-                    <FiLoader className="w-12 h-12 mx-auto animate-spin text-red-500" />
+                    <FiLoader className="w-12 h-12 mx-auto animate-spin text-[#021E14]" />
                     <p className={`mt-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Loading blog...</p>
                 </div>
             </div>
@@ -267,7 +267,7 @@ export default function EditBlogPage() {
                     <button
                         onClick={() => setPreviewMode(!previewMode)}
                         className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all ${previewMode
-                            ? 'bg-gradient-to-r from-red-500 to-cyan-500 text-white'
+                            ? 'bg-gradient-to-r from-[#021E14] to-cyan-500 text-white'
                             : isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                             }`}
                     >
@@ -286,7 +286,7 @@ export default function EditBlogPage() {
                     <button
                         onClick={() => handleSubmit('published')}
                         disabled={saving}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white font-semibold shadow-lg shadow-red-500/30 hover:shadow-xl hover:scale-[1.02] transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white font-semibold shadow-lg shadow-red-500/30 hover:shadow-xl hover:scale-[1.02] transition-all disabled:opacity-50"
                     >
                         {saving ? (
                             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -304,7 +304,7 @@ export default function EditBlogPage() {
                     {/* Title */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Blog Title <span className="text-red-500">*</span>
+                            Blog Title <span className="text-[#021E14]">*</span>
                         </label>
                         <input
                             type="text"
@@ -313,9 +313,9 @@ export default function EditBlogPage() {
                             onChange={handleChange}
                             placeholder="Enter your blog title..."
                             className={`w-full px-4 py-3 rounded-xl border text-lg font-medium transition-all ${isDark
-                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-red-500'
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
+                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                         />
                         <input
                             type="text"
@@ -324,16 +324,16 @@ export default function EditBlogPage() {
                             onChange={handleChange}
                             placeholder="বাংলা শিরোনাম (ঐচ্ছিক)"
                             className={`w-full mt-3 px-4 py-2.5 rounded-xl border transition-all ${isDark
-                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-red-500'
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
+                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                         />
                     </div>
 
                     {/* Excerpt */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Excerpt / Short Summary <span className="text-red-500">*</span>
+                            Excerpt / Short Summary <span className="text-[#021E14]">*</span>
                         </label>
                         <textarea
                             name="excerpt"
@@ -343,9 +343,9 @@ export default function EditBlogPage() {
                             rows={3}
                             maxLength={500}
                             className={`w-full px-4 py-3 rounded-xl border transition-all resize-none ${isDark
-                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-red-500'
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
+                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                         />
                         <p className={`text-xs mt-1 text-right ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                             {formData.excerpt.length}/500
@@ -355,7 +355,7 @@ export default function EditBlogPage() {
                     {/* Content Editor */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Blog Content <span className="text-red-500">*</span>
+                            Blog Content <span className="text-[#021E14]">*</span>
                         </label>
                         <RichTextEditor
                             value={formData.content}
@@ -371,26 +371,26 @@ export default function EditBlogPage() {
                     {/* Featured Image */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Featured Image <span className="text-red-500">*</span>
+                            Featured Image <span className="text-[#021E14]">*</span>
                         </label>
                         {formData.thumbnail ? (
                             <div className="relative rounded-xl overflow-hidden">
                                 <Image src={formData.thumbnail} alt="Thumbnail" width={400} height={225} className="w-full h-48 object-cover" />
                                 <button
                                     onClick={() => setFormData(prev => ({ ...prev, thumbnail: '' }))}
-                                    className="absolute top-2 right-2 p-1.5 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
+                                    className="absolute top-2 right-2 p-1.5 rounded-lg bg-[#021E14] text-white hover:bg-[#021E14] transition-colors"
                                 >
                                     <FiX size={14} />
                                 </button>
                             </div>
                         ) : (
                             <label className={`flex flex-col items-center justify-center h-48 border-2 border-dashed rounded-xl cursor-pointer transition-colors ${isDark
-                                ? 'border-slate-600 hover:border-red-500 hover:bg-slate-700/50'
-                                : 'border-slate-300 hover:border-red-500 hover:bg-slate-50'
+                                ? 'border-slate-600 hover:border-[#021E14] hover:bg-slate-700/50'
+                                : 'border-slate-300 hover:border-[#021E14] hover:bg-slate-50'
                                 }`}>
                                 <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                                 {uploading ? (
-                                    <div className="w-8 h-8 border-3 border-red-500/30 border-t-red-500 rounded-full animate-spin" />
+                                    <div className="w-8 h-8 border-3 border-[#021E14]/30 border-t-red-500 rounded-full animate-spin" />
                                 ) : (
                                     <>
                                         <FiUpload className={`mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} size={24} />
@@ -404,7 +404,7 @@ export default function EditBlogPage() {
                     {/* Category */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Category <span className="text-red-500">*</span>
+                            Category <span className="text-[#021E14]">*</span>
                         </label>
                         <select
                             name="category"
@@ -413,7 +413,7 @@ export default function EditBlogPage() {
                             className={`w-full px-4 py-2.5 rounded-xl border transition-all ${isDark
                                 ? 'bg-slate-700/50 border-slate-600 text-white'
                                 : 'bg-slate-50 border-slate-200 text-slate-900'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                         >
                             <option value="">Select category</option>
                             {categories.map(cat => (
@@ -425,7 +425,7 @@ export default function EditBlogPage() {
                     {/* Tags */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Tags <span className="text-red-500">*</span>
+                            Tags <span className="text-[#021E14]">*</span>
                         </label>
                         <div className="flex gap-2">
                             <input
@@ -437,17 +437,17 @@ export default function EditBlogPage() {
                                 className={`flex-1 px-3 py-2 rounded-lg border text-sm transition-all ${isDark
                                     ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500'
                                     : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
-                                    } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                             />
-                            <button onClick={addTag} className="px-3 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors">
+                            <button onClick={addTag} className="px-3 py-2 rounded-lg bg-[#021E14] text-white hover:bg-[#021E14] transition-colors">
                                 <FiTag size={16} />
                             </button>
                         </div>
                         <div className="flex flex-wrap gap-2 mt-3">
                             {formData.tags.map((tag, idx) => (
-                                <span key={idx} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs ${isDark ? 'bg-red-500/20 text-red-400' : 'bg-red-50 text-red-600'}`}>
+                                <span key={idx} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs ${isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'}`}>
                                     #{tag}
-                                    <button onClick={() => removeTag(tag)} className="hover:text-red-500 transition-colors">
+                                    <button onClick={() => removeTag(tag)} className="hover:text-[#021E14] transition-colors">
                                         <FiX size={12} />
                                     </button>
                                 </span>
@@ -467,7 +467,7 @@ export default function EditBlogPage() {
                             className={`w-full px-4 py-2.5 rounded-xl border transition-all ${isDark
                                 ? 'bg-slate-700/50 border-slate-600 text-white'
                                 : 'bg-slate-50 border-slate-200 text-slate-900'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                         >
                             <option value="draft">Draft</option>
                             <option value="published">Published</option>
@@ -480,15 +480,15 @@ export default function EditBlogPage() {
                         <h3 className={`text-sm font-medium mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Options</h3>
                         <div className="space-y-3">
                             <label className="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]" />
                                 <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Featured Blog</span>
                             </label>
                             <label className="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="isPopular" checked={formData.isPopular} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <input type="checkbox" name="isPopular" checked={formData.isPopular} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]" />
                                 <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Mark as Popular</span>
                             </label>
                             <label className="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="allowComments" checked={formData.allowComments} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <input type="checkbox" name="allowComments" checked={formData.allowComments} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]" />
                                 <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Allow Comments</span>
                             </label>
                         </div>
@@ -508,7 +508,7 @@ export default function EditBlogPage() {
                                 className={`w-full px-3 py-2 rounded-lg border text-sm transition-all ${isDark
                                     ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500'
                                     : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
-                                    } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                             />
                             <textarea
                                 name="metaDescription"
@@ -520,7 +520,7 @@ export default function EditBlogPage() {
                                 className={`w-full px-3 py-2 rounded-lg border text-sm resize-none transition-all ${isDark
                                     ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500'
                                     : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'
-                                    } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                             />
                         </div>
                     </div>

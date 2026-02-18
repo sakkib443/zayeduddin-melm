@@ -59,7 +59,7 @@ const ProtectedRoute = ({ children, role, allowedRoles = [] }) => {
   if (!isAuthorized) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 gap-4">
-        <FiLoader className="text-4xl text-[#E62D26] animate-spin" />
+        <FiLoader className="text-4xl text-[#021E14] animate-spin" />
         <p className="text-slate-500 font-medium animate-pulse">Verifying Access...</p>
       </div>
     );

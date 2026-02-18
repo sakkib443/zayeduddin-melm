@@ -79,7 +79,7 @@ export default function CertificationsPage() {
       case 'Expiring Soon':
         return 'bg-yellow-50 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-400';
       case 'Expired':
-        return 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400';
+        return 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]';
       default:
         return 'bg-gray-50 text-gray-600 dark:bg-gray-500/10 dark:text-gray-400';
     }
@@ -97,8 +97,8 @@ export default function CertificationsPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <div className={`p-2 rounded-md ${isDark ? 'bg-orange-500/10' : 'bg-orange-50'}`}>
-            <FiAward className="text-orange-500" size={20} />
+          <div className={`p-2 rounded-md ${isDark ? 'bg-[#021E14]/10' : 'bg-[#021E14]'}`}>
+            <FiAward className="text-[#021E14]" size={20} />
           </div>
           <h1 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
             Certifications
@@ -125,7 +125,7 @@ export default function CertificationsPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Expired</p>
-          <p className="text-2xl font-semibold mt-1 text-red-500">{stats.expired}</p>
+          <p className="text-2xl font-semibold mt-1 text-[#021E14]">{stats.expired}</p>
         </div>
       </div>
 
@@ -138,7 +138,7 @@ export default function CertificationsPage() {
             placeholder="Search certifications..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-orange-500 ${
+            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-[#021E14] ${
               isDark ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500' : 'bg-white border-gray-200 text-gray-900'
             }`}
           />
@@ -150,7 +150,7 @@ export default function CertificationsPage() {
             <FiDownload size={16} />
             <span>Export</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 rounded-md">
+          <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#021E14] hover:bg-[#021E14] rounded-md">
             <FiPlus size={16} />
             <span>New Certificate</span>
           </button>
@@ -218,13 +218,13 @@ export default function CertificationsPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-center gap-1">
-                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-blue-400' : 'hover:bg-gray-100 text-gray-400 hover:text-blue-500'}`}>
+                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                         <FiEye size={16} />
                       </button>
-                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-orange-400' : 'hover:bg-gray-100 text-gray-400 hover:text-orange-500'}`}>
+                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                         <FiEdit2 size={16} />
                       </button>
-                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-red-400' : 'hover:bg-gray-100 text-gray-400 hover:text-red-500'}`}>
+                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                         <FiTrash2 size={16} />
                       </button>
                     </div>

@@ -38,7 +38,7 @@ const FloatingSeminarButton = () => {
           className="fixed left-0 top-1/2 -translate-y-1/2 z-50 group"
           aria-label={language === "bn" ? "???????? ??????" : "Join Seminar"}
         >
-          <div className="animated-gradient-btn text-white p-3 rounded-r-lg shadow-lg hover:shadow-xl hover:shadow-[#E62D26]/40 transition-all duration-300">
+          <div className="animated-gradient-btn text-white p-3 rounded-r-lg shadow-lg hover:shadow-xl hover:shadow-[#021E14]/40 transition-all duration-300">
             <FaCalendarAlt size={20} />
           </div>
         </button>
@@ -53,7 +53,7 @@ const FloatingSeminarButton = () => {
             onClick={() => isMobile && setIsOpen(false)}
           >
             <div
-              className="animated-gradient-btn text-white py-2 px-3 rounded-r-lg shadow-lg hover:shadow-xl hover:shadow-[#E62D26]/40 transition-all duration-300 hover:px-4 cursor-pointer"
+              className="animated-gradient-btn text-white py-2 px-3 rounded-r-lg shadow-lg hover:shadow-xl hover:shadow-[#021E14]/40 transition-all duration-300 hover:px-4 cursor-pointer"
               style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
             >
               <span
@@ -68,7 +68,7 @@ const FloatingSeminarButton = () => {
           {isMobile && isOpen && (
             <button
               onClick={() => setIsOpen(false)}
-              className="ml-2 bg-white text-[#E62D26] p-2 rounded-full shadow-lg hover:bg-gray-100 transition-all z-50"
+              className="ml-2 bg-white text-[#021E14] p-2 rounded-full shadow-lg hover:bg-gray-100 transition-all z-50"
               aria-label="Close"
             >
               <IoMdClose size={20} />
@@ -81,11 +81,11 @@ const FloatingSeminarButton = () => {
         .animated-gradient-btn {
           background: linear-gradient(
             180deg,
-            #E62D26,
+            #021E14,
             #38a89d,
-            #f79952,
+            #021E14,
             #e07832,
-            #E62D26
+            #021E14
           );
           background-size: 100% 400%;
           animation: gradientFlow 12s ease infinite;

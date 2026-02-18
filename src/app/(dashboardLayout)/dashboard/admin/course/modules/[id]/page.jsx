@@ -141,7 +141,7 @@ export default function CourseModulesPage({ params: paramsPromise }) {
     if (loading && !modules.length) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-                <FiRefreshCw className="animate-spin text-indigo-500" size={40} />
+                <FiRefreshCw className="animate-spin text-[#021E14]" size={40} />
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">Synchronizing curriculum...</p>
             </div>
         );
@@ -152,29 +152,29 @@ export default function CourseModulesPage({ params: paramsPromise }) {
 
             {/* Context Header */}
             <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-top-4 duration-500">
-                <Link href="/dashboard/admin/course" className="group flex items-center gap-3 text-slate-400 hover:text-indigo-500 transition-all text-[10px] font-black uppercase tracking-[0.2em]">
-                    <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                <Link href="/dashboard/admin/course" className="group flex items-center gap-3 text-slate-400 hover:text-[#021E14] transition-all text-[10px] font-black uppercase tracking-[0.2em]">
+                    <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center group-hover:bg-[#021E14] group-hover:text-white transition-all">
                         <FiChevronLeft />
                     </div>
                     Navigate back to academic inventory
                 </Link>
 
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-indigo-500/5">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-[#021E14]/5">
                     <div className="flex items-center gap-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-indigo-500/20">
+                        <div className="w-16 h-16 bg-gradient-to-br from-[#021E14] to-[#01140D] rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-[#021E14]/20">
                             <FiLayers className="text-white" size={32} />
                         </div>
                         <div>
                             <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter leading-none mb-2">Curriculum Architect</h1>
                             <div className="flex items-center gap-3">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Target Series:</span>
-                                <span className="text-sm font-black text-indigo-500 uppercase tracking-tight line-clamp-1">{course?.title}</span>
+                                <span className="text-sm font-black text-[#021E14] uppercase tracking-tight line-clamp-1">{course?.title}</span>
                             </div>
                         </div>
                     </div>
                     <button
                         onClick={() => handleOpenModal('add')}
-                        className="flex items-center justify-center gap-4 px-10 py-5 bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-2xl shadow-indigo-500/10 transition-all active:scale-95 group"
+                        className="flex items-center justify-center gap-4 px-10 py-5 bg-slate-900 dark:bg-[#021E14] hover:bg-slate-800 dark:hover:bg-[#01140D] text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-2xl shadow-[#021E14]/10 transition-all active:scale-95 group"
                     >
                         <FiPlus size={22} className="group-hover:rotate-90 transition-transform" />
                         Deploy New Module
@@ -183,16 +183,16 @@ export default function CourseModulesPage({ params: paramsPromise }) {
             </div>
 
             {/* Modules Visualization */}
-            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-2xl shadow-indigo-500/5 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-2xl shadow-[#021E14]/5 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-xl bg-[#021E14]/10 text-[#021E14] flex items-center justify-center">
                             <FiBook size={18} />
                         </div>
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Knowledge Architecture</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span className="w-2 h-2 rounded-full bg-[#021E14] animate-pulse"></span>
                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Active System</span>
                     </div>
                 </div>
@@ -211,7 +211,7 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                             <div key={mod._id} className="group flex flex-col md:flex-row md:items-center gap-8 p-8 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-all animate-in slide-in-from-left-4" style={{ animationDelay: `${index * 50}ms` }}>
                                 <div className="flex items-center gap-6">
                                     <div className="relative shrink-0">
-                                        <div className="w-16 h-16 bg-slate-900 dark:bg-indigo-600 rounded-[1.2rem] flex items-center justify-center text-white font-black text-xl shadow-xl transition-all group-hover:scale-110 group-hover:rotate-3">
+                                        <div className="w-16 h-16 bg-slate-900 dark:bg-[#021E14] rounded-[1.2rem] flex items-center justify-center text-white font-black text-xl shadow-xl transition-all group-hover:scale-110 group-hover:rotate-3">
                                             {mod.order}
                                         </div>
                                         <div className="absolute -top-2 -right-2 w-6 h-6 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 flex items-center justify-center text-[10px] text-slate-400 font-black">
@@ -220,13 +220,13 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                     </div>
                                     <div className="space-y-2">
                                         <div className="flex items-center gap-4">
-                                            <h3 className="text-lg font-black text-slate-800 dark:text-white tracking-tight uppercase group-hover:text-indigo-500 transition-colors leading-none">{mod.title}</h3>
+                                            <h3 className="text-lg font-black text-slate-800 dark:text-white tracking-tight uppercase group-hover:text-[#021E14] transition-colors leading-none">{mod.title}</h3>
                                             {!mod.isPublished && (
-                                                <span className="px-3 py-1 bg-amber-500 text-white text-[8px] font-black rounded-lg uppercase tracking-widest shadow-lg shadow-amber-500/20">Staging</span>
+                                                <span className="px-3 py-1 bg-[#D4AF37] text-white text-[8px] font-black rounded-lg uppercase tracking-widest shadow-lg shadow-[#D4AF37]/20">Staging</span>
                                             )}
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <p className="text-xs font-black text-indigo-400 dark:text-indigo-500 opacity-60 uppercase tracking-widest italic">{mod.titleBn || 'UNTITLED_LANG_BN'}</p>
+                                            <p className="text-xs font-black text-[#021E14] dark:text-[#021E14] opacity-60 uppercase tracking-widest italic">{mod.titleBn || 'UNTITLED_LANG_BN'}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -242,14 +242,14 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                 <div className="flex items-center gap-3 md:opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
                                     <button
                                         onClick={() => handleOpenModal('edit', mod)}
-                                        className="h-14 w-14 bg-white dark:bg-slate-800 hover:bg-slate-900 hover:text-white dark:hover:bg-indigo-600 border border-slate-100 dark:border-slate-800 rounded-2xl flex items-center justify-center shadow-sm transition-all active:scale-90"
+                                        className="h-14 w-14 bg-white dark:bg-slate-800 hover:bg-slate-900 hover:text-white dark:hover:bg-[#021E14] border border-slate-100 dark:border-slate-800 rounded-2xl flex items-center justify-center shadow-sm transition-all active:scale-90"
                                         title="Modify Configuration"
                                     >
                                         <FiEdit2 size={20} />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(mod._id)}
-                                        className="h-14 w-14 bg-rose-500/10 text-rose-500 hover:bg-rose-500 hover:text-white border border-rose-500/20 rounded-2xl flex items-center justify-center shadow-sm transition-all active:scale-90"
+                                        className="h-14 w-14 bg-[#021E14]/10 text-[#021E14] hover:bg-[#021E14] hover:text-white border border-[#021E14]/20 rounded-2xl flex items-center justify-center shadow-sm transition-all active:scale-90"
                                         title="Purge Component"
                                     >
                                         <FiTrash2 size={20} />
@@ -269,10 +269,10 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                         {/* Modal Header */}
                         <div className="p-10 border-b border-slate-50 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/50">
                             <div className="flex items-center justify-between mb-8">
-                                <div className="w-14 h-14 rounded-2xl bg-indigo-500 flex items-center justify-center text-white shadow-xl shadow-indigo-500/20">
+                                <div className="w-14 h-14 rounded-2xl bg-[#021E14] flex items-center justify-center text-white shadow-xl shadow-[#021E14]/20">
                                     {modal.type === 'add' ? <FiPlus size={28} /> : <FiEdit2 size={28} />}
                                 </div>
-                                <button onClick={handleCloseModal} className="w-14 h-14 bg-white dark:bg-slate-800 hover:bg-rose-500 hover:text-white rounded-2xl flex items-center justify-center text-slate-400 transition-all shadow-xl active:scale-90"><FiX size={24} /></button>
+                                <button onClick={handleCloseModal} className="w-14 h-14 bg-white dark:bg-slate-800 hover:bg-[#021E14] hover:text-white rounded-2xl flex items-center justify-center text-slate-400 transition-all shadow-xl active:scale-90"><FiX size={24} /></button>
                             </div>
                             <div>
                                 <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">{modal.type === 'add' ? 'Deploy Module' : 'Modify Component'}</h3>
@@ -289,7 +289,7 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                         required
                                         value={modal.data.title}
                                         onChange={(e) => setModal({ ...modal, data: { ...modal.data, title: e.target.value } })}
-                                        className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-black text-slate-800 dark:text-white tracking-tight"
+                                        className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-[#021E14]/10 focus:border-[#021E14] outline-none transition-all font-black text-slate-800 dark:text-white tracking-tight"
                                         placeholder="e.g. Advanced System Patterns"
                                     />
                                 </div>
@@ -299,7 +299,7 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                     <input
                                         value={modal.data.titleBn}
                                         onChange={(e) => setModal({ ...modal, data: { ...modal.data, titleBn: e.target.value } })}
-                                        className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-bold text-slate-800 dark:text-white"
+                                        className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-[#021E14]/10 focus:border-[#021E14] outline-none transition-all font-bold text-slate-800 dark:text-white"
                                         placeholder="মডিউলের বাংলা নাম..."
                                     />
                                 </div>
@@ -313,17 +313,17 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                             min="1"
                                             value={modal.data.order}
                                             onChange={(e) => setModal({ ...modal, data: { ...modal.data, order: Number(e.target.value) } })}
-                                            className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-black text-slate-900 dark:text-white"
+                                            className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-[#021E14]/10 focus:border-[#021E14] outline-none transition-all font-black text-slate-900 dark:text-white"
                                         />
                                     </div>
                                     <div className="space-y-3">
                                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2 group">Status Control</label>
                                         <div
                                             onClick={() => setModal({ ...modal, data: { ...modal.data, isPublished: modal.data.isPublished === false ? true : false } })}
-                                            className={`h-[68px] flex items-center justify-between px-6 rounded-3xl border transition-all cursor-pointer group ${modal.data.isPublished !== false ? 'bg-emerald-500 border-emerald-400 shadow-lg shadow-emerald-500/20' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700'}`}
+                                            className={`h-[68px] flex items-center justify-between px-6 rounded-3xl border transition-all cursor-pointer group ${modal.data.isPublished !== false ? 'bg-[#021E14] border-emerald-400 shadow-lg shadow-[#021E14]/20' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700'}`}
                                         >
                                             <span className={`text-[10px] font-black uppercase tracking-widest ${modal.data.isPublished !== false ? 'text-white' : 'text-slate-500'}`}>{modal.data.isPublished !== false ? 'Public' : 'Staged'}</span>
-                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${modal.data.isPublished !== false ? 'bg-white text-emerald-500 scale-110' : 'bg-slate-200 dark:bg-slate-700 text-slate-400'}`}>
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${modal.data.isPublished !== false ? 'bg-white text-[#021E14] scale-110' : 'bg-slate-200 dark:bg-slate-700 text-slate-400'}`}>
                                                 {modal.data.isPublished !== false ? <FiCheck /> : <FiMonitor />}
                                             </div>
                                         </div>
@@ -336,7 +336,7 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                         rows="4"
                                         value={modal.data.description}
                                         onChange={(e) => setModal({ ...modal, data: { ...modal.data, description: e.target.value } })}
-                                        className="w-full px-8 py-6 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-medium text-sm text-slate-700 dark:text-slate-300 resize-none leading-relaxed"
+                                        className="w-full px-8 py-6 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] focus:ring-4 focus:ring-[#021E14]/10 focus:border-[#021E14] outline-none transition-all font-medium text-sm text-slate-700 dark:text-slate-300 resize-none leading-relaxed"
                                         placeholder="Define the scope and objectives of this module..."
                                     />
                                 </div>
@@ -353,7 +353,7 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                 <button
                                     type="submit"
                                     disabled={submitting}
-                                    className="flex-[2] flex items-center justify-center gap-4 px-8 py-5 bg-slate-900 dark:bg-gradient-to-r dark:from-indigo-600 dark:to-purple-600 hover:scale-[1.02] disabled:opacity-50 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-[1.5rem] shadow-2xl transition-all active:scale-95"
+                                    className="flex-[2] flex items-center justify-center gap-4 px-8 py-5 bg-slate-900 dark:bg-gradient-to-r dark:from-[#021E14] dark:to-[#01140D] hover:scale-[1.02] disabled:opacity-50 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-[1.5rem] shadow-2xl transition-all active:scale-95"
                                 >
                                     {submitting ? <FiRefreshCw className="animate-spin" size={20} /> : <FiCheck size={20} />}
                                     {modal.type === 'add' ? 'Commit Module' : 'Update Component'}

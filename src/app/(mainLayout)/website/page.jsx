@@ -24,7 +24,7 @@ const WebsitePage = () => {
 
     // Colors
     const colors = {
-        darkRed: "#300000",
+        darkRed: "#021E14",
         gold: "#D4AF37",
     };
 
@@ -84,7 +84,7 @@ const WebsitePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className={`text-4xl md:text-[50px] font-bold text-[#300000] mb-4 ${bengaliClass}`}>
+                        <h1 className={`text-4xl md:text-[50px] font-bold text-[#021E14] mb-4 ${bengaliClass}`}>
                             {language === 'bn' ? 'প্রিমিয়াম ওয়েবসাইট' : 'Premium Websites'}
                         </h1>
                         <p className={`text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10 ${bengaliClass}`}>
@@ -96,13 +96,13 @@ const WebsitePage = () => {
                         {/* Search Bar */}
                         <div className="max-w-2xl mx-auto mb-16 px-4">
                             <div className="relative group">
-                                <LuSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#300000] transition-colors" size={20} />
+                                <LuSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#021E14] transition-colors" size={20} />
                                 <input
                                     type="text"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     placeholder={language === 'bn' ? 'ওয়েবসাইট খুঁজুন...' : 'Search websites...'}
-                                    className="w-full pl-16 pr-8 py-5 md:py-6 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-full shadow-lg shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white"
+                                    className="w-full pl-16 pr-8 py-5 md:py-6 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-full shadow-lg shadow-black/5 outline-none focus:ring-4 focus:ring-[#021E14]/5 transition-all text-slate-800 dark:text-white"
                                 />
                             </div>
                         </div>
@@ -114,7 +114,7 @@ const WebsitePage = () => {
                                 <button
                                     onClick={() => setSelectedCategory("all")}
                                     className={`flex items-center gap-3 px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 ${selectedCategory === "all"
-                                        ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
+                                        ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                                         : "bg-slate-50 dark:bg-white/5 text-slate-500 hover:bg-slate-100"
                                         }`}
                                 >
@@ -130,7 +130,7 @@ const WebsitePage = () => {
                                         key={cat._id}
                                         onClick={() => setSelectedCategory(cat._id)}
                                         className={`flex items-center gap-3 px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 ${selectedCategory === cat._id
-                                            ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
+                                            ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                                             : "bg-slate-50 dark:bg-white/5 text-slate-500 hover:bg-slate-100"
                                             }`}
                                     >

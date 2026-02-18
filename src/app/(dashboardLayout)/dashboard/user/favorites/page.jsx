@@ -67,9 +67,9 @@ const FavoritesPage = () => {
 
     const getIcon = (type) => {
         switch (type) {
-            case "website": return <LuGlobe className="text-blue-500" />;
-            case "software": return <LuCode className="text-red-500" />;
-            case "course": return <LuBookOpen className="text-purple-500" />;
+            case "website": return <LuGlobe className="text-[#021E14]" />;
+            case "software": return <LuCode className="text-[#021E14]" />;
+            case "course": return <LuBookOpen className="text-[#021E14]" />;
             default: return null;
         }
     };
@@ -116,7 +116,7 @@ const FavoritesPage = () => {
                             onClick={() => setFilter(t.id)}
                             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap
                 ${filter === t.id
-                                    ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20'
+                                    ? 'bg-[#021E14] text-white shadow-lg shadow-rose-500/20'
                                     : isDark
                                         ? 'bg-slate-800 text-slate-400 hover:bg-slate-700'
                                         : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}
@@ -129,8 +129,8 @@ const FavoritesPage = () => {
 
             {filteredItems.length === 0 ? (
                 <div className={`flex flex-col items-center justify-center py-20 rounded-3xl border-2 border-dashed ${isDark ? 'border-slate-800' : 'border-slate-100'}`}>
-                    <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mb-4">
-                        <FiHeart className="text-rose-500 text-3xl" />
+                    <div className="w-20 h-20 bg-[#021E14] rounded-full flex items-center justify-center mb-4">
+                        <FiHeart className="text-[#021E14] text-3xl" />
                     </div>
                     <h3 className={`text-xl font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>No favorites yet</h3>
                     <p className={`text-sm poppins mt-2 text-center max-w-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -138,7 +138,7 @@ const FavoritesPage = () => {
                     </p>
                     <Link
                         href={filter === 'course' ? '/courses' : filter === 'website' ? '/website' : filter === 'software' ? '/software' : '/'}
-                        className="mt-6 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-rose-600 transition-all flex items-center gap-2"
+                        className="mt-6 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-[#021E14] transition-all flex items-center gap-2"
                     >
                         Explore Now <FiExternalLink />
                     </Link>
@@ -154,7 +154,7 @@ const FavoritesPage = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3, delay: index * 0.05 }}
                                 className={`group relative rounded-2xl overflow-hidden border transition-all hover:shadow-xl
-                  ${isDark ? 'bg-slate-900/50 border-white/5 hover:border-rose-500/50' : 'bg-white border-slate-200 hover:border-rose-200'}`}
+                  ${isDark ? 'bg-slate-900/50 border-white/5 hover:border-[#021E14]/50' : 'bg-white border-slate-200 hover:border-[#021E14]'}`}
                             >
                                 {/* Image Container */}
                                 <div className="aspect-video relative overflow-hidden">
@@ -176,7 +176,7 @@ const FavoritesPage = () => {
                                     {/* Remove Button */}
                                     <button
                                         onClick={() => handleRemove(item.product?._id)}
-                                        className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-md text-rose-500 rounded-lg flex items-center justify-center shadow-sm hover:bg-rose-500 hover:text-white transition-all transform hover:scale-110"
+                                        className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-md text-[#021E14] rounded-lg flex items-center justify-center shadow-sm hover:bg-[#021E14] hover:text-white transition-all transform hover:scale-110"
                                         title="Remove from favorites"
                                     >
                                         <FiTrash2 size={16} />
@@ -185,7 +185,7 @@ const FavoritesPage = () => {
 
                                 {/* Content */}
                                 <div className="p-5">
-                                    <h3 className={`font-bold text-lg mb-2 line-clamp-1 outfit transition-colors ${isDark ? 'text-white group-hover:text-rose-400' : 'text-slate-800 group-hover:text-rose-600'}`}>
+                                    <h3 className={`font-bold text-lg mb-2 line-clamp-1 outfit transition-colors ${isDark ? 'text-white group-hover:text-[#021E14]' : 'text-slate-800 group-hover:text-[#021E14]'}`}>
                                         {item.product?.title}
                                     </h3>
 
@@ -201,8 +201,8 @@ const FavoritesPage = () => {
                                             href={getLink(item)}
                                             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all
                         ${isDark
-                                                    ? 'bg-slate-800 text-white hover:bg-rose-500'
-                                                    : 'bg-slate-100 text-slate-700 hover:bg-rose-500 hover:text-white'}`}
+                                                    ? 'bg-slate-800 text-white hover:bg-[#021E14]'
+                                                    : 'bg-slate-100 text-slate-700 hover:bg-[#021E14] hover:text-white'}`}
                                         >
                                             View Details <LuChevronRight size={16} />
                                         </Link>

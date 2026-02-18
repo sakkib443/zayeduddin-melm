@@ -68,7 +68,7 @@ export default function TextContentManager({ textBlocks = [], mainContent = '', 
         }
     };
 
-    const inputClass = "w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-100 outline-none text-sm transition-all bg-white text-slate-700";
+    const inputClass = "w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#D4AF37] focus:ring-2 focus:ring-amber-100 outline-none text-sm transition-all bg-white text-slate-700";
 
     return (
         <div className="space-y-4">
@@ -146,7 +146,7 @@ export default function TextContentManager({ textBlocks = [], mainContent = '', 
                                         <button
                                             type="button"
                                             onClick={(e) => { e.stopPropagation(); handleDelete(index); }}
-                                            className="p-1.5 hover:bg-red-50 rounded-lg text-slate-500 hover:text-red-600 transition-colors"
+                                            className="p-1.5 hover:bg-[#021E14] rounded-lg text-slate-500 hover:text-[#021E14] transition-colors"
                                         >
                                             <FiTrash2 size={14} />
                                         </button>
@@ -168,7 +168,7 @@ export default function TextContentManager({ textBlocks = [], mainContent = '', 
 
             {/* Add Text Block Form */}
             {showForm ? (
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-2xl border border-amber-100 space-y-4">
+                <div className="bg-gradient-to-br from-amber-50 to-[#01140D] p-5 rounded-2xl border border-amber-100 space-y-4">
                     <div className="flex items-center justify-between">
                         <h4 className="font-bold text-slate-800 flex items-center gap-2">
                             <FiType className="text-amber-600" />
@@ -254,7 +254,7 @@ export default function TextContentManager({ textBlocks = [], mainContent = '', 
                 <button
                     type="button"
                     onClick={() => setShowForm(true)}
-                    className="w-full p-3 border-2 border-dashed border-amber-200 rounded-xl text-amber-600 hover:border-amber-400 hover:bg-amber-50 transition-all flex items-center justify-center gap-2 font-semibold text-sm"
+                    className="w-full p-3 border-2 border-dashed border-amber-200 rounded-xl text-amber-600 hover:border-[#D4AF37] hover:bg-amber-50 transition-all flex items-center justify-center gap-2 font-semibold text-sm"
                 >
                     <FiPlus size={18} />
                     Add Text Section

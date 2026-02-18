@@ -80,12 +80,12 @@ export default function AllModulesPage() {
                 <div>
                     <div className="flex items-center gap-2">
                         <h1 className="text-2xl font-bold text-slate-800">All Modules</h1>
-                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">Mentor</span>
+                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">Mentor</span>
                     </div>
                     <p className="text-slate-500 text-sm mt-1">Manage course modules across your platform</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-sm font-bold">
+                    <span className="px-4 py-2 bg-[#021E14] text-[#021E14] rounded-xl text-sm font-bold">
                         {modules.length} Total Modules
                     </span>
                 </div>
@@ -101,13 +101,13 @@ export default function AllModulesPage() {
                             placeholder="Search modules..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                     </div>
                     <select
                         value={selectedCourse}
                         onChange={(e) => setSelectedCourse(e.target.value)}
-                        className="px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all min-w-[200px]"
+                        className="px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all min-w-[200px]"
                     >
                         <option value="">All Courses</option>
                         {courses.map(course => (
@@ -141,7 +141,7 @@ export default function AllModulesPage() {
                             {loading ? (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-12 text-center">
-                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-indigo-500" size={24} />
+                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-[#021E14]" size={24} />
                                         <p className="text-slate-500">Loading modules...</p>
                                     </td>
                                 </tr>
@@ -156,7 +156,7 @@ export default function AllModulesPage() {
                                     <tr key={mod._id} className="hover:bg-slate-50 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white font-bold text-lg">
                                                     {mod.order}
                                                 </div>
                                                 <div>
@@ -168,7 +168,7 @@ export default function AllModulesPage() {
                                         <td className="px-6 py-4">
                                             <Link
                                                 href={`/dashboard/instructor/course/modules/${mod.courseId}`}
-                                                className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium text-sm"
+                                                className="flex items-center gap-2 text-[#021E14] hover:text-[#021E14] font-medium text-sm"
                                             >
                                                 <FiBook size={14} />
                                                 {mod.courseName}
@@ -192,7 +192,7 @@ export default function AllModulesPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/dashboard/instructor/module/edit/${mod._id}`}
-                                                    className="p-2 rounded-lg hover:bg-indigo-100 text-indigo-600 transition-colors"
+                                                    className="p-2 rounded-lg hover:bg-[#021E14] text-[#021E14] transition-colors"
                                                     title="Edit Module"
                                                 >
                                                     <FiEdit2 size={16} />
@@ -225,7 +225,7 @@ export default function AllModulesPage() {
                                     key={i}
                                     onClick={() => setCurrentPage(i + 1)}
                                     className={`w-10 h-10 rounded-lg text-sm font-medium transition-colors ${currentPage === i + 1
-                                        ? 'bg-indigo-600 text-white'
+                                        ? 'bg-[#021E14] text-white'
                                         : 'border border-slate-200 hover:bg-slate-50 text-slate-600'
                                         }`}
                                 >
@@ -245,16 +245,16 @@ export default function AllModulesPage() {
             </div>
 
             {/* Info Card */}
-            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-6">
+            <div className="bg-gradient-to-r from-[#021E14] to-[#01140D] rounded-2xl border border-[#021E14] p-6">
                 <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shrink-0">
                         <FiLayers size={24} />
                     </div>
                     <div>
                         <h3 className="font-bold text-slate-800 mb-1">Managing Modules</h3>
                         <p className="text-sm text-slate-600">
                             Modules are sections within a course. To create or edit modules, go to the specific course's
-                            <strong className="text-indigo-600"> Modules </strong> page by clicking on the course name in the table above,
+                            <strong className="text-[#021E14]"> Modules </strong> page by clicking on the course name in the table above,
                             or navigate to <strong>All Courses ? Modules</strong> button.
                         </p>
                     </div>

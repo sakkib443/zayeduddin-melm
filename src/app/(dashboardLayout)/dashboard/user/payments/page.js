@@ -64,18 +64,18 @@ export default function UserPaymentsPage() {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'completed': return isDark ? 'bg-emerald-500/10 text-emerald-400' : 'bg-emerald-50 text-emerald-600';
-            case 'pending': return isDark ? 'bg-amber-500/10 text-amber-400' : 'bg-amber-50 text-amber-600';
-            case 'failed': return isDark ? 'bg-rose-500/10 text-rose-400' : 'bg-rose-50 text-rose-600';
+            case 'completed': return isDark ? 'bg-[#021E14]/10 text-emerald-400' : 'bg-emerald-50 text-[#021E14]';
+            case 'pending': return isDark ? 'bg-[#D4AF37]/10 text-[#D4AF37]' : 'bg-amber-50 text-amber-600';
+            case 'failed': return isDark ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]';
             default: return 'bg-slate-100 text-slate-600';
         }
     };
 
     const getCategoryIcon = (cat) => {
         switch (cat) {
-            case 'website': return <FiGlobe className="text-blue-500" />;
-            case 'software': return <FiCode className="text-purple-500" />;
-            case 'course': return <FiFileText className="text-indigo-500" />;
+            case 'website': return <FiGlobe className="text-[#021E14]" />;
+            case 'software': return <FiCode className="text-[#021E14]" />;
+            case 'course': return <FiFileText className="text-[#021E14]" />;
             default: return <FiShoppingBag />;
         }
     };
@@ -103,7 +103,7 @@ export default function UserPaymentsPage() {
                         <p className={`text-[10px] font-black uppercase tracking-wider mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Cumulative Spent</p>
                         <h3 className={`text-3xl font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>?{stats.totalSpent.toLocaleString()}</h3>
                         <div className="mt-4 flex items-center justify-between">
-                            <span className="text-xs text-emerald-500 font-bold flex items-center gap-1">
+                            <span className="text-xs text-[#021E14] font-bold flex items-center gap-1">
                                 <FiCheckCircle /> Secured
                             </span>
                         </div>
@@ -113,13 +113,13 @@ export default function UserPaymentsPage() {
                     <p className={`text-[10px] font-black uppercase tracking-wider mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Pending Approval</p>
                     <h3 className={`text-3xl font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>{stats.pendingPayments}</h3>
                     <div className="mt-4 flex items-center justify-between">
-                        <span className="text-xs text-amber-500 font-bold flex items-center gap-1">
+                        <span className="text-xs text-[#D4AF37] font-bold flex items-center gap-1">
                             <FiClock /> Verification in progress
                         </span>
                     </div>
                 </div>
-                <div className={`${cardClass} p-6 bg-gradient-to-br from-indigo-500 to-purple-600 border-none shadow-lg shadow-indigo-500/20`}>
-                    <p className="text-[10px] font-black uppercase tracking-wider mb-2 text-indigo-50/80">Active Subscriptions</p>
+                <div className={`${cardClass} p-6 bg-gradient-to-br from-[#021E14] to-[#01140D] border-none shadow-lg shadow-[#021E14]/20`}>
+                    <p className="text-[10px] font-black uppercase tracking-wider mb-2 text-[#021E14]/80">Active Subscriptions</p>
                     <h3 className="text-3xl font-black outfit text-white">0</h3>
                     <div className="mt-4 flex items-center justify-between">
                         <span className="text-xs text-white/80 font-bold">Standard Account</span>
@@ -138,8 +138,8 @@ export default function UserPaymentsPage() {
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
                                     className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === tab
-                                        ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20'
-                                        : 'text-slate-500 hover:text-indigo-500'
+                                        ? 'bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20'
+                                        : 'text-slate-500 hover:text-[#021E14]'
                                         }`}
                                 >
                                     {tab}
@@ -187,9 +187,9 @@ export default function UserPaymentsPage() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-5">
-                                        <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest ${p.category === 'website' ? 'bg-blue-500/10 text-blue-500' :
-                                            p.category === 'software' ? 'bg-purple-500/10 text-purple-500' :
-                                                'bg-indigo-500/10 text-indigo-500'
+                                        <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest ${p.category === 'website' ? 'bg-[#021E14]/10 text-[#021E14]' :
+                                            p.category === 'software' ? 'bg-[#021E14]/10 text-[#021E14]' :
+                                                'bg-[#021E14]/10 text-[#021E14]'
                                             }`}>
                                             {p.category}
                                         </span>
@@ -201,7 +201,7 @@ export default function UserPaymentsPage() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-5 text-right">
-                                        <p className={`text-sm font-black outfit ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>?{p.amount.toLocaleString()}</p>
+                                        <p className={`text-sm font-black outfit ${isDark ? 'text-[#021E14]' : 'text-[#021E14]'}`}>?{p.amount.toLocaleString()}</p>
                                     </td>
                                     <td className="px-6 py-5">
                                         <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${getStatusColor(p.status)}`}>
@@ -209,7 +209,7 @@ export default function UserPaymentsPage() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5">
-                                        <button className={`p-2 rounded-lg transition-all ${isDark ? 'text-slate-500 hover:text-white hover:bg-white/5' : 'text-slate-400 hover:text-indigo-600 hover:bg-indigo-50'}`}>
+                                        <button className={`p-2 rounded-lg transition-all ${isDark ? 'text-slate-500 hover:text-white hover:bg-white/5' : 'text-slate-400 hover:text-[#021E14] hover:bg-[#021E14]'}`}>
                                             <FiDownload size={16} title="Download Invoice" />
                                         </button>
                                     </td>
@@ -231,11 +231,11 @@ export default function UserPaymentsPage() {
             {/* Note Section */}
             <div className={`p-6 rounded-[2rem] border border-dashed text-center ${isDark ? 'border-slate-700 bg-slate-800/10' : 'border-slate-200 bg-slate-50/50'}`}>
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm font-medium">
-                    <FiAlertCircle className="text-indigo-500" size={20} />
+                    <FiAlertCircle className="text-[#021E14]" size={20} />
                     <p className={isDark ? 'text-slate-400' : 'text-slate-500'}>
-                        Don't see a recent transaction? It might be pending manual verification (usually takes <span className="text-indigo-500 font-bold underline">1-6 hours</span>).
+                        Don't see a recent transaction? It might be pending manual verification (usually takes <span className="text-[#021E14] font-bold underline">1-6 hours</span>).
                     </p>
-                    <button className="text-indigo-500 font-bold hover:underline">Contact Support</button>
+                    <button className="text-[#021E14] font-bold hover:underline">Contact Support</button>
                 </div>
             </div>
         </div>

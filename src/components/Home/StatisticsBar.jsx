@@ -40,18 +40,18 @@ const CounterItem = ({ icon: Icon, target, label, suffix = "+", delay = 0 }) => 
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative p-8 rounded-md bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-[#300000]/10 transition-all duration-500 overflow-hidden"
+            className="group relative p-8 rounded-md bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-[#021E14]/10 transition-all duration-500 overflow-hidden"
         >
             {/* Subtle background element */}
-            <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#300000]/5 dark:bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+            <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#021E14]/5 dark:bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
 
             <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="w-16 h-16 mb-6 rounded-md bg-gradient-to-br from-[#300000] to-[#500000] dark:from-[#D4AF37] dark:to-[#B8860B] flex items-center justify-center text-[#D4AF37] dark:text-[#300000] shadow-xl group-hover:rotate-[10deg] transition-transform duration-300">
+                <div className="w-16 h-16 mb-6 rounded-md bg-gradient-to-br from-[#021E14] to-[#500000] dark:from-[#D4AF37] dark:to-[#B8860B] flex items-center justify-center text-[#D4AF37] dark:text-[#021E14] shadow-xl group-hover:rotate-[10deg] transition-transform duration-300">
                     <Icon size={28} />
                 </div>
 
                 <div className="mb-2">
-                    <span className="text-3xl md:text-4xl font-black text-[#300000] dark:text-white tracking-tighter">
+                    <span className="text-3xl md:text-4xl font-black text-[#021E14] dark:text-white tracking-tighter">
                         {count.toLocaleString()}
                     </span>
                     <span className="text-xl font-bold text-[#D4AF37] ml-0.5">{suffix}</span>

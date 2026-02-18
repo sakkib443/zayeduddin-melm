@@ -70,7 +70,7 @@ const Navbar = () => {
   ];
 
   const colors = {
-    bg: "#300000",
+    bg: "#021E14",
     text: "#D4AF37",
     hover: "#FFD700",
     border: "rgba(212, 175, 55, 0.2)"
@@ -81,7 +81,7 @@ const Navbar = () => {
       <motion.nav
         initial={false}
         animate={{
-          backgroundColor: isSticky ? "#300000" : "rgba(48, 0, 0, 0.98)",
+          backgroundColor: isSticky ? "#021E14" : "rgba(2, 30, 20, 0.98)",
           paddingTop: isSticky ? "8px" : "16px",
           paddingBottom: isSticky ? "8px" : "16px",
           boxShadow: isSticky ? "0 10px 40px rgba(0,0,0,0.3)" : "none",
@@ -112,7 +112,7 @@ const Navbar = () => {
                         e.stopPropagation();
                         setActiveDropdown(activeDropdown === item.label ? null : item.label);
                       }}
-                      className="group flex items-center gap-1.5 text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
+                      className="group flex items-center gap-1.5 text-[16px] font-normal tracking-[0.2em] transition-colors poppins"
                       style={{ color: colors.text }}
                     >
                       {item.label}
@@ -122,7 +122,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       href={item.href}
-                      className="relative group text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
+                      className="relative group text-[16px] font-normal tracking-[0.2em] transition-colors poppins"
                       style={{ color: pathname === item.href ? colors.hover : colors.text }}
                     >
                       {item.label}
@@ -172,7 +172,7 @@ const Navbar = () => {
                         e.stopPropagation();
                         setActiveDropdown(activeDropdown === item.label ? null : item.label);
                       }}
-                      className="group flex items-center gap-1.5 text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
+                      className="group flex items-center gap-1.5 text-[16px] font-normal tracking-[0.2em] transition-colors poppins"
                       style={{ color: colors.text }}
                     >
                       {item.label}
@@ -182,7 +182,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       href={item.href}
-                      className="relative group text-[12px] xl:text-[13px] font-normal tracking-[0.2em] transition-colors"
+                      className="relative group text-[16px] font-normal tracking-[0.2em] transition-colors poppins"
                       style={{ color: pathname === item.href ? colors.hover : colors.text }}
                     >
                       {item.label}
@@ -221,7 +221,7 @@ const Navbar = () => {
                 <Link href="/cart" className="relative transition-transform hover:scale-110" style={{ color: colors.text }}>
                   <LuShoppingCart size={18} />
                   {mounted && items.length > 0 && (
-                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold" style={{ backgroundColor: colors.text, color: "#300000" }}>
+                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold" style={{ backgroundColor: colors.text, color: "#021E14" }}>
                       {items.length}
                     </span>
                   )}
@@ -240,10 +240,10 @@ const Navbar = () => {
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
-                  <span className={`flex-1 text-[10px] font-black tracking-widest text-center relative z-10 transition-colors duration-300 ${language === 'en' ? 'text-[#300000]' : 'text-[#D4AF37]'}`}>
+                  <span className={`flex-1 text-[10px] font-black tracking-widest text-center relative z-10 transition-colors duration-300 ${language === 'en' ? 'text-[#021E14]' : 'text-[#D4AF37]'}`}>
                     EN
                   </span>
-                  <span className={`flex-1 text-[10px] font-bold tracking-normal text-center relative z-10 transition-colors duration-300 ${language === 'bn' ? 'text-[#300000]' : 'text-[#D4AF37]'} ${language === 'bn' ? 'hind-siliguri' : ''}`}>
+                  <span className={`flex-1 text-[10px] font-bold tracking-normal text-center relative z-10 transition-colors duration-300 ${language === 'bn' ? 'text-[#021E14]' : 'text-[#D4AF37]'} ${language === 'bn' ? 'hind-siliguri' : ''}`}>
                     বাংলা
                   </span>
                 </button>
@@ -268,7 +268,7 @@ const Navbar = () => {
                         )}
                       </div>
                       {/* Active Indicator */}
-                      <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-[#300000] rounded-full shadow-sm"></div>
+                      <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-[#021E14] rounded-full shadow-sm"></div>
                     </button>
 
                     <AnimatePresence>
@@ -277,7 +277,7 @@ const Navbar = () => {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          className="absolute top-full right-0 mt-4 w-48 shadow-2xl border bg-[#300000] rounded-sm overflow-hidden"
+                          className="absolute top-full right-0 mt-4 w-48 shadow-2xl border bg-[#021E14] rounded-sm overflow-hidden"
                           style={{ borderColor: colors.border }}
                         >
                           <div className="p-4 border-b border-white/10 bg-white/5">
@@ -306,7 +306,7 @@ const Navbar = () => {
                           )}
                           <button
                             onClick={handleLogout}
-                            className="flex items-center gap-3 w-full text-left px-4 py-3 text-xs hover:bg-red-500/10 transition-colors border-t border-white/5"
+                            className="flex items-center gap-3 w-full text-left px-4 py-3 text-xs hover:bg-[#021E14]/10 transition-colors border-t border-white/5"
                             style={{ color: "#ff4d4d" }}
                           >
                             <LuLogOut size={14} />
@@ -423,10 +423,10 @@ const Navbar = () => {
                           }}
                           transition={{ type: "spring", stiffness: 350, damping: 25 }}
                         />
-                        <span className={`flex-1 text-[11px] font-black tracking-widest text-center relative z-10 transition-colors duration-300 ${language === 'en' ? 'text-[#300000]' : 'text-[#D4AF37]'}`}>
+                        <span className={`flex-1 text-[11px] font-black tracking-widest text-center relative z-10 transition-colors duration-300 ${language === 'en' ? 'text-[#021E14]' : 'text-[#D4AF37]'}`}>
                           EN
                         </span>
-                        <span className={`flex-1 text-[11px] font-bold text-center relative z-10 transition-colors duration-300 ${language === 'bn' ? 'text-[#300000]' : 'text-[#D4AF37]'} ${language === 'bn' ? 'hind-siliguri' : ''}`}>
+                        <span className={`flex-1 text-[11px] font-bold text-center relative z-10 transition-colors duration-300 ${language === 'bn' ? 'text-[#021E14]' : 'text-[#D4AF37]'} ${language === 'bn' ? 'hind-siliguri' : ''}`}>
                           বাংলা
                         </span>
                       </button>

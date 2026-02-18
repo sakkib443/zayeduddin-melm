@@ -124,10 +124,10 @@ const NotificationDropdown = () => {
     const getIcon = (type) => {
         switch (type) {
             case 'order': return <FiShoppingBag className="text-green-500" />;
-            case 'enrollment': return <FiBookOpen className="text-blue-500" />;
-            case 'user': return <FiUser className="text-purple-500" />;
+            case 'enrollment': return <FiBookOpen className="text-[#021E14]" />;
+            case 'user': return <FiUser className="text-[#021E14]" />;
             case 'review': return <FiStar className="text-yellow-500" />;
-            case 'like': return <FiHeart className="text-rose-500 fill-current" />;
+            case 'like': return <FiHeart className="text-[#021E14] fill-current" />;
             default: return <FiBell className="text-gray-500" />;
         }
     };
@@ -136,10 +136,10 @@ const NotificationDropdown = () => {
     const getBgColor = (type) => {
         switch (type) {
             case 'order': return 'bg-green-50';
-            case 'enrollment': return 'bg-blue-50';
-            case 'user': return 'bg-purple-50';
+            case 'enrollment': return 'bg-[#021E14]';
+            case 'user': return 'bg-[#021E14]';
             case 'review': return 'bg-yellow-50';
-            case 'like': return 'bg-rose-50';
+            case 'like': return 'bg-[#021E14]';
             default: return 'bg-gray-50';
         }
     };
@@ -168,7 +168,7 @@ const NotificationDropdown = () => {
             >
                 <FiBell size={20} className="text-slate-600 dark:text-slate-300" />
                 {unreadCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#021E14] text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse">
                         {unreadCount > 9 ? '9+' : unreadCount}
                     </span>
                 )}
@@ -187,10 +187,10 @@ const NotificationDropdown = () => {
                         {/* Header */}
                         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
                             <div className="flex items-center gap-2">
-                                <FiBell className="text-[#E62D26]" />
+                                <FiBell className="text-[#021E14]" />
                                 <h3 className="font-bold text-slate-800 dark:text-white">Notifications</h3>
                                 {unreadCount > 0 && (
-                                    <span className="px-2 py-0.5 bg-red-100 text-red-600 text-xs font-bold rounded-full">
+                                    <span className="px-2 py-0.5 bg-[#021E14] text-[#021E14] text-xs font-bold rounded-full">
                                         {unreadCount} new
                                     </span>
                                 )}
@@ -198,7 +198,7 @@ const NotificationDropdown = () => {
                             {unreadCount > 0 && (
                                 <button
                                     onClick={markAllAsRead}
-                                    className="text-xs text-[#E62D26] hover:text-[#38a89d] font-semibold flex items-center gap-1"
+                                    className="text-xs text-[#021E14] hover:text-[#38a89d] font-semibold flex items-center gap-1"
                                 >
                                     <FiCheckCircle size={12} />
                                     Mark all read
@@ -210,7 +210,7 @@ const NotificationDropdown = () => {
                         <div className="max-h-[400px] overflow-y-auto">
                             {loading ? (
                                 <div className="flex items-center justify-center py-10">
-                                    <div className="w-6 h-6 border-2 border-[#E62D26] border-t-transparent rounded-full animate-spin"></div>
+                                    <div className="w-6 h-6 border-2 border-[#021E14] border-t-transparent rounded-full animate-spin"></div>
                                 </div>
                             ) : notifications.length === 0 ? (
                                 <div className="py-12 text-center">
@@ -231,7 +231,7 @@ const NotificationDropdown = () => {
                                                 }
                                                 setIsOpen(false);
                                             }}
-                                            className={`block px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${!notification.isRead ? 'bg-[#E62D26]/5' : ''
+                                            className={`block px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${!notification.isRead ? 'bg-[#021E14]/5' : ''
                                                 }`}
                                         >
                                             <div className="flex gap-3">
@@ -247,7 +247,7 @@ const NotificationDropdown = () => {
                                                             {notification.title}
                                                         </p>
                                                         {!notification.isRead && (
-                                                            <span className="w-2 h-2 bg-[#E62D26] rounded-full flex-shrink-0 mt-1.5"></span>
+                                                            <span className="w-2 h-2 bg-[#021E14] rounded-full flex-shrink-0 mt-1.5"></span>
                                                         )}
                                                     </div>
                                                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
@@ -280,7 +280,7 @@ const NotificationDropdown = () => {
                                 <Link
                                     href="/dashboard/admin/notifications"
                                     onClick={() => setIsOpen(false)}
-                                    className="text-sm text-[#E62D26] hover:text-[#38a89d] font-semibold flex items-center justify-center gap-1"
+                                    className="text-sm text-[#021E14] hover:text-[#38a89d] font-semibold flex items-center justify-center gap-1"
                                 >
                                     View all notifications
                                     <FiExternalLink size={12} />

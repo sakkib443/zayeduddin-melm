@@ -58,18 +58,18 @@ const UserManagement = () => {
 
   const getRoleBadge = (role) => {
     switch (role) {
-      case 'admin': return 'bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400';
-      case 'mentor': return 'bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400';
-      case 'student': return 'bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400';
+      case 'admin': return 'bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]';
+      case 'mentor': return 'bg-amber-100 dark:bg-[#D4AF37]/20 text-amber-600 dark:text-[#D4AF37]';
+      case 'student': return 'bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]';
       default: return 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
     }
   };
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'active': return 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400';
-      case 'blocked': return 'bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400';
-      case 'pending': return 'bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400';
+      case 'active': return 'bg-emerald-100 dark:bg-[#021E14]/20 text-[#021E14] dark:text-emerald-400';
+      case 'blocked': return 'bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]';
+      case 'pending': return 'bg-amber-100 dark:bg-[#D4AF37]/20 text-amber-600 dark:text-[#D4AF37]';
       default: return 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
     }
   };
@@ -86,7 +86,7 @@ const UserManagement = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-indigo-500 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
             <FiUsers className="text-white" size={18} />
           </div>
           <div>
@@ -104,7 +104,7 @@ const UserManagement = () => {
             Refresh
           </button>
           <Link href="/dashboard/admin/user/create">
-            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md text-sm font-medium transition-all">
+            <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white rounded-md text-sm font-medium transition-all">
               <FiPlus size={14} />
               Add User
             </button>
@@ -116,7 +116,7 @@ const UserManagement = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
               <FiUsers className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.total}</span>
@@ -125,7 +125,7 @@ const UserManagement = () => {
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-emerald-500 rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
               <FiCheck className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.active}</span>
@@ -134,7 +134,7 @@ const UserManagement = () => {
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
               <FiUsers className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.students}</span>
@@ -143,7 +143,7 @@ const UserManagement = () => {
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-rose-500 rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
               <FiX className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.total - stats.active}</span>
@@ -161,13 +161,13 @@ const UserManagement = () => {
               placeholder="Search by name or email..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 focus:border-indigo-400 outline-none text-xs transition-all"
+              className="w-full pl-9 pr-4 py-2 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 focus:border-[#021E14] outline-none text-xs transition-all"
             />
           </div>
         </div>
         {loading ? (
           <div className="flex items-center justify-center py-16">
-            <FiLoader className="animate-spin text-indigo-500" size={28} />
+            <FiLoader className="animate-spin text-[#021E14]" size={28} />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-16 text-slate-400">
@@ -192,7 +192,7 @@ const UserManagement = () => {
                   <tr key={user._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-8 h-8 rounded-full bg-[#021E14] flex items-center justify-center text-white text-xs font-medium">
                           {user.firstName?.[0]}{user.lastName?.[0]}
                         </div>
                         <div>
@@ -224,14 +224,14 @@ const UserManagement = () => {
                       <div className="flex items-center justify-center gap-1">
                         <button
                           onClick={() => handleEdit(user._id)}
-                          className="p-1.5 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-md hover:bg-indigo-500 hover:text-white transition-all shadow-sm"
+                          className="p-1.5 bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14] rounded-md hover:bg-[#021E14] hover:text-white transition-all shadow-sm"
                           title="Edit User"
                         >
                           <FiEdit3 size={14} />
                         </button>
                         <button
                           onClick={() => handleDelete(user._id)}
-                          className="p-1.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-md transition-colors"
+                          className="p-1.5 text-[#021E14] hover:text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 rounded-md transition-colors"
                           title="Delete User"
                         >
                           <FiTrash2 size={14} />

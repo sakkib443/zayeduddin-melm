@@ -87,8 +87,8 @@ export default function MentorBlogPage() {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'published': return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-            case 'draft': return 'bg-amber-500/20 text-amber-400 border-amber-500/30';
+            case 'published': return 'bg-[#021E14]/20 text-emerald-400 border-[#021E14]/30';
+            case 'draft': return 'bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30';
             case 'archived': return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
             default: return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
         }
@@ -108,7 +108,7 @@ export default function MentorBlogPage() {
                 </div>
                 <Link
                     href="/dashboard/instructor/blog/create"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white font-semibold shadow-lg shadow-red-500/30 hover:shadow-xl hover:scale-[1.02] transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white font-semibold shadow-lg shadow-red-500/30 hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
                     <FiPlus size={18} />
                     Write New Blog
@@ -126,9 +126,9 @@ export default function MentorBlogPage() {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className={`w-full pl-10 pr-4 py-2.5 rounded-xl border transition-all ${isDark
-                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-red-500'
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
+                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                         />
                     </div>
                     <select
@@ -137,7 +137,7 @@ export default function MentorBlogPage() {
                         className={`px-4 py-2.5 rounded-xl border transition-all ${isDark
                             ? 'bg-slate-700/50 border-slate-600 text-white'
                             : 'bg-slate-50 border-slate-200 text-slate-900'
-                            } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
+                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                     >
                         <option value="">All Status</option>
                         <option value="published">Published</option>
@@ -151,7 +151,7 @@ export default function MentorBlogPage() {
             <div className="space-y-4">
                 {loading ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="w-12 h-12 border-4 border-red-500/30 border-t-red-500 rounded-full animate-spin"></div>
+                        <div className="w-12 h-12 border-4 border-[#021E14]/30 border-t-red-500 rounded-full animate-spin"></div>
                     </div>
                 ) : blogs.length === 0 ? (
                     <div className={`text-center py-20 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
@@ -160,7 +160,7 @@ export default function MentorBlogPage() {
                         <p className={`mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Start writing your first blog post!</p>
                         <Link
                             href="/dashboard/instructor/blog/create"
-                            className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white font-semibold"
+                            className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white font-semibold"
                         >
                             <FiPlus size={18} />
                             Write New Blog
@@ -171,8 +171,8 @@ export default function MentorBlogPage() {
                         <div
                             key={blog._id}
                             className={`p-4 md:p-6 rounded-2xl border transition-all hover:shadow-lg ${isDark
-                                ? 'bg-slate-800/50 border-slate-700/50 hover:border-red-500/50'
-                                : 'bg-white border-slate-200 hover:border-red-500/50'
+                                ? 'bg-slate-800/50 border-slate-700/50 hover:border-[#021E14]/50'
+                                : 'bg-white border-slate-200 hover:border-[#021E14]/50'
                                 }`}
                         >
                             <div className="flex flex-col md:flex-row gap-4">
@@ -227,7 +227,7 @@ export default function MentorBlogPage() {
                                     {blog.tags?.length > 0 && (
                                         <div className="flex flex-wrap gap-1.5 mt-3">
                                             {blog.tags.slice(0, 4).map((tag, idx) => (
-                                                <span key={idx} className={`px-2 py-0.5 text-xs rounded-full ${isDark ? 'bg-red-500/10 text-red-400' : 'bg-red-50 text-red-600'}`}>
+                                                <span key={idx} className={`px-2 py-0.5 text-xs rounded-full ${isDark ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'}`}>
                                                     #{tag}
                                                 </span>
                                             ))}
@@ -246,13 +246,13 @@ export default function MentorBlogPage() {
                                     </Link>
                                     <Link
                                         href={`/dashboard/instructor/blog/edit/${blog._id}`}
-                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-blue-500/20 text-blue-400' : 'hover:bg-blue-50 text-blue-500'}`}
+                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
                                     >
                                         <FiEdit size={18} />
                                     </Link>
                                     <button
                                         onClick={() => setDeleteModal({ show: true, blogId: blog._id, title: blog.title })}
-                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-red-500/20 text-red-400' : 'hover:bg-red-50 text-red-500'}`}
+                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
                                     >
                                         <FiTrash2 size={18} />
                                     </button>
@@ -301,7 +301,7 @@ export default function MentorBlogPage() {
                             >
                                 Cancel
                             </button>
-                            <button onClick={handleDelete} className="flex-1 py-2.5 rounded-xl font-medium bg-red-500 text-white hover:bg-red-600 transition-colors">
+                            <button onClick={handleDelete} className="flex-1 py-2.5 rounded-xl font-medium bg-[#021E14] text-white hover:bg-[#021E14] transition-colors">
                                 Delete
                             </button>
                         </div>

@@ -16,7 +16,9 @@ import {
     LuList,
     LuHeart,
     LuPlay,
-    LuSparkles
+    LuSparkles,
+    LuCrown,
+    LuGift
 } from 'react-icons/lu';
 import { FaStar, FaArrowRight } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
@@ -68,7 +70,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
     const reviewsCount = product.reviewCount || product.reviews?.length || 0;
 
     const colors = {
-        darkRed: "#300000",
+        darkRed: "#021E14",
         gold: "#D4AF37",
     };
 
@@ -81,7 +83,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="group w-full h-full flex flex-col pt-4"
         >
-            <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-md border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#300000]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
+            <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-md border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#021E14]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
 
                 {/* Image Section */}
                 <div className="relative h-64 w-full overflow-hidden shrink-0">
@@ -103,12 +105,19 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                         </Link>
                     )}
 
-                    {/* Type Badge (Top Left) */}
+                    {/* Premium / Free Badge (Top Left) */}
                     <div className="absolute top-4 left-4">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold text-white shadow-lg backdrop-blur-md bg-[#300000]/80">
-                            <LuSparkles size={10} />
-                            {type.replace('-', ' ').toUpperCase()}
-                        </span>
+                        {product.accessType === 'free' || (!product.price || product.price === 0) ? (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold text-white shadow-lg backdrop-blur-md bg-green-600/90">
+                                <LuGift size={10} />
+                                Free
+                            </span>
+                        ) : (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold text-white shadow-lg backdrop-blur-md bg-[#021E14]/80">
+                                <LuCrown size={10} />
+                                Premium
+                            </span>
+                        )}
                     </div>
 
                     {/* Play Overlay */}
@@ -118,11 +127,11 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                         className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-all duration-300"
                     >
                         {disableLink ? (
-                            <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-md flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl cursor-pointer">
+                            <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-md flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#021E14] hover:border-[#021E14] transition-all hover:scale-110 shadow-2xl cursor-pointer">
                                 <LuEye size={20} />
                             </div>
                         ) : (
-                            <Link href={detailUrl} className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-md flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#300000] hover:border-[#300000] transition-all hover:scale-110 shadow-2xl">
+                            <Link href={detailUrl} className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-md flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#021E14] hover:border-[#021E14] transition-all hover:scale-110 shadow-2xl">
                                 <LuEye size={20} />
                             </Link>
                         )}
@@ -141,13 +150,13 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                     {/* Title */}
                     {disableLink ? (
                         <div className="mb-2 block cursor-pointer">
-                            <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
+                            <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
                                 {title}
                             </h3>
                         </div>
                     ) : (
                         <Link href={detailUrl} className="mb-2 block">
-                            <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
+                            <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
                                 {title}
                             </h3>
                         </Link>
@@ -158,22 +167,22 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                         <div className="flex items-center gap-3 text-[10px] font-medium text-slate-500">
                             {type === 'design-template' && product.designTools?.length > 0 ? (
                                 <div className="flex items-center gap-1">
-                                    <LuLayers className="text-[#300000]" size={12} />
+                                    <LuLayers className="text-[#021E14]" size={12} />
                                     <span>{product.designTools[0]}</span>
                                 </div>
                             ) : type === 'website' ? (
                                 <div className="flex items-center gap-1">
-                                    <LuLayers className="text-[#300000]" size={12} />
+                                    <LuLayers className="text-[#021E14]" size={12} />
                                     <span>{version}</span>
                                 </div>
                             ) : null}
                             <div className="flex items-center gap-1">
-                                <LuUsers className="text-[#300000]" size={12} />
+                                <LuUsers className="text-[#021E14]" size={12} />
                                 <span>{sales}+ {t('designTemplatePage.salesCount')}</span>
                             </div>
                         </div>
                         <div className="flex items-center gap-1">
-                            <FaStar className="text-amber-400" size={12} />
+                            <FaStar className="text-[#D4AF37]" size={12} />
                             <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300">{rating.toFixed(1)}</span>
                         </div>
                     </div>
@@ -183,11 +192,19 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                         <div className="flex flex-col">
                             <span className={`text-[10px] text-slate-400 font-bold uppercase tracking-tighter ${bengaliClass}`}>{t('designTemplatePage.price')}</span>
                             <div className="flex items-center gap-2">
-                                <span className="text-xl font-serif italic font-bold text-[#300000]">
-                                    ৳{displayPrice?.toLocaleString()}
-                                </span>
-                                {hasDiscount && (
-                                    <span className="text-xs text-slate-300 line-through">৳{originalPrice?.toLocaleString()}</span>
+                                {product.accessType === 'free' || (!product.price || product.price === 0) ? (
+                                    <span className="text-xl font-serif italic font-bold text-green-600">
+                                        Free
+                                    </span>
+                                ) : (
+                                    <>
+                                        <span className="text-xl font-serif italic font-bold text-[#021E14]">
+                                            ৳{displayPrice?.toLocaleString()}
+                                        </span>
+                                        {hasDiscount && (
+                                            <span className="text-xs text-slate-300 line-through">৳{originalPrice?.toLocaleString()}</span>
+                                        )}
+                                    </>
                                 )}
                             </div>
                         </div>
@@ -197,20 +214,20 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
                                 onClick={handleAddToCart}
                                 disabled={isAdded}
                                 className={`w-10 h-10 rounded-md flex items-center justify-center transition-all ${isAdded
-                                    ? 'bg-emerald-500 text-white'
-                                    : 'bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-white hover:bg-[#300000] hover:text-white'
+                                    ? 'bg-[#021E14] text-white'
+                                    : 'bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-white hover:bg-[#021E14] hover:text-white'
                                     }`}
                             >
                                 {isAdded ? <LuCheck size={18} /> : <LuShoppingCart size={18} />}
                             </button>
                             {disableLink ? (
-                                <div className="w-10 h-10 rounded-md bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20 cursor-pointer">
+                                <div className="w-10 h-10 rounded-md bg-[#021E14] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#021E14]/20 cursor-pointer">
                                     <FaArrowRight size={14} />
                                 </div>
                             ) : (
                                 <Link
                                     href={detailUrl}
-                                    className="w-10 h-10 rounded-md bg-[#300000] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#300000]/20"
+                                    className="w-10 h-10 rounded-md bg-[#021E14] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-[#021E14]/20"
                                 >
                                     <FaArrowRight size={14} />
                                 </Link>

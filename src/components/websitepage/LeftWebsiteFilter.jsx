@@ -51,7 +51,7 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
                         placeholder={language === 'bn' ? '???????? ??????...' : "Search websites..."}
                         value={searchQuery || ""}
                         onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:border-[#E62D26] focus:bg-white transition-colors work"
+                        className="w-full pl-10 pr-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:border-[#021E14] focus:bg-white transition-colors work"
                     />
                     <IoSearchSharp className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
                     {searchQuery && (
@@ -69,7 +69,7 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
             {hasActiveFilters && (
                 <button
                     onClick={clearAllFilters}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-md text-sm font-medium work hover:bg-red-100 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#021E14] text-[#021E14] rounded-md text-sm font-medium work hover:bg-[#021E14] transition-colors"
                 >
                     <LuX className="text-base" />
                     {language === 'bn' ? '??????? ?????' : 'Clear All Filters'}
@@ -79,7 +79,7 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
             {/* Website Type Filter */}
             <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden">
                 <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 border-b border-gray-200">
-                    <HiOutlineSparkles className="text-[#F79952]" />
+                    <HiOutlineSparkles className="text-[#021E14]" />
                     <h3 className={`font-semibold text-gray-800 outfit text-sm ${bengaliClass}`}>
                         {language === 'bn' ? '???????? ???' : 'Website Type'}
                     </h3>
@@ -90,7 +90,7 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
                             key={type.name}
                             onClick={() => setSelectedType && setSelectedType(type.name)}
                             className={`px-3 py-1.5 rounded-md text-sm font-medium work transition-all duration-200 ${selectedType === type.name
-                                ? "bg-[#E62D26] text-white"
+                                ? "bg-[#021E14] text-white"
                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                 } ${bengaliClass}`}
                         >
@@ -103,12 +103,12 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
             {/* Categories Filter */}
             <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden">
                 <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 border-b border-gray-200">
-                    <LuFilter className="text-[#E62D26]" />
+                    <LuFilter className="text-[#021E14]" />
                     <h3 className={`font-semibold text-gray-800 outfit text-sm ${bengaliClass}`}>
                         {language === 'bn' ? '?????????' : 'Categories'}
                     </h3>
                     {selectedCategories.length > 0 && (
-                        <span className="ml-auto text-xs bg-[#E62D26] text-white px-2 py-0.5 rounded-full">
+                        <span className="ml-auto text-xs bg-[#021E14] text-white px-2 py-0.5 rounded-full">
                             {selectedCategories.length}
                         </span>
                     )}
@@ -118,12 +118,12 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
                     {/* All Option */}
                     <label
                         className={`flex items-center gap-3 px-2 py-2 rounded-md cursor-pointer transition-colors ${selectedCategories.length === 0
-                            ? "bg-[#E62D26]/10 text-[#E62D26]"
+                            ? "bg-[#021E14]/10 text-[#021E14]"
                             : "hover:bg-gray-50 text-gray-700"
                             }`}
                         onClick={() => dispatch(setSelectedCategories([]))}
                     >
-                        <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${selectedCategories.length === 0 ? "border-[#E62D26] bg-[#E62D26]" : "border-gray-300"
+                        <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${selectedCategories.length === 0 ? "border-[#021E14] bg-[#021E14]" : "border-gray-300"
                             }`}>
                             {selectedCategories.length === 0 && (
                                 <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -138,7 +138,7 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
 
                     {status === "loading" && (
                         <div className="text-center py-4">
-                            <div className="w-5 h-5 border-2 border-[#E62D26] border-t-transparent rounded-full animate-spin mx-auto"></div>
+                            <div className="w-5 h-5 border-2 border-[#021E14] border-t-transparent rounded-full animate-spin mx-auto"></div>
                         </div>
                     )}
 
@@ -149,13 +149,13 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
                                 <label
                                     key={category._id || category.id}
                                     className={`flex items-center gap-3 px-2 py-2 rounded-md cursor-pointer transition-colors ${selectedCategories.includes(category.name)
-                                        ? "bg-[#E62D26]/10 text-[#E62D26]"
+                                        ? "bg-[#021E14]/10 text-[#021E14]"
                                         : "hover:bg-gray-50 text-gray-700"
                                         }`}
                                     onClick={() => handleCategoryChange(category.name)}
                                 >
                                     <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${selectedCategories.includes(category.name)
-                                        ? "border-[#E62D26] bg-[#E62D26]"
+                                        ? "border-[#021E14] bg-[#021E14]"
                                         : "border-gray-300"
                                         }`}>
                                         {selectedCategories.includes(category.name) && (

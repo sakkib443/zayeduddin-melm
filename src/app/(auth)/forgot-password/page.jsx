@@ -46,12 +46,12 @@ export default function ForgotPasswordPage() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-[#e8f9f9] flex items-center justify-center p-4">
             <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 p-8 lg:p-10 relative">
                 {/* Decorative background element */}
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#E62D26]/5 rounded-full blur-2xl"></div>
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#021E14]/5 rounded-full blur-2xl"></div>
                 <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#38a89d]/5 rounded-full blur-2xl"></div>
 
                 <div className="relative z-10">
                     <div className="mb-8 flex justify-center">
-                        <Logo color="#E62D26" align="center" size="large" />
+                        <Logo color="#021E14" align="center" size="large" />
                     </div>
 
                     {!success ? (
@@ -80,13 +80,13 @@ export default function ForgotPasswordPage() {
                                             onChange={(e) => setEmail(e.target.value)}
                                             required
                                             placeholder={language === 'bn' ? 'আপনার ইমেইল' : 'you@example.com'}
-                                            className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                                            className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                                         />
                                     </div>
                                 </div>
 
                                 {error && (
-                                    <div className={`p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center ${bengaliClass}`}>
+                                    <div className={`p-3 bg-[#021E14] border border-[#021E14] rounded-xl text-[#021E14] text-sm text-center ${bengaliClass}`}>
                                         {error}
                                     </div>
                                 )}
@@ -94,7 +94,7 @@ export default function ForgotPasswordPage() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className={`w-full py-3.5 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#38a89d] text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition ${bengaliClass}`}
+                                    className={`w-full py-3.5 rounded-xl bg-gradient-to-r from-[#021E14] to-[#38a89d] text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition ${bengaliClass}`}
                                 >
                                     {loading ? (
                                         <span className="flex items-center justify-center gap-2">
@@ -124,7 +124,7 @@ export default function ForgotPasswordPage() {
                             </p>
                             <button
                                 onClick={() => setSuccess(false)}
-                                className={`text-[#E62D26] font-semibold hover:underline text-sm ${bengaliClass}`}
+                                className={`text-[#021E14] font-semibold hover:underline text-sm ${bengaliClass}`}
                             >
                                 {language === 'bn' ? 'অন্য ইমেইল ব্যবহার করুন' : 'Try another email address'}
                             </button>
@@ -132,7 +132,7 @@ export default function ForgotPasswordPage() {
                     )}
 
                     <div className="mt-8 pt-8 border-t border-gray-100 text-center">
-                        <Link href="/login" className={`inline-flex items-center gap-2 text-gray-500 hover:text-[#E62D26] transition font-medium ${bengaliClass}`}>
+                        <Link href="/login" className={`inline-flex items-center gap-2 text-gray-500 hover:text-[#021E14] transition font-medium ${bengaliClass}`}>
                             <FiArrowLeft size={16} />
                             {language === 'bn' ? 'লগইন পেজে ফিরে যান' : 'Back to Login'}
                         </Link>

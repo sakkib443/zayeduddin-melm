@@ -49,7 +49,7 @@ const FilterDropdown = ({ label, options, value, onChange, icon: Icon, language,
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-3 px-6 py-2.5 rounded-md text-xs font-normal transition-all duration-300 border ${isOpen || (value && value !== 'All' && value !== 'default' && (Array.isArray(value) ? value.length !== 0 : true))
-          ? "bg-[#300000] text-white border-[#300000] shadow-lg shadow-[#300000]/20"
+          ? "bg-[#021E14] text-white border-[#021E14] shadow-lg shadow-[#021E14]/20"
           : "bg-white dark:bg-white/5 text-gray-800 dark:text-gray-300 border-slate-100 dark:border-white/10 hover:border-slate-300"
           }`}
       >
@@ -74,7 +74,7 @@ const FilterDropdown = ({ label, options, value, onChange, icon: Icon, language,
                   setIsOpen(false);
                 }}
                 className={`w-full text-left px-5 py-3 text-xs font-normal transition-colors flex items-center justify-between ${(Array.isArray(value) ? value.includes(opt.value) : value === opt.value)
-                  ? "text-[#300000] bg-slate-50 dark:bg-white/5"
+                  ? "text-[#021E14] bg-slate-50 dark:bg-white/5"
                   : "text-gray-800 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5"
                   }`}
               >
@@ -181,7 +181,7 @@ const CourseContent = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className={`text-3xl md:text-4xl font-bold text-[#300000] mb-2 ${bengaliClass}`}>
+            <h1 className={`text-3xl md:text-4xl font-bold text-[#021E14] mb-2 ${bengaliClass}`}>
               {language === 'bn' ? 'ট্রেনিং কোর্স' : 'Training Courses'}
             </h1>
             <p className={`text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed mb-6 ${bengaliClass}`}>
@@ -193,16 +193,16 @@ const CourseContent = () => {
             {/* Search Bar */}
             <div className="max-w-xl mx-auto mb-8 px-4">
               <div className="relative group">
-                <LuSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#300000] transition-colors" size={18} />
+                <LuSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#021E14] transition-colors" size={18} />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={language === 'bn' ? 'কোর্স বা টেকনোলজি খুঁজুন...' : 'Search courses or technology...'}
-                  className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white dark:placeholder-slate-500 text-sm"
+                  className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#021E14]/5 transition-all text-slate-800 dark:text-white dark:placeholder-slate-500 text-sm"
                 />
                 {searchQuery && (
-                  <button onClick={() => setSearchQuery("")} className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors">
+                  <button onClick={() => setSearchQuery("")} className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#021E14] transition-colors">
                     <LuX size={18} />
                   </button>
                 )}
@@ -220,8 +220,8 @@ const CourseContent = () => {
                       key={type.value}
                       onClick={() => setSelectedType(type.value)}
                       className={`px-5 py-2 rounded-md text-[10px] font-normal transition-all duration-300 ${selectedType === type.value
-                        ? "bg-[#300000] text-white shadow-md shadow-[#300000]/20"
-                        : "text-gray-800 dark:text-gray-300 hover:text-[#300000]"
+                        ? "bg-[#021E14] text-white shadow-md shadow-[#021E14]/20"
+                        : "text-gray-800 dark:text-gray-300 hover:text-[#021E14]"
                         }`}
                     >
                       {type.label.toUpperCase()}
@@ -256,7 +256,7 @@ const CourseContent = () => {
                       setSortBy('default');
                       setSearchQuery("");
                     }}
-                    className="flex items-center gap-2 px-4 py-2 text-[10px] font-normal text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-md transition-all"
+                    className="flex items-center gap-2 px-4 py-2 text-[10px] font-normal text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 rounded-md transition-all"
                   >
                     <LuX size={12} />
                     <span>{language === 'bn' ? 'সব মুছুন' : 'CLEAR'}</span>
@@ -279,7 +279,7 @@ const CourseContent = () => {
                   <button
                     onClick={() => setViewMode("grid")}
                     className={`p-2 rounded-md transition-all ${viewMode === "grid"
-                      ? "bg-[#300000] text-white shadow-sm"
+                      ? "bg-[#021E14] text-white shadow-sm"
                       : "text-slate-400 hover:text-slate-600"
                       }`}
                   >
@@ -288,7 +288,7 @@ const CourseContent = () => {
                   <button
                     onClick={() => setViewMode("list")}
                     className={`p-2 rounded-md transition-all ${viewMode === "list"
-                      ? "bg-[#300000] text-white shadow-sm"
+                      ? "bg-[#021E14] text-white shadow-sm"
                       : "text-slate-400 hover:text-slate-600"
                       }`}
                   >
@@ -339,7 +339,7 @@ const CoursePage = () => {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-3 border-[#300000]/30 border-t-[#300000] rounded-full animate-spin"></div>
+        <div className="w-10 h-10 border-3 border-[#021E14]/30 border-t-[#021E14] rounded-full animate-spin"></div>
       </div>
     }>
       <CourseContent />

@@ -216,7 +216,7 @@ const InstructorForm = () => {
         }
     };
 
-    if (fetching) return <div className="flex items-center justify-center p-20"><FiLoader className="animate-spin text-indigo-600" size={40} /></div>;
+    if (fetching) return <div className="flex items-center justify-center p-20"><FiLoader className="animate-spin text-[#021E14]" size={40} /></div>;
 
     return (
         <div className="max-w-4xl mx-auto space-y-6 pb-20">
@@ -242,7 +242,7 @@ const InstructorForm = () => {
                 {/* Account Info Section */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <FiUser className="text-indigo-600" />
+                        <FiUser className="text-[#021E14]" />
                         <h3 className="font-semibold text-slate-800 dark:text-white">Account Information</h3>
                     </div>
 
@@ -251,14 +251,14 @@ const InstructorForm = () => {
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">First Name *</label>
                             <input
                                 type="text" name="firstName" value={formData.firstName} onChange={handleChange} required
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                             />
                         </div>
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Last Name *</label>
                             <input
                                 type="text" name="lastName" value={formData.lastName} onChange={handleChange} required
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                             />
                         </div>
                     </div>
@@ -269,14 +269,14 @@ const InstructorForm = () => {
                             <input
                                 type="email" name="email" value={formData.email} onChange={handleChange} required
                                 disabled={isEditMode}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm disabled:opacity-50"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm disabled:opacity-50"
                             />
                         </div>
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Phone Number *</label>
                             <input
                                 type="text" name="phone" value={formData.phone} onChange={handleChange} required
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                             />
                         </div>
                     </div>
@@ -286,7 +286,7 @@ const InstructorForm = () => {
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Password {isEditMode ? '(Optional)' : '*'}</label>
                             <input
                                 type="password" name="password" value={formData.password} onChange={handleChange} required={!isEditMode}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                                 placeholder={isEditMode ? '••••••••' : 'Enter strong password'}
                             />
                         </div>
@@ -294,7 +294,7 @@ const InstructorForm = () => {
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Confirm Password {isEditMode ? '' : '*'}</label>
                             <input
                                 type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required={!isEditMode}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                                 placeholder={isEditMode ? '••••••••' : 'Confirm password'}
                             />
                         </div>
@@ -304,7 +304,7 @@ const InstructorForm = () => {
                 {/* Professional Profile Section */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <FiAward className="text-indigo-600" />
+                        <FiAward className="text-[#021E14]" />
                         <h3 className="font-semibold text-slate-800 dark:text-white">Professional Profile</h3>
                     </div>
 
@@ -313,7 +313,7 @@ const InstructorForm = () => {
                         <input
                             type="text" name="title" value={formData.title} onChange={handleChange} required
                             placeholder="e.g. Senior Software Engineer"
-                            className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                            className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                         />
                     </div>
 
@@ -322,7 +322,7 @@ const InstructorForm = () => {
                         <textarea
                             name="bio" value={formData.bio} onChange={handleChange} required rows={3}
                             placeholder="Brief description for the instructor card..."
-                            className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm resize-none"
+                            className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm resize-none"
                         />
                     </div>
 
@@ -334,17 +334,17 @@ const InstructorForm = () => {
                                     type="text" value={expertiseInput} onChange={(e) => setExpertiseInput(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && handleAddExpertise(e)}
                                     placeholder="e.g. User Experience Design"
-                                    className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                    className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                                 />
-                                <button type="button" onClick={handleAddExpertise} className="px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all">
+                                <button type="button" onClick={handleAddExpertise} className="px-4 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-all">
                                     <FiPlus />
                                 </button>
                             </div>
                             <div className="flex flex-wrap gap-2 mt-3">
                                 {formData.expertise.map(tag => (
-                                    <span key={tag} className="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded text-xs font-medium border border-indigo-100 dark:border-indigo-500/30">
+                                    <span key={tag} className="flex items-center gap-1.5 px-2.5 py-1 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14] rounded text-xs font-medium border border-[#021E14] dark:border-[#021E14]/30">
                                         {tag}
-                                        <FiX size={12} className="cursor-pointer hover:text-rose-500" onClick={() => removeExpertise(tag)} />
+                                        <FiX size={12} className="cursor-pointer hover:text-[#021E14]" onClick={() => removeExpertise(tag)} />
                                     </span>
                                 ))}
                             </div>
@@ -355,7 +355,7 @@ const InstructorForm = () => {
                 {/* Experience & Stats Section */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <FiBriefcase className="text-indigo-600" />
+                        <FiBriefcase className="text-[#021E14]" />
                         <h3 className="font-semibold text-slate-800 dark:text-white">Experience & Stats</h3>
                     </div>
 
@@ -364,21 +364,21 @@ const InstructorForm = () => {
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Experience (Years)</label>
                             <input
                                 type="number" name="experience" value={formData.experience} onChange={handleChange} min={0}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                             />
                         </div>
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Total Students Trained</label>
                             <input
                                 type="number" name="totalStudents" value={formData.totalStudents} onChange={handleChange} min={0}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                             />
                         </div>
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Specializations</label>
                             <input
                                 type="number" name="specializations" value={formData.specializations} onChange={handleChange} min={0}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                             />
                         </div>
                         <div>
@@ -386,7 +386,7 @@ const InstructorForm = () => {
                             <input
                                 type="text" name="whatsAppNumber" value={formData.whatsAppNumber} onChange={handleChange}
                                 placeholder="e.g. 01XXXXXXXXX"
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                             />
                         </div>
                     </div>
@@ -395,20 +395,20 @@ const InstructorForm = () => {
                 {/* Life Journey / Long Bio */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <FiMessageCircle className="text-indigo-600" />
+                        <FiMessageCircle className="text-[#021E14]" />
                         <h3 className="font-semibold text-slate-800 dark:text-white">Life Journey (Detailed Bio)</h3>
                     </div>
                     <textarea
                         name="longBio" value={formData.longBio} onChange={handleChange} rows={6}
                         placeholder="Write the instructor's full life journey / detailed biography here..."
-                        className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm resize-none"
+                        className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm resize-none"
                     />
                 </div>
 
                 {/* Education Section */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <FiBookOpen className="text-indigo-600" />
+                        <FiBookOpen className="text-[#021E14]" />
                         <h3 className="font-semibold text-slate-800 dark:text-white">Education</h3>
                     </div>
                     <div className="flex gap-2">
@@ -416,9 +416,9 @@ const InstructorForm = () => {
                             type="text" value={educationInput} onChange={(e) => setEducationInput(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && handleAddEducation(e)}
                             placeholder="e.g. BSc in Computer Science"
-                            className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                            className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                         />
-                        <button type="button" onClick={handleAddEducation} className="px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all">
+                        <button type="button" onClick={handleAddEducation} className="px-4 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-all">
                             <FiPlus />
                         </button>
                     </div>
@@ -426,7 +426,7 @@ const InstructorForm = () => {
                         {formData.education.map((item, idx) => (
                             <div key={idx} className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700">
                                 <span className="text-sm text-slate-700 dark:text-slate-300">📚 {item}</span>
-                                <FiX size={14} className="cursor-pointer text-slate-400 hover:text-rose-500" onClick={() => removeEducation(item)} />
+                                <FiX size={14} className="cursor-pointer text-slate-400 hover:text-[#021E14]" onClick={() => removeEducation(item)} />
                             </div>
                         ))}
                     </div>
@@ -435,7 +435,7 @@ const InstructorForm = () => {
                 {/* Work Experience Section */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <FiBriefcase className="text-indigo-600" />
+                        <FiBriefcase className="text-[#021E14]" />
                         <h3 className="font-semibold text-slate-800 dark:text-white">Work Experience</h3>
                     </div>
                     <div className="flex gap-2">
@@ -443,9 +443,9 @@ const InstructorForm = () => {
                             type="text" value={workExpInput} onChange={(e) => setWorkExpInput(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && handleAddWorkExp(e)}
                             placeholder="e.g. Lead UX Designer at Creative IT"
-                            className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 transition-all text-sm"
+                            className="flex-1 px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                         />
-                        <button type="button" onClick={handleAddWorkExp} className="px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all">
+                        <button type="button" onClick={handleAddWorkExp} className="px-4 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-all">
                             <FiPlus />
                         </button>
                     </div>
@@ -453,7 +453,7 @@ const InstructorForm = () => {
                         {formData.workExperience.map((item, idx) => (
                             <div key={idx} className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700">
                                 <span className="text-sm text-slate-700 dark:text-slate-300">💼 {item}</span>
-                                <FiX size={14} className="cursor-pointer text-slate-400 hover:text-rose-500" onClick={() => removeWorkExp(item)} />
+                                <FiX size={14} className="cursor-pointer text-slate-400 hover:text-[#021E14]" onClick={() => removeWorkExp(item)} />
                             </div>
                         ))}
                     </div>
@@ -462,7 +462,7 @@ const InstructorForm = () => {
                 {/* Social Links Section */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
-                        <FiGlobe className="text-indigo-600" />
+                        <FiGlobe className="text-[#021E14]" />
                         <h3 className="font-semibold text-slate-800 dark:text-white">Social Presence</h3>
                     </div>
 
@@ -472,7 +472,7 @@ const InstructorForm = () => {
                             <input
                                 type="url" name="socialLinks.facebook" value={formData.socialLinks.facebook} onChange={handleChange}
                                 placeholder="Facebook URL"
-                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 text-sm transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] text-sm transition-all"
                             />
                         </div>
                         <div className="relative">
@@ -480,7 +480,7 @@ const InstructorForm = () => {
                             <input
                                 type="url" name="socialLinks.linkedin" value={formData.socialLinks.linkedin} onChange={handleChange}
                                 placeholder="LinkedIn URL"
-                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 text-sm transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] text-sm transition-all"
                             />
                         </div>
                         <div className="relative">
@@ -488,7 +488,7 @@ const InstructorForm = () => {
                             <input
                                 type="url" name="socialLinks.twitter" value={formData.socialLinks.twitter} onChange={handleChange}
                                 placeholder="Twitter URL"
-                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 text-sm transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] text-sm transition-all"
                             />
                         </div>
                         <div className="relative">
@@ -496,7 +496,7 @@ const InstructorForm = () => {
                             <input
                                 type="url" name="socialLinks.youtube" value={formData.socialLinks.youtube} onChange={handleChange}
                                 placeholder="YouTube URL"
-                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 text-sm transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] text-sm transition-all"
                             />
                         </div>
                         <div className="relative">
@@ -504,7 +504,7 @@ const InstructorForm = () => {
                             <input
                                 type="url" name="socialLinks.instagram" value={formData.socialLinks.instagram} onChange={handleChange}
                                 placeholder="Instagram URL"
-                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 text-sm transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] text-sm transition-all"
                             />
                         </div>
                         <div className="relative">
@@ -512,7 +512,7 @@ const InstructorForm = () => {
                             <input
                                 type="url" name="socialLinks.github" value={formData.socialLinks.github} onChange={handleChange}
                                 placeholder="GitHub URL"
-                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-indigo-500 text-sm transition-all"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] text-sm transition-all"
                             />
                         </div>
                     </div>
@@ -523,7 +523,7 @@ const InstructorForm = () => {
                     <div className="flex items-center gap-2">
                         <input
                             type="checkbox" name="isPublished" checked={formData.isPublished} onChange={handleChange}
-                            id="isPublished" className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                            id="isPublished" className="w-5 h-5 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]"
                         />
                         <label htmlFor="isPublished" className="text-sm font-medium text-slate-700 dark:text-slate-300">Show on Website</label>
                     </div>
@@ -556,7 +556,7 @@ const InstructorForm = () => {
                     </button>
                     <button
                         type="submit" disabled={loading}
-                        className="flex items-center gap-2 px-8 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-bold transition-all shadow-lg shadow-indigo-500/30 disabled:opacity-50"
+                        className="flex items-center gap-2 px-8 py-2.5 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md font-bold transition-all shadow-lg shadow-[#021E14]/30 disabled:opacity-50"
                     >
                         {loading ? <FiLoader className="animate-spin" /> : <FiSave />}
                         {isEditMode ? 'Update Instructor' : 'Save Instructor'}

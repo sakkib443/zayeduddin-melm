@@ -128,7 +128,7 @@ export default function BlogPage() {
             <section className="relative pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
                 {/* Background Blobs */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#300000]/5 dark:bg-[#300000]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#021E14]/5 dark:bg-[#021E14]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
                     <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D4AF37]/5 dark:bg-[#D4AF37]/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
                 </div>
 
@@ -139,12 +139,12 @@ export default function BlogPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
-                            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#300000]/5 dark:bg-white/5 border border-[#300000]/10 dark:border-white/10 text-[#300000] dark:text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-6">
+                            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#021E14]/5 dark:bg-white/5 border border-[#021E14]/10 dark:border-white/10 text-[#021E14] dark:text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-6">
                                 <FiTag size={12} />
                                 {text.blog}
                             </span>
 
-                            <h1 className={`text-4xl md:text-[50px] font-bold text-[#300000] dark:text-white mb-8 leading-[1.1] tracking-tight ${bengaliClass}`}>
+                            <h1 className={`text-4xl md:text-[50px] font-bold text-[#021E14] dark:text-white mb-8 leading-[1.1] tracking-tight ${bengaliClass}`}>
                                 {text.knowledge}
                                 <span className="text-[#D4AF37] block md:inline">{text.inspiration}</span>
                             </h1>
@@ -155,7 +155,7 @@ export default function BlogPage() {
 
                             {/* Modern Search Bar */}
                             <div className="relative max-w-xl mx-auto group">
-                                <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#300000] dark:group-focus-within:text-[#D4AF37] transition-colors">
+                                <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#021E14] dark:group-focus-within:text-[#D4AF37] transition-colors">
                                     <FiSearch size={20} />
                                 </div>
                                 <input
@@ -163,7 +163,7 @@ export default function BlogPage() {
                                     placeholder={text.searchPlaceholder}
                                     value={searchTerm}
                                     onChange={handleSearch}
-                                    className={`w-full pl-16 pr-8 py-5 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#300000]/20 dark:focus:ring-[#D4AF37]/20 shadow-xl shadow-black/5 text-slate-800 dark:text-white transition-all ${bengaliClass}`}
+                                    className={`w-full pl-16 pr-8 py-5 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-[#021E14]/20 dark:focus:ring-[#D4AF37]/20 shadow-xl shadow-black/5 text-slate-800 dark:text-white transition-all ${bengaliClass}`}
                                 />
                             </div>
                         </motion.div>
@@ -193,11 +193,11 @@ export default function BlogPage() {
                                                 className="object-cover group-hover:scale-105 transition-transform duration-1000"
                                             />
                                             {/* Gradient Overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#300000] via-[#300000]/40 to-transparent"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#021E14] via-[#021E14]/40 to-transparent"></div>
 
                                             {/* Content Overlay */}
                                             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-                                                <span className="inline-block px-4 py-1.5 rounded-lg bg-[#D4AF37] text-[#300000] text-xs font-bold uppercase tracking-wider mb-6">
+                                                <span className="inline-block px-4 py-1.5 rounded-lg bg-[#D4AF37] text-[#021E14] text-xs font-bold uppercase tracking-wider mb-6">
                                                     {(featuredBlogs[0] || blogs[0]).category?.name || 'Featured'}
                                                 </span>
                                                 <h2 className={`text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight group-hover:text-[#D4AF37] transition-colors duration-300 ${bengaliClass}`}>
@@ -206,7 +206,7 @@ export default function BlogPage() {
                                                 <div className="flex items-center gap-6 text-white/80 text-sm">
                                                     <div className="flex items-center gap-2">
                                                         <div className="w-10 h-10 rounded-full border-2 border-[#D4AF37] p-0.5">
-                                                            <div className="w-full h-full rounded-full bg-[#300000] flex items-center justify-center text-[#D4AF37] font-bold overflow-hidden relative">
+                                                            <div className="w-full h-full rounded-full bg-[#021E14] flex items-center justify-center text-[#D4AF37] font-bold overflow-hidden relative">
                                                                 {(featuredBlogs[0] || blogs[0]).author?.avatar ? (
                                                                     <Image src={(featuredBlogs[0] || blogs[0]).author.avatar} alt="Author" fill className="object-cover" />
                                                                 ) : (featuredBlogs[0] || blogs[0]).author?.firstName?.[0] || 'A'}
@@ -245,8 +245,8 @@ export default function BlogPage() {
                                         <button
                                             onClick={() => setActiveTab('popular')}
                                             className={`flex-1 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === 'popular'
-                                                ? 'bg-[#300000] text-white shadow-lg'
-                                                : 'text-slate-500 hover:text-[#300000] dark:text-slate-400 dark:hover:text-[#D4AF37]'
+                                                ? 'bg-[#021E14] text-white shadow-lg'
+                                                : 'text-slate-500 hover:text-[#021E14] dark:text-slate-400 dark:hover:text-[#D4AF37]'
                                                 }`}
                                         >
                                             {text.popular}
@@ -254,8 +254,8 @@ export default function BlogPage() {
                                         <button
                                             onClick={() => setActiveTab('recent')}
                                             className={`flex-1 py-3 rounded-xl text-sm font-bold transition-all ${activeTab === 'recent'
-                                                ? 'bg-[#300000] text-white shadow-lg'
-                                                : 'text-slate-500 hover:text-[#300000] dark:text-slate-400 dark:hover:text-[#D4AF37]'
+                                                ? 'bg-[#021E14] text-white shadow-lg'
+                                                : 'text-slate-500 hover:text-[#021E14] dark:text-slate-400 dark:hover:text-[#D4AF37]'
                                                 }`}
                                         >
                                             {text.recent}
@@ -286,7 +286,7 @@ export default function BlogPage() {
                                                             <span className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest mb-1 block">
                                                                 {blog.category?.name || 'Article'}
                                                             </span>
-                                                            <h4 className={`text-sm md:text-base font-bold text-[#300000] dark:text-white leading-snug line-clamp-2 group-hover:text-[#D4AF37] transition-colors ${bengaliClass}`}>
+                                                            <h4 className={`text-sm md:text-base font-bold text-[#021E14] dark:text-white leading-snug line-clamp-2 group-hover:text-[#D4AF37] transition-colors ${bengaliClass}`}>
                                                                 {blog.title}
                                                             </h4>
                                                             <div className="flex items-center gap-2 mt-2 text-[10px] text-slate-500 font-bold uppercase tracking-tighter">
@@ -307,7 +307,7 @@ export default function BlogPage() {
 
                 {/* --- Main Blog Grid --- */}
                 <div className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <h2 className={`text-2xl md:text-3xl font-bold text-[#300000] dark:text-white ${bengaliClass}`}>
+                    <h2 className={`text-2xl md:text-3xl font-bold text-[#021E14] dark:text-white ${bengaliClass}`}>
                         {searchTerm ? `${text.searchPlaceholder} (${blogs.length})` : text.allArticles}
                     </h2>
                 </div>
@@ -320,10 +320,10 @@ export default function BlogPage() {
                     </div>
                 ) : blogs.length === 0 ? (
                     <div className="text-center py-24 bg-white dark:bg-white/5 rounded-[2.5rem] border border-dashed border-slate-200 dark:border-white/10">
-                        <div className="w-24 h-24 mx-auto mb-8 bg-[#300000]/5 dark:bg-[#D4AF37]/10 rounded-3xl flex items-center justify-center">
-                            <FiBookOpen className="text-[#300000] dark:text-[#D4AF37]" size={40} />
+                        <div className="w-24 h-24 mx-auto mb-8 bg-[#021E14]/5 dark:bg-[#D4AF37]/10 rounded-3xl flex items-center justify-center">
+                            <FiBookOpen className="text-[#021E14] dark:text-[#D4AF37]" size={40} />
                         </div>
-                        <h3 className={`text-2xl font-bold text-[#300000] dark:text-white mb-3 ${bengaliClass}`}>{text.noBlogsFound}</h3>
+                        <h3 className={`text-2xl font-bold text-[#021E14] dark:text-white mb-3 ${bengaliClass}`}>{text.noBlogsFound}</h3>
                         <p className={`text-slate-500 dark:text-slate-400 ${bengaliClass}`}>{text.comingSoon}</p>
                     </div>
                 ) : (
@@ -349,7 +349,7 @@ export default function BlogPage() {
                                 }}
                             >
                                 <Link href={`/blog/${blog.slug}`} className="group block h-full">
-                                    <div className="bg-white dark:bg-[#0d0d0d] rounded-[2rem] h-full overflow-hidden border border-slate-100 dark:border-white/5 hover:border-[#300000]/20 dark:hover:border-[#D4AF37]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-[#300000]/5 hover:-translate-y-2 flex flex-col">
+                                    <div className="bg-white dark:bg-[#0d0d0d] rounded-[2rem] h-full overflow-hidden border border-slate-100 dark:border-white/5 hover:border-[#021E14]/20 dark:hover:border-[#D4AF37]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-[#021E14]/5 hover:-translate-y-2 flex flex-col">
                                         {/* Card Image */}
                                         <div className="relative h-64 overflow-hidden shrink-0">
                                             <Image
@@ -359,8 +359,8 @@ export default function BlogPage() {
                                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
                                             />
                                             {/* Date Badge */}
-                                            <div className="absolute top-4 left-4 px-4 py-2 bg-white/90 dark:bg-[#300000]/90 backdrop-blur-md rounded-2xl flex flex-col items-center shadow-lg">
-                                                <span className="text-lg font-bold text-[#300000] dark:text-[#D4AF37] leading-none">
+                                            <div className="absolute top-4 left-4 px-4 py-2 bg-white/90 dark:bg-[#021E14]/90 backdrop-blur-md rounded-2xl flex flex-col items-center shadow-lg">
+                                                <span className="text-lg font-bold text-[#021E14] dark:text-[#D4AF37] leading-none">
                                                     {new Date(blog.publishedAt || blog.createdAt).getDate()}
                                                 </span>
                                                 <span className="text-[10px] font-bold text-slate-500 dark:text-white uppercase tracking-tighter opacity-70">
@@ -378,11 +378,11 @@ export default function BlogPage() {
 
                                         {/* Card Content */}
                                         <div className="p-8 flex flex-col flex-1">
-                                            <span className="inline-block px-3 py-1 rounded-lg bg-[#300000]/5 dark:bg-white/5 text-[#300000] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest mb-4 border border-[#300000]/10 dark:border-white/10">
+                                            <span className="inline-block px-3 py-1 rounded-lg bg-[#021E14]/5 dark:bg-white/5 text-[#021E14] dark:text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest mb-4 border border-[#021E14]/10 dark:border-white/10">
                                                 {blog.category?.name || 'Article'}
                                             </span>
 
-                                            <h3 className={`text-xl font-bold text-[#300000] dark:text-white group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2 mb-4 leading-snug ${bengaliClass}`}>
+                                            <h3 className={`text-xl font-bold text-[#021E14] dark:text-white group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2 mb-4 leading-snug ${bengaliClass}`}>
                                                 {blog.title}
                                             </h3>
 
@@ -393,7 +393,7 @@ export default function BlogPage() {
                                             {/* Author Info & Read more */}
                                             <div className="pt-6 border-t border-slate-100 dark:border-white/5 flex items-center justify-between mt-auto">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-full bg-[#300000] dark:bg-[#D4AF37] flex items-center justify-center text-white text-xs font-bold overflow-hidden relative">
+                                                    <div className="w-8 h-8 rounded-full bg-[#021E14] dark:bg-[#D4AF37] flex items-center justify-center text-white text-xs font-bold overflow-hidden relative">
                                                         {blog.author?.avatar ? (
                                                             <Image src={blog.author.avatar} alt="Author" fill className="object-cover" />
                                                         ) : blog.author?.firstName?.[0] || 'A'}
@@ -402,7 +402,7 @@ export default function BlogPage() {
                                                         {blog.author?.firstName || 'Zayed Uddin'}
                                                     </span>
                                                 </div>
-                                                <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-[#300000] dark:text-white border border-slate-100 dark:border-white/5 group-hover:bg-[#300000] group-hover:text-white transition-all duration-300">
+                                                <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-[#021E14] dark:text-white border border-slate-100 dark:border-white/5 group-hover:bg-[#021E14] group-hover:text-white transition-all duration-300">
                                                     <FiArrowRight size={18} />
                                                 </div>
                                             </div>
@@ -420,7 +420,7 @@ export default function BlogPage() {
                         <button
                             onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                             disabled={currentPage === 1}
-                            className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-[#300000] dark:text-white disabled:opacity-40 hover:bg-[#300000] hover:text-white dark:hover:bg-[#D4AF37] dark:hover:text-[#300000] transition-all duration-300 shadow-xl shadow-black/5"
+                            className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-[#021E14] dark:text-white disabled:opacity-40 hover:bg-[#021E14] hover:text-white dark:hover:bg-[#D4AF37] dark:hover:text-[#021E14] transition-all duration-300 shadow-xl shadow-black/5"
                         >
                             <FiChevronLeft size={24} />
                         </button>
@@ -431,8 +431,8 @@ export default function BlogPage() {
                                     key={page}
                                     onClick={() => setCurrentPage(page)}
                                     className={`w-14 h-14 rounded-2xl font-bold text-sm transition-all duration-300 ${currentPage === page
-                                        ? 'bg-[#300000] text-white shadow-xl shadow-[#300000]/30 scale-110'
-                                        : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 hover:border-[#300000] hover:text-[#300000] dark:hover:text-[#D4AF37]'
+                                        ? 'bg-[#021E14] text-white shadow-xl shadow-[#021E14]/30 scale-110'
+                                        : 'bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 hover:border-[#021E14] hover:text-[#021E14] dark:hover:text-[#D4AF37]'
                                         }`}
                                 >
                                     {page}
@@ -443,7 +443,7 @@ export default function BlogPage() {
                         <button
                             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                             disabled={currentPage === totalPages}
-                            className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-[#300000] dark:text-white disabled:opacity-40 hover:bg-[#300000] hover:text-white dark:hover:bg-[#D4AF37] dark:hover:text-[#300000] transition-all duration-300 shadow-xl shadow-black/5"
+                            className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-[#021E14] dark:text-white disabled:opacity-40 hover:bg-[#021E14] hover:text-white dark:hover:bg-[#D4AF37] dark:hover:text-[#021E14] transition-all duration-300 shadow-xl shadow-black/5"
                         >
                             <FiChevronRight size={24} />
                         </button>

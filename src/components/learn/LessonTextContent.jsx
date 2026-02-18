@@ -62,9 +62,9 @@ export default function LessonTextContent({ textContent = '', textContentBn = ''
             {/* Main Text Content */}
             {hasMainContent && (
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                    <div className="p-5 border-b border-slate-100 bg-gradient-to-r from-amber-50/50 to-orange-50/50">
+                    <div className="p-5 border-b border-slate-100 bg-gradient-to-r from-amber-50/50 to-[#01140D]/50">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-200">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#01140D] flex items-center justify-center shadow-lg shadow-amber-200">
                                 <FiBookOpen size={18} className="text-white" />
                             </div>
                             <div>
@@ -76,7 +76,7 @@ export default function LessonTextContent({ textContent = '', textContentBn = ''
 
                     <div className="p-6">
                         <div
-                            className="prose prose-slate max-w-none prose-headings:font-outfit prose-p:leading-relaxed prose-a:text-indigo-600 prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 prose-pre:text-slate-100"
+                            className="prose prose-slate max-w-none prose-headings:font-outfit prose-p:leading-relaxed prose-a:text-[#021E14] prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 prose-pre:text-slate-100"
                             dangerouslySetInnerHTML={{
                                 __html: language === 'bn' && textContentBn ? textContentBn : textContent
                             }}
@@ -89,7 +89,7 @@ export default function LessonTextContent({ textContent = '', textContentBn = ''
             {hasBlocks && (
                 <div className="space-y-3">
                     <h4 className="text-sm font-bold text-slate-700 flex items-center gap-2">
-                        <FiFileText className="text-amber-500" />
+                        <FiFileText className="text-[#D4AF37]" />
                         Additional Sections ({textBlocks.length})
                     </h4>
 

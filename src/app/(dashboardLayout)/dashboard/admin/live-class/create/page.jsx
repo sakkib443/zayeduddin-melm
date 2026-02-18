@@ -177,7 +177,7 @@ export default function CreateLiveClassPage() {
 
             {/* Error Message */}
             {error && (
-                <div className="mb-6 p-4 bg-red-100 border border-red-200 text-red-700 rounded-md">
+                <div className="mb-6 p-4 bg-[#021E14] border border-[#021E14] text-[#01140D] rounded-md">
                     {error}
                 </div>
             )}
@@ -192,7 +192,7 @@ export default function CreateLiveClassPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Batch <span className="text-red-500">*</span>
+                                Batch <span className="text-[#021E14]">*</span>
                             </label>
                             <select
                                 name="batch"
@@ -202,7 +202,7 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             >
                                 <option value="">Select Batch</option>
                                 {batches.map((batch) => (
@@ -211,7 +211,7 @@ export default function CreateLiveClassPage() {
                                     </option>
                                 ))}
                             </select>
-                            {fieldErrors.batch && <p className="mt-1 text-xs text-red-500">{fieldErrors.batch}</p>}
+                            {fieldErrors.batch && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.batch}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -224,7 +224,7 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             >
                                 <option value="">Select Instructor</option>
                                 {instructors.map((inst) => (
@@ -233,7 +233,7 @@ export default function CreateLiveClassPage() {
                                     </option>
                                 ))}
                             </select>
-                            {fieldErrors.instructor && <p className="mt-1 text-xs text-red-500">{fieldErrors.instructor}</p>}
+                            {fieldErrors.instructor && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.instructor}</p>}
                         </div>
                         <div className="md:col-span-2">
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -248,9 +248,9 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.title && <p className="mt-1 text-xs text-red-500">{fieldErrors.title}</p>}
+                            {fieldErrors.title && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.title}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -266,7 +266,7 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
                         </div>
                         <div>
@@ -280,7 +280,7 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             >
                                 {PLATFORMS.map((p) => (
                                     <option key={p.value} value={p.value}>
@@ -302,7 +302,7 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
                         </div>
                     </div>
@@ -326,9 +326,9 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.classDate && <p className="mt-1 text-xs text-red-500">{fieldErrors.classDate}</p>}
+                            {fieldErrors.classDate && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.classDate}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -342,9 +342,9 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.startTime && <p className="mt-1 text-xs text-red-500">{fieldErrors.startTime}</p>}
+                            {fieldErrors.startTime && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.startTime}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -358,9 +358,9 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.endTime && <p className="mt-1 text-xs text-red-500">{fieldErrors.endTime}</p>}
+                            {fieldErrors.endTime && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.endTime}</p>}
                         </div>
                     </div>
                 </div>
@@ -384,9 +384,9 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.meetingLink && <p className="mt-1 text-xs text-red-500">{fieldErrors.meetingLink}</p>}
+                            {fieldErrors.meetingLink && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.meetingLink}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -401,7 +401,7 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
                         </div>
                         <div>
@@ -417,7 +417,7 @@ export default function CreateLiveClassPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
                         </div>
                     </div>
@@ -432,7 +432,7 @@ export default function CreateLiveClassPage() {
                         <button
                             type="button"
                             onClick={addResource}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-colors font-medium"
                         >
                             <FiPlus size={14} />
                             Add Resource
@@ -455,7 +455,7 @@ export default function CreateLiveClassPage() {
                                         className={`flex-1 px-3 py-2 rounded-md border font-normal ${isDark
                                             ? 'bg-slate-600 border-slate-500 text-white placeholder-gray-400'
                                             : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                     />
                                     <input
                                         type="url"
@@ -465,7 +465,7 @@ export default function CreateLiveClassPage() {
                                         className={`flex-1 px-3 py-2 rounded-md border font-normal ${isDark
                                             ? 'bg-slate-600 border-slate-500 text-white placeholder-gray-400'
                                             : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                     />
                                     <select
                                         value={item.type}
@@ -473,7 +473,7 @@ export default function CreateLiveClassPage() {
                                         className={`px-3 py-2 rounded-md border font-normal ${isDark
                                             ? 'bg-slate-600 border-slate-500 text-white'
                                             : 'bg-white border-gray-200 text-gray-900'
-                                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                     >
                                         <option value="file">File</option>
                                         <option value="pdf">PDF</option>
@@ -483,7 +483,7 @@ export default function CreateLiveClassPage() {
                                     <button
                                         type="button"
                                         onClick={() => removeResource(index)}
-                                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+                                        className="p-2 text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/20 rounded-md transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>
@@ -507,7 +507,7 @@ export default function CreateLiveClassPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="inline-flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium disabled:opacity-50"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-colors font-medium disabled:opacity-50"
                     >
                         <FiVideo size={18} />
                         {loading ? 'Scheduling...' : 'Schedule Class'}

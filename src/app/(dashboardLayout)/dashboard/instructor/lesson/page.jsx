@@ -59,13 +59,13 @@ export default function LessonsPage() {
                 <div>
                     <div className="flex items-center gap-2">
                         <h1 className="text-2xl font-bold text-slate-800">All Lessons</h1>
-                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">Mentor</span>
+                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">Mentor</span>
                     </div>
                     <p className="text-slate-500 text-sm mt-1">Manage all your course lessons</p>
                 </div>
                 <Link
                     href="/dashboard/instructor/lesson/create"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#021E14] to-[#01140D] text-white rounded-xl font-medium hover:shadow-lg hover:shadow-[#021E14]/30 transition-all"
                 >
                     <FiPlus size={18} />
                     Add New Lesson
@@ -82,7 +82,7 @@ export default function LessonsPage() {
                             placeholder="Search lessons..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                     </div>
                     <button
@@ -112,7 +112,7 @@ export default function LessonsPage() {
                             {loading ? (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-12 text-center">
-                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-indigo-500" size={24} />
+                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-[#021E14]" size={24} />
                                         <p className="text-slate-500">Loading lessons...</p>
                                     </td>
                                 </tr>
@@ -127,7 +127,7 @@ export default function LessonsPage() {
                                     <tr key={lesson._id} className="hover:bg-slate-50 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white">
+                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#01140D] flex items-center justify-center text-white">
                                                     <FiPlay size={20} />
                                                 </div>
                                                 <div>
@@ -162,7 +162,7 @@ export default function LessonsPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/dashboard/instructor/lesson/edit/${lesson._id}`}
-                                                    className="p-2 rounded-lg hover:bg-indigo-100 text-indigo-600 transition-colors"
+                                                    className="p-2 rounded-lg hover:bg-[#021E14] text-[#021E14] transition-colors"
                                                 >
                                                     <FiEdit2 size={16} />
                                                 </Link>
@@ -194,7 +194,7 @@ export default function LessonsPage() {
                                     key={i}
                                     onClick={() => setCurrentPage(i + 1)}
                                     className={`w-10 h-10 rounded-lg text-sm font-medium transition-colors ${currentPage === i + 1
-                                        ? 'bg-indigo-600 text-white'
+                                        ? 'bg-[#021E14] text-white'
                                         : 'border border-slate-200 hover:bg-slate-50 text-slate-600'
                                         }`}
                                 >

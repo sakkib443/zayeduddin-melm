@@ -32,7 +32,7 @@ const UserReviewsPage = () => {
         <div className={`p-6 md:p-8 min-h-screen ${isDark ? 'text-white' : 'text-slate-800'}`}>
             <header className="mb-8 flex items-center justify-between border-b pb-6 border-slate-200/50 dark:border-slate-800/50">
                 <div>
-                    <h1 className="text-3xl font-bold font-outfit bg-gradient-to-r from-red-500 to-amber-500 bg-clip-text text-transparent inline-block">
+                    <h1 className="text-3xl font-bold font-outfit bg-gradient-to-r from-[#021E14] to-[#D4AF37] bg-clip-text text-transparent inline-block">
                         My Reviews
                     </h1>
                     <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -40,7 +40,7 @@ const UserReviewsPage = () => {
                     </p>
                 </div>
                 <div className={`px-4 py-2 rounded-lg text-sm font-medium ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-white shadow-sm border border-slate-100 text-slate-600'}`}>
-                    Total Reviews: <span className="font-bold text-red-500">{myReviews.length}</span>
+                    Total Reviews: <span className="font-bold text-[#021E14]">{myReviews.length}</span>
                 </div>
             </header>
 
@@ -65,7 +65,7 @@ const UserReviewsPage = () => {
                             key={review._id}
                             className={`group relative p-6 rounded-2xl border transition-all duration-300 ${isDark
                                 ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
-                                : 'bg-white border-slate-100 hover:border-red-100 hover:shadow-lg hover:shadow-red-500/5'
+                                : 'bg-white border-slate-100 hover:border-[#021E14] hover:shadow-lg hover:shadow-red-500/5'
                                 }`}
                         >
                             <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
@@ -102,12 +102,12 @@ const UserReviewsPage = () => {
 
                                         {/* Status Badge */}
                                         <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border flex items-center gap-1.5 ${review.status === 'approved'
-                                            ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                                            ? 'bg-[#021E14]/10 text-[#021E14] border-[#021E14]/20'
                                             : review.status === 'rejected'
-                                                ? 'bg-rose-500/10 text-rose-500 border-rose-500/20'
-                                                : 'bg-amber-500/10 text-amber-500 border-amber-500/20'
+                                                ? 'bg-[#021E14]/10 text-[#021E14] border-[#021E14]/20'
+                                                : 'bg-[#D4AF37]/10 text-[#D4AF37] border-[#D4AF37]/20'
                                             }`}>
-                                            <span className={`w-1.5 h-1.5 rounded-full ${review.status === 'approved' ? 'bg-emerald-500' : review.status === 'rejected' ? 'bg-rose-500' : 'bg-amber-500'
+                                            <span className={`w-1.5 h-1.5 rounded-full ${review.status === 'approved' ? 'bg-[#021E14]' : review.status === 'rejected' ? 'bg-[#021E14]' : 'bg-[#D4AF37]'
                                                 }`} />
                                             {review.status === 'approved' ? 'Published' : review.status === 'rejected' ? 'Rejected' : 'Pending'}
                                         </span>
@@ -118,7 +118,7 @@ const UserReviewsPage = () => {
                                         {[1, 2, 3, 4, 5].map((s) => (
                                             <FiStar
                                                 key={s}
-                                                className={`w-4 h-4 ${s <= review.rating ? "fill-amber-400 text-amber-400" : "text-slate-200 dark:text-slate-700"}`}
+                                                className={`w-4 h-4 ${s <= review.rating ? "fill-[#D4AF37] text-[#D4AF37]" : "text-slate-200 dark:text-slate-700"}`}
                                             />
                                         ))}
                                     </div>
@@ -154,7 +154,7 @@ const UserReviewsPage = () => {
                                                 href={`/${review.productType === 'course' ? 'courses' : review.productType === 'software' ? 'software' : 'website'}/${review.productDetails?.slug || review.product}`}
                                                 className={`p-2 rounded-lg transition-colors ${isDark
                                                     ? 'hover:bg-slate-800 text-slate-400 hover:text-white'
-                                                    : 'hover:bg-slate-100 text-slate-400 hover:text-red-600'
+                                                    : 'hover:bg-slate-100 text-slate-400 hover:text-[#021E14]'
                                                     }`}
                                                 title="View Product"
                                             >
@@ -163,8 +163,8 @@ const UserReviewsPage = () => {
                                             <button
                                                 onClick={() => handleDelete(review._id)}
                                                 className={`p-2 rounded-lg transition-colors ${isDark
-                                                    ? 'hover:bg-rose-500/10 text-slate-400 hover:text-rose-500'
-                                                    : 'hover:bg-rose-50 text-slate-400 hover:text-rose-600'
+                                                    ? 'hover:bg-[#021E14]/10 text-slate-400 hover:text-[#021E14]'
+                                                    : 'hover:bg-[#021E14] text-slate-400 hover:text-[#021E14]'
                                                     }`}
                                                 title="Delete Review"
                                             >
@@ -180,8 +180,8 @@ const UserReviewsPage = () => {
             ) : (
                 <div className={`flex flex-col items-center justify-center py-20 px-4 rounded-3xl border border-dashed text-center ${isDark ? 'bg-slate-900/50 border-slate-800' : 'bg-white border-slate-200'
                     }`}>
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-red-400/20 to-amber-400/20 flex items-center justify-center mb-6">
-                        <LuLayoutGrid className="w-8 h-8 text-red-500" />
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-[#021E14]/20 to-[#D4AF37]/20 flex items-center justify-center mb-6">
+                        <LuLayoutGrid className="w-8 h-8 text-[#021E14]" />
                     </div>
                     <h3 className="text-xl font-bold mb-2 font-outfit">No Reviews Yet</h3>
                     <p className={`max-w-xs mx-auto mb-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -189,7 +189,7 @@ const UserReviewsPage = () => {
                     </p>
                     <Link
                         href="/"
-                        className="px-8 py-3 rounded-xl bg-gradient-to-r from-red-500 to-amber-500 text-white font-semibold shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:scale-105 transition-all"
+                        className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#021E14] to-[#D4AF37] text-white font-semibold shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:scale-105 transition-all"
                     >
                         Explore Marketplace
                     </Link>
@@ -257,7 +257,7 @@ const EditReviewModal = ({ review, onClose }) => {
                                 >
                                     <FiStar
                                         size={28}
-                                        className={`${star <= formData.rating ? "fill-amber-400 text-amber-400" : "text-slate-300 dark:text-slate-700"}`}
+                                        className={`${star <= formData.rating ? "fill-[#D4AF37] text-[#D4AF37]" : "text-slate-300 dark:text-slate-700"}`}
                                     />
                                 </button>
                             ))}
@@ -270,7 +270,7 @@ const EditReviewModal = ({ review, onClose }) => {
                             type="text"
                             value={formData.title}
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            className={`w-full px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${isDark ? 'bg-slate-800 border-slate-700 focus:bg-slate-800' : 'bg-slate-50 border-slate-200 focus:bg-white'
+                            className={`w-full px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#021E14]/50 transition-all ${isDark ? 'bg-slate-800 border-slate-700 focus:bg-slate-800' : 'bg-slate-50 border-slate-200 focus:bg-white'
                                 }`}
                             placeholder="Review title"
                         />
@@ -283,7 +283,7 @@ const EditReviewModal = ({ review, onClose }) => {
                             onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
                             rows={4}
                             required
-                            className={`w-full px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-red-500/50 transition-all resize-none ${isDark ? 'bg-slate-800 border-slate-700 focus:bg-slate-800' : 'bg-slate-50 border-slate-200 focus:bg-white'
+                            className={`w-full px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#021E14]/50 transition-all resize-none ${isDark ? 'bg-slate-800 border-slate-700 focus:bg-slate-800' : 'bg-slate-50 border-slate-200 focus:bg-white'
                                 }`}
                             placeholder="Share your experience..."
                         />
@@ -301,7 +301,7 @@ const EditReviewModal = ({ review, onClose }) => {
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-amber-500 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-red-500/20 active:scale-95 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2"
+                            className="px-6 py-2.5 bg-gradient-to-r from-[#021E14] to-[#D4AF37] text-white font-bold rounded-xl hover:shadow-lg hover:shadow-red-500/20 active:scale-95 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2"
                         >
                             {submitting && <LuLoader className="animate-spin" />}
                             Update Review

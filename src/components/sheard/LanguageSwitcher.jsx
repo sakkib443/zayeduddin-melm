@@ -37,7 +37,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all duration-300 ${language === lang.code
-                        ? "bg-[#E62D26]/10 border-[#E62D26] text-[#0f766e]"
+                        ? "bg-[#021E14]/10 border-[#021E14] text-[#0f766e]"
                         : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
                         }`}
                 >
@@ -46,7 +46,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                         {lang.label}
                     </span>
                     {language === lang.code && (
-                        <LuCheck className="text-[#E62D26] text-sm" />
+                        <LuCheck className="text-[#021E14] text-sm" />
                     )}
                 </button>
             ))}
@@ -71,7 +71,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                 className="group flex items-center gap-2 px-3 py-2 rounded-md bg-gray-50 hover:bg-gray-100 border border-gray-100 hover:border-gray-200 transition-all duration-300"
                 aria-label="Switch Language"
             >
-                <HiLanguage className="text-lg text-[#E62D26]" />
+                <HiLanguage className="text-lg text-[#021E14]" />
                 <span className={`text-[13px] font-medium text-gray-700 ${language === "bn" ? "hind-siliguri" : ""}`}>
                     {currentLang.shortLabel}
                 </span>
@@ -97,7 +97,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                                 setIsOpen(false);
                             }}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${language === lang.code
-                                ? "bg-gradient-to-r from-[#E62D26]/10 to-transparent"
+                                ? "bg-gradient-to-r from-[#021E14]/10 to-transparent"
                                 : "hover:bg-gray-50"
                                 }`}
                         >
@@ -109,14 +109,14 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                                 {lang.label}
                             </span>
                             {language === lang.code && (
-                                <LuCheck className="text-[#E62D26] text-sm" />
+                                <LuCheck className="text-[#021E14] text-sm" />
                             )}
                         </button>
                     ))}
                 </div>
 
                 {/* Accent Line */}
-                <div className="h-1 bg-gradient-to-r from-[#E62D26] via-[#F79952] to-[#E62D26]"></div>
+                <div className="h-1 bg-gradient-to-r from-[#021E14] via-[#021E14] to-[#021E14]"></div>
             </div>
         </div>
     );

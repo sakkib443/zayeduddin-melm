@@ -163,7 +163,7 @@ const Register = () => {
           <div className="grid lg:grid-cols-5 gap-0 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
 
             {/* Left Side - Info Section */}
-            <div className="lg:col-span-2 bg-gradient-to-br from-[#E62D26] to-[#38a89d] p-8 lg:p-12 text-white relative overflow-hidden">
+            <div className="lg:col-span-2 bg-gradient-to-br from-[#021E14] to-[#38a89d] p-8 lg:p-12 text-white relative overflow-hidden">
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-10 right-10 w-40 h-40 border-2 border-white rounded-full"></div>
@@ -246,7 +246,7 @@ const Register = () => {
                     <div className="space-y-4">
                       <Link
                         href="/login"
-                        className={`block w-full py-4 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#38a89d] text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition ${bengaliClass}`}
+                        className={`block w-full py-4 rounded-xl bg-gradient-to-r from-[#021E14] to-[#38a89d] text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition ${bengaliClass}`}
                       >
                         {language === "bn" ? "লগইন পেজে যান" : "Go to Login Page"}
                       </Link>
@@ -278,9 +278,9 @@ const Register = () => {
                             value={formData.firstName}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.firstName ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.firstName ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
-                          {fieldErrors.firstName && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.firstName}</p>}
+                          {fieldErrors.firstName && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.firstName}</p>}
                         </div>
                         <div className="relative">
                           <FiUser className="absolute left-4 top-3.5 text-gray-400" size={18} />
@@ -290,9 +290,9 @@ const Register = () => {
                             value={formData.lastName}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.lastName ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.lastName ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
-                          {fieldErrors.lastName && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.lastName}</p>}
+                          {fieldErrors.lastName && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.lastName}</p>}
                         </div>
                       </div>
 
@@ -307,10 +307,10 @@ const Register = () => {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.email ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
                         </div>
-                        {fieldErrors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.email}</p>}
+                        {fieldErrors.email && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.email}</p>}
                       </div>
 
                       {/* Phone */}
@@ -322,10 +322,10 @@ const Register = () => {
                             placeholder={language === "bn" ? "ফোন নম্বর (ঐচ্ছিক)" : "Phone number (optional)"}
                             value={formData.phoneNumber}
                             onChange={handleChange}
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.phoneNumber ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.phoneNumber ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
                         </div>
-                        {fieldErrors.phoneNumber && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.phoneNumber}</p>}
+                        {fieldErrors.phoneNumber && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.phoneNumber}</p>}
                       </div>
 
                       {/* Password Fields */}
@@ -340,23 +340,23 @@ const Register = () => {
                               value={formData.password}
                               onChange={handleChange}
                               required
-                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.password ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.password ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                             />
                             <button
                               type="button"
                               onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-3 top-3.5 text-gray-400 hover:text-[#E62D26] transition"
+                              className="absolute right-3 top-3.5 text-gray-400 hover:text-[#021E14] transition"
                             >
                               {showPassword ? <MdOutlineVisibilityOff size={18} /> : <MdOutlineRemoveRedEye size={18} />}
                             </button>
                           </div>
-                          {fieldErrors.password && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.password}</p>}
+                          {fieldErrors.password && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.password}</p>}
                           {/* Password Strength */}
                           <div className="mt-2 text-left">
                             <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
                               <div
                                 className={`h-full rounded-full transition-all duration-300 ${passwordStrength === 0 ? "w-0" :
-                                  passwordStrength === 1 ? "w-1/3 bg-red-400" :
+                                  passwordStrength === 1 ? "w-1/3 bg-[#021E14]" :
                                     passwordStrength === 2 ? "w-2/3 bg-yellow-400" :
                                       "w-full bg-green-500"
                                   }`}
@@ -379,30 +379,30 @@ const Register = () => {
                               value={formData.confirmPassword}
                               onChange={handleChange}
                               required
-                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.confirmPassword ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.confirmPassword ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                             />
                             <button
                               type="button"
                               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                              className="absolute right-3 top-3.5 text-gray-400 hover:text-[#E62D26] transition"
+                              className="absolute right-3 top-3.5 text-gray-400 hover:text-[#021E14] transition"
                             >
                               {showConfirmPassword ? <MdOutlineVisibilityOff size={18} /> : <MdOutlineRemoveRedEye size={18} />}
                             </button>
                           </div>
-                          {fieldErrors.confirmPassword && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.confirmPassword}</p>}
+                          {fieldErrors.confirmPassword && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.confirmPassword}</p>}
                         </div>
                       </div>
 
                       {/* Error Message */}
                       {error && (
-                        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-left">
-                          <p className="text-red-600 text-xs">{error}</p>
+                        <div className="p-3 bg-[#021E14] border border-[#021E14] rounded-xl text-left">
+                          <p className="text-[#021E14] text-xs">{error}</p>
                         </div>
                       )}
 
                       {/* Terms */}
                       <label className="flex items-start gap-3 cursor-pointer">
-                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition ${termsAccepted ? 'bg-[#E62D26] border-[#E62D26]' : 'border-gray-300'}`}>
+                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition ${termsAccepted ? 'bg-[#021E14] border-[#021E14]' : 'border-gray-300'}`}>
                           {termsAccepted && <FiCheck className="text-white" size={12} />}
                         </div>
                         <input
@@ -413,11 +413,11 @@ const Register = () => {
                         />
                         <span className={`text-sm text-gray-600 ${bengaliClass}`}>
                           {language === "bn" ? "আমি " : "I agree to the "}
-                          <Link href="/terms" className="text-[#E62D26] font-medium hover:underline">
+                          <Link href="/terms" className="text-[#021E14] font-medium hover:underline">
                             {language === "bn" ? "শর্তাবলী" : "Terms & Conditions"}
                           </Link>
                           {language === "bn" ? " এবং " : " and "}
-                          <Link href="/privacy" className="text-[#E62D26] font-medium hover:underline">
+                          <Link href="/privacy" className="text-[#021E14] font-medium hover:underline">
                             {language === "bn" ? "গোপনীয়তা নীতি" : "Privacy Policy"}
                           </Link>
                           {language === "bn" ? " মেনে নিচ্ছি।" : "."}
@@ -430,7 +430,7 @@ const Register = () => {
                         disabled={loading || !termsAccepted}
                         className={`w-full py-3.5 rounded-xl text-white font-semibold shadow-lg transition text-base ${loading || !termsAccepted
                           ? "bg-gray-300 cursor-not-allowed"
-                          : "bg-gradient-to-r from-[#E62D26] to-[#38a89d] hover:shadow-xl hover:-translate-y-0.5"
+                          : "bg-gradient-to-r from-[#021E14] to-[#38a89d] hover:shadow-xl hover:-translate-y-0.5"
                           } ${bengaliClass}`}
                       >
                         {loading ? (
@@ -446,7 +446,7 @@ const Register = () => {
                       {/* Login Link */}
                       <p className={`text-sm text-gray-500 text-center ${bengaliClass}`}>
                         {language === "bn" ? "ইতিমধ্যে অ্যাকাউন্ট আছে? " : "Already have an account? "}
-                        <Link href="/login" className="text-[#E62D26] font-semibold hover:underline">
+                        <Link href="/login" className="text-[#021E14] font-semibold hover:underline">
                           {language === "bn" ? "লগইন করুন" : "Sign in"}
                         </Link>
                       </p>

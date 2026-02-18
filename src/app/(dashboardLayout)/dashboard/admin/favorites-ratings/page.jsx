@@ -98,8 +98,8 @@ export default function FavoritesRatingsPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <div className={`p-2 rounded-md ${isDark ? 'bg-rose-500/10' : 'bg-rose-50'}`}>
-            <FiHeart className="text-rose-500" size={20} />
+          <div className={`p-2 rounded-md ${isDark ? 'bg-[#021E14]/10' : 'bg-[#021E14]'}`}>
+            <FiHeart className="text-[#021E14]" size={20} />
           </div>
           <h1 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
             Likes & Ratings
@@ -114,8 +114,8 @@ export default function FavoritesRatingsPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-md ${isDark ? 'bg-rose-500/10' : 'bg-rose-50'}`}>
-              <FiHeart className="text-rose-500" size={18} />
+            <div className={`p-2 rounded-md ${isDark ? 'bg-[#021E14]/10' : 'bg-[#021E14]'}`}>
+              <FiHeart className="text-[#021E14]" size={18} />
             </div>
             <div>
               <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Total Likes</p>
@@ -125,8 +125,8 @@ export default function FavoritesRatingsPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-md ${isDark ? 'bg-amber-500/10' : 'bg-amber-50'}`}>
-              <FiStar className="text-amber-500" size={18} />
+            <div className={`p-2 rounded-md ${isDark ? 'bg-[#D4AF37]/10' : 'bg-amber-50'}`}>
+              <FiStar className="text-[#D4AF37]" size={18} />
             </div>
             <div>
               <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Total Reviews</p>
@@ -136,14 +136,14 @@ export default function FavoritesRatingsPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-md ${isDark ? 'bg-emerald-500/10' : 'bg-emerald-50'}`}>
-              <FiStar className="text-emerald-500" size={18} />
+            <div className={`p-2 rounded-md ${isDark ? 'bg-[#021E14]/10' : 'bg-emerald-50'}`}>
+              <FiStar className="text-[#021E14]" size={18} />
             </div>
             <div>
               <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Average Rating</p>
               <div className="flex items-center gap-2">
                 <p className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{avgRating}</p>
-                <div className="flex text-amber-400">
+                <div className="flex text-[#D4AF37]">
                   {[...Array(5)].map((_, i) => (
                     <FiStar key={i} size={12} className={i < Math.round(avgRating) ? 'fill-current' : 'text-gray-300'} />
                   ))}
@@ -163,7 +163,7 @@ export default function FavoritesRatingsPage() {
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-rose-500 ${
+            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-[#021E14] ${
               isDark ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500' : 'bg-white border-gray-200 text-gray-900'
             }`}
           />
@@ -173,7 +173,7 @@ export default function FavoritesRatingsPage() {
             onClick={() => setActiveTab('favorites')}
             className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-colors ${
               activeTab === 'favorites'
-                ? 'bg-rose-500 text-white'
+                ? 'bg-[#021E14] text-white'
                 : isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -184,7 +184,7 @@ export default function FavoritesRatingsPage() {
             onClick={() => setActiveTab('ratings')}
             className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-colors ${
               activeTab === 'ratings'
-                ? 'bg-amber-500 text-white'
+                ? 'bg-[#D4AF37] text-white'
                 : isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -252,17 +252,17 @@ export default function FavoritesRatingsPage() {
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded text-xs font-medium ${
                           fav.productType === 'course' 
-                            ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400'
+                            ? 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
                             : fav.productType === 'website'
-                            ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400'
-                            : 'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400'
+                            ? 'bg-emerald-50 text-[#021E14] dark:bg-[#021E14]/10 dark:text-emerald-400'
+                            : 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
                         }`}>
                           {fav.productType}
                         </span>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <FiHeart className="text-rose-500 fill-current" size={14} />
+                          <FiHeart className="text-[#021E14] fill-current" size={14} />
                           <span className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             {fav.product?.likeCount || 0}
                           </span>
@@ -339,7 +339,7 @@ export default function FavoritesRatingsPage() {
                     <tr key={review._id} className={isDark ? 'hover:bg-slate-700/30' : 'hover:bg-gray-50'}>
                       <td className="px-4 py-3">
                         <div>
-                          <span className="text-xs text-rose-500 font-medium uppercase">{review.productType}</span>
+                          <span className="text-xs text-[#021E14] font-medium uppercase">{review.productType}</span>
                           <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             {review.productDetails?.title || 'Unknown Product'}
                           </p>
@@ -348,7 +348,7 @@ export default function FavoritesRatingsPage() {
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <div className={`w-7 h-7 rounded-md flex items-center justify-center text-xs font-medium ${
-                            isDark ? 'bg-indigo-500/20 text-indigo-400' : 'bg-indigo-50 text-indigo-600'
+                            isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'
                           }`}>
                             {review.user?.firstName?.[0]}
                           </div>
@@ -367,7 +367,7 @@ export default function FavoritesRatingsPage() {
                         <p className={`text-xs line-clamp-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{review.comment}</p>
                       </td>
                       <td className="px-4 py-3">
-                        <div className="flex items-center gap-1 text-amber-400">
+                        <div className="flex items-center gap-1 text-[#D4AF37]">
                           {[...Array(5)].map((_, i) => (
                             <FiStar key={i} size={14} className={i < review.rating ? 'fill-current' : 'text-gray-300'} />
                           ))}
@@ -381,7 +381,7 @@ export default function FavoritesRatingsPage() {
                         <button
                           onClick={() => handleDeleteClick(review)}
                           disabled={deletingReviewId === review._id}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium bg-red-50 hover:bg-red-100 text-red-600 dark:bg-red-500/10 dark:hover:bg-red-500/20 dark:text-red-400 disabled:opacity-50"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium bg-[#021E14] hover:bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:hover:bg-[#021E14]/20 dark:text-[#021E14] disabled:opacity-50"
                         >
                           <FiTrash2 size={14} />
                           {deletingReviewId === review._id ? 'Deleting...' : 'Delete'}
@@ -401,8 +401,8 @@ export default function FavoritesRatingsPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className={`p-5 rounded-md shadow-lg max-w-md w-full mx-4 ${isDark ? 'bg-slate-800' : 'bg-white'}`}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-md bg-red-50 dark:bg-red-500/10 flex items-center justify-center">
-                <FiTrash2 className="text-red-500" size={20} />
+              <div className="w-10 h-10 rounded-md bg-[#021E14] dark:bg-[#021E14]/10 flex items-center justify-center">
+                <FiTrash2 className="text-[#021E14]" size={20} />
               </div>
               <div>
                 <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Delete Review</h3>
@@ -424,7 +424,7 @@ export default function FavoritesRatingsPage() {
               <button
                 onClick={handleConfirmDelete}
                 disabled={deletingReviewId}
-                className="px-4 py-2 text-sm font-medium rounded-md bg-red-500 hover:bg-red-600 text-white disabled:opacity-50"
+                className="px-4 py-2 text-sm font-medium rounded-md bg-[#021E14] hover:bg-[#021E14] text-white disabled:opacity-50"
               >
                 {deletingReviewId ? 'Deleting...' : 'Delete'}
               </button>

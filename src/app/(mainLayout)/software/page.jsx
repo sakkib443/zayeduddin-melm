@@ -16,7 +16,7 @@ const RightSoftwareDetails = dynamic(
 // Loading fallback component
 const LoadingFallback = () => (
     <div className="flex items-center justify-center py-20">
-        <div className="w-8 h-8 border-4 border-[#E62D26] border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-[#021E14] border-t-transparent rounded-full animate-spin"></div>
     </div>
 );
 
@@ -46,14 +46,14 @@ const SoftwareContent = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(65,191,184,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(65,191,184,0.03)_1px,transparent_1px)] bg-[size:40px_40px] dark:opacity-5"></div>
 
                 {/* Gradient Orbs */}
-                <div className="absolute top-10 left-10 w-60 h-60 bg-[#E62D26]/10 dark:bg-[#E62D26]/5 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-10 right-10 w-60 h-60 bg-[#F79952]/10 dark:bg-[#F79952]/5 rounded-full blur-3xl"></div>
+                <div className="absolute top-10 left-10 w-60 h-60 bg-[#021E14]/10 dark:bg-[#021E14]/5 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-10 right-10 w-60 h-60 bg-[#021E14]/10 dark:bg-[#021E14]/5 rounded-full blur-3xl"></div>
 
                 <div className="container mx-auto px-4 lg:px-16 py-10 lg:py-12 relative z-10">
                     <div className="text-center max-w-3xl mx-auto">
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 mb-3 px-3 py-1.5 bg-[#E62D26]/10 dark:bg-white/5 border border-[#E62D26]/20 dark:border-white/10 rounded-full">
-                            <LuDownload className="text-[#E62D26] text-base" />
+                        <div className="inline-flex items-center gap-2 mb-3 px-3 py-1.5 bg-[#021E14]/10 dark:bg-white/5 border border-[#021E14]/20 dark:border-white/10 rounded-full">
+                            <LuDownload className="text-[#021E14] text-base" />
                             <span className={`text-xs font-medium text-gray-700 dark:text-gray-300 work ${bengaliClass}`}>
                                 {language === 'bn' ? '????????? ?????????' : 'Premium Software'}
                             </span>
@@ -61,7 +61,7 @@ const SoftwareContent = () => {
 
                         {/* Title */}
                         <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-bold outfit text-gray-800 dark:text-white mb-2 ${bengaliClass}`}>
-                            {language === 'bn' ? '??????' : 'Our Software '}<span className="text-[#E62D26]">{language === 'bn' ? ' ????????? ???????' : 'Solutions'}</span>
+                            {language === 'bn' ? '??????' : 'Our Software '}<span className="text-[#021E14]">{language === 'bn' ? ' ????????? ???????' : 'Solutions'}</span>
                         </h1>
 
                         {/* Description */}
@@ -74,8 +74,8 @@ const SoftwareContent = () => {
                         {/* Stats */}
                         <div className="flex flex-wrap justify-center gap-6">
                             <div className="flex items-center gap-2">
-                                <div className="w-9 h-9 bg-[#E62D26]/10 dark:bg-white/5 rounded-md flex items-center justify-center">
-                                    <LuDownload className="text-[#E62D26] text-base" />
+                                <div className="w-9 h-9 bg-[#021E14]/10 dark:bg-white/5 rounded-md flex items-center justify-center">
+                                    <LuDownload className="text-[#021E14] text-base" />
                                 </div>
                                 <div className="text-left">
                                     <p className="text-lg font-bold text-gray-800 dark:text-white outfit">{softwareList.length || '15'}+</p>
@@ -84,8 +84,8 @@ const SoftwareContent = () => {
                             </div>
                             <div className="w-px h-10 bg-gray-200 dark:bg-white/10 hidden sm:block"></div>
                             <div className="flex items-center gap-2">
-                                <div className="w-9 h-9 bg-[#F79952]/10 dark:bg-white/5 rounded-md flex items-center justify-center">
-                                    <LuCpu className="text-[#F79952] text-base" />
+                                <div className="w-9 h-9 bg-[#021E14]/10 dark:bg-white/5 rounded-md flex items-center justify-center">
+                                    <LuCpu className="text-[#021E14] text-base" />
                                 </div>
                                 <div className="text-left">
                                     <p className="text-lg font-bold text-gray-800 dark:text-white outfit">100%</p>
@@ -104,7 +104,7 @@ const SoftwareContent = () => {
                     onClick={() => setShowMobileFilter(!showMobileFilter)}
                     className={`lg:hidden flex items-center gap-2 mb-4 px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm w-full justify-center ${bengaliClass}`}
                 >
-                    <LuFilter className="text-[#E62D26]" />
+                    <LuFilter className="text-[#021E14]" />
                     <span className="work text-gray-700">{language === 'bn' ? '??????? ? ?????????' : 'Filters & Categories'}</span>
                 </button>
 

@@ -52,7 +52,7 @@ const SnowfallBackground = () => {
             ))}
 
             {/* Foggy Overlay for "Winter" feel */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/10 to-red-100/20 backdrop-blur-[1px]"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/10 to-[#01140D]/20 backdrop-blur-[1px]"></div>
         </div>
     );
 };

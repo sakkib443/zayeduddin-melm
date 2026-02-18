@@ -71,7 +71,7 @@ export default function CoursesPage() {
       {/* Header */}
       <div className={`flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-amber-500 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-md bg-[#D4AF37] flex items-center justify-center">
             <FiBook className="text-white" size={18} />
           </div>
           <div>
@@ -92,7 +92,7 @@ export default function CoursesPage() {
             Refresh
           </button>
           <Link href="/dashboard/admin/course/create">
-            <button className="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-md text-sm font-normal transition-all">
+            <button className="flex items-center gap-2 px-4 py-2 bg-[#D4AF37] hover:bg-amber-600 text-white rounded-md text-sm font-normal transition-all">
               <FiPlus size={14} />
               Add Course
             </button>
@@ -104,7 +104,7 @@ export default function CoursesPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center justify-between mb-2">
-            <div className="w-9 h-9 bg-amber-500 rounded-md flex items-center justify-center">
+            <div className="w-9 h-9 bg-[#D4AF37] rounded-md flex items-center justify-center">
               <FiBook className="text-white" size={16} />
             </div>
             <span className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>{stats.total}</span>
@@ -113,7 +113,7 @@ export default function CoursesPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center justify-between mb-2">
-            <div className="w-9 h-9 bg-emerald-600 rounded-md flex items-center justify-center">
+            <div className="w-9 h-9 bg-[#021E14] rounded-md flex items-center justify-center">
               <FiCheckCircle className="text-white" size={16} />
             </div>
             <span className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>{stats.published}</span>
@@ -122,7 +122,7 @@ export default function CoursesPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center justify-between mb-2">
-            <div className="w-9 h-9 bg-blue-600 rounded-md flex items-center justify-center">
+            <div className="w-9 h-9 bg-[#021E14] rounded-md flex items-center justify-center">
               <FiUsers className="text-white" size={16} />
             </div>
             <span className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>{stats.totalEnrollments.toLocaleString()}</span>
@@ -151,7 +151,7 @@ export default function CoursesPage() {
             className={`w-full pl-9 pr-4 py-2 rounded-md border text-sm font-normal ${isDark
               ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-500'
               : 'bg-white border-gray-200 text-gray-800 placeholder-gray-400'
-              } focus:outline-none focus:border-amber-500`}
+              } focus:outline-none focus:border-[#D4AF37]`}
           />
         </div>
         <div className={`flex items-center gap-1 p-1 rounded-md ${isDark ? 'bg-slate-700' : 'bg-gray-100'}`}>
@@ -179,7 +179,7 @@ export default function CoursesPage() {
       {/* Course List */}
       {loading ? (
         <div className={`flex items-center justify-center py-16 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
-          <div className="w-8 h-8 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin"></div>
+          <div className="w-8 h-8 border-2 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin"></div>
         </div>
       ) : filtered.length === 0 ? (
         <div className={`text-center py-16 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
@@ -187,7 +187,7 @@ export default function CoursesPage() {
           <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>No courses found</h3>
           <p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Create your first course</p>
           <Link href="/dashboard/admin/course/create">
-            <button className="mt-4 flex items-center gap-2 px-4 py-2 bg-amber-500 text-white rounded-md text-sm font-normal mx-auto">
+            <button className="mt-4 flex items-center gap-2 px-4 py-2 bg-[#D4AF37] text-white rounded-md text-sm font-normal mx-auto">
               <FiPlus size={14} /> Add Course
             </button>
           </Link>
@@ -208,11 +208,11 @@ export default function CoursesPage() {
                   <span className={`px-2 py-0.5 text-xs font-medium rounded ${isDark ? 'bg-slate-900/80 text-white' : 'bg-white/90 text-gray-800'}`}>
                     {course.courseType}
                   </span>
-                  <span className={`px-2 py-0.5 text-xs font-medium rounded ${course.status === 'published' ? 'bg-emerald-500 text-white' : 'bg-gray-400 text-white'}`}>
+                  <span className={`px-2 py-0.5 text-xs font-medium rounded ${course.status === 'published' ? 'bg-[#021E14] text-white' : 'bg-gray-400 text-white'}`}>
                     {course.status}
                   </span>
                 </div>
-                <div className="absolute bottom-2 right-2 px-2 py-1 bg-gray-900/80 text-amber-400 text-sm font-medium rounded">
+                <div className="absolute bottom-2 right-2 px-2 py-1 bg-gray-900/80 text-[#D4AF37] text-sm font-medium rounded">
                   ৳{(course.discountPrice || course.price || 0).toLocaleString()}
                 </div>
               </div>
@@ -221,7 +221,7 @@ export default function CoursesPage() {
                 <h3 className={`text-sm font-semibold line-clamp-2 mb-3 min-h-[40px] ${isDark ? 'text-white' : 'text-gray-800'}`}>{course.title}</h3>
 
                 <div className="flex items-center gap-2 mb-3">
-                  <span className={`px-2 py-0.5 text-xs rounded ${isDark ? 'bg-amber-500/20 text-amber-400' : 'bg-amber-100 text-amber-700'}`}>{course.level}</span>
+                  <span className={`px-2 py-0.5 text-xs rounded ${isDark ? 'bg-[#D4AF37]/20 text-[#D4AF37]' : 'bg-amber-100 text-amber-700'}`}>{course.level}</span>
                   <span className={`px-2 py-0.5 text-xs rounded ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-gray-100 text-gray-600'}`}>{course.language}</span>
                 </div>
 
@@ -229,7 +229,7 @@ export default function CoursesPage() {
                   <div className={`flex items-center gap-1 text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
                     <FiUsers size={12} /> {course.totalEnrollments || 0}
                   </div>
-                  <div className="flex items-center gap-1 text-amber-500 text-xs font-medium">
+                  <div className="flex items-center gap-1 text-[#D4AF37] text-xs font-medium">
                     <FiStar size={12} fill="currentColor" /> {course.averageRating || '5.0'}
                   </div>
                 </div>
@@ -238,7 +238,7 @@ export default function CoursesPage() {
               <div className={`flex p-2 gap-2 ${isDark ? 'bg-slate-700/50' : 'bg-gray-50'}`}>
                 <Link
                   href={`/dashboard/admin/course/modules/${course._id}`}
-                  className={`flex-1 py-2 text-center rounded-md text-xs font-medium transition-all ${isDark ? 'bg-slate-600 text-indigo-400 hover:bg-indigo-600 hover:text-white' : 'bg-white border border-gray-200 text-indigo-600 hover:bg-indigo-600 hover:text-white'}`}
+                  className={`flex-1 py-2 text-center rounded-md text-xs font-medium transition-all ${isDark ? 'bg-slate-600 text-[#021E14] hover:bg-[#021E14] hover:text-white' : 'bg-white border border-gray-200 text-[#021E14] hover:bg-[#021E14] hover:text-white'}`}
                 >
                   Modules
                 </Link>
@@ -250,7 +250,7 @@ export default function CoursesPage() {
                 </Link>
                 <button
                   onClick={() => handleDelete(course._id)}
-                  className="px-3 py-2 bg-red-500/10 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition-all"
+                  className="px-3 py-2 bg-[#021E14]/10 text-[#021E14] rounded-md hover:bg-[#021E14] hover:text-white transition-all"
                 >
                   <FiTrash2 size={14} />
                 </button>
@@ -285,13 +285,13 @@ export default function CoursesPage() {
                   <span className={`text-xs px-2 py-0.5 rounded ${course.status === 'published' ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600'}`}>{course.status}</span>
                 </div>
                 <div className="flex gap-2">
-                  <Link href={`/dashboard/admin/course/modules/${course._id}`} className={`p-2 rounded-md transition-all ${isDark ? 'bg-slate-700 text-indigo-400 hover:bg-indigo-600 hover:text-white' : 'bg-gray-100 text-indigo-600 hover:bg-indigo-600 hover:text-white'}`}>
+                  <Link href={`/dashboard/admin/course/modules/${course._id}`} className={`p-2 rounded-md transition-all ${isDark ? 'bg-slate-700 text-[#021E14] hover:bg-[#021E14] hover:text-white' : 'bg-gray-100 text-[#021E14] hover:bg-[#021E14] hover:text-white'}`}>
                     <FiLayers size={16} />
                   </Link>
                   <Link href={`/dashboard/admin/course/edit/${course._id}`} className={`p-2 rounded-md transition-all ${isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
                     <FiEdit2 size={16} />
                   </Link>
-                  <button onClick={() => handleDelete(course._id)} className="p-2 bg-red-500/10 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition-all">
+                  <button onClick={() => handleDelete(course._id)} className="p-2 bg-[#021E14]/10 text-[#021E14] rounded-md hover:bg-[#021E14] hover:text-white transition-all">
                     <FiTrash2 size={16} />
                   </button>
                 </div>

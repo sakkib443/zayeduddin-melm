@@ -20,7 +20,7 @@ const CartPage = () => {
         return (
             <div className="min-h-screen bg-white dark:bg-[#0a0a0a] flex flex-col items-center justify-center px-4 py-20">
                 <div className="w-16 h-16 bg-slate-50 dark:bg-white/5 rounded-md flex items-center justify-center mb-6 border border-slate-100 dark:border-white/10">
-                    <LuShoppingBag className="text-[#E62D26] text-3xl" />
+                    <LuShoppingBag className="text-[#021E14] text-3xl" />
                 </div>
                 <h2 className={`text-xl font-bold text-slate-800 dark:text-white mb-2 ${bengaliClass}`}>
                     {language === 'bn' ? 'আপনার কার্ট খালি' : 'Your cart is empty'}
@@ -30,7 +30,7 @@ const CartPage = () => {
                 </p>
                 <Link
                     href="/courses"
-                    className={`px-8 py-3 bg-[#E62D26] text-white rounded-md font-normal text-sm uppercase tracking-widest hover:bg-[#c41e18] transition-all ${bengaliClass}`}
+                    className={`px-8 py-3 bg-[#021E14] text-white rounded-md font-normal text-sm uppercase tracking-widest hover:bg-[#021E14] transition-all ${bengaliClass}`}
                 >
                     {language === 'bn' ? 'কোর্সগুলো দেখুন' : 'Explore Courses'}
                 </Link>
@@ -44,7 +44,7 @@ const CartPage = () => {
 
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-10">
-                    <button onClick={() => router.back()} className="w-10 h-10 flex items-center justify-center bg-white dark:bg-white/5 rounded-md border border-slate-200 dark:border-white/10 text-slate-400 hover:text-[#E62D26] transition-all">
+                    <button onClick={() => router.back()} className="w-10 h-10 flex items-center justify-center bg-white dark:bg-white/5 rounded-md border border-slate-200 dark:border-white/10 text-slate-400 hover:text-[#021E14] transition-all">
                         <LuArrowLeft size={20} />
                     </button>
                     <div>
@@ -62,17 +62,17 @@ const CartPage = () => {
                     <div className="flex-1 w-full space-y-4">
                         <div className="space-y-4">
                             {items.map((item) => (
-                                <div key={item.id} className="group bg-white dark:bg-white/5 p-4 rounded-md border border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center gap-6 hover:border-[#E62D26]/20 transition-all duration-300">
+                                <div key={item.id} className="group bg-white dark:bg-white/5 p-4 rounded-md border border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center gap-6 hover:border-[#021E14]/20 transition-all duration-300">
                                     <div className="w-20 h-20 rounded-md overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 border border-slate-100 dark:border-white/5">
                                         <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                                     </div>
                                     <div className="flex-1 space-y-1 text-center sm:text-left">
                                         <div className="flex items-center justify-center sm:justify-start gap-2">
-                                            <span className="text-[8px] font-bold text-[#E62D26] bg-[#E62D26]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">
+                                            <span className="text-[8px] font-bold text-[#021E14] bg-[#021E14]/5 px-1.5 py-0.5 rounded-md uppercase tracking-widest">
                                                 {item.type}
                                             </span>
                                         </div>
-                                        <h3 className={`text-base font-normal text-slate-800 dark:text-white group-hover:text-[#E62D26] transition-colors line-clamp-1 ${bengaliClass}`}>
+                                        <h3 className={`text-base font-normal text-slate-800 dark:text-white group-hover:text-[#021E14] transition-colors line-clamp-1 ${bengaliClass}`}>
                                             {item.title}
                                         </h3>
                                         <p className="text-[10px] text-slate-400 font-normal uppercase tracking-wider">Lifetime Access</p>
@@ -81,7 +81,7 @@ const CartPage = () => {
                                         <span className="text-xl font-bold text-slate-800 dark:text-white">৳{item.price?.toLocaleString()}</span>
                                         <button
                                             onClick={() => dispatch(removeFromCart(item.id))}
-                                            className="w-10 h-10 bg-slate-50 dark:bg-white/5 text-slate-400 hover:text-red-500 rounded-md transition-all border border-slate-100 dark:border-white/10 flex items-center justify-center"
+                                            className="w-10 h-10 bg-slate-50 dark:bg-white/5 text-slate-400 hover:text-[#021E14] rounded-md transition-all border border-slate-100 dark:border-white/10 flex items-center justify-center"
                                         >
                                             <LuTrash2 size={18} />
                                         </button>
@@ -93,7 +93,7 @@ const CartPage = () => {
                         <div className="pt-6">
                             <button
                                 onClick={() => dispatch(clearCart())}
-                                className={`text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest flex items-center gap-2 ${bengaliClass}`}
+                                className={`text-[10px] font-bold text-slate-400 hover:text-[#021E14] transition-colors uppercase tracking-widest flex items-center gap-2 ${bengaliClass}`}
                             >
                                 <LuTrash2 size={14} />
                                 {language === 'bn' ? 'কার্ট পরিষ্কার করুন' : 'Clear Entire Cart'}
@@ -125,13 +125,13 @@ const CartPage = () => {
                                     <span className={`text-slate-800 dark:text-white font-bold uppercase tracking-tight text-sm ${bengaliClass}`}>
                                         {language === 'bn' ? 'সর্বমোট' : 'Grand Total'}
                                     </span>
-                                    <span className="text-3xl font-black text-[#E62D26] outfit">৳{totalAmount.toLocaleString()}</span>
+                                    <span className="text-3xl font-black text-[#021E14] outfit">৳{totalAmount.toLocaleString()}</span>
                                 </div>
                             </div>
 
                             <Link
                                 href="/checkout"
-                                className={`w-full flex items-center justify-center gap-3 py-4 bg-[#E62D26] hover:bg-[#c41e18] text-white rounded-md font-normal text-sm uppercase tracking-widest transition-all active:scale-[0.98] group ${bengaliClass}`}
+                                className={`w-full flex items-center justify-center gap-3 py-4 bg-[#021E14] hover:bg-[#021E14] text-white rounded-md font-normal text-sm uppercase tracking-widest transition-all active:scale-[0.98] group ${bengaliClass}`}
                             >
                                 {language === 'bn' ? 'চেকআউট' : 'Checkout Now'}
                                 <LuArrowRight className="group-hover:translate-x-1 transition-transform" />

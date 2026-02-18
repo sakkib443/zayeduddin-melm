@@ -144,13 +144,13 @@ export default function QuestionBuilder({ questions = [], onChange }) {
 
     const optionLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-    const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none text-sm transition-all bg-white";
+    const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none text-sm transition-all bg-white";
 
     return (
         <div className="space-y-5">
 
             {/* Header Stats */}
-            <div className="bg-gradient-to-r from-[#E62D26] to-[#c41e18] p-5 rounded-2xl text-white">
+            <div className="bg-gradient-to-r from-[#021E14] to-[#021E14] p-5 rounded-2xl text-white">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
@@ -175,14 +175,14 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                     {questions.map((q, index) => (
                         <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#E62D26]/50 hover:shadow-md transition-all"
+                            className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#021E14]/50 hover:shadow-md transition-all"
                         >
                             <div
                                 className="flex items-center justify-between p-4 cursor-pointer"
                                 onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                             >
                                 <div className="flex items-center gap-4">
-                                    <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-[#E62D26] to-[#c41e18] text-white flex items-center justify-center font-bold text-lg">
+                                    <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-[#021E14] to-[#021E14] text-white flex items-center justify-center font-bold text-lg">
                                         {index + 1}
                                     </div>
                                     <div>
@@ -190,10 +190,10 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                             {q.question}
                                         </p>
                                         <div className="flex items-center gap-2 mt-1">
-                                            <span className="px-2 py-0.5 bg-[#E62D26]/10 text-[#E62D26] rounded text-xs font-medium">
+                                            <span className="px-2 py-0.5 bg-[#021E14]/10 text-[#021E14] rounded text-xs font-medium">
                                                 {q.options?.length} Options
                                             </span>
-                                            <span className="px-2 py-0.5 bg-[#F79952]/10 text-[#F79952] rounded text-xs font-medium flex items-center gap-1">
+                                            <span className="px-2 py-0.5 bg-[#021E14]/10 text-[#021E14] rounded text-xs font-medium flex items-center gap-1">
                                                 <FiAward size={10} /> {q.points} Point{q.points > 1 ? 's' : ''}
                                             </span>
                                         </div>
@@ -203,14 +203,14 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                     <button
                                         type="button"
                                         onClick={(e) => { e.stopPropagation(); handleEdit(index); }}
-                                        className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-[#E62D26] transition-colors"
+                                        className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-[#021E14] transition-colors"
                                     >
                                         <FiEdit3 size={16} />
                                     </button>
                                     <button
                                         type="button"
                                         onClick={(e) => { e.stopPropagation(); handleDelete(index); }}
-                                        className="p-2 hover:bg-red-50 rounded-lg text-gray-500 hover:text-red-500 transition-colors"
+                                        className="p-2 hover:bg-[#021E14] rounded-lg text-gray-500 hover:text-[#021E14] transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>
@@ -228,7 +228,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                             <div
                                                 key={i}
                                                 className={`flex items-center gap-3 p-3 rounded-lg text-sm ${opt.isCorrect
-                                                    ? 'bg-[#E62D26] text-white'
+                                                    ? 'bg-[#021E14] text-white'
                                                     : 'bg-white border border-gray-200 text-gray-700'
                                                     }`}
                                             >
@@ -242,7 +242,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                         ))}
                                     </div>
                                     {q.explanation && (
-                                        <div className="mt-3 p-3 bg-blue-50 border border-blue-100 rounded-lg text-blue-700 text-sm">
+                                        <div className="mt-3 p-3 bg-[#021E14] border border-[#021E14] rounded-lg text-[#021E14] text-sm">
                                             <span className="font-semibold">Explanation:</span> {q.explanation}
                                         </div>
                                     )}
@@ -257,7 +257,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
             {showForm ? (
                 <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg">
                     {/* Form Header */}
-                    <div className="bg-gradient-to-r from-[#E62D26] to-[#c41e18] px-5 py-4 text-white flex items-center justify-between">
+                    <div className="bg-gradient-to-r from-[#021E14] to-[#021E14] px-5 py-4 text-white flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
                                 {editingIndex !== null ? <FiEdit3 size={18} /> : <FiPlus size={18} />}
@@ -283,7 +283,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                         {/* Step 1: Question */}
                         <div>
                             <div className="flex items-center gap-2 mb-3">
-                                <span className="w-6 h-6 rounded-md bg-[#E62D26] text-white flex items-center justify-center font-semibold text-xs">1</span>
+                                <span className="w-6 h-6 rounded-md bg-[#021E14] text-white flex items-center justify-center font-semibold text-xs">1</span>
                                 <h5 className="font-semibold text-gray-800 text-sm">Question Text</h5>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -314,14 +314,14 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                         <div>
                             <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center gap-2">
-                                    <span className="w-6 h-6 rounded-md bg-[#E62D26] text-white flex items-center justify-center font-semibold text-xs">2</span>
+                                    <span className="w-6 h-6 rounded-md bg-[#021E14] text-white flex items-center justify-center font-semibold text-xs">2</span>
                                     <h5 className="font-semibold text-gray-800 text-sm">Answer Options</h5>
                                 </div>
                                 {formData.options.length < 6 && (
                                     <button
                                         type="button"
                                         onClick={handleAddOption}
-                                        className="flex items-center gap-1.5 text-[#E62D26] text-xs font-semibold hover:text-[#c41e18] px-3 py-1.5 bg-[#E62D26]/10 rounded-lg transition-colors"
+                                        className="flex items-center gap-1.5 text-[#021E14] text-xs font-semibold hover:text-[#021E14] px-3 py-1.5 bg-[#021E14]/10 rounded-lg transition-colors"
                                     >
                                         <FiPlus size={14} /> Add Option
                                     </button>
@@ -329,7 +329,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                             </div>
 
                             {/* Instruction */}
-                            <div className="flex items-center gap-2 p-3 bg-[#F79952]/10 border border-[#F79952]/20 rounded-lg text-[#F79952] text-xs mb-4">
+                            <div className="flex items-center gap-2 p-3 bg-[#021E14]/10 border border-[#021E14]/20 rounded-lg text-[#021E14] text-xs mb-4">
                                 <FiAlertCircle size={16} className="shrink-0" />
                                 <span><strong>Tip:</strong> Click the checkmark button next to the correct answer to mark it</span>
                             </div>
@@ -340,13 +340,13 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                     <div
                                         key={index}
                                         className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${opt.isCorrect
-                                            ? 'border-[#E62D26] bg-[#E62D26]/5'
+                                            ? 'border-[#021E14] bg-[#021E14]/5'
                                             : 'border-gray-200 bg-gray-50 hover:border-gray-300'
                                             }`}
                                     >
                                         {/* Option Label */}
                                         <div className={`w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm shrink-0 ${opt.isCorrect
-                                            ? 'bg-[#E62D26] text-white'
+                                            ? 'bg-[#021E14] text-white'
                                             : 'bg-white border border-gray-200 text-gray-600'
                                             }`}>
                                             {optionLabels[index]}
@@ -359,14 +359,14 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                                 value={opt.text}
                                                 onChange={(e) => handleOptionTextChange(index, 'text', e.target.value)}
                                                 placeholder={`Option ${optionLabels[index]}`}
-                                                className="flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:border-[#E62D26] outline-none text-sm bg-white"
+                                                className="flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:border-[#021E14] outline-none text-sm bg-white"
                                             />
                                             <input
                                                 type="text"
                                                 value={opt.textBn}
                                                 onChange={(e) => handleOptionTextChange(index, 'textBn', e.target.value)}
                                                 placeholder="Bengali"
-                                                className="w-24 px-3 py-2 rounded-lg border border-gray-200 focus:border-[#E62D26] outline-none text-sm bg-white"
+                                                className="w-24 px-3 py-2 rounded-lg border border-gray-200 focus:border-[#021E14] outline-none text-sm bg-white"
                                             />
                                         </div>
 
@@ -375,8 +375,8 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                             type="button"
                                             onClick={() => handleSelectCorrectAnswer(index)}
                                             className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all shrink-0 ${opt.isCorrect
-                                                ? 'bg-[#E62D26] text-white shadow-md'
-                                                : 'bg-white border border-gray-200 text-gray-400 hover:border-[#E62D26] hover:text-[#E62D26]'
+                                                ? 'bg-[#021E14] text-white shadow-md'
+                                                : 'bg-white border border-gray-200 text-gray-400 hover:border-[#021E14] hover:text-[#021E14]'
                                                 }`}
                                             title={opt.isCorrect ? 'Correct Answer' : 'Mark as Correct'}
                                         >
@@ -388,7 +388,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                             <button
                                                 type="button"
                                                 onClick={() => handleRemoveOption(index)}
-                                                className="p-2 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-500 transition-colors"
+                                                className="p-2 hover:bg-[#021E14] rounded-lg text-gray-400 hover:text-[#021E14] transition-colors"
                                             >
                                                 <FiTrash2 size={16} />
                                             </button>
@@ -441,7 +441,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                             <button
                                 type="button"
                                 onClick={handleSaveQuestion}
-                                className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#E62D26] to-[#c41e18] hover:from-[#c41e18] hover:to-[#E62D26] text-white font-medium text-sm flex items-center gap-2 shadow-md transition-all"
+                                className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#021E14] to-[#021E14] hover:from-[#021E14] hover:to-[#021E14] text-white font-medium text-sm flex items-center gap-2 shadow-md transition-all"
                             >
                                 <FiCheck size={16} />
                                 {editingIndex !== null ? 'Update Question' : 'Add Question'}
@@ -454,9 +454,9 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                 <button
                     type="button"
                     onClick={() => setShowForm(true)}
-                    className="w-full p-4 border-2 border-dashed border-[#E62D26]/40 rounded-xl text-[#E62D26] hover:border-[#E62D26] hover:bg-[#E62D26]/5 transition-all flex items-center justify-center gap-3 font-semibold"
+                    className="w-full p-4 border-2 border-dashed border-[#021E14]/40 rounded-xl text-[#021E14] hover:border-[#021E14] hover:bg-[#021E14]/5 transition-all flex items-center justify-center gap-3 font-semibold"
                 >
-                    <div className="w-10 h-10 rounded-lg bg-[#E62D26]/10 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-[#021E14]/10 flex items-center justify-center">
                         <FiPlus size={20} />
                     </div>
                     Add New Question

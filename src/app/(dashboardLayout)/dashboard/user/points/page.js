@@ -43,7 +43,7 @@ export default function UserPointsBadgesPage() {
 
     // Card class based on theme
     const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
-        ? 'bg-slate-800/50 border-white/5 hover:border-[#E62D26]/20'
+        ? 'bg-slate-800/50 border-white/5 hover:border-[#021E14]/20'
         : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
         }`;
 
@@ -52,7 +52,7 @@ export default function UserPointsBadgesPage() {
             {/* Professional Compact Header */}
             <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 ${cardClass}`}>
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#E62D26] to-[#f79952] flex items-center justify-center text-white shadow-md shadow-[#E62D26]/10">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md shadow-[#021E14]/10">
                         <FiStar size={24} />
                     </div>
                     <div>
@@ -76,7 +76,7 @@ export default function UserPointsBadgesPage() {
                     </button>
                     <Link
                         href="/dashboard/user/courses"
-                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white rounded-xl text-sm font-bold shadow-md shadow-[#E62D26]/10 hover:scale-105 transition-all"
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl text-sm font-bold shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                     >
                         <FiBook size={16} />
                         Earn More
@@ -100,11 +100,11 @@ export default function UserPointsBadgesPage() {
                                 Lifetime earned
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiStar size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E62D26] to-[#c41e18] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Current Level */}
@@ -121,11 +121,11 @@ export default function UserPointsBadgesPage() {
                                 Keep learning!
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#f79952] to-[#fb923c] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiTrendingUp size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#f79952] to-[#fb923c] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Badges Earned */}
@@ -142,11 +142,11 @@ export default function UserPointsBadgesPage() {
                                 Unlock more badges
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiAward size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-red-500 transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#01140D] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Leaderboard Rank */}
@@ -163,11 +163,11 @@ export default function UserPointsBadgesPage() {
                                 Your ranking
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E62D26] to-[#f79952] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiTarget size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E62D26] to-[#f79952] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
             </div>
 
@@ -176,8 +176,8 @@ export default function UserPointsBadgesPage() {
                 <div key={idx} className={`${cardClass} p-6`}>
                     <div className="flex items-center gap-3 mb-6">
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isDark
-                            ? 'bg-[#E62D26]/10 text-[#E62D26]'
-                            : 'bg-[#E62D26]/10 text-[#E62D26]'
+                            ? 'bg-[#021E14]/10 text-[#021E14]'
+                            : 'bg-[#021E14]/10 text-[#021E14]'
                             }`}>
                             <FiAward size={18} />
                         </div>
@@ -226,8 +226,8 @@ export default function UserPointsBadgesPage() {
                 }`}>
                 <div className="flex items-center gap-4 text-center md:text-left">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${isDark
-                        ? 'bg-slate-700 text-[#f79952]'
-                        : 'bg-white text-[#f79952] shadow-md border border-slate-100'
+                        ? 'bg-slate-700 text-[#021E14]'
+                        : 'bg-white text-[#021E14] shadow-md border border-slate-100'
                         }`}>
                         <FiGift size={22} />
                     </div>

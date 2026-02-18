@@ -67,28 +67,28 @@ export default function ReportsPage() {
             title: 'Revenue Analysis',
             description: 'Complete financial overview with revenue breakdown and profit analysis.',
             icon: FiPieChart,
-            color: 'bg-indigo-500'
+            color: 'bg-[#021E14]'
         },
         {
             id: 'orders',
             title: 'Sales & Orders',
             description: 'Detailed transaction history with customer info and payment status.',
             icon: FiShoppingBag,
-            color: 'bg-emerald-500'
+            color: 'bg-[#021E14]'
         },
         {
             id: 'users',
             title: 'User Analytics',
             description: 'User growth metrics, enrollment statistics and engagement data.',
             icon: FiUsers,
-            color: 'bg-blue-500'
+            color: 'bg-[#021E14]'
         },
         {
             id: 'inventory',
             title: 'Product Portfolio',
             description: 'Complete inventory of courses and products with performance metrics.',
             icon: FiFileText,
-            color: 'bg-amber-500'
+            color: 'bg-[#D4AF37]'
         }
     ];
 
@@ -282,7 +282,7 @@ export default function ReportsPage() {
                     </button>
                     <button
                         onClick={() => setShowCustomModal(true)}
-                        className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-medium transition-colors"
                     >
                         <FiSettings size={16} />
                         Custom Report
@@ -293,10 +293,10 @@ export default function ReportsPage() {
             {/* Stats Summary */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                    { label: 'Total Revenue', value: `৳${stats?.summary?.totalRevenue?.toLocaleString() || '0'}`, icon: FiDollarSign, color: 'bg-emerald-500' },
-                    { label: 'Total Orders', value: stats?.summary?.totalOrdersCount || '0', icon: FiShoppingBag, color: 'bg-blue-500' },
-                    { label: 'Total Courses', value: stats?.summary?.totalCourses || '0', icon: FiBook, color: 'bg-purple-500' },
-                    { label: 'Total Users', value: stats?.summary?.totalUsers || '0', icon: FiUsers, color: 'bg-amber-500' }
+                    { label: 'Total Revenue', value: `৳${stats?.summary?.totalRevenue?.toLocaleString() || '0'}`, icon: FiDollarSign, color: 'bg-[#021E14]' },
+                    { label: 'Total Orders', value: stats?.summary?.totalOrdersCount || '0', icon: FiShoppingBag, color: 'bg-[#021E14]' },
+                    { label: 'Total Courses', value: stats?.summary?.totalCourses || '0', icon: FiBook, color: 'bg-[#021E14]' },
+                    { label: 'Total Users', value: stats?.summary?.totalUsers || '0', icon: FiUsers, color: 'bg-[#D4AF37]' }
                 ].map((stat, i) => (
                     <div key={i} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
                         <div className="flex items-center gap-3">
@@ -329,7 +329,7 @@ export default function ReportsPage() {
                         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{report.description}</p>
 
                         <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-700">
-                            <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
+                            <div className="flex items-center gap-2 text-[#021E14] dark:text-emerald-400">
                                 <FiCheckCircle size={14} />
                                 <span className="text-xs font-medium">Ready</span>
                             </div>
@@ -338,7 +338,7 @@ export default function ReportsPage() {
                                 disabled={downloadingId !== null || !stats}
                                 className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${downloadingId === report.id
                                     ? 'bg-gray-100 dark:bg-slate-700 text-gray-400'
-                                    : 'bg-gray-900 dark:bg-indigo-600 text-white hover:bg-gray-800 dark:hover:bg-indigo-700'
+                                    : 'bg-gray-900 dark:bg-[#021E14] text-white hover:bg-gray-800 dark:hover:bg-[#01140D]'
                                     }`}
                             >
                                 {downloadingId === report.id ? (
@@ -375,7 +375,7 @@ export default function ReportsPage() {
                                 type="text"
                                 value={customReport.reportTitle}
                                 onChange={(e) => setCustomReport(prev => ({ ...prev, reportTitle: e.target.value }))}
-                                className="w-full px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                className="w-full px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none"
                                 placeholder="Enter report title"
                             />
                         </div>
@@ -391,7 +391,7 @@ export default function ReportsPage() {
                                     type="date"
                                     value={customReport.dateFrom}
                                     onChange={(e) => setCustomReport(prev => ({ ...prev, dateFrom: e.target.value }))}
-                                    className="w-full px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                    className="w-full px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none"
                                 />
                             </div>
                             <div>
@@ -403,7 +403,7 @@ export default function ReportsPage() {
                                     type="date"
                                     value={customReport.dateTo}
                                     onChange={(e) => setCustomReport(prev => ({ ...prev, dateTo: e.target.value }))}
-                                    className="w-full px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                    className="w-full px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none"
                                 />
                             </div>
                         </div>
@@ -423,11 +423,11 @@ export default function ReportsPage() {
                                         key={option.key}
                                         onClick={() => toggleOption(option.key)}
                                         className={`flex items-center gap-2 p-3 rounded-md border text-left text-sm transition-colors ${customReport[option.key]
-                                            ? 'bg-indigo-50 dark:bg-indigo-500/10 border-indigo-500 text-indigo-600 dark:text-indigo-400'
+                                            ? 'bg-[#021E14] dark:bg-[#021E14]/10 border-[#021E14] text-[#021E14] dark:text-[#021E14]'
                                             : 'bg-gray-50 dark:bg-slate-700 border-gray-200 dark:border-slate-600 text-gray-600 dark:text-gray-400'
                                             }`}
                                     >
-                                        <div className={`w-5 h-5 rounded flex items-center justify-center ${customReport[option.key] ? 'bg-indigo-500 text-white' : 'bg-gray-200 dark:bg-slate-600'}`}>
+                                        <div className={`w-5 h-5 rounded flex items-center justify-center ${customReport[option.key] ? 'bg-[#021E14] text-white' : 'bg-gray-200 dark:bg-slate-600'}`}>
                                             {customReport[option.key] && <FiCheck size={12} />}
                                         </div>
                                         {option.label}
@@ -447,7 +447,7 @@ export default function ReportsPage() {
                             <button
                                 onClick={() => generatePDF('custom', customReport)}
                                 disabled={downloadingId === 'custom'}
-                                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-medium transition-colors"
                             >
                                 {downloadingId === 'custom' ? (
                                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

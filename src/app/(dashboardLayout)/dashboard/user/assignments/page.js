@@ -26,7 +26,7 @@ export default function UserAssignmentsPage() {
 
     // Card class based on theme
     const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
-        ? 'bg-slate-800/50 border-white/5 hover:border-[#E62D26]/20'
+        ? 'bg-slate-800/50 border-white/5 hover:border-[#021E14]/20'
         : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
         }`;
 
@@ -35,7 +35,7 @@ export default function UserAssignmentsPage() {
             {/* Professional Compact Header */}
             <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 ${cardClass}`}>
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#E62D26] to-[#f79952] flex items-center justify-center text-white shadow-md shadow-[#E62D26]/10">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md shadow-[#021E14]/10">
                         <FiLayout size={24} />
                     </div>
                     <div>
@@ -59,7 +59,7 @@ export default function UserAssignmentsPage() {
                     </button>
                     <Link
                         href="/dashboard/user/courses"
-                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white rounded-xl text-sm font-bold shadow-md shadow-[#E62D26]/10 hover:scale-105 transition-all"
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl text-sm font-bold shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                     >
                         <FiBook size={16} />
                         My Courses
@@ -83,11 +83,11 @@ export default function UserAssignmentsPage() {
                                 All time assignments
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiFileText size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E62D26] to-[#c41e18] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Pending */}
@@ -104,11 +104,11 @@ export default function UserAssignmentsPage() {
                                 Need submission
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#f79952] to-[#fb923c] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiClock size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#f79952] to-[#fb923c] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Submitted */}
@@ -125,11 +125,11 @@ export default function UserAssignmentsPage() {
                                 Completed work
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiCheckCircle size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-red-500 transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#01140D] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Overdue */}
@@ -146,11 +146,11 @@ export default function UserAssignmentsPage() {
                                 Past deadline
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-red-500 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiAlertCircle size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-rose-500 to-red-500 transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#01140D] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
             </div>
 
@@ -163,15 +163,15 @@ export default function UserAssignmentsPage() {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full pl-11 pr-4 py-2.5 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 ${isDark
-                            ? 'bg-slate-800/50 border-white/5 text-slate-200 focus:ring-[#E62D26]/30'
-                            : 'bg-slate-50 border-slate-200 text-slate-700 focus:ring-[#E62D26]/20'
+                            ? 'bg-slate-800/50 border-white/5 text-slate-200 focus:ring-[#021E14]/30'
+                            : 'bg-slate-50 border-slate-200 text-slate-700 focus:ring-[#021E14]/20'
                             }`}
                     />
                 </div>
                 <div className="flex items-center gap-2">
                     <button className={`px-3 py-2 rounded-xl text-xs font-bold transition-all ${isDark
-                        ? 'bg-[#E62D26]/20 text-[#E62D26] border border-[#E62D26]/30'
-                        : 'bg-[#E62D26]/10 text-[#E62D26] border border-[#E62D26]/20'
+                        ? 'bg-[#021E14]/20 text-[#021E14] border border-[#021E14]/30'
+                        : 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20'
                         }`}>
                         All
                     </button>
@@ -207,7 +207,7 @@ export default function UserAssignmentsPage() {
                 </p>
                 <Link
                     href="/courses"
-                    className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white rounded-xl font-bold text-sm shadow-md shadow-[#E62D26]/10 hover:scale-105 transition-all"
+                    className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                 >
                     Explore Courses <FiArrowRight />
                 </Link>
@@ -220,8 +220,8 @@ export default function UserAssignmentsPage() {
                 }`}>
                 <div className="flex items-center gap-4 text-center md:text-left">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${isDark
-                        ? 'bg-slate-700 text-[#E62D26]'
-                        : 'bg-white text-[#E62D26] shadow-md border border-slate-100'
+                        ? 'bg-slate-700 text-[#021E14]'
+                        : 'bg-white text-[#021E14] shadow-md border border-slate-100'
                         }`}>
                         <FiUpload size={22} />
                     </div>

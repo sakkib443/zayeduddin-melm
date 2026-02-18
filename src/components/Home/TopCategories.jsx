@@ -26,8 +26,8 @@ const TopCategories = () => {
             title: t("topCategories.trainingTitle"),
             subtitle: t("topCategories.trainingSubtitle"),
             href: '/courses',
-            iconBg: 'bg-[#300000]',
-            borderColor: 'border-l-[#300000]',
+            iconBg: 'bg-[#021E14]',
+            borderColor: 'border-l-[#021E14]',
         },
         {
             icon: LuPalette,
@@ -42,8 +42,8 @@ const TopCategories = () => {
             title: t("topCategories.uiuxTitle"),
             subtitle: t("topCategories.uiuxSubtitle"),
             href: '/design-template',
-            iconBg: 'bg-[#300000]',
-            borderColor: 'border-l-[#300000]',
+            iconBg: 'bg-[#021E14]',
+            borderColor: 'border-l-[#021E14]',
         },
         {
             icon: LuCode,
@@ -90,7 +90,7 @@ const TopCategories = () => {
                                         </div>
 
                                         {/* Arrow */}
-                                        <div className="text-gray-300 dark:text-gray-600 group-hover:text-red-500 transition-colors">
+                                        <div className="text-gray-300 dark:text-gray-600 group-hover:text-[#021E14] transition-colors">
                                             <LuChevronRight className="w-4 h-4" />
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@ const TopCategories = () => {
                                             {t("topCategories.exploreMore")}
                                         </span>
                                         <span
-                                            className={`text-sm font-medium text-[#300000] group-hover:text-red-600 transition-colors ${bengaliClass}`}
+                                            className={`text-sm font-medium text-[#021E14] group-hover:text-[#021E14] transition-colors ${bengaliClass}`}
                                         >
                                             {t("topCategories.viewAll")}
                                         </span>

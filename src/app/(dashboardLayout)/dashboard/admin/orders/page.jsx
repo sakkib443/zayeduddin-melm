@@ -88,9 +88,9 @@ export default function OrdersPage() {
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'completed': return <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded text-xs font-medium flex items-center gap-1"><FiCheck size={12} /> Completed</span>;
+      case 'completed': return <span className="px-2 py-0.5 bg-emerald-50 text-[#021E14] rounded text-xs font-medium flex items-center gap-1"><FiCheck size={12} /> Completed</span>;
       case 'pending': return <span className="px-2 py-0.5 bg-amber-50 text-amber-600 rounded text-xs font-medium flex items-center gap-1"><FiClock size={12} /> Pending</span>;
-      case 'failed': return <span className="px-2 py-0.5 bg-red-50 text-red-600 rounded text-xs font-medium flex items-center gap-1"><FiX size={12} /> Failed</span>;
+      case 'failed': return <span className="px-2 py-0.5 bg-[#021E14] text-[#021E14] rounded text-xs font-medium flex items-center gap-1"><FiX size={12} /> Failed</span>;
       default: return <span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs font-medium">{status}</span>;
     }
   };
@@ -110,7 +110,7 @@ export default function OrdersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 p-5">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-blue-500 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
             <FiShoppingBag className="text-white" size={18} />
           </div>
           <div>
@@ -131,7 +131,7 @@ export default function OrdersPage() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 p-4 flex items-center gap-4">
-          <div className="w-10 h-10 bg-emerald-500 rounded-md flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#021E14] rounded-md flex items-center justify-center text-white">
             <FiDollarSign size={18} />
           </div>
           <div>
@@ -140,7 +140,7 @@ export default function OrdersPage() {
           </div>
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 p-4 flex items-center gap-4">
-          <div className="w-10 h-10 bg-amber-500 rounded-md flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#D4AF37] rounded-md flex items-center justify-center text-white">
             <FiClock size={18} />
           </div>
           <div>
@@ -149,7 +149,7 @@ export default function OrdersPage() {
           </div>
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 p-4 flex items-center gap-4">
-          <div className="w-10 h-10 bg-blue-500 rounded-md flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-[#021E14] rounded-md flex items-center justify-center text-white">
             <FiCheck size={18} />
           </div>
           <div>
@@ -168,7 +168,7 @@ export default function OrdersPage() {
             placeholder="Search by ID, Name or Email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none text-sm transition-colors"
+            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none text-sm transition-colors"
           />
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -181,7 +181,7 @@ export default function OrdersPage() {
               className="bg-transparent text-sm text-slate-600 dark:text-slate-300 outline-none"
             />
             {dateFilter && (
-              <button onClick={() => setDateFilter('')} className="text-slate-400 hover:text-red-500 transition-colors">
+              <button onClick={() => setDateFilter('')} className="text-slate-400 hover:text-[#021E14] transition-colors">
                 <FiX size={14} />
               </button>
             )}
@@ -193,7 +193,7 @@ export default function OrdersPage() {
               onClick={() => setStatusFilter(status)}
               className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 statusFilter === status
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-[#021E14] text-white'
                   : 'bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-gray-200'
               }`}
             >
@@ -222,7 +222,7 @@ export default function OrdersPage() {
               {loading ? (
                 <tr>
                   <td colSpan={7} className="px-4 py-16 text-center">
-                    <FiRefreshCw className="animate-spin text-blue-500 mx-auto mb-2" size={24} />
+                    <FiRefreshCw className="animate-spin text-[#021E14] mx-auto mb-2" size={24} />
                     <p className="text-sm text-slate-500">Loading orders...</p>
                   </td>
                 </tr>
@@ -243,7 +243,7 @@ export default function OrdersPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-8 h-8 rounded-full bg-[#021E14] flex items-center justify-center text-white text-xs font-medium">
                           {order.user?.firstName?.charAt(0) || 'U'}
                         </div>
                         <div>
@@ -256,7 +256,7 @@ export default function OrdersPage() {
                       <span className="text-sm text-slate-600 dark:text-slate-300">{order.items?.length || 0} items</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-sm font-medium text-blue-600 dark:text-blue-400">৳{order.totalAmount?.toLocaleString()}</span>
+                      <span className="text-sm font-medium text-[#021E14] dark:text-[#021E14]">৳{order.totalAmount?.toLocaleString()}</span>
                     </td>
                     <td className="px-4 py-3">
                       {getStatusBadge(order.paymentStatus)}
@@ -274,7 +274,7 @@ export default function OrdersPage() {
                           <button
                             onClick={() => handleUpdateStatus(order._id, 'completed')}
                             disabled={saving}
-                            className="p-1.5 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition-colors"
+                            className="p-1.5 bg-[#021E14] text-white rounded-md hover:bg-[#021E14] transition-colors"
                             title="Mark Complete"
                           >
                             <FiCheck size={14} />
@@ -282,7 +282,7 @@ export default function OrdersPage() {
                         )}
                         <button
                           onClick={() => openOrderDetails(order)}
-                          className="p-1.5 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-md transition-colors"
+                          className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors"
                         >
                           <FiEye size={14} />
                         </button>
@@ -327,10 +327,10 @@ export default function OrdersPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-slate-800 rounded-md w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-lg">
             {/* Header */}
-            <div className="px-5 py-4 border-b border-gray-200 dark:border-slate-700 bg-blue-500 flex items-center justify-between">
+            <div className="px-5 py-4 border-b border-gray-200 dark:border-slate-700 bg-[#021E14] flex items-center justify-between">
               <div>
                 <h3 className="text-base font-semibold text-white">Order Details</h3>
-                <p className="text-blue-100 text-xs flex items-center gap-1 mt-0.5">
+                <p className="text-[#021E14] text-xs flex items-center gap-1 mt-0.5">
                   <FiHash size={12} /> {selectedOrder.orderNumber || selectedOrder._id?.slice(-6).toUpperCase()}
                 </p>
               </div>
@@ -346,7 +346,7 @@ export default function OrdersPage() {
                   <button
                     onClick={() => handleUpdateStatus(selectedOrder._id, editStatus)}
                     disabled={saving}
-                    className="px-3 py-1.5 bg-white text-blue-600 rounded-md text-xs font-medium flex items-center gap-1 transition-colors disabled:opacity-50"
+                    className="px-3 py-1.5 bg-white text-[#021E14] rounded-md text-xs font-medium flex items-center gap-1 transition-colors disabled:opacity-50"
                   >
                     <FiSave size={14} /> {saving ? 'Saving...' : 'Save'}
                   </button>
@@ -369,7 +369,7 @@ export default function OrdersPage() {
                 <div className="bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md p-3">
                   <p className="text-xs text-slate-500 mb-1">Payment Method</p>
                   <p className="text-sm font-medium text-slate-800 dark:text-white capitalize flex items-center gap-1">
-                    <FiCreditCard size={14} className="text-blue-500" />
+                    <FiCreditCard size={14} className="text-[#021E14]" />
                     {selectedOrder.paymentMethod || 'Manual'}
                   </p>
                 </div>
@@ -379,7 +379,7 @@ export default function OrdersPage() {
                     <select
                       value={editStatus}
                       onChange={(e) => setEditStatus(e.target.value)}
-                      className="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 px-2 py-1 text-sm rounded-md focus:border-blue-400 outline-none"
+                      className="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 px-2 py-1 text-sm rounded-md focus:border-[#021E14] outline-none"
                     >
                       <option value="pending">Pending</option>
                       <option value="completed">Completed</option>
@@ -396,7 +396,7 @@ export default function OrdersPage() {
               <div className="bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md p-4">
                 <h4 className="text-xs font-medium text-slate-500 mb-3">Customer Information</h4>
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
+                  <div className="w-10 h-10 rounded-full bg-[#021E14] flex items-center justify-center text-white font-medium">
                     {selectedOrder.user?.firstName?.charAt(0) || 'U'}
                   </div>
                   <div className="flex-1">
@@ -433,23 +433,23 @@ export default function OrdersPage() {
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-slate-800 dark:text-white truncate">{item.title}</p>
                         <span className={`px-1.5 py-0.5 rounded text-xs ${
-                          item.productType === 'course' ? 'bg-blue-50 text-blue-600' : 'bg-amber-50 text-amber-600'
+                          item.productType === 'course' ? 'bg-[#021E14] text-[#021E14]' : 'bg-amber-50 text-amber-600'
                         }`}>
                           {item.productType}
                         </span>
                       </div>
-                      <span className="text-sm font-medium text-blue-600">৳{item.price?.toLocaleString()}</span>
+                      <span className="text-sm font-medium text-[#021E14]">৳{item.price?.toLocaleString()}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Total */}
-              <div className="p-4 bg-blue-500 rounded-md text-white">
+              <div className="p-4 bg-[#021E14] rounded-md text-white">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-blue-100">Total Amount</p>
-                    <p className="text-xs text-blue-200 mt-0.5">Including all fees</p>
+                    <p className="text-xs text-[#021E14]">Total Amount</p>
+                    <p className="text-xs text-[#021E14] mt-0.5">Including all fees</p>
                   </div>
                   <span className="text-2xl font-semibold">৳{selectedOrder.totalAmount?.toLocaleString()}</span>
                 </div>
@@ -457,26 +457,26 @@ export default function OrdersPage() {
 
               {/* Transaction Details */}
               {(selectedOrder.paymentMethod === 'manual' || selectedOrder.manualPaymentDetails) && (
-                <div className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-md p-4">
+                <div className="bg-emerald-50 dark:bg-[#021E14]/10 border border-emerald-200 dark:border-[#021E14]/20 rounded-md p-4">
                   <div className="flex items-center gap-2 mb-3">
-                    <FiCheck className="text-emerald-500" size={16} />
+                    <FiCheck className="text-[#021E14]" size={16} />
                     <h4 className="text-xs font-medium text-emerald-700 dark:text-emerald-400">Payment Verification</h4>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                     <div>
-                      <p className="text-xs text-emerald-600/70 mb-0.5">Method</p>
+                      <p className="text-xs text-[#021E14]/70 mb-0.5">Method</p>
                       <p className="font-medium text-slate-700 dark:text-white">{selectedOrder.manualPaymentDetails?.method || 'N/A'}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-emerald-600/70 mb-0.5">Sender</p>
+                      <p className="text-xs text-[#021E14]/70 mb-0.5">Sender</p>
                       <p className="font-medium text-slate-700 dark:text-white">{selectedOrder.manualPaymentDetails?.senderNumber || 'N/A'}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-emerald-600/70 mb-0.5">Transaction ID</p>
+                      <p className="text-xs text-[#021E14]/70 mb-0.5">Transaction ID</p>
                       <p className="font-mono text-slate-700 dark:text-white">{selectedOrder.manualPaymentDetails?.transactionId || selectedOrder.transactionId || 'N/A'}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-emerald-600/70 mb-0.5">Time</p>
+                      <p className="text-xs text-[#021E14]/70 mb-0.5">Time</p>
                       <p className="font-medium text-slate-700 dark:text-white">{selectedOrder.manualPaymentDetails?.date || 'N/A'}</p>
                     </div>
                   </div>
@@ -484,9 +484,9 @@ export default function OrdersPage() {
               )}
 
               {selectedOrder.paymentStatus === 'failed' && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-md flex items-center gap-2">
-                  <FiAlertCircle className="text-red-500" size={16} />
-                  <p className="text-xs text-red-600">This transaction was marked as failed. Please audit manually if necessary.</p>
+                <div className="p-3 bg-[#021E14] border border-[#021E14] rounded-md flex items-center gap-2">
+                  <FiAlertCircle className="text-[#021E14]" size={16} />
+                  <p className="text-xs text-[#021E14]">This transaction was marked as failed. Please audit manually if necessary.</p>
                 </div>
               )}
             </div>

@@ -83,13 +83,13 @@ export default function MentorCoursesPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white rounded-2xl border border-slate-200/60 p-5 shadow-sm">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/25">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#01140D] flex items-center justify-center shadow-lg shadow-[#D4AF37]/25">
                         <FiBook className="text-white text-xl" />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h1 className="text-xl font-bold text-slate-800">Course Management</h1>
-                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">
+                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">
                                 Mentor
                             </span>
                         </div>
@@ -106,7 +106,7 @@ export default function MentorCoursesPage() {
                         Reload
                     </button>
                     <Link href="/dashboard/instructor/course/create">
-                        <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl text-sm font-semibold shadow-lg shadow-amber-500/25 transition-all">
+                        <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#D4AF37] to-[#01140D] hover:from-amber-600 hover:to-[#021E14] text-white rounded-xl text-sm font-semibold shadow-lg shadow-[#D4AF37]/25 transition-all">
                             <FiPlus size={16} />
                             New Course
                         </button>
@@ -118,16 +118,16 @@ export default function MentorCoursesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 {/* Total Courses */}
                 <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/20 to-[#01140D]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative bg-white rounded-2xl border border-slate-200/60 p-6 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-                        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-amber-500 to-orange-500 opacity-10 rounded-full blur-2xl" />
+                        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-[#D4AF37] to-[#01140D] opacity-10 rounded-full blur-2xl" />
                         <div className="relative flex items-start justify-between">
                             <div className="flex-1">
                                 <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Total Courses</p>
                                 <p className="text-3xl font-bold text-slate-800 mb-1">{stats.total}</p>
                                 <p className="text-xs text-slate-400 mb-2">All registered courses</p>
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#01140D] flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                                 <FiBook className="text-2xl text-white" />
                             </div>
                         </div>
@@ -136,16 +136,16 @@ export default function MentorCoursesPage() {
 
                 {/* Published */}
                 <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-red-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#021E14]/20 to-[#01140D]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative bg-white rounded-2xl border border-slate-200/60 p-6 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-                        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-emerald-500 to-red-500 opacity-10 rounded-full blur-2xl" />
+                        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-[#021E14] to-[#01140D] opacity-10 rounded-full blur-2xl" />
                         <div className="relative flex items-start justify-between">
                             <div className="flex-1">
                                 <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Published</p>
                                 <p className="text-3xl font-bold text-slate-800 mb-1">{stats.published}</p>
                                 <p className="text-xs text-slate-400 mb-2">Live courses</p>
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                                 <FiCheckCircle className="text-2xl text-white" />
                             </div>
                         </div>
@@ -172,16 +172,16 @@ export default function MentorCoursesPage() {
 
                 {/* Total Enrollments */}
                 <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#021E14]/20 to-[#021E14]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative bg-white rounded-2xl border border-slate-200/60 p-6 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-                        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-500 opacity-10 rounded-full blur-2xl" />
+                        <div className="absolute -right-8 -top-8 w-32 h-32 bg-gradient-to-br from-[#021E14] to-[#021E14] opacity-10 rounded-full blur-2xl" />
                         <div className="relative flex items-start justify-between">
                             <div className="flex-1">
                                 <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Enrollments</p>
                                 <p className="text-3xl font-bold text-slate-800 mb-1">{stats.totalEnrollments}</p>
                                 <p className="text-xs text-slate-400 mb-2">Active learners</p>
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                                 <FiUsers className="text-2xl text-white" />
                             </div>
                         </div>
@@ -233,7 +233,7 @@ export default function MentorCoursesPage() {
                                 <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur text-slate-800 text-[10px] font-bold uppercase rounded-md shadow-sm">
                                     {course.courseType}
                                 </div>
-                                <div className="absolute bottom-3 right-3 px-2 py-1 bg-emerald-500 text-white text-xs font-bold rounded-lg shadow-lg">
+                                <div className="absolute bottom-3 right-3 px-2 py-1 bg-[#021E14] text-white text-xs font-bold rounded-lg shadow-lg">
                                     ?{(course.discountPrice || course.price).toLocaleString()}
                                 </div>
                             </div>
@@ -242,7 +242,7 @@ export default function MentorCoursesPage() {
                                 <h3 className="text-sm font-bold text-slate-800 line-clamp-2 mb-3 min-h-[40px] leading-relaxed">{course.title}</h3>
 
                                 <div className="flex items-center gap-2 mb-4">
-                                    <span className="px-2 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-lg uppercase">{course.level}</span>
+                                    <span className="px-2 py-1 bg-[#021E14] text-[#021E14] text-[10px] font-bold rounded-lg uppercase">{course.level}</span>
                                     <span className="px-2 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-lg uppercase">{course.language}</span>
                                 </div>
 
@@ -250,7 +250,7 @@ export default function MentorCoursesPage() {
                                     <div className="flex items-center gap-1.5 font-semibold text-slate-600">
                                         <FiUsers size={12} /> {course.totalEnrollments || 0} Students
                                     </div>
-                                    <div className="flex items-center gap-1 font-bold text-amber-500">
+                                    <div className="flex items-center gap-1 font-bold text-[#D4AF37]">
                                         <FiStar size={12} fill="currentColor" /> {course.averageRating || 5.0}
                                     </div>
                                 </div>
@@ -260,7 +260,7 @@ export default function MentorCoursesPage() {
                             <div className="flex border-t border-slate-100 bg-slate-50/50">
                                 <Link
                                     href={`/dashboard/instructor/course/modules/${course._id}`}
-                                    className="flex-1 flex items-center justify-center gap-2 py-3.5 text-indigo-600 hover:text-indigo-900 hover:bg-white text-xs font-bold transition-all"
+                                    className="flex-1 flex items-center justify-center gap-2 py-3.5 text-[#021E14] hover:text-[#021E14] hover:bg-white text-xs font-bold transition-all"
                                 >
                                     <FiLayers size={13} /> Modules
                                 </Link>
@@ -296,7 +296,7 @@ export default function MentorCoursesPage() {
                             </div>
                             {/* Mentor Actions - NO DELETE BUTTON */}
                             <div className="flex gap-2">
-                                <Link href={`/dashboard/instructor/course/modules/${course._id}`} className="p-2.5 bg-indigo-50 text-indigo-500 hover:text-indigo-800 hover:bg-white border border-indigo-100 rounded-xl shadow-sm transition-all" title="Manage Modules"><FiLayers size={15} /></Link>
+                                <Link href={`/dashboard/instructor/course/modules/${course._id}`} className="p-2.5 bg-[#021E14] text-[#021E14] hover:text-[#021E14] hover:bg-white border border-[#021E14] rounded-xl shadow-sm transition-all" title="Manage Modules"><FiLayers size={15} /></Link>
                                 <Link href={`/dashboard/instructor/course/edit/${course._id}`} className="p-2.5 bg-slate-50 text-slate-500 hover:text-slate-800 hover:bg-white border border-slate-100 rounded-xl shadow-sm transition-all"><FiEdit2 size={15} /></Link>
                             </div>
                         </div>

@@ -47,24 +47,24 @@ export default function CreateCoursePage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex-1 flex items-center justify-center gap-2.5 px-4 py-3.5 font-medium text-sm transition-all relative
                     ${isActive
-                      ? 'text-indigo-600 bg-indigo-50/50'
+                      ? 'text-[#021E14] bg-[#021E14]/50'
                       : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
                     }`}
                 >
                   <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-all
                     ${isActive
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-[#021E14] text-white'
                       : 'bg-slate-100 text-slate-500'
                     }`}
                   >
                     <Icon size={16} />
                   </div>
                   <div className="text-left">
-                    <p className={`font-semibold text-sm ${isActive ? 'text-indigo-600' : 'text-slate-700'}`}>{tab.label}</p>
-                    <p className={`text-xs ${isActive ? 'text-indigo-500' : 'text-slate-400'}`}>{tab.labelBn}</p>
+                    <p className={`font-semibold text-sm ${isActive ? 'text-[#021E14]' : 'text-slate-700'}`}>{tab.label}</p>
+                    <p className={`text-xs ${isActive ? 'text-[#021E14]' : 'text-slate-400'}`}>{tab.labelBn}</p>
                   </div>
                   {isActive && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600" />
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#021E14]" />
                   )}
                 </button>
               );
@@ -74,15 +74,15 @@ export default function CreateCoursePage() {
           {/* Step Indicator */}
           <div className="px-6 py-2.5 bg-slate-50 border-b border-slate-100">
             <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
-              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'course' ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-200 text-slate-500'}`}>
+              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'course' ? 'bg-[#021E14] text-[#01140D]' : 'bg-slate-200 text-slate-500'}`}>
                 1. Course
               </span>
               <span className="text-slate-300">→</span>
-              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'module' ? 'bg-purple-100 text-purple-700' : 'bg-slate-200 text-slate-500'}`}>
+              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'module' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
                 2. Module
               </span>
               <span className="text-slate-300">→</span>
-              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'lesson' ? 'bg-rose-100 text-rose-700' : 'bg-slate-200 text-slate-500'}`}>
+              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'lesson' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
                 3. Lesson
               </span>
             </div>

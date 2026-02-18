@@ -82,7 +82,7 @@ export default function AdminBlogPage() {
             {/* Header */}
             <div className={`flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-md bg-indigo-600 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
                         <FiEdit3 className="text-white" size={18} />
                     </div>
                     <div>
@@ -104,7 +104,7 @@ export default function AdminBlogPage() {
                     </button>
                     <Link
                         href="/dashboard/admin/blog/create"
-                        className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-normal transition-all"
+                        className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-normal transition-all"
                     >
                         <FiPlus size={14} />
                         New Blog
@@ -123,8 +123,8 @@ export default function AdminBlogPage() {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className={`w-full pl-9 pr-4 py-2 rounded-md border text-sm font-normal transition-all ${isDark
-                                ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-500 focus:border-indigo-500'
-                                : 'bg-white border-gray-200 text-gray-800 placeholder-gray-400 focus:border-indigo-500'
+                                ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
+                                : 'bg-white border-gray-200 text-gray-800 placeholder-gray-400 focus:border-[#021E14]'
                                 } focus:outline-none`}
                         />
                     </div>
@@ -148,7 +148,7 @@ export default function AdminBlogPage() {
             <div className="space-y-3">
                 {loading ? (
                     <div className={`flex items-center justify-center py-16 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
-                        <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin"></div>
+                        <div className="w-8 h-8 border-2 border-[#021E14]/30 border-t-[#021E14] rounded-full animate-spin"></div>
                     </div>
                 ) : blogs.length === 0 ? (
                     <div className={`text-center py-16 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
@@ -157,7 +157,7 @@ export default function AdminBlogPage() {
                         <p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Start writing your first blog post!</p>
                         <Link
                             href="/dashboard/admin/blog/create"
-                            className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-md bg-indigo-600 text-white text-sm font-normal"
+                            className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-md bg-[#021E14] text-white text-sm font-normal"
                         >
                             <FiPlus size={14} />
                             Write New Blog
@@ -249,14 +249,14 @@ export default function AdminBlogPage() {
                                     </Link>
                                     <Link
                                         href={`/dashboard/admin/blog/edit/${blog._id}`}
-                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-blue-500/20 text-blue-400' : 'hover:bg-blue-50 text-blue-600'}`}
+                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
                                         title="Edit"
                                     >
                                         <FiEdit size={16} />
                                     </Link>
                                     <button
                                         onClick={() => setDeleteModal({ show: true, blogId: blog._id, title: blog.title })}
-                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-red-500/20 text-red-400' : 'hover:bg-red-50 text-red-500'}`}
+                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
                                         title="Delete"
                                     >
                                         <FiTrash2 size={16} />
@@ -317,7 +317,7 @@ export default function AdminBlogPage() {
                             </button>
                             <button
                                 onClick={handleDelete}
-                                className="flex-1 py-2 rounded-md text-sm font-normal bg-red-500 text-white hover:bg-red-600 transition-colors"
+                                className="flex-1 py-2 rounded-md text-sm font-normal bg-[#021E14] text-white hover:bg-[#021E14] transition-colors"
                             >
                                 Delete
                             </button>

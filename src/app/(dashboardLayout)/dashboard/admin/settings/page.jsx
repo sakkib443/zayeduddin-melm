@@ -10,8 +10,8 @@ function SettingsContent() {
   const [activeTab, setActiveTab] = useState(tabFromUrl || 'general');
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState({
-    siteName: 'Jayed Uddin',
-    siteEmail: 'admin@jayeduddin.com',
+    siteName: 'Zayed Uddin',
+    siteEmail: 'admin@zayeduddin.com',
     currency: 'BDT',
     currencySymbol: '৳',
     emailNotifications: true,
@@ -94,7 +94,7 @@ function SettingsContent() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white text-sm font-medium rounded-md transition-colors disabled:opacity-50"
         >
           {saving ? <FiCheck size={16} /> : <FiSave size={16} />}
           {saving ? 'Saved!' : 'Save Changes'}
@@ -112,7 +112,7 @@ function SettingsContent() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${activeTab === tab.id
-                    ? 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400'
+                    ? 'bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14]'
                     : 'text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700'
                     }`}
                 >
@@ -120,7 +120,7 @@ function SettingsContent() {
                     <Icon size={16} />
                     {tab.label}
                   </span>
-                  <FiChevronRight size={14} className={activeTab === tab.id ? 'text-blue-500' : 'text-slate-300'} />
+                  <FiChevronRight size={14} className={activeTab === tab.id ? 'text-[#021E14]' : 'text-slate-300'} />
                 </button>
               );
             })}
@@ -139,7 +139,7 @@ function SettingsContent() {
                     type="text"
                     value={settings.siteName}
                     onChange={(e) => handleChange('siteName', e.target.value)}
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-blue-400 outline-none text-sm"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] outline-none text-sm"
                   />
                 </div>
                 <div>
@@ -148,7 +148,7 @@ function SettingsContent() {
                     type="email"
                     value={settings.siteEmail}
                     onChange={(e) => handleChange('siteEmail', e.target.value)}
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-blue-400 outline-none text-sm"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] outline-none text-sm"
                   />
                 </div>
                 <div>
@@ -156,7 +156,7 @@ function SettingsContent() {
                   <select
                     value={settings.currency}
                     onChange={(e) => handleChange('currency', e.target.value)}
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-blue-400 outline-none text-sm"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] outline-none text-sm"
                   >
                     <option value="BDT">BDT - Bangladeshi Taka</option>
                     <option value="USD">USD - US Dollar</option>
@@ -169,19 +169,19 @@ function SettingsContent() {
                     type="text"
                     value={settings.currencySymbol}
                     onChange={(e) => handleChange('currencySymbol', e.target.value)}
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-blue-400 outline-none text-sm"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] outline-none text-sm"
                   />
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-4 rounded-md bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20">
+              <div className="flex items-center justify-between p-4 rounded-md bg-amber-50 dark:bg-[#D4AF37]/10 border border-amber-200 dark:border-[#D4AF37]/20">
                 <div>
                   <p className="text-sm font-medium text-slate-800 dark:text-white">Maintenance Mode</p>
                   <p className="text-xs text-slate-500">Put your site in maintenance mode</p>
                 </div>
                 <button
                   onClick={() => handleChange('maintenanceMode', !settings.maintenanceMode)}
-                  className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${settings.maintenanceMode ? 'bg-amber-500' : 'bg-gray-300'}`}
+                  className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${settings.maintenanceMode ? 'bg-[#D4AF37]' : 'bg-gray-300'}`}
                 >
                   <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform ${settings.maintenanceMode ? 'translate-x-5' : 'translate-x-0'}`} />
                 </button>
@@ -200,7 +200,7 @@ function SettingsContent() {
                   </div>
                   <button
                     onClick={() => handleChange('emailNotifications', !settings.emailNotifications)}
-                    className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${settings.emailNotifications ? 'bg-emerald-500' : 'bg-gray-300'}`}
+                    className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${settings.emailNotifications ? 'bg-[#021E14]' : 'bg-gray-300'}`}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform ${settings.emailNotifications ? 'translate-x-5' : 'translate-x-0'}`} />
                   </button>
@@ -212,7 +212,7 @@ function SettingsContent() {
                   </div>
                   <button
                     onClick={() => handleChange('orderNotifications', !settings.orderNotifications)}
-                    className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${settings.orderNotifications ? 'bg-emerald-500' : 'bg-gray-300'}`}
+                    className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${settings.orderNotifications ? 'bg-[#021E14]' : 'bg-gray-300'}`}
                   >
                     <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform ${settings.orderNotifications ? 'translate-x-5' : 'translate-x-0'}`} />
                   </button>
@@ -227,15 +227,15 @@ function SettingsContent() {
 
               <form onSubmit={handlePasswordUpdate} className="p-4 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700">
                 <div className="flex items-center gap-2 mb-4">
-                  <FiLock className="text-blue-500" size={16} />
+                  <FiLock className="text-[#021E14]" size={16} />
                   <p className="text-sm font-medium text-slate-800 dark:text-white">Update Password</p>
                 </div>
 
                 {passwordError && (
-                  <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-xs border border-red-200">{passwordError}</div>
+                  <div className="mb-4 p-3 bg-[#021E14] text-[#021E14] rounded-md text-xs border border-[#021E14]">{passwordError}</div>
                 )}
                 {passwordSuccess && (
-                  <div className="mb-4 p-3 bg-emerald-50 text-emerald-600 rounded-md text-xs border border-emerald-200">{passwordSuccess}</div>
+                  <div className="mb-4 p-3 bg-emerald-50 text-[#021E14] rounded-md text-xs border border-emerald-200">{passwordSuccess}</div>
                 )}
 
                 <div className="space-y-3 max-w-md">
@@ -246,7 +246,7 @@ function SettingsContent() {
                       required
                       value={passwordData.currentPassword}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-md bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:border-blue-400 outline-none text-sm"
+                      className="w-full px-3 py-2 rounded-md bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] outline-none text-sm"
                     />
                   </div>
                   <div>
@@ -256,7 +256,7 @@ function SettingsContent() {
                       required
                       value={passwordData.newPassword}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-md bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:border-blue-400 outline-none text-sm"
+                      className="w-full px-3 py-2 rounded-md bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] outline-none text-sm"
                     />
                   </div>
                   <div>
@@ -266,13 +266,13 @@ function SettingsContent() {
                       required
                       value={passwordData.confirmNewPassword}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, confirmNewPassword: e.target.value }))}
-                      className="w-full px-3 py-2 rounded-md bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:border-blue-400 outline-none text-sm"
+                      className="w-full px-3 py-2 rounded-md bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] outline-none text-sm"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={updatingPassword}
-                    className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md transition-colors disabled:opacity-50 flex items-center gap-2"
+                    className="px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white text-sm font-medium rounded-md transition-colors disabled:opacity-50 flex items-center gap-2"
                   >
                     <FiSave size={14} />
                     {updatingPassword ? 'Updating...' : 'Update Password'}
@@ -280,15 +280,15 @@ function SettingsContent() {
                 </div>
               </form>
 
-              <div className="p-4 rounded-md bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-center justify-between gap-4">
+              <div className="p-4 rounded-md bg-[#021E14] dark:bg-[#021E14]/10 border border-[#021E14] dark:border-[#021E14]/20 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <FiGlobe className="text-blue-500" size={18} />
+                  <FiGlobe className="text-[#021E14]" size={18} />
                   <div>
                     <p className="text-sm font-medium text-slate-800 dark:text-white">Two-Factor Authentication</p>
                     <p className="text-xs text-slate-500">Add extra security to your account</p>
                   </div>
                 </div>
-                <button className="px-3 py-1.5 bg-blue-500 text-white rounded-md text-xs font-medium hover:bg-blue-600 transition-colors">
+                <button className="px-3 py-1.5 bg-[#021E14] text-white rounded-md text-xs font-medium hover:bg-[#021E14] transition-colors">
                   Enable 2FA
                 </button>
               </div>
@@ -299,25 +299,25 @@ function SettingsContent() {
             <div className="space-y-5">
               <h3 className="text-base font-semibold text-slate-800 dark:text-white pb-3 border-b border-gray-200 dark:border-slate-700">Payment Settings</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-4 rounded-md border-2 border-emerald-200 dark:border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-500/5">
+                <div className="p-4 rounded-md border-2 border-emerald-200 dark:border-[#021E14]/30 bg-emerald-50/50 dark:bg-[#021E14]/5">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded bg-pink-500 flex items-center justify-center text-white text-xs font-medium">bK</div>
+                    <div className="w-8 h-8 rounded bg-[#021E14] flex items-center justify-center text-white text-xs font-medium">bK</div>
                     <div>
                       <p className="text-sm font-medium text-slate-800 dark:text-white">bKash</p>
-                      <p className="text-xs text-emerald-600">Active</p>
+                      <p className="text-xs text-[#021E14]">Active</p>
                     </div>
                   </div>
-                  <button className="text-xs font-medium text-blue-500">Configure →</button>
+                  <button className="text-xs font-medium text-[#021E14]">Configure →</button>
                 </div>
                 <div className="p-4 rounded-md border-2 border-dashed border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded bg-orange-500 flex items-center justify-center text-white text-xs font-medium">N</div>
+                    <div className="w-8 h-8 rounded bg-[#021E14] flex items-center justify-center text-white text-xs font-medium">N</div>
                     <div>
                       <p className="text-sm font-medium text-slate-800 dark:text-white">Nagad</p>
                       <p className="text-xs text-slate-400">Inactive</p>
                     </div>
                   </div>
-                  <button className="text-xs font-medium text-blue-500">Setup →</button>
+                  <button className="text-xs font-medium text-[#021E14]">Setup →</button>
                 </div>
               </div>
             </div>

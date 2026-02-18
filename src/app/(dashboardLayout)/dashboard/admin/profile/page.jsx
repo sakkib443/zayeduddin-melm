@@ -71,7 +71,7 @@ export default function AdminProfilePage() {
             {/* Header */}
             <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-md p-5 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-md bg-[#E62D26] flex items-center justify-center text-white">
+                    <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center text-white">
                         <FiUser size={20} />
                     </div>
                     <div>
@@ -86,10 +86,10 @@ export default function AdminProfilePage() {
                 <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-md p-5 shadow-sm">
                     <div className="text-center">
                         <div className="relative inline-block">
-                            <div className="w-24 h-24 rounded-md bg-[#E62D26] flex items-center justify-center text-white text-3xl font-semibold">
+                            <div className="w-24 h-24 rounded-md bg-[#021E14] flex items-center justify-center text-white text-3xl font-semibold">
                                 {user?.firstName?.[0] || 'A'}
                             </div>
-                            <button className="absolute -bottom-1 -right-1 w-8 h-8 rounded-md bg-[#F79952] text-white flex items-center justify-center shadow-sm hover:bg-[#e8893f] transition-colors">
+                            <button className="absolute -bottom-1 -right-1 w-8 h-8 rounded-md bg-[#021E14] text-white flex items-center justify-center shadow-sm hover:bg-[#e8893f] transition-colors">
                                 <FiCamera size={14} />
                             </button>
                         </div>
@@ -99,7 +99,7 @@ export default function AdminProfilePage() {
                         <p className="text-xs text-gray-500 dark:text-slate-400">{user?.role || 'Super Admin'}</p>
 
                         <div className="mt-4 p-3 rounded-md bg-gray-50 dark:bg-slate-700">
-                            <div className="flex items-center justify-center gap-2 text-[#E62D26]">
+                            <div className="flex items-center justify-center gap-2 text-[#021E14]">
                                 <FiShield size={14} />
                                 <span className="text-xs font-medium">Verified Account</span>
                             </div>
@@ -122,7 +122,7 @@ export default function AdminProfilePage() {
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#E62D26] dark:focus:border-[#E62D26] transition-colors"
+                                    className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#021E14] dark:focus:border-[#021E14] transition-colors"
                                     placeholder="Enter first name"
                                 />
                             </div>
@@ -135,7 +135,7 @@ export default function AdminProfilePage() {
                                     name="lastName"
                                     value={formData.lastName}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#E62D26] dark:focus:border-[#E62D26] transition-colors"
+                                    className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#021E14] dark:focus:border-[#021E14] transition-colors"
                                     placeholder="Enter last name"
                                 />
                             </div>
@@ -165,7 +165,7 @@ export default function AdminProfilePage() {
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#E62D26] dark:focus:border-[#E62D26] transition-colors"
+                                className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#021E14] dark:focus:border-[#021E14] transition-colors"
                                 placeholder="Enter phone number"
                             />
                         </div>
@@ -180,7 +180,7 @@ export default function AdminProfilePage() {
                                 value={formData.address}
                                 onChange={handleChange}
                                 rows={3}
-                                className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#E62D26] dark:focus:border-[#E62D26] transition-colors resize-none"
+                                className="w-full px-3 py-2 text-sm rounded-md border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-800 dark:text-white outline-none focus:border-[#021E14] dark:focus:border-[#021E14] transition-colors resize-none"
                                 placeholder="Enter your address"
                             />
                         </div>
@@ -189,7 +189,7 @@ export default function AdminProfilePage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex items-center gap-2 px-4 py-2 bg-[#E62D26] text-white text-sm font-medium rounded-md hover:bg-[#c41e18] transition-colors disabled:opacity-50"
+                                className="flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white text-sm font-medium rounded-md hover:bg-[#021E14] transition-colors disabled:opacity-50"
                             >
                                 <FiSave size={14} />
                                 {loading ? 'Saving...' : 'Save Changes'}

@@ -41,7 +41,7 @@ export default function MyWebsitesPage() {
     };
 
     const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
-        ? 'bg-slate-800/50 border-white/5 hover:border-[#E62D26]/20'
+        ? 'bg-slate-800/50 border-white/5 hover:border-[#021E14]/20'
         : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
         }`;
 
@@ -77,7 +77,7 @@ export default function MyWebsitesPage() {
             {/* Professional Compact Header */}
             <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 ${cardClass}`}>
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center text-white shadow-md shadow-[#E62D26]/10">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md shadow-[#021E14]/10">
                         <FiGlobe size={24} />
                     </div>
                     <div>
@@ -102,7 +102,7 @@ export default function MyWebsitesPage() {
                     </button>
                     <Link
                         href="/websites"
-                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white rounded-xl text-sm font-bold shadow-md shadow-[#E62D26]/10 hover:scale-105 transition-all"
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl text-sm font-bold shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                     >
                         <FiPackage size={16} />
                         Browse More
@@ -122,11 +122,11 @@ export default function MyWebsitesPage() {
                                 {stats.total.toString().padStart(2, '0')}
                             </h3>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
                             <FiGlobe size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E62D26] to-[#c41e18] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
@@ -139,11 +139,11 @@ export default function MyWebsitesPage() {
                                 {stats.templates.toString().padStart(2, '0')}
                             </h3>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#f79952] to-[#fb923c] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
                             <FiLayout size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#f79952] to-[#fb923c] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
@@ -156,11 +156,11 @@ export default function MyWebsitesPage() {
                                 {stats.downloads.toString().padStart(2, '0')}
                             </h3>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
                             <FiDownload size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-red-500 transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#01140D] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
             </div>
 
@@ -173,8 +173,8 @@ export default function MyWebsitesPage() {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full pl-11 pr-4 py-2.5 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 ${isDark
-                            ? 'bg-slate-800/50 border-white/5 text-slate-200 focus:ring-[#E62D26]/30'
-                            : 'bg-slate-50 border-slate-200 text-slate-700 focus:ring-[#E62D26]/20'
+                            ? 'bg-slate-800/50 border-white/5 text-slate-200 focus:ring-[#021E14]/30'
+                            : 'bg-slate-50 border-slate-200 text-slate-700 focus:ring-[#021E14]/20'
                             }`}
                     />
                 </div>
@@ -222,7 +222,7 @@ export default function MyWebsitesPage() {
                     {!searchTerm && (
                         <Link
                             href="/websites"
-                            className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white rounded-xl font-bold text-sm shadow-md shadow-[#E62D26]/10 hover:scale-105 transition-all"
+                            className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                         >
                             Browse Templates <FiArrowRight />
                         </Link>
@@ -234,7 +234,7 @@ export default function MyWebsitesPage() {
                         <div
                             key={item._id}
                             className={`group relative rounded-2xl border overflow-hidden transition-all duration-300 ${isDark
-                                ? 'bg-slate-800/50 border-white/5 hover:border-[#E62D26]/20'
+                                ? 'bg-slate-800/50 border-white/5 hover:border-[#021E14]/20'
                                 : 'bg-white border-slate-200 hover:shadow-lg'
                                 }`}
                         >
@@ -255,7 +255,7 @@ export default function MyWebsitesPage() {
                                 </div>
 
                                 <div className="absolute bottom-3 left-3 right-3">
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest text-white bg-gradient-to-r from-[#E62D26] to-[#c41e18] mb-2">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest text-white bg-gradient-to-r from-[#021E14] to-[#021E14] mb-2">
                                         <FiGlobe size={10} /> Template
                                     </span>
                                     <h3 className="text-white font-bold text-sm line-clamp-2 leading-snug">
@@ -266,7 +266,7 @@ export default function MyWebsitesPage() {
 
                             {/* Info */}
                             <div className="p-4 space-y-4">
-                                <p className="text-xs font-bold text-[#E62D26]">{item.product?.projectType || 'Ready-made Template'}</p>
+                                <p className="text-xs font-bold text-[#021E14]">{item.product?.projectType || 'Ready-made Template'}</p>
 
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between text-[10px] font-bold">
@@ -281,7 +281,7 @@ export default function MyWebsitesPage() {
                                         <span className={`uppercase tracking-widest flex items-center gap-1.5 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                             <FiShield size={10} /> License
                                         </span>
-                                        <span className="text-emerald-500">Commercial</span>
+                                        <span className="text-[#021E14]">Commercial</span>
                                     </div>
                                 </div>
 
@@ -290,13 +290,13 @@ export default function MyWebsitesPage() {
                                     <button
                                         onClick={() => window.open(item.product?.downloadFile, '_blank')}
                                         disabled={!item.product?.downloadFile}
-                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white rounded-xl font-bold text-xs shadow-md shadow-[#E62D26]/10 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50"
+                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-xs shadow-md shadow-[#021E14]/10 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50"
                                     >
                                         <FiDownload size={14} /> Source Code
                                     </button>
                                     <button className={`p-2.5 rounded-xl transition-all ${isDark
-                                        ? 'bg-slate-700 text-slate-300 hover:text-[#E62D26]'
-                                        : 'bg-slate-100 text-slate-500 hover:text-[#E62D26]'
+                                        ? 'bg-slate-700 text-slate-300 hover:text-[#021E14]'
+                                        : 'bg-slate-100 text-slate-500 hover:text-[#021E14]'
                                         }`}>
                                         <FiEye size={16} />
                                     </button>
@@ -315,7 +315,7 @@ export default function MyWebsitesPage() {
                             <div className="flex-1 min-w-0">
                                 <h3 className={`text-sm font-bold truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{item.productTitle}</h3>
                                 <div className="flex items-center gap-3 mt-1">
-                                    <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded tracking-wider bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400">
+                                    <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded tracking-wider bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]">
                                         {item.product?.projectType || 'Template'}
                                     </span>
                                     <span className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
@@ -325,8 +325,8 @@ export default function MyWebsitesPage() {
                             </div>
                             <div className="flex items-center gap-2">
                                 <button className={`p-2.5 rounded-xl transition-all ${isDark
-                                    ? 'bg-slate-700 text-slate-300 hover:text-[#E62D26]'
-                                    : 'bg-slate-100 text-slate-500 hover:text-[#E62D26]'
+                                    ? 'bg-slate-700 text-slate-300 hover:text-[#021E14]'
+                                    : 'bg-slate-100 text-slate-500 hover:text-[#021E14]'
                                     }`}>
                                     <FiEye size={16} />
                                 </button>
@@ -334,8 +334,8 @@ export default function MyWebsitesPage() {
                                     onClick={() => window.open(item.product?.downloadFile, '_blank')}
                                     disabled={!item.product?.downloadFile}
                                     className={`p-2.5 rounded-xl transition-all ${isDark
-                                        ? 'bg-slate-700 text-slate-300 hover:bg-[#E62D26] hover:text-white'
-                                        : 'bg-slate-100 text-slate-500 hover:bg-[#E62D26] hover:text-white'
+                                        ? 'bg-slate-700 text-slate-300 hover:bg-[#021E14] hover:text-white'
+                                        : 'bg-slate-100 text-slate-500 hover:bg-[#021E14] hover:text-white'
                                         } disabled:opacity-50`}
                                 >
                                     <FiDownload size={16} />
@@ -349,12 +349,12 @@ export default function MyWebsitesPage() {
             {/* Customization CTA */}
             <div className={`p-6 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-4 transition-all ${isDark
                 ? 'bg-gradient-to-r from-slate-800 to-slate-800/50 border-white/5'
-                : 'bg-gradient-to-r from-[#E62D26]/5 to-white border-slate-100'
+                : 'bg-gradient-to-r from-[#021E14]/5 to-white border-slate-100'
                 }`}>
                 <div className="flex items-center gap-4 text-center md:text-left">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${isDark
-                        ? 'bg-[#E62D26]/10 text-[#E62D26]'
-                        : 'bg-white text-[#E62D26] shadow-md border border-[#E62D26]/10'
+                        ? 'bg-[#021E14]/10 text-[#021E14]'
+                        : 'bg-white text-[#021E14] shadow-md border border-[#021E14]/10'
                         }`}>
                         <FiCode size={22} />
                     </div>
@@ -367,7 +367,7 @@ export default function MyWebsitesPage() {
                 </div>
                 <Link
                     href="/dashboard/user/support"
-                    className="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white shadow-md shadow-[#E62D26]/10 hover:shadow-lg hover:scale-105"
+                    className="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-gradient-to-r from-[#021E14] to-[#021E14] text-white shadow-md shadow-[#021E14]/10 hover:shadow-lg hover:scale-105"
                 >
                     Request Customization
                 </Link>

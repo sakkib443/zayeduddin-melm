@@ -139,7 +139,7 @@ const CouponsPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-md border border-gray-200 dark:border-slate-700">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-orange-500 rounded-md flex items-center justify-center">
+          <div className="w-10 h-10 bg-[#021E14] rounded-md flex items-center justify-center">
             <FiTag className="text-white" size={18} />
           </div>
           <div>
@@ -151,7 +151,7 @@ const CouponsPage = () => {
           <button onClick={fetchCoupons} className="p-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-md transition-colors">
             <FiRefreshCw size={16} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-md transition-colors">
+          <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white text-sm font-medium rounded-md transition-colors">
             <FiPlus size={16} /> New Coupon
           </button>
         </div>
@@ -161,8 +161,8 @@ const CouponsPage = () => {
       <div className="grid grid-cols-3 gap-4">
         {[
           { label: 'Total', value: stats.total, icon: FiTag, color: 'text-slate-600' },
-          { label: 'Active', value: stats.active, icon: FiCheck, color: 'text-emerald-500' },
-          { label: 'Expired', value: stats.expired, icon: FiX, color: 'text-red-500' }
+          { label: 'Active', value: stats.active, icon: FiCheck, color: 'text-[#021E14]' },
+          { label: 'Expired', value: stats.expired, icon: FiX, color: 'text-[#021E14]' }
         ].map((stat, idx) => (
           <div key={idx} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-2">
@@ -183,7 +183,7 @@ const CouponsPage = () => {
             placeholder="Search coupons..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-orange-400 focus:ring-1 focus:ring-orange-400 outline-none text-sm transition-colors"
+            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none text-sm transition-colors"
           />
         </div>
       </div>
@@ -191,7 +191,7 @@ const CouponsPage = () => {
       {/* Coupons Grid */}
       {loading ? (
         <div className="flex justify-center py-16">
-          <FiRefreshCw className="animate-spin text-orange-500" size={32} />
+          <FiRefreshCw className="animate-spin text-[#021E14]" size={32} />
         </div>
       ) : filteredCoupons.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700">
@@ -201,16 +201,16 @@ const CouponsPage = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {filteredCoupons.map((coupon) => (
-            <div key={coupon._id} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700 hover:border-orange-300 transition-colors">
+            <div key={coupon._id} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700 hover:border-[#021E14] transition-colors">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-md bg-orange-500 flex items-center justify-center text-white">
+                  <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center text-white">
                     {coupon.discountType === 'percentage' ? <FiPercent size={18} /> : <FiTag size={18} />}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-sm font-medium text-slate-800 dark:text-white">{coupon.code}</span>
-                      <button onClick={() => copyCode(coupon.code)} className="text-slate-400 hover:text-orange-500">
+                      <button onClick={() => copyCode(coupon.code)} className="text-slate-400 hover:text-[#021E14]">
                         <FiCopy size={12} />
                       </button>
                     </div>
@@ -219,13 +219,13 @@ const CouponsPage = () => {
                 </div>
                 <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                   !coupon.isActive ? 'bg-gray-100 text-gray-500' :
-                  isExpired(coupon.endDate) ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'
+                  isExpired(coupon.endDate) ? 'bg-[#021E14] text-[#021E14]' : 'bg-emerald-50 text-[#021E14]'
                 }`}>
                   {!coupon.isActive ? 'Inactive' : isExpired(coupon.endDate) ? 'Expired' : 'Active'}
                 </span>
               </div>
 
-              <div className="text-xl font-semibold text-orange-600 dark:text-orange-400 mb-3">
+              <div className="text-xl font-semibold text-[#021E14] dark:text-[#021E14] mb-3">
                 {coupon.discountType === 'percentage' ? `${coupon.discountValue}% OFF` : `৳${coupon.discountValue} OFF`}
               </div>
 
@@ -240,7 +240,7 @@ const CouponsPage = () => {
                 <button onClick={() => handleEdit(coupon)} className="flex-1 py-2 bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-md text-xs font-medium flex items-center justify-center gap-1 transition-colors">
                   <FiEdit3 size={14} /> Edit
                 </button>
-                <button onClick={() => handleDelete(coupon._id)} className="p-2 text-red-500 hover:bg-red-50 rounded-md transition-colors">
+                <button onClick={() => handleDelete(coupon._id)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors">
                   <FiTrash2 size={16} />
                 </button>
               </div>
@@ -272,9 +272,9 @@ const CouponsPage = () => {
                     onChange={(e) => setFormData(prev => ({ ...prev, code: e.target.value.toUpperCase() }))}
                     placeholder="SAVE20"
                     required
-                    className="flex-1 px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm font-mono uppercase focus:border-orange-400 outline-none"
+                    className="flex-1 px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm font-mono uppercase focus:border-[#021E14] outline-none"
                   />
-                  <button type="button" onClick={generateCode} className="px-3 py-2 bg-orange-500 text-white text-sm rounded-md hover:bg-orange-600 transition-colors">
+                  <button type="button" onClick={generateCode} className="px-3 py-2 bg-[#021E14] text-white text-sm rounded-md hover:bg-[#021E14] transition-colors">
                     Generate
                   </button>
                 </div>
@@ -288,7 +288,7 @@ const CouponsPage = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="Summer Sale 20%"
                   required
-                  className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                  className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                 />
               </div>
 
@@ -298,7 +298,7 @@ const CouponsPage = () => {
                   <select
                     value={formData.discountType}
                     onChange={(e) => setFormData(prev => ({ ...prev, discountType: e.target.value }))}
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   >
                     <option value="percentage">Percentage (%)</option>
                     <option value="fixed">Fixed (৳)</option>
@@ -312,7 +312,7 @@ const CouponsPage = () => {
                     onChange={(e) => setFormData(prev => ({ ...prev, discountValue: e.target.value }))}
                     min="0"
                     required
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   />
                 </div>
               </div>
@@ -325,7 +325,7 @@ const CouponsPage = () => {
                     value={formData.minPurchase}
                     onChange={(e) => setFormData(prev => ({ ...prev, minPurchase: e.target.value }))}
                     min="0"
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   />
                 </div>
                 <div>
@@ -336,7 +336,7 @@ const CouponsPage = () => {
                     onChange={(e) => setFormData(prev => ({ ...prev, maxDiscount: e.target.value }))}
                     placeholder="Optional"
                     min="0"
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   />
                 </div>
               </div>
@@ -349,7 +349,7 @@ const CouponsPage = () => {
                     value={formData.startDate}
                     onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
                     required
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   />
                 </div>
                 <div>
@@ -359,7 +359,7 @@ const CouponsPage = () => {
                     value={formData.endDate}
                     onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
                     required
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   />
                 </div>
               </div>
@@ -373,7 +373,7 @@ const CouponsPage = () => {
                     onChange={(e) => setFormData(prev => ({ ...prev, usageLimit: e.target.value }))}
                     placeholder="Unlimited"
                     min="1"
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   />
                 </div>
                 <div>
@@ -383,7 +383,7 @@ const CouponsPage = () => {
                     value={formData.usagePerUser}
                     onChange={(e) => setFormData(prev => ({ ...prev, usagePerUser: e.target.value }))}
                     min="1"
-                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                    className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                   />
                 </div>
               </div>
@@ -393,7 +393,7 @@ const CouponsPage = () => {
                 <select
                   value={formData.applicableTo}
                   onChange={(e) => setFormData(prev => ({ ...prev, applicableTo: e.target.value }))}
-                  className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-orange-400 outline-none"
+                  className="w-full px-3 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-sm focus:border-[#021E14] outline-none"
                 >
                   <option value="all">All Products</option>
                   <option value="course">Courses Only</option>
@@ -406,7 +406,7 @@ const CouponsPage = () => {
                 <button
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, isActive: !prev.isActive }))}
-                  className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${formData.isActive ? 'bg-emerald-500' : 'bg-gray-300'}`}
+                  className={`w-10 h-5 rounded-full transition-colors flex items-center p-0.5 ${formData.isActive ? 'bg-[#021E14]' : 'bg-gray-300'}`}
                 >
                   <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform ${formData.isActive ? 'translate-x-5' : 'translate-x-0'}`} />
                 </button>
@@ -416,7 +416,7 @@ const CouponsPage = () => {
                 <button type="button" onClick={closeModal} className="flex-1 py-2 bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-md text-sm font-medium hover:bg-gray-200 transition-colors">
                   Cancel
                 </button>
-                <button type="submit" className="flex-1 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md text-sm font-medium transition-colors">
+                <button type="submit" className="flex-1 py-2 bg-[#021E14] hover:bg-[#021E14] text-white rounded-md text-sm font-medium transition-colors">
                   {editingCoupon ? 'Update' : 'Create'}
                 </button>
               </div>

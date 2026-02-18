@@ -123,7 +123,7 @@ const ContactDesignPage = () => {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-red-500/30 border-t-red-500 rounded-full animate-spin mx-auto"></div>
+                    <div className="w-12 h-12 border-4 border-[#021E14]/30 border-t-red-500 rounded-full animate-spin mx-auto"></div>
                     <p className="mt-4 text-gray-500">Loading contact design...</p>
                 </div>
             </div>
@@ -161,7 +161,7 @@ const ContactDesignPage = () => {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-500 to-emerald-500 text-white rounded-xl font-semibold shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/30 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-semibold shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/30 transition-all disabled:opacity-50"
                     >
                         <LuSave size={18} />
                         {saving ? 'Saving...' : 'Save Changes'}
@@ -173,7 +173,7 @@ const ContactDesignPage = () => {
                 {/* Hero Section */}
                 <div className={`p-6 rounded-2xl lg:col-span-2 ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-200'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-[#021E14] to-[#021E14] rounded-xl flex items-center justify-center">
                             <LuMessageCircle className="text-white" size={20} />
                         </div>
                         <h3 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Hero Section</h3>
@@ -185,7 +185,7 @@ const ContactDesignPage = () => {
                                 type="text"
                                 value={contactContent.hero?.badge || ''}
                                 onChange={(e) => updateHero('badge', e.target.value)}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="Get In Touch"
                             />
                         </div>
@@ -195,7 +195,7 @@ const ContactDesignPage = () => {
                                 type="text"
                                 value={contactContent.hero?.badgeBn || ''}
                                 onChange={(e) => updateHero('badgeBn', e.target.value)}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
+                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] hind-siliguri`}
                                 placeholder="??????? ????"
                             />
                         </div>
@@ -205,7 +205,7 @@ const ContactDesignPage = () => {
                                 type="text"
                                 value={contactContent.hero?.title1 || ''}
                                 onChange={(e) => updateHero('title1', e.target.value)}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="Let's "
                             />
                         </div>
@@ -215,7 +215,7 @@ const ContactDesignPage = () => {
                                 type="text"
                                 value={contactContent.hero?.title2 || ''}
                                 onChange={(e) => updateHero('title2', e.target.value)}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 text-red-500 font-bold`}
+                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] text-[#021E14] font-bold`}
                                 placeholder="Connect"
                             />
                         </div>
@@ -225,7 +225,7 @@ const ContactDesignPage = () => {
                                 value={contactContent.hero?.subtitle || ''}
                                 onChange={(e) => updateHero('subtitle', e.target.value)}
                                 rows={2}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="Have questions? We'd love to hear from you..."
                             />
                         </div>
@@ -235,7 +235,7 @@ const ContactDesignPage = () => {
                                 value={contactContent.hero?.subtitleBn || ''}
                                 onChange={(e) => updateHero('subtitleBn', e.target.value)}
                                 rows={2}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
+                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] hind-siliguri`}
                                 placeholder="???? ?????? ???? ?????? ????? ?????..."
                             />
                         </div>
@@ -245,66 +245,66 @@ const ContactDesignPage = () => {
                 {/* Contact Information */}
                 <div className={`p-6 rounded-2xl ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-200'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-[#021E14] to-[#01140D] rounded-xl flex items-center justify-center">
                             <LuPhone className="text-white" size={20} />
                         </div>
                         <h3 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Contact Information</h3>
                     </div>
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <LuMail className="text-red-500 shrink-0" size={18} />
+                            <LuMail className="text-[#021E14] shrink-0" size={18} />
                             <input
                                 type="email"
                                 value={contactContent.contactInfo?.email || ''}
                                 onChange={(e) => updateContactInfo('email', e.target.value)}
-                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="info@example.com"
                             />
                         </div>
                         <div className="flex items-center gap-3">
-                            <LuPhone className="text-orange-500 shrink-0" size={18} />
+                            <LuPhone className="text-[#021E14] shrink-0" size={18} />
                             <input
                                 type="text"
                                 value={contactContent.contactInfo?.phone || ''}
                                 onChange={(e) => updateContactInfo('phone', e.target.value)}
-                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="+88 01XXXXXXXXX"
                             />
                         </div>
                         <div className="flex items-start gap-3">
-                            <LuMapPin className="text-purple-500 shrink-0 mt-3" size={18} />
+                            <LuMapPin className="text-[#021E14] shrink-0 mt-3" size={18} />
                             <div className="flex-1 space-y-2">
                                 <input
                                     type="text"
                                     value={contactContent.contactInfo?.address || ''}
                                     onChange={(e) => updateContactInfo('address', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                     placeholder="Address (English)"
                                 />
                                 <input
                                     type="text"
                                     value={contactContent.contactInfo?.addressBn || ''}
                                     onChange={(e) => updateContactInfo('addressBn', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
+                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] hind-siliguri`}
                                     placeholder="?????? (?????)"
                                 />
                             </div>
                         </div>
                         <div className="flex items-start gap-3">
-                            <LuClock className="text-pink-500 shrink-0 mt-3" size={18} />
+                            <LuClock className="text-[#021E14] shrink-0 mt-3" size={18} />
                             <div className="flex-1 space-y-2">
                                 <input
                                     type="text"
                                     value={contactContent.contactInfo?.officeHours || ''}
                                     onChange={(e) => updateContactInfo('officeHours', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                     placeholder="Office Hours (English)"
                                 />
                                 <input
                                     type="text"
                                     value={contactContent.contactInfo?.officeHoursBn || ''}
                                     onChange={(e) => updateContactInfo('officeHoursBn', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
+                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] hind-siliguri`}
                                     placeholder="???? ?????? (?????)"
                                 />
                             </div>
@@ -315,33 +315,33 @@ const ContactDesignPage = () => {
                 {/* Social Links */}
                 <div className={`p-6 rounded-2xl ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-200'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-[#021E14] to-cyan-500 rounded-xl flex items-center justify-center">
                             <LuGlobe className="text-white" size={20} />
                         </div>
                         <h3 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Social Links</h3>
                     </div>
                     <div className="space-y-3">
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 bg-blue-500/10 rounded-lg flex items-center justify-center">
-                                <FaFacebookF className="text-blue-600" size={16} />
+                            <div className="w-9 h-9 bg-[#021E14]/10 rounded-lg flex items-center justify-center">
+                                <FaFacebookF className="text-[#021E14]" size={16} />
                             </div>
                             <input
                                 type="url"
                                 value={contactContent.socialLinks?.facebook || ''}
                                 onChange={(e) => updateSocialLinks('facebook', e.target.value)}
-                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="Facebook URL"
                             />
                         </div>
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 bg-red-500/10 rounded-lg flex items-center justify-center">
-                                <FaYoutube className="text-red-600" size={16} />
+                            <div className="w-9 h-9 bg-[#021E14]/10 rounded-lg flex items-center justify-center">
+                                <FaYoutube className="text-[#021E14]" size={16} />
                             </div>
                             <input
                                 type="url"
                                 value={contactContent.socialLinks?.youtube || ''}
                                 onChange={(e) => updateSocialLinks('youtube', e.target.value)}
-                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="YouTube URL"
                             />
                         </div>
@@ -353,7 +353,7 @@ const ContactDesignPage = () => {
                                 type="url"
                                 value={contactContent.socialLinks?.linkedin || ''}
                                 onChange={(e) => updateSocialLinks('linkedin', e.target.value)}
-                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="LinkedIn URL"
                             />
                         </div>
@@ -365,19 +365,19 @@ const ContactDesignPage = () => {
                                 type="url"
                                 value={contactContent.socialLinks?.whatsapp || ''}
                                 onChange={(e) => updateSocialLinks('whatsapp', e.target.value)}
-                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="WhatsApp URL (wa.me/...)"
                             />
                         </div>
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 bg-pink-500/10 rounded-lg flex items-center justify-center">
-                                <FaInstagram className="text-pink-600" size={16} />
+                            <div className="w-9 h-9 bg-[#021E14]/10 rounded-lg flex items-center justify-center">
+                                <FaInstagram className="text-[#021E14]" size={16} />
                             </div>
                             <input
                                 type="url"
                                 value={contactContent.socialLinks?.instagram || ''}
                                 onChange={(e) => updateSocialLinks('instagram', e.target.value)}
-                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="Instagram URL"
                             />
                         </div>
@@ -387,7 +387,7 @@ const ContactDesignPage = () => {
                 {/* WhatsApp Section */}
                 <div className={`p-6 rounded-2xl ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-200'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-[#021E14] rounded-xl flex items-center justify-center">
                             <FaWhatsapp className="text-white" size={20} />
                         </div>
                         <h3 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>WhatsApp Quick Help Section</h3>
@@ -400,7 +400,7 @@ const ContactDesignPage = () => {
                                     type="text"
                                     value={contactContent.whatsappSection?.title || ''}
                                     onChange={(e) => updateWhatsappSection('title', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                     placeholder="Need Quick Help?"
                                 />
                             </div>
@@ -410,7 +410,7 @@ const ContactDesignPage = () => {
                                     type="text"
                                     value={contactContent.whatsappSection?.titleBn || ''}
                                     onChange={(e) => updateWhatsappSection('titleBn', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
+                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] hind-siliguri`}
                                     placeholder="????? ??????? ??????"
                                 />
                             </div>
@@ -421,7 +421,7 @@ const ContactDesignPage = () => {
                                 value={contactContent.whatsappSection?.description || ''}
                                 onChange={(e) => updateWhatsappSection('description', e.target.value)}
                                 rows={2}
-                                className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                 placeholder="Chat with us for instant support..."
                             />
                         </div>
@@ -431,7 +431,7 @@ const ContactDesignPage = () => {
                                 value={contactContent.whatsappSection?.descriptionBn || ''}
                                 onChange={(e) => updateWhatsappSection('descriptionBn', e.target.value)}
                                 rows={2}
-                                className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
+                                className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] hind-siliguri`}
                                 placeholder="????????? ????????? ???? ????? ????..."
                             />
                         </div>
@@ -442,7 +442,7 @@ const ContactDesignPage = () => {
                                     type="text"
                                     value={contactContent.whatsappSection?.buttonText || ''}
                                     onChange={(e) => updateWhatsappSection('buttonText', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                                     placeholder="Chat on WhatsApp"
                                 />
                             </div>
@@ -452,7 +452,7 @@ const ContactDesignPage = () => {
                                     type="text"
                                     value={contactContent.whatsappSection?.buttonTextBn || ''}
                                     onChange={(e) => updateWhatsappSection('buttonTextBn', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
+                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14] hind-siliguri`}
                                     placeholder="????????????? ????? ????"
                                 />
                             </div>
@@ -463,7 +463,7 @@ const ContactDesignPage = () => {
                 {/* Map Embed */}
                 <div className={`p-6 rounded-2xl ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-200'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-[#D4AF37] to-[#01140D] rounded-xl flex items-center justify-center">
                             <LuMapPin className="text-white" size={20} />
                         </div>
                         <h3 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Google Map Embed</h3>
@@ -474,7 +474,7 @@ const ContactDesignPage = () => {
                             type="url"
                             value={contactContent.mapEmbedUrl || ''}
                             onChange={(e) => setContactContent(prev => ({ ...prev, mapEmbedUrl: e.target.value }))}
-                            className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                            className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-[#021E14]`}
                             placeholder="https://www.google.com/maps/embed?pb=..."
                         />
                         <p className={`text-xs mt-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>

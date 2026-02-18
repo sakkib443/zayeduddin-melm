@@ -14,8 +14,8 @@ import QuestionBuilder from '@/components/Admin/lesson/QuestionBuilder';
 import DocumentManager from '@/components/Admin/lesson/DocumentManager';
 import TextContentManager from '@/components/Admin/lesson/TextContentManager';
 
-const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all";
-const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer";
+const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/10 outline-none transition-all";
+const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/10 outline-none transition-all appearance-none cursor-pointer";
 const labelClass = "block text-sm font-medium text-slate-700 mb-1.5";
 
 export default function EditLessonPage() {
@@ -228,7 +228,7 @@ export default function EditLessonPage() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3">
-                <FiRefreshCw className="animate-spin text-indigo-500" size={28} />
+                <FiRefreshCw className="animate-spin text-[#021E14]" size={28} />
                 <p className="text-sm text-slate-500">লেসন ডেটা লোড হচ্ছে...</p>
             </div>
         );
@@ -239,7 +239,7 @@ export default function EditLessonPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <Link href="/dashboard/admin/lesson" className="w-9 h-9 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500 hover:text-indigo-600 hover:border-indigo-300 transition-all">
+                    <Link href="/dashboard/admin/lesson" className="w-9 h-9 bg-white border border-slate-200 rounded-md flex items-center justify-center text-slate-500 hover:text-[#021E14] hover:border-[#021E14] transition-all">
                         <FiArrowLeft size={18} />
                     </Link>
                     <div>
@@ -250,7 +250,7 @@ export default function EditLessonPage() {
                 <div className="flex items-center gap-2">
                     <button
                         onClick={handleDelete}
-                        className="px-3 py-2 rounded-md border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 text-sm font-medium transition-all flex items-center gap-1.5"
+                        className="px-3 py-2 rounded-md border border-[#021E14] bg-[#021E14] text-[#021E14] hover:bg-[#021E14] text-sm font-medium transition-all flex items-center gap-1.5"
                     >
                         <FiTrash2 size={14} />
                         মুছুন
@@ -258,7 +258,7 @@ export default function EditLessonPage() {
                     <button
                         onClick={handleSubmit}
                         disabled={saving}
-                        className="px-5 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-all flex items-center gap-2 disabled:opacity-50"
+                        className="px-5 py-2 rounded-md bg-[#021E14] hover:bg-[#01140D] text-white text-sm font-semibold transition-all flex items-center gap-2 disabled:opacity-50"
                     >
                         {saving ? <FiRefreshCw className="animate-spin" size={14} /> : <FiSave size={14} />}
                         আপডেট করুন
@@ -269,7 +269,7 @@ export default function EditLessonPage() {
             {/* Basic Info Section */}
             <div className="bg-white rounded-md border border-slate-200 p-5 space-y-5">
                 <div className="flex items-center gap-2 mb-1">
-                    <div className="w-7 h-7 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-md bg-[#021E14] text-[#021E14] flex items-center justify-center">
                         <FiLayers size={14} />
                     </div>
                     <h3 className="text-sm font-semibold text-slate-700">মৌলিক তথ্য</h3>
@@ -399,14 +399,14 @@ export default function EditLessonPage() {
                             type="button"
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 px-5 py-3 text-sm font-medium transition-all whitespace-nowrap border-b-2 -mb-[1px] ${activeTab === tab.id
-                                    ? 'text-indigo-600 border-indigo-500 bg-white'
+                                    ? 'text-[#021E14] border-[#021E14] bg-white'
                                     : 'text-slate-500 border-transparent hover:text-slate-700'
                                 }`}
                         >
                             <tab.icon size={15} />
                             {tab.label}
                             {tab.badge > 0 && (
-                                <span className="ml-1 px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-600 text-[10px] font-bold">
+                                <span className="ml-1 px-1.5 py-0.5 rounded-full bg-[#021E14] text-[#021E14] text-[10px] font-bold">
                                     {tab.badge}
                                 </span>
                             )}
@@ -517,7 +517,7 @@ export default function EditLessonPage() {
                             {formData.questions?.length > 0 && (
                                 <div className="bg-slate-50 rounded-md border border-slate-200 p-4">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <FiSettings size={14} className="text-indigo-500" />
+                                        <FiSettings size={14} className="text-[#021E14]" />
                                         <h4 className="text-sm font-semibold text-slate-700">কুইজ সেটিংস</h4>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -554,7 +554,7 @@ export default function EditLessonPage() {
                                                     type="checkbox"
                                                     checked={formData.quizSettings.showCorrectAnswers}
                                                     onChange={(e) => handleQuizSettingsChange('showCorrectAnswers', e.target.checked)}
-                                                    className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                                    className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]"
                                                 />
                                                 <span className="text-xs text-slate-600">উত্তর দেখান</span>
                                             </label>
@@ -565,7 +565,7 @@ export default function EditLessonPage() {
                                                     type="checkbox"
                                                     checked={formData.quizSettings.shuffleQuestions}
                                                     onChange={(e) => handleQuizSettingsChange('shuffleQuestions', e.target.checked)}
-                                                    className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                                    className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]"
                                                 />
                                                 <span className="text-xs text-slate-600">শাফল করুন</span>
                                             </label>
@@ -588,7 +588,7 @@ export default function EditLessonPage() {
                                             : 'bg-white border-slate-200 hover:border-slate-300'
                                         }`}
                                 >
-                                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${formData.isPublished ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400'
+                                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${formData.isPublished ? 'bg-[#021E14] text-white' : 'bg-slate-100 text-slate-400'
                                         }`}>
                                         <FiCheck size={16} />
                                     </div>
@@ -606,11 +606,11 @@ export default function EditLessonPage() {
                                 <div
                                     onClick={() => setFormData(prev => ({ ...prev, isFree: !prev.isFree }))}
                                     className={`p-4 rounded-md border-2 cursor-pointer transition-all flex items-center gap-3 ${formData.isFree
-                                            ? 'bg-indigo-50 border-indigo-300'
+                                            ? 'bg-[#021E14] border-[#021E14]'
                                             : 'bg-white border-slate-200 hover:border-slate-300'
                                         }`}
                                 >
-                                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${formData.isFree ? 'bg-indigo-500 text-white' : 'bg-slate-100 text-slate-400'
+                                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${formData.isFree ? 'bg-[#021E14] text-white' : 'bg-slate-100 text-slate-400'
                                         }`}>
                                         <FiPlay size={16} />
                                     </div>
@@ -630,11 +630,11 @@ export default function EditLessonPage() {
                                 <h4 className="text-sm font-semibold text-slate-700 mb-3">লেসন সারাংশ</h4>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                     <div className="text-center p-2 bg-white rounded-md border border-slate-100">
-                                        <p className="text-lg font-bold text-indigo-600">{formData.videoUrl ? '1' : '0'}</p>
+                                        <p className="text-lg font-bold text-[#021E14]">{formData.videoUrl ? '1' : '0'}</p>
                                         <p className="text-[10px] text-slate-500 font-medium">ভিডিও</p>
                                     </div>
                                     <div className="text-center p-2 bg-white rounded-md border border-slate-100">
-                                        <p className="text-lg font-bold text-emerald-600">{formData.documents?.length || 0}</p>
+                                        <p className="text-lg font-bold text-[#021E14]">{formData.documents?.length || 0}</p>
                                         <p className="text-[10px] text-slate-500 font-medium">ডকুমেন্ট</p>
                                     </div>
                                     <div className="text-center p-2 bg-white rounded-md border border-slate-100">
@@ -642,7 +642,7 @@ export default function EditLessonPage() {
                                         <p className="text-[10px] text-slate-500 font-medium">কুইজ প্রশ্ন</p>
                                     </div>
                                     <div className="text-center p-2 bg-white rounded-md border border-slate-100">
-                                        <p className="text-lg font-bold text-rose-600">{formData.textBlocks?.length || 0}</p>
+                                        <p className="text-lg font-bold text-[#021E14]">{formData.textBlocks?.length || 0}</p>
                                         <p className="text-[10px] text-slate-500 font-medium">টেক্সট ব্লক</p>
                                     </div>
                                 </div>
@@ -664,7 +664,7 @@ export default function EditLessonPage() {
                 <button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="px-6 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-all flex items-center gap-2 disabled:opacity-50"
+                    className="px-6 py-2 rounded-md bg-[#021E14] hover:bg-[#01140D] text-white text-sm font-semibold transition-all flex items-center gap-2 disabled:opacity-50"
                 >
                     {saving ? <FiRefreshCw className="animate-spin" size={14} /> : <FiSave size={14} />}
                     লেসন আপডেট করুন

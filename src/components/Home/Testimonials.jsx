@@ -49,7 +49,7 @@ const Testimonials = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className={`text-2xl md:text-3xl lg:text-4xl font-bold text-[#300000] ${bengaliClass}`}
+                        className={`text-2xl md:text-3xl lg:text-4xl font-bold text-[#021E14] ${bengaliClass}`}
                         style={{ fontFamily: 'var(--font-poppins)' }}
                     >
                         {t("testimonials.title")}
@@ -73,8 +73,8 @@ const Testimonials = () => {
                                     whileHover={{ scale: isActive ? 1.1 : 0.9, opacity: 1, zIndex: 40 }}
                                     className="relative shrink-0"
                                 >
-                                    <div className={`w-12 h-12 md:w-20 md:h-20 rounded-full p-0.5 md:p-1 transition-all duration-500 bg-white shadow-xl ${isActive ? 'ring-2 md:ring-4 ring-[#300000]/20' : ''}`}>
-                                        <div className="relative w-full h-full rounded-full overflow-hidden border border-[#300000]/30 md:border-2 md:border-[#300000]">
+                                    <div className={`w-12 h-12 md:w-20 md:h-20 rounded-full p-0.5 md:p-1 transition-all duration-500 bg-white shadow-xl ${isActive ? 'ring-2 md:ring-4 ring-[#021E14]/20' : ''}`}>
+                                        <div className="relative w-full h-full rounded-full overflow-hidden border border-[#021E14]/30 md:border-2 md:border-[#021E14]">
                                             <img
                                                 src={t.avatar}
                                                 alt={t.name}
@@ -101,7 +101,7 @@ const Testimonials = () => {
                         >
                             {/* Profile Image Circle (Overlapping) */}
                             <div className="relative md:absolute md:-left-12 lg:-left-20 w-48 h-48 md:w-56 md:h-56 shrink-0 z-20 -mt-24 md:mt-0 mb-6 md:mb-0">
-                                <div className="w-full h-full rounded-full bg-[#300000] p-2.5 shadow-2xl flex items-center justify-center">
+                                <div className="w-full h-full rounded-full bg-[#021E14] p-2.5 shadow-2xl flex items-center justify-center">
                                     <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/20">
                                         <img
                                             src={activeTestimonial.avatar}
@@ -115,7 +115,7 @@ const Testimonials = () => {
                             {/* Text Content */}
                             <div className="flex-1 p-6 md:p-10 md:pl-56 lg:pl-48 flex flex-col justify-center">
                                 <div className="mb-4">
-                                    <LuQuote className="text-[#300000] opacity-10" size={40} />
+                                    <LuQuote className="text-[#021E14] opacity-10" size={40} />
                                 </div>
 
                                 <p className={`text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed mb-6 italic ${bengaliClass}`}>
@@ -123,7 +123,7 @@ const Testimonials = () => {
                                 </p>
 
                                 <div className="flex flex-col">
-                                    <h4 className={`text-base md:text-lg font-bold text-[#300000] ${bengaliClass}`}>
+                                    <h4 className={`text-base md:text-lg font-bold text-[#021E14] ${bengaliClass}`}>
                                         {activeTestimonial.name}
                                     </h4>
                                     <p className="text-[#D4AF37] font-bold text-[10px] md:text-xs uppercase tracking-widest mt-0.5">
@@ -134,10 +134,10 @@ const Testimonials = () => {
 
                             {/* Gold Sidebar with Social Icons */}
                             <div className="w-full md:w-12 bg-[#D4AF37] self-stretch md:rounded-r-[2rem] flex flex-row md:flex-col items-center justify-center gap-4 p-3 md:p-0">
-                                <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#300000] hover:scale-110 transition-transform shadow-sm">
+                                <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#021E14] hover:scale-110 transition-transform shadow-sm">
                                     <FaFacebookF size={14} />
                                 </a>
-                                <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#300000] hover:scale-110 transition-transform shadow-sm">
+                                <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#021E14] hover:scale-110 transition-transform shadow-sm">
                                     <FaLinkedinIn size={14} />
                                 </a>
                             </div>

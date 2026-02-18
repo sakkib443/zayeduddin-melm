@@ -25,7 +25,7 @@ const designPages = [
         href: '/dashboard/admin/design/home',
         icon: FiHome,
         sections: ['Hero', 'Popular Courses', 'Digital Products', 'What We Provide'],
-        color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400'
+        color: 'text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]'
     },
     {
         id: 'about',
@@ -43,7 +43,7 @@ const designPages = [
         href: '/dashboard/admin/design/contact',
         icon: FiMail,
         sections: ['Contact Info', 'Form Settings'],
-        color: 'text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400'
+        color: 'text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]'
     }
 ];
 
@@ -158,8 +158,8 @@ const DesignManagementPage = () => {
             {/* Header */}
             <div className="mb-6">
                 <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-md bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
-                        <FiLayout className="text-red-600 dark:text-red-400" size={20} />
+                    <div className="w-10 h-10 rounded-md bg-[#021E14] dark:bg-[#021E14]/20 flex items-center justify-center">
+                        <FiLayout className="text-[#021E14] dark:text-[#021E14]" size={20} />
                     </div>
                     <div>
                         <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -178,7 +178,7 @@ const DesignManagementPage = () => {
                     icon={FiLayers} 
                     label="Total Pages" 
                     value={designPages.length}
-                    color="text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
+                    color="text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]"
                 />
                 <StatCard 
                     icon={FiFileText} 
@@ -190,13 +190,13 @@ const DesignManagementPage = () => {
                     icon={FiImage} 
                     label="Design Configs" 
                     value={loading ? '...' : stats.totalSections}
-                    color="text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400"
+                    color="text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]"
                 />
                 <StatCard 
                     icon={FiRefreshCw} 
                     label="Last Updated" 
                     value={loading ? '...' : formatDate(stats.lastUpdated)}
-                    color="text-orange-600 bg-orange-50 dark:bg-orange-900/20 dark:text-orange-400"
+                    color="text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]"
                 />
             </div>
 
@@ -210,7 +210,7 @@ const DesignManagementPage = () => {
                             placeholder="Search pages or sections..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-9 pr-4 py-2 text-sm bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 text-gray-900 dark:text-white placeholder-gray-400"
+                            className="w-full pl-9 pr-4 py-2 text-sm bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-[#021E14]/20 focus:border-[#021E14] text-gray-900 dark:text-white placeholder-gray-400"
                         />
                     </div>
                     <button

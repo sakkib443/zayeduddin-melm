@@ -31,7 +31,7 @@ const PopularCourse = () => {
   const { courses = [], loading } = useSelector((state) => state.courses);
 
   const colors = {
-    darkRed: "#300000",
+    darkRed: "#021E14",
     gold: "#D4AF37",
     bg: "#fafafa",
   };

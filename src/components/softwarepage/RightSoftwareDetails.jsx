@@ -96,7 +96,7 @@ const RightSoftwareDetails = ({ searchQuery, selectedType }) => {
             {/* Top Bar (Synced with Course style) */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white border border-gray-200 rounded-md p-4 shadow-sm">
                 <div className="flex items-center gap-2">
-                    <HiOutlineSparkles className="text-[#E62D26]" />
+                    <HiOutlineSparkles className="text-[#021E14]" />
                     <span className="text-gray-800 font-semibold outfit">
                         {sortedSoftware.length} <span className="text-gray-500 font-normal">{language === 'bn' ? '?? ????? ????' : 'products found'}</span>
                     </span>
@@ -108,7 +108,7 @@ const RightSoftwareDetails = ({ searchQuery, selectedType }) => {
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value)}
-                            className="appearance-none w-full pl-8 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 work focus:outline-none focus:border-[#E62D26] cursor-pointer"
+                            className="appearance-none w-full pl-8 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-700 work focus:outline-none focus:border-[#021E14] cursor-pointer"
                         >
                             <option value="default">{language === 'bn' ? '???? ????' : 'Sort By'}</option>
                             <option value="rating">{language === 'bn' ? '?? ?????' : 'Top Rated'}</option>
@@ -122,13 +122,13 @@ const RightSoftwareDetails = ({ searchQuery, selectedType }) => {
                     <div className="hidden sm:flex items-center border border-gray-200 rounded-md overflow-hidden">
                         <button
                             onClick={() => setIsGridView(true)}
-                            className={`p-2 ${isGridView ? 'bg-[#E62D26] text-white' : 'bg-white text-gray-500 hover:bg-gray-50'}`}
+                            className={`p-2 ${isGridView ? 'bg-[#021E14] text-white' : 'bg-white text-gray-500 hover:bg-gray-50'}`}
                         >
                             <LuLayoutGrid className="text-lg" />
                         </button>
                         <button
                             onClick={() => setIsGridView(false)}
-                            className={`p-2 ${!isGridView ? 'bg-[#E62D26] text-white' : 'bg-white text-gray-500 hover:bg-gray-50'}`}
+                            className={`p-2 ${!isGridView ? 'bg-[#021E14] text-white' : 'bg-white text-gray-500 hover:bg-gray-50'}`}
                         >
                             <LuList className="text-lg" />
                         </button>

@@ -170,7 +170,7 @@ export default function CreateBatchPage() {
 
             {/* Error Message */}
             {error && (
-                <div className="mb-6 p-4 bg-red-100 border border-red-200 text-red-700 rounded-md">
+                <div className="mb-6 p-4 bg-[#021E14] border border-[#021E14] text-[#01140D] rounded-md">
                     {error}
                 </div>
             )}
@@ -185,7 +185,7 @@ export default function CreateBatchPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Course <span className="text-red-500">*</span>
+                                Course <span className="text-[#021E14]">*</span>
                             </label>
                             <select
                                 name="course"
@@ -195,7 +195,7 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             >
                                 <option value="">Select Course</option>
                                 {courses.map((course) => (
@@ -204,7 +204,7 @@ export default function CreateBatchPage() {
                                     </option>
                                 ))}
                             </select>
-                            {fieldErrors.course && <p className="mt-1 text-xs text-red-500">{fieldErrors.course}</p>}
+                            {fieldErrors.course && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.course}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -217,7 +217,7 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             >
                                 <option value="">Select Instructor</option>
                                 {instructors.map((inst) => (
@@ -229,7 +229,7 @@ export default function CreateBatchPage() {
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Batch Name <span className="text-red-500">*</span>
+                                Batch Name <span className="text-[#021E14]">*</span>
                             </label>
                             <input
                                 type="text"
@@ -241,13 +241,13 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.batchName && <p className="mt-1 text-xs text-red-500">{fieldErrors.batchName}</p>}
+                            {fieldErrors.batchName && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.batchName}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Batch Code <span className="text-red-500">*</span>
+                                Batch Code <span className="text-[#021E14]">*</span>
                             </label>
                             <input
                                 type="text"
@@ -259,9 +259,9 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.batchCode && <p className="mt-1 text-xs text-red-500">{fieldErrors.batchCode}</p>}
+                            {fieldErrors.batchCode && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.batchCode}</p>}
                         </div>
                         <div className="md:col-span-2">
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -276,7 +276,7 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
                         </div>
                     </div>
@@ -290,7 +290,7 @@ export default function CreateBatchPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Start Date <span className="text-red-500">*</span>
+                                Start Date <span className="text-[#021E14]">*</span>
                             </label>
                             <input
                                 type="date"
@@ -301,13 +301,13 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.startDate && <p className="mt-1 text-xs text-red-500">{fieldErrors.startDate}</p>}
+                            {fieldErrors.startDate && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.startDate}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                End Date <span className="text-red-500">*</span>
+                                End Date <span className="text-[#021E14]">*</span>
                             </label>
                             <input
                                 type="date"
@@ -318,9 +318,9 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.endDate && <p className="mt-1 text-xs text-red-500">{fieldErrors.endDate}</p>}
+                            {fieldErrors.endDate && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.endDate}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -334,12 +334,12 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Max Students <span className="text-red-500">*</span>
+                                Max Students <span className="text-[#021E14]">*</span>
                             </label>
                             <input
                                 type="number"
@@ -351,9 +351,9 @@ export default function CreateBatchPage() {
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.maxStudents && <p className="mt-1 text-xs text-red-500">{fieldErrors.maxStudents}</p>}
+                            {fieldErrors.maxStudents && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.maxStudents}</p>}
                         </div>
                     </div>
                 </div>
@@ -367,7 +367,7 @@ export default function CreateBatchPage() {
                         <button
                             type="button"
                             onClick={addSchedule}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-colors font-medium"
                         >
                             <FiPlus size={14} />
                             Add Day
@@ -388,7 +388,7 @@ export default function CreateBatchPage() {
                                         className={`px-3 py-2 rounded-md border font-normal capitalize ${isDark
                                             ? 'bg-slate-600 border-slate-500 text-white'
                                             : 'bg-white border-gray-200 text-gray-900'
-                                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                     >
                                         {DAYS.map((day) => (
                                             <option key={day} value={day} className="capitalize">
@@ -403,7 +403,7 @@ export default function CreateBatchPage() {
                                         className={`px-3 py-2 rounded-md border font-normal ${isDark
                                             ? 'bg-slate-600 border-slate-500 text-white'
                                             : 'bg-white border-gray-200 text-gray-900'
-                                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                     />
                                     <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>to</span>
                                     <input
@@ -413,12 +413,12 @@ export default function CreateBatchPage() {
                                         className={`px-3 py-2 rounded-md border font-normal ${isDark
                                             ? 'bg-slate-600 border-slate-500 text-white'
                                             : 'bg-white border-gray-200 text-gray-900'
-                                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => removeSchedule(index)}
-                                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+                                        className="p-2 text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/20 rounded-md transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>
@@ -442,7 +442,7 @@ export default function CreateBatchPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="inline-flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium disabled:opacity-50"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-colors font-medium disabled:opacity-50"
                     >
                         <FiSave size={18} />
                         {loading ? 'Creating...' : 'Create Batch'}

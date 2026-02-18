@@ -94,12 +94,12 @@ const UserSidebar = () => {
             title: 'Dashboard',
             href: '/dashboard/user',
             icon: FiHome,
-            gradient: 'from-indigo-500 to-purple-500'
+            gradient: 'from-[#021E14] to-[#01140D]'
         },
         {
             title: 'Learning Area',
             icon: FiBook,
-            gradient: 'from-[#E62D26] to-[#f79952]',
+            gradient: 'from-[#021E14] to-[#021E14]',
             submenu: [
                 { title: 'My Courses', href: '/dashboard/user/courses', icon: FiBook, count: stats?.totalEnrolled },
                 { title: 'My Batches', href: '/dashboard/user/batches', icon: FiUsers },
@@ -112,7 +112,7 @@ const UserSidebar = () => {
         {
             title: 'Achievements',
             icon: FiAward,
-            gradient: 'from-[#f79952] to-[#E62D26]',
+            gradient: 'from-[#021E14] to-[#021E14]',
             submenu: [
                 { title: 'Certificates', href: '/dashboard/user/certificates', icon: FiAward, count: stats?.certificatesEarned },
                 { title: 'Points & Badges', href: '/dashboard/user/points', icon: FiStar },
@@ -121,7 +121,7 @@ const UserSidebar = () => {
         {
             title: 'Digital Assets',
             icon: FiDownload,
-            gradient: 'from-[#E62D26] to-[#c41e18]',
+            gradient: 'from-[#021E14] to-[#021E14]',
             submenu: [
                 { title: 'All Assets', href: '/dashboard/user/downloads', icon: FiDownload, count: downloads?.length },
                 { title: 'Softwares', href: '/dashboard/user/assets/softwares', icon: FiCode },
@@ -132,20 +132,20 @@ const UserSidebar = () => {
             title: 'Purchase History',
             href: '/dashboard/user/purchases',
             icon: FiShoppingBag,
-            gradient: 'from-[#f79952] to-[#fb923c]',
+            gradient: 'from-[#021E14] to-[#021E14]',
             count: orders?.length
         },
         {
             title: 'My Favorites',
             href: '/dashboard/user/favorites',
             icon: FiHeart,
-            gradient: 'from-rose-500 to-pink-500'
+            gradient: 'from-[#021E14] to-[#01140D]'
         },
         {
             title: 'My Reviews',
             href: '/dashboard/user/reviews',
             icon: FiStar,
-            gradient: 'from-yellow-400 to-amber-500'
+            gradient: 'from-yellow-400 to-[#D4AF37]'
         },
         {
             title: 'Profile Settings',
@@ -157,7 +157,7 @@ const UserSidebar = () => {
             title: 'Support',
             href: '/dashboard/user/support',
             icon: FiHelpCircle,
-            gradient: 'from-[#E62D26] to-[#f79952]'
+            gradient: 'from-[#021E14] to-[#021E14]'
         },
     ];
 
@@ -172,7 +172,7 @@ const UserSidebar = () => {
             {/* Mobile Toggle */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white shadow-md shadow-[#E62D26]/10 hover:shadow-lg transition-all"
+                className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl bg-gradient-to-r from-[#021E14] to-[#021E14] text-white shadow-md shadow-[#021E14]/10 hover:shadow-lg transition-all"
             >
                 {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
             </button>
@@ -187,14 +187,14 @@ const UserSidebar = () => {
                     }`}
             >
                 {/* Decorative Elements */}
-                <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-br from-[#E62D26]/10 to-transparent' : 'bg-gradient-to-br from-[#E62D26]/5 to-transparent'
+                <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-br from-[#021E14]/10 to-transparent' : 'bg-gradient-to-br from-[#021E14]/5 to-transparent'
                     }`} />
-                <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-tr from-[#f79952]/10 to-transparent' : 'bg-gradient-to-tr from-[#f79952]/5 to-transparent'
+                <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-tr from-[#021E14]/10 to-transparent' : 'bg-gradient-to-tr from-[#021E14]/5 to-transparent'
                     }`} />
 
                 {/* Logo */}
                 <div className={`relative px-6 py-5 border-b ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-                    <Logo size="small" align="left" color={isDark ? "#D4AF37" : "#300000"} />
+                    <Logo size="small" align="left" color={isDark ? "#D4AF37" : "#021E14"} />
                 </div>
 
                 {/* Return to Marketplace */}
@@ -230,8 +230,8 @@ const UserSidebar = () => {
                                         className={`group w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all
                                         ${activeSub
                                                 ? isDark
-                                                    ? 'bg-gradient-to-r from-[#E62D26]/20 to-[#f79952]/20 text-white'
-                                                    : 'bg-gradient-to-r from-[#E62D26]/10 to-[#f79952]/10 text-slate-800'
+                                                    ? 'bg-gradient-to-r from-[#021E14]/20 to-[#021E14]/20 text-white'
+                                                    : 'bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 text-slate-800'
                                                 : isDark
                                                     ? 'text-slate-400 hover:text-white hover:bg-white/5'
                                                     : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -239,7 +239,7 @@ const UserSidebar = () => {
                                     >
                                         <span className="flex items-center gap-3">
                                             <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${activeSub
-                                                ? `bg-gradient-to-br ${item.gradient} shadow-md shadow-[#E62D26]/10`
+                                                ? `bg-gradient-to-br ${item.gradient} shadow-md shadow-[#021E14]/10`
                                                 : isDark
                                                     ? 'bg-slate-800 group-hover:bg-slate-700'
                                                     : 'bg-slate-200 group-hover:bg-slate-300'
@@ -266,7 +266,7 @@ const UserSidebar = () => {
                                                         href={sub.href}
                                                         className={`flex items-center justify-between px-4 py-3 rounded-lg text-sm transition-all
                                                         ${isSubActive
-                                                                ? 'bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white font-semibold shadow-md shadow-[#E62D26]/10'
+                                                                ? 'bg-gradient-to-r from-[#021E14] to-[#021E14] text-white font-semibold shadow-md shadow-[#021E14]/10'
                                                                 : isDark
                                                                     ? 'text-slate-400 hover:text-white hover:bg-white/5'
                                                                     : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -299,8 +299,8 @@ const UserSidebar = () => {
                                 className={`group flex items-center justify-between px-3 py-2.5 rounded-xl transition-all
                                 ${isActive(item.href)
                                         ? isDark
-                                            ? 'bg-gradient-to-r from-[#E62D26]/20 to-[#f79952]/20 text-white'
-                                            : 'bg-gradient-to-r from-[#E62D26]/10 to-[#f79952]/10 text-slate-800'
+                                            ? 'bg-gradient-to-r from-[#021E14]/20 to-[#021E14]/20 text-white'
+                                            : 'bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 text-slate-800'
                                         : isDark
                                             ? 'text-slate-400 hover:text-white hover:bg-white/5'
                                             : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -308,7 +308,7 @@ const UserSidebar = () => {
                             >
                                 <div className="flex items-center gap-3">
                                     <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${isActive(item.href)
-                                        ? `bg-gradient-to-br ${item.gradient} shadow-md shadow-[#E62D26]/10`
+                                        ? `bg-gradient-to-br ${item.gradient} shadow-md shadow-[#021E14]/10`
                                         : isDark
                                             ? 'bg-slate-800 group-hover:bg-slate-700'
                                             : 'bg-slate-200 group-hover:bg-slate-300'
@@ -332,7 +332,7 @@ const UserSidebar = () => {
                 <div className={`absolute bottom-0 left-0 w-full p-4 border-t backdrop-blur-sm ${isDark ? 'border-white/5 bg-slate-900/95' : 'border-slate-200 bg-white/95'
                     }`}>
                     <div className="flex items-center gap-3 mb-4 px-2">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E62D26] to-[#f79952] flex items-center justify-center text-white font-bold shadow-lg shadow-[#E62D26]/20">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white font-bold shadow-lg shadow-[#021E14]/20">
                             {user?.firstName?.[0] || 'S'}
                         </div>
                         <div className="overflow-hidden">
@@ -342,7 +342,7 @@ const UserSidebar = () => {
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all border border-red-500/10"
+                        className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[#021E14] hover:text-[#021E14] hover:bg-[#021E14]/10 transition-all border border-[#021E14]/10"
                     >
                         <FiLogOut size={16} />
                         <span className="text-xs font-medium">Logout Account</span>

@@ -69,9 +69,9 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
             placeholder="Search courses..."
             value={searchQuery || ""}
             onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-10 py-3 text-sm text-slate-800 dark:text-white placeholder-slate-400 bg-slate-50/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/10 focus:bg-white dark:focus:bg-white/10 transition-all"
+            className="w-full pl-11 pr-10 py-3 text-sm text-slate-800 dark:text-white placeholder-slate-400 bg-slate-50/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/10 focus:bg-white dark:focus:bg-white/10 transition-all"
           />
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 bg-gradient-to-br from-[#E62D26] to-[#F79952] rounded-md flex items-center justify-center">
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 bg-gradient-to-br from-[#021E14] to-[#021E14] rounded-md flex items-center justify-center">
             <IoSearchSharp className="text-white text-xs" />
           </div>
           <AnimatePresence>
@@ -81,7 +81,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-slate-100 dark:bg-white/10 hover:bg-[#E62D26]/10 rounded-full flex items-center justify-center text-slate-400 hover:text-[#E62D26] transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-slate-100 dark:bg-white/10 hover:bg-[#021E14]/10 rounded-full flex items-center justify-center text-slate-400 hover:text-[#021E14] transition-colors"
               >
                 <IoClose className="text-sm" />
               </motion.button>
@@ -98,7 +98,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             onClick={clearAllFilters}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#E62D26]/10 to-[#F79952]/10 hover:from-[#E62D26]/20 hover:to-[#F79952]/20 text-[#E62D26] rounded-xl text-sm font-medium transition-all border border-[#E62D26]/20"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 hover:from-[#021E14]/20 hover:to-[#021E14]/20 text-[#021E14] rounded-xl text-sm font-medium transition-all border border-[#021E14]/20"
           >
             <LuX className="text-base" />
             Clear All Filters
@@ -114,7 +114,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
         className="bg-white dark:bg-white/5 backdrop-blur-sm border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden"
       >
         <div className="flex items-center gap-2 px-4 py-3.5 bg-gradient-to-r from-slate-50 to-white dark:from-white/5 dark:to-transparent border-b border-slate-100 dark:border-white/5">
-          <div className="w-7 h-7 bg-gradient-to-br from-[#F79952] to-[#E62D26] rounded-lg flex items-center justify-center">
+          <div className="w-7 h-7 bg-gradient-to-br from-[#021E14] to-[#021E14] rounded-lg flex items-center justify-center">
             <HiOutlineSparkles className="text-white text-sm" />
           </div>
           <h3 className="font-semibold text-slate-800 dark:text-white outfit text-sm">Course Type</h3>
@@ -133,7 +133,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
                   onClick={() => setSelectedType && setSelectedType(type.value)}
                   className={`relative flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl text-xs font-medium transition-all duration-200 ${
                     isSelected
-                      ? "bg-gradient-to-br from-[#E62D26] to-[#E62D26]/90 text-white shadow-lg shadow-[#E62D26]/20"
+                      ? "bg-gradient-to-br from-[#021E14] to-[#021E14]/90 text-white shadow-lg shadow-[#021E14]/20"
                       : "bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10"
                   }`}
                 >
@@ -144,7 +144,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
                       layoutId="typeIndicator"
                       className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full shadow-sm flex items-center justify-center"
                     >
-                      <div className="w-1.5 h-1.5 bg-[#E62D26] rounded-full"></div>
+                      <div className="w-1.5 h-1.5 bg-[#021E14] rounded-full"></div>
                     </motion.div>
                   )}
                 </motion.button>
@@ -162,7 +162,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
         className="bg-white dark:bg-white/5 backdrop-blur-sm border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden"
       >
         <div className="flex items-center gap-2 px-4 py-3.5 bg-gradient-to-r from-slate-50 to-white dark:from-white/5 dark:to-transparent border-b border-slate-100 dark:border-white/5">
-          <div className="w-7 h-7 bg-gradient-to-br from-[#E62D26] to-[#F79952] rounded-lg flex items-center justify-center">
+          <div className="w-7 h-7 bg-gradient-to-br from-[#021E14] to-[#021E14] rounded-lg flex items-center justify-center">
             <LuFilter className="text-white text-sm" />
           </div>
           <h3 className="font-semibold text-slate-800 dark:text-white outfit text-sm">Categories</h3>
@@ -170,7 +170,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
             <motion.span 
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="ml-auto text-xs bg-gradient-to-r from-[#E62D26] to-[#F79952] text-white px-2.5 py-1 rounded-full font-medium"
+              className="ml-auto text-xs bg-gradient-to-r from-[#021E14] to-[#021E14] text-white px-2.5 py-1 rounded-full font-medium"
             >
               {selectedCategories.length}
             </motion.span>
@@ -183,14 +183,14 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
             whileHover={{ x: 4 }}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all ${
               isMounted && selectedCategories.length === 0
-                ? "bg-gradient-to-r from-[#E62D26]/10 to-[#F79952]/10 border border-[#E62D26]/20"
+                ? "bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 border border-[#021E14]/20"
                 : "hover:bg-slate-50 dark:hover:bg-white/5 border border-transparent"
             }`}
             onClick={() => dispatch(setSelectedCategories([]))}
           >
             <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
               isMounted && selectedCategories.length === 0 
-                ? "border-[#E62D26] bg-gradient-to-br from-[#E62D26] to-[#F79952]" 
+                ? "border-[#021E14] bg-gradient-to-br from-[#021E14] to-[#021E14]" 
                 : "border-slate-300 dark:border-slate-600"
             }`}>
               {isMounted && selectedCategories.length === 0 && (
@@ -207,14 +207,14 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
             </div>
             <span className={`text-sm font-medium ${
               isMounted && selectedCategories.length === 0 
-                ? "text-[#E62D26]" 
+                ? "text-[#021E14]" 
                 : "text-slate-600 dark:text-slate-300"
             }`}>All Categories</span>
           </motion.button>
 
           {isMounted && status === "loading" && (
             <div className="text-center py-6">
-              <div className="w-6 h-6 border-2 border-[#E62D26] border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <div className="w-6 h-6 border-2 border-[#021E14] border-t-transparent rounded-full animate-spin mx-auto"></div>
               <p className="text-xs text-slate-400 mt-2">Loading categories...</p>
             </div>
           )}
@@ -231,14 +231,14 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
                   whileHover={{ x: 4 }}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all ${
                     isSelected
-                      ? "bg-gradient-to-r from-[#E62D26]/10 to-[#F79952]/10 border border-[#E62D26]/20"
+                      ? "bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 border border-[#021E14]/20"
                       : "hover:bg-slate-50 dark:hover:bg-white/5 border border-transparent"
                   }`}
                   onClick={() => handleCategoryChange(category.name)}
                 >
                   <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
                     isSelected
-                      ? "border-[#E62D26] bg-gradient-to-br from-[#E62D26] to-[#F79952]"
+                      ? "border-[#021E14] bg-gradient-to-br from-[#021E14] to-[#021E14]"
                       : "border-slate-300 dark:border-slate-600"
                   }`}>
                     <AnimatePresence>
@@ -258,7 +258,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
                   </div>
                   <span className={`text-sm ${
                     isSelected 
-                      ? "text-[#E62D26] font-medium" 
+                      ? "text-[#021E14] font-medium" 
                       : "text-slate-600 dark:text-slate-300"
                   }`}>{category.name}</span>
                 </motion.button>
@@ -272,7 +272,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="relative overflow-hidden bg-gradient-to-br from-[#E62D26] to-[#F79952] rounded-xl p-4 text-white shadow-lg"
+        className="relative overflow-hidden bg-gradient-to-br from-[#021E14] to-[#021E14] rounded-xl p-4 text-white shadow-lg"
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -286,7 +286,7 @@ const LeftCategory = ({ searchQuery, setSearchQuery, selectedType, setSelectedTy
           </div>
           <h4 className="font-bold text-sm outfit mb-1">Need Help?</h4>
           <p className="text-white/80 text-[10px] mb-2 leading-relaxed">Can't find what you're looking for? Our team is here to help!</p>
-          <button className="w-full py-2 bg-white text-[#E62D26] rounded-lg text-xs font-semibold hover:bg-white/90 transition-colors">
+          <button className="w-full py-2 bg-white text-[#021E14] rounded-lg text-xs font-semibold hover:bg-white/90 transition-colors">
             Contact Support
           </button>
         </div>

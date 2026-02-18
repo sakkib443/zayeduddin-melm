@@ -7,8 +7,8 @@ import {
     FiLayers, FiBook, FiPlus, FiArrowRight, FiCheck, FiChevronDown, FiChevronUp
 } from 'react-icons/fi';
 
-const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all";
-const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 outline-none transition-all appearance-none cursor-pointer";
+const inputBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/10 outline-none transition-all";
+const selectBase = "w-full px-3 py-2.5 bg-white border border-slate-200 rounded-md text-sm text-slate-800 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/10 outline-none transition-all appearance-none cursor-pointer";
 const labelClass = "block text-sm font-medium text-slate-700 mb-1.5";
 
 export default function ModuleCreateTab({ onSuccess }) {
@@ -126,7 +126,7 @@ export default function ModuleCreateTab({ onSuccess }) {
             <div className="bg-white border border-slate-200 rounded-md p-4 shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-md bg-indigo-100 flex items-center justify-center text-indigo-600">
+                        <div className="w-9 h-9 rounded-md bg-[#021E14] flex items-center justify-center text-[#021E14]">
                             <FiBook size={16} />
                         </div>
                         <div>
@@ -139,7 +139,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                         <button
                             onClick={handleSubmit}
                             disabled={loading || !formData.title || !formData.course}
-                            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-md font-medium text-sm transition-all disabled:opacity-50"
+                            className="flex items-center gap-2 bg-[#021E14] hover:bg-[#01140D] text-white px-5 py-2.5 rounded-md font-medium text-sm transition-all disabled:opacity-50"
                         >
                             <FiPlus size={16} />
                             {loading ? 'Creating...' : 'Add Module'}
@@ -164,7 +164,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                         className="w-full flex items-center justify-between px-4 py-3 hover:bg-emerald-100/50 transition-colors"
                     >
                         <div className="flex items-center gap-2">
-                            <FiCheck className="text-emerald-600" size={16} />
+                            <FiCheck className="text-[#021E14]" size={16} />
                             <span className="font-medium text-emerald-700 text-sm">
                                 {createdModules.length} Module{createdModules.length > 1 ? 's' : ''} Created
                             </span>
@@ -187,11 +187,11 @@ export default function ModuleCreateTab({ onSuccess }) {
                             <div className="flex flex-wrap gap-2">
                                 {createdModules.map((mod, idx) => (
                                     <div key={mod._id || idx} className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-md border border-slate-200">
-                                        <span className="w-5 h-5 rounded-md bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">
+                                        <span className="w-5 h-5 rounded-md bg-[#021E14] text-white flex items-center justify-center font-bold text-xs">
                                             {mod.order}
                                         </span>
                                         <span className="text-sm text-slate-700">{mod.title}</span>
-                                        <FiCheck className="text-emerald-500" size={12} />
+                                        <FiCheck className="text-[#021E14]" size={12} />
                                     </div>
                                 ))}
                             </div>
@@ -204,7 +204,7 @@ export default function ModuleCreateTab({ onSuccess }) {
             <form onSubmit={handleSubmit} className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                 <div className="px-5 py-3 border-b border-slate-100 bg-slate-50">
                     <h2 className="font-semibold text-sm text-slate-800 flex items-center gap-2">
-                        <FiLayers size={16} className="text-indigo-600" />
+                        <FiLayers size={16} className="text-[#021E14]" />
                         Add New Module
                     </h2>
                     <p className="text-xs text-slate-500 mt-0.5">Modules group related lessons together</p>
@@ -213,7 +213,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                 <div className="p-5 space-y-4">
                     {/* Course Selection */}
                     <div>
-                        <label className={labelClass}>Select Course <span className="text-red-500">*</span></label>
+                        <label className={labelClass}>Select Course <span className="text-[#021E14]">*</span></label>
                         <select
                             name="course"
                             value={formData.course}
@@ -231,7 +231,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                     {/* Titles */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className={labelClass}>Module Title (English) <span className="text-red-500">*</span></label>
+                            <label className={labelClass}>Module Title (English) <span className="text-[#021E14]">*</span></label>
                             <input
                                 type="text"
                                 name="title"
@@ -279,7 +279,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                                 onChange={handleChange}
                                 required
                                 min="1"
-                                className="w-16 px-2 py-1.5 rounded-md border border-slate-200 text-sm text-center focus:border-indigo-500 outline-none"
+                                className="w-16 px-2 py-1.5 rounded-md border border-slate-200 text-sm text-center focus:border-[#021E14] outline-none"
                             />
                         </div>
 
@@ -290,7 +290,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                                     type="button"
                                     onClick={() => setFormData(prev => ({ ...prev, isPublished: true }))}
                                     className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${formData.isPublished
-                                        ? 'bg-indigo-600 text-white shadow-sm'
+                                        ? 'bg-[#021E14] text-white shadow-sm'
                                         : 'text-slate-500 hover:text-slate-700'
                                         }`}
                                 >

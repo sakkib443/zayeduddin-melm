@@ -96,7 +96,7 @@ export default function AllModulesPage() {
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage course modules across your platform</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-md text-sm font-medium">
+                    <span className="px-3 py-1.5 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14] rounded-md text-sm font-medium">
                         {modules.length} Total
                     </span>
                     <button
@@ -119,13 +119,13 @@ export default function AllModulesPage() {
                             placeholder="Search modules..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                            className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors"
                         />
                     </div>
                     <select
                         value={selectedCourse}
                         onChange={(e) => setSelectedCourse(e.target.value)}
-                        className="px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors min-w-[180px]"
+                        className="px-3 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors min-w-[180px]"
                     >
                         <option value="">All Courses</option>
                         {courses.map(course => (
@@ -152,7 +152,7 @@ export default function AllModulesPage() {
                             {loading ? (
                                 <tr>
                                     <td colSpan={5} className="px-4 py-12 text-center">
-                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-indigo-500" size={24} />
+                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-[#021E14]" size={24} />
                                         <p className="text-sm text-gray-500">Loading modules...</p>
                                     </td>
                                 </tr>
@@ -168,7 +168,7 @@ export default function AllModulesPage() {
                                     <tr key={mod._id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
                                         <td className="px-4 py-3">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-md bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-sm font-semibold">
+                                                <div className="w-10 h-10 rounded-md bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white text-sm font-semibold">
                                                     {mod.order}
                                                 </div>
                                                 <div>
@@ -180,7 +180,7 @@ export default function AllModulesPage() {
                                         <td className="px-4 py-3">
                                             <Link
                                                 href={`/dashboard/admin/course/modules/${mod.courseId}`}
-                                                className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 text-sm font-medium"
+                                                className="flex items-center gap-2 text-[#021E14] dark:text-[#021E14] hover:text-[#021E14] text-sm font-medium"
                                             >
                                                 <FiBook size={14} />
                                                 {mod.courseName}
@@ -194,10 +194,10 @@ export default function AllModulesPage() {
                                         </td>
                                         <td className="px-4 py-3">
                                             <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium ${mod.isPublished !== false
-                                                ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
-                                                : 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400'
+                                                ? 'bg-emerald-50 dark:bg-[#021E14]/10 text-emerald-700 dark:text-emerald-400'
+                                                : 'bg-amber-50 dark:bg-[#D4AF37]/10 text-amber-700 dark:text-[#D4AF37]'
                                                 }`}>
-                                                <span className={`w-1.5 h-1.5 rounded-full ${mod.isPublished !== false ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
+                                                <span className={`w-1.5 h-1.5 rounded-full ${mod.isPublished !== false ? 'bg-[#021E14]' : 'bg-[#D4AF37]'}`}></span>
                                                 {mod.isPublished !== false ? 'Published' : 'Draft'}
                                             </span>
                                         </td>
@@ -205,13 +205,13 @@ export default function AllModulesPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/dashboard/admin/module/create?edit=${mod._id}`}
-                                                    className="p-2 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-500/10 text-gray-500 hover:text-indigo-600 transition-colors"
+                                                    className="p-2 rounded-md hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 text-gray-500 hover:text-[#021E14] transition-colors"
                                                 >
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button
                                                     onClick={() => handleDelete(mod._id)}
-                                                    className="p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-500/10 text-gray-500 hover:text-red-600 transition-colors"
+                                                    className="p-2 rounded-md hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 text-gray-500 hover:text-[#021E14] transition-colors"
                                                 >
                                                     <FiTrash2 size={16} />
                                                 </button>
@@ -243,7 +243,7 @@ export default function AllModulesPage() {
                                     key={i}
                                     onClick={() => setCurrentPage(i + 1)}
                                     className={`w-8 h-8 rounded-md text-sm font-medium transition-colors ${currentPage === i + 1
-                                        ? 'bg-indigo-600 text-white'
+                                        ? 'bg-[#021E14] text-white'
                                         : 'border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 text-gray-600 dark:text-gray-400'
                                         }`}
                                 >
@@ -263,16 +263,16 @@ export default function AllModulesPage() {
             </div>
 
             {/* Info Card */}
-            <div className="bg-indigo-50 dark:bg-indigo-500/10 rounded-md border border-indigo-100 dark:border-indigo-500/20 p-4">
+            <div className="bg-[#021E14] dark:bg-[#021E14]/10 rounded-md border border-[#021E14] dark:border-[#021E14]/20 p-4">
                 <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-md bg-indigo-500 flex items-center justify-center text-white shrink-0">
+                    <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center text-white shrink-0">
                         <FiLayers size={20} />
                     </div>
                     <div>
                         <h3 className="font-medium text-gray-900 dark:text-white mb-1">Managing Modules</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
                             Modules are sections within a course. To create or edit modules, go to the specific course's
-                            <strong className="text-indigo-600 dark:text-indigo-400"> Modules </strong> page by clicking on the course name in the table above,
+                            <strong className="text-[#021E14] dark:text-[#021E14]"> Modules </strong> page by clicking on the course name in the table above,
                             or navigate to <strong>All Courses → Modules</strong> button.
                         </p>
                     </div>

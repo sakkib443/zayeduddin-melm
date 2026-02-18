@@ -431,16 +431,16 @@ function CreateDesignTemplateContent() {
   const inputStyle = (fieldName) => {
     const error = hasError(fieldName);
     return `w-full px-3 py-2 rounded-md border ${error
-      ? 'border-red-500 bg-red-50 dark:bg-red-900/20 ring-1 ring-red-500'
+      ? 'border-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 ring-1 ring-[#021E14]'
       : isDark
         ? 'border-slate-700 bg-slate-900 text-white'
         : 'border-gray-200 bg-white text-gray-800'
-      } focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-sm transition-colors`;
+      } focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none text-sm transition-colors`;
   };
 
   const labelStyle = (fieldName) => {
     const error = hasError(fieldName);
-    return `block text-xs font-medium ${error ? 'text-red-500' : isDark ? 'text-slate-400' : 'text-gray-600'} mb-1.5`;
+    return `block text-xs font-medium ${error ? 'text-[#021E14]' : isDark ? 'text-slate-400' : 'text-gray-600'} mb-1.5`;
   };
 
   const cardClass = `${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'} p-5 rounded-md border`;
@@ -449,7 +449,7 @@ function CreateDesignTemplateContent() {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="text-center">
-          <FiLoader className="animate-spin text-blue-500 mx-auto mb-3" size={32} />
+          <FiLoader className="animate-spin text-[#021E14] mx-auto mb-3" size={32} />
           <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Loading template data...</p>
         </div>
       </div>
@@ -466,7 +466,7 @@ function CreateDesignTemplateContent() {
           </Link>
           <div>
             <h1 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-800'} flex items-center gap-2`}>
-              {isEditMode ? <FiEdit3 className="text-blue-500" size={18} /> : <FiLayers className="text-blue-500" size={18} />}
+              {isEditMode ? <FiEdit3 className="text-[#021E14]" size={18} /> : <FiLayers className="text-[#021E14]" size={18} />}
               {isEditMode ? 'Edit Template' : 'Create Template'}
             </h1>
             <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
@@ -479,7 +479,7 @@ function CreateDesignTemplateContent() {
             type="button"
             onClick={handleSubmit(onSubmit)}
             disabled={loading}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-md text-sm font-semibold transition-all ${loading ? 'bg-blue-400 cursor-not-allowed text-white' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20'}`}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-md text-sm font-semibold transition-all ${loading ? 'bg-[#021E14] cursor-not-allowed text-white' : 'bg-[#021E14] hover:bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20'}`}
           >
             {loading ? <FiLoader className="animate-spin" size={16} /> : <FiSave size={16} />}
             {isEditMode ? 'Update Template' : 'Publish Template'}
@@ -488,12 +488,12 @@ function CreateDesignTemplateContent() {
       </div>
 
       {generalError && (
-        <div className="mb-6 p-4 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-md flex items-center gap-3 text-red-600 dark:text-red-400 shadow-sm">
+        <div className="mb-6 p-4 bg-[#021E14] dark:bg-[#021E14]/10 border border-[#021E14] dark:border-[#021E14]/20 rounded-md flex items-center gap-3 text-[#021E14] dark:text-[#021E14] shadow-sm">
           <FiAlertCircle size={20} className="shrink-0" />
           <div>
             <p className="text-sm font-medium">{generalError}</p>
             {Object.keys(serverErrors).length > 0 && (
-              <ul className="mt-2 text-xs text-red-600 dark:text-red-300 space-y-1">
+              <ul className="mt-2 text-xs text-[#021E14] dark:text-[#021E14] space-y-1">
                 {Object.entries(serverErrors).map(([field, message]) => (
                   <li key={field}>â€¢ <strong>{field}:</strong> {message}</li>
                 ))}
@@ -510,7 +510,7 @@ function CreateDesignTemplateContent() {
           {/* Basic Info */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiInfo size={16} className="text-blue-500" /> Basic Information
+              <FiInfo size={16} className="text-[#021E14]" /> Basic Information
             </h2>
             <div className="space-y-4">
               <div>
@@ -521,7 +521,7 @@ function CreateDesignTemplateContent() {
                   className={`${inputStyle('title')} placeholder:text-gray-300 dark:placeholder:text-slate-600`}
                 />
                 {(errors.title || serverErrors.title) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('title')}
                   </p>
                 )}
@@ -537,7 +537,7 @@ function CreateDesignTemplateContent() {
                     ))}
                   </select>
                   {(errors.category || serverErrors.category) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                       <FiAlertCircle size={12} /> {getError('category')}
                     </p>
                   )}
@@ -548,7 +548,7 @@ function CreateDesignTemplateContent() {
                     {DESIGN_TYPE_OPTIONS.map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
                   {(errors.templateType || serverErrors.templateType) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                       <FiAlertCircle size={12} /> {getError('templateType')}
                     </p>
                   )}
@@ -560,7 +560,7 @@ function CreateDesignTemplateContent() {
                 <label className={`${labelStyle('designTools')}`} style={{ fontSize: '11px' }}>Design Tools</label>
                 <div className={`grid grid-cols-2 md:grid-cols-3 gap-2 p-3 rounded-md border ${isDark ? 'border-slate-700 bg-slate-900' : 'border-gray-200 bg-gray-50'}`}>
                   {DESIGN_TOOLS_OPTIONS.map(tool => (
-                    <label key={tool} className={`flex items-center gap-2 text-sm cursor-pointer p-1.5 rounded ${selectedTools.includes(tool) ? (isDark ? 'bg-blue-500/20' : 'bg-blue-50') : ''}`}>
+                    <label key={tool} className={`flex items-center gap-2 text-sm cursor-pointer p-1.5 rounded ${selectedTools.includes(tool) ? (isDark ? 'bg-[#021E14]/20' : 'bg-[#021E14]') : ''}`}>
                       <input
                         type="checkbox"
                         checked={selectedTools.includes(tool)}
@@ -578,7 +578,7 @@ function CreateDesignTemplateContent() {
                   ))}
                 </div>
                 {(errors.designTools || serverErrors.designTools) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('designTools')}
                   </p>
                 )}
@@ -589,7 +589,7 @@ function CreateDesignTemplateContent() {
           {/* Description */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiFileText size={16} className="text-blue-500" /> Description
+              <FiFileText size={16} className="text-[#021E14]" /> Description
             </h2>
             <div className="space-y-4">
               <div>
@@ -611,7 +611,7 @@ function CreateDesignTemplateContent() {
           {/* Pricing */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiDollarSign size={16} className="text-emerald-500" /> Pricing
+              <FiDollarSign size={16} className="text-[#021E14]" /> Pricing
             </h2>
             <div className="space-y-4">
               <div>
@@ -631,7 +631,7 @@ function CreateDesignTemplateContent() {
                   <option value="free">Free</option>
                 </select>
                 {(errors.accessType || serverErrors.accessType) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('accessType')}
                   </p>
                 )}
@@ -648,7 +648,7 @@ function CreateDesignTemplateContent() {
                     placeholder="0"
                   />
                   {(errors.price || serverErrors.price) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                       <FiAlertCircle size={12} /> {getError('price')}
                     </p>
                   )}
@@ -663,7 +663,7 @@ function CreateDesignTemplateContent() {
                     placeholder="0"
                   />
                   {(errors.offerPrice || serverErrors.offerPrice) && (
-                    <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                    <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                       <FiAlertCircle size={12} /> {getError('offerPrice')}
                     </p>
                   )}
@@ -672,7 +672,7 @@ function CreateDesignTemplateContent() {
 
               <label className={`flex items-center gap-3 p-3 rounded-md cursor-pointer ${isDark ? 'bg-slate-700/50 hover:bg-slate-700' : 'bg-gray-50 hover:bg-gray-100'} transition-colors`}>
                 <input type="checkbox" {...register('isFeatured')} className="hidden" />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center transition-colors ${watch('isFeatured') ? 'bg-blue-500 border-blue-500' : isDark ? 'border-slate-600' : 'border-gray-300'}`}>
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center transition-colors ${watch('isFeatured') ? 'bg-[#021E14] border-[#021E14]' : isDark ? 'border-slate-600' : 'border-gray-300'}`}>
                   {watch('isFeatured') && <FiCheck className="text-white" size={12} />}
                 </div>
                 <span className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>Featured Template</span>
@@ -683,7 +683,7 @@ function CreateDesignTemplateContent() {
           {/* Media */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiImage size={16} className="text-rose-500" /> Media & Files
+              <FiImage size={16} className="text-[#021E14]" /> Media & Files
             </h2>
             <div className="space-y-5">
 
@@ -695,7 +695,7 @@ function CreateDesignTemplateContent() {
                   onDragLeave={() => setDragOver(false)}
                   onDrop={handleImageDrop}
                   className={`relative mt-2 border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-all ${dragOver
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-500/10'
+                    ? 'border-[#021E14] bg-[#021E14] dark:bg-[#021E14]/10'
                     : isDark
                       ? 'border-slate-600 hover:border-slate-500 bg-slate-800/50'
                       : 'border-gray-300 hover:border-gray-400 bg-gray-50'
@@ -710,14 +710,14 @@ function CreateDesignTemplateContent() {
                   />
                   {uploadingImages ? (
                     <div className="flex flex-col items-center gap-2">
-                      <FiLoader className="animate-spin text-blue-500" size={24} />
+                      <FiLoader className="animate-spin text-[#021E14]" size={24} />
                       <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Uploading image...</span>
                     </div>
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       <FiImage className={`${isDark ? 'text-slate-500' : 'text-gray-400'}`} size={32} />
                       <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
-                        <span className="text-blue-500 font-semibold">Click to upload</span> or drag and drop
+                        <span className="text-[#021E14] font-semibold">Click to upload</span> or drag and drop
                       </p>
                       <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
                         PNG, JPG, WEBP up to 5MB
@@ -735,7 +735,7 @@ function CreateDesignTemplateContent() {
                         <button
                           type="button"
                           onClick={() => handleRemoveImage(index)}
-                          className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                          className="absolute top-1 right-1 p-1 bg-[#021E14] text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
                         >
                           <FiTrash2 size={12} />
                         </button>
@@ -744,7 +744,7 @@ function CreateDesignTemplateContent() {
                   </div>
                 )}
                 {(errors.images || serverErrors.images) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('images')}
                   </p>
                 )}
@@ -755,9 +755,9 @@ function CreateDesignTemplateContent() {
                 <label className={labelStyle('downloadFile')} style={{ fontSize: '11px' }}>Download File (Google Drive Link / Upload) *</label>
                 <div className={`mt-2 border-2 border-dashed rounded-lg p-4 ${isDark ? 'border-slate-600 bg-slate-800/50' : 'border-gray-300 bg-gray-50'}`}>
                   {downloadFileUrl ? (
-                    <div className={`flex items-center justify-between p-3 rounded-md ${isDark ? 'bg-emerald-500/10 border border-emerald-500/30' : 'bg-emerald-50 border border-emerald-200'}`}>
+                    <div className={`flex items-center justify-between p-3 rounded-md ${isDark ? 'bg-[#021E14]/10 border border-[#021E14]/30' : 'bg-emerald-50 border border-emerald-200'}`}>
                       <div className="flex items-center gap-2 min-w-0 flex-1">
-                        <FiCheck className="text-emerald-500 shrink-0" size={18} />
+                        <FiCheck className="text-[#021E14] shrink-0" size={18} />
                         <span className={`text-sm truncate ${isDark ? 'text-emerald-400' : 'text-emerald-700'}`}>
                           {downloadFileUrl.includes('drive.google.com') ? 'âœ… Google Drive Link Added' : 'âœ… File ready'}
                         </span>
@@ -765,7 +765,7 @@ function CreateDesignTemplateContent() {
                       <button
                         type="button"
                         onClick={() => { setDownloadFileUrl(''); setValue('downloadFile', ''); }}
-                        className="text-red-500 hover:text-red-600 text-xs shrink-0 ml-2"
+                        className="text-[#021E14] hover:text-[#021E14] text-xs shrink-0 ml-2"
                       >
                         Remove
                       </button>
@@ -803,7 +803,7 @@ function CreateDesignTemplateContent() {
                                 setValue('downloadFile', url);
                               }
                             }}
-                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-md font-medium transition-colors shrink-0"
+                            className="px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white text-xs rounded-md font-medium transition-colors shrink-0"
                           >
                             Add
                           </button>
@@ -819,7 +819,7 @@ function CreateDesignTemplateContent() {
                       {/* File Upload */}
                       {uploadingDownloadFile ? (
                         <div className="flex items-center justify-center gap-2 py-4">
-                          <FiLoader className="animate-spin text-blue-500" size={20} />
+                          <FiLoader className="animate-spin text-[#021E14]" size={20} />
                           <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Uploading file...</span>
                         </div>
                       ) : (
@@ -832,7 +832,7 @@ function CreateDesignTemplateContent() {
                           />
                           <FiLayers className={`${isDark ? 'text-slate-500' : 'text-gray-400'}`} size={24} />
                           <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
-                            <span className="text-blue-500 font-semibold">Upload file</span> directly
+                            <span className="text-[#021E14] font-semibold">Upload file</span> directly
                           </p>
                           <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
                             ZIP, RAR, 7z up to 100MB
@@ -843,7 +843,7 @@ function CreateDesignTemplateContent() {
                   )}
                 </div>
                 {(errors.downloadFile || serverErrors.downloadFile) && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                  <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                     <FiAlertCircle size={12} /> {getError('downloadFile')}
                   </p>
                 )}
@@ -854,7 +854,7 @@ function CreateDesignTemplateContent() {
           {/* Status */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiSettings size={16} className="text-amber-500" /> Status
+              <FiSettings size={16} className="text-[#D4AF37]" /> Status
             </h2>
             <div>
               <label className={labelStyle('status')} style={{ fontSize: '11px' }}>Listing Status</label>
@@ -865,7 +865,7 @@ function CreateDesignTemplateContent() {
                 <option value="rejected">Rejected</option>
               </select>
               {(errors.status || serverErrors.status) && (
-                <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                <p className="text-[#021E14] text-xs mt-1 flex items-center gap-1">
                   <FiAlertCircle size={12} /> {getError('status')}
                 </p>
               )}
@@ -885,7 +885,7 @@ export default function CreateDesignTemplatePage() {
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-[#fdfdfd] dark:bg-[#0a0a0a]">
         <div className="flex flex-col items-center gap-4">
-          <FiLoader className="animate-spin text-blue-600" size={32} />
+          <FiLoader className="animate-spin text-[#021E14]" size={32} />
           <p className="text-gray-500 font-medium animate-pulse">Loading Editor...</p>
         </div>
       </div>

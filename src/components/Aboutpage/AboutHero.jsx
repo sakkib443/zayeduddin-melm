@@ -30,8 +30,8 @@ const AboutHero = () => {
                 </motion.div>
 
                 {/* Clean Geometric Accents */}
-                <div className="absolute top-1/4 right-10 w-[400px] h-[400px] bg-red-500/5 rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute bottom-1/4 left-10 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px]" />
+                <div className="absolute top-1/4 right-10 w-[400px] h-[400px] bg-[#021E14]/5 rounded-full blur-[120px] animate-pulse" />
+                <div className="absolute bottom-1/4 left-10 w-[300px] h-[300px] bg-[#021E14]/5 rounded-full blur-[100px]" />
 
                 {/* Subtle Grid */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
@@ -46,7 +46,7 @@ const AboutHero = () => {
                         transition={{ duration: 0.6 }}
                         className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-gray-900/5 dark:bg-white/5 border border-gray-200 dark:border-white/10 mb-6 backdrop-blur-md"
                     >
-                        <LuZap className="text-red-500 animate-bounce" size={14} />
+                        <LuZap className="text-[#021E14] animate-bounce" size={14} />
                         <span className={`text-[10px] font-bold tracking-[0.2em] uppercase text-gray-600 dark:text-gray-400 ${bengaliClass}`}>
                             {language === 'bn' ? t("aboutPage.badge") : 'THE STANDARD OF EXCELLENCE'}
                         </span>
@@ -60,8 +60,8 @@ const AboutHero = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-5xl sm:text-7xl lg:text-[80px] font-black leading-[0.85] tracking-tight text-gray-900 dark:text-white"
                         >
-                            {language === 'bn' ? <span className="text-[#F79952]">{t("aboutPage.title1")}</span> : <span className="text-[#F79952]">BEYOND</span>} <br />
-                            <span className="text-red-500 italic font-serif inline-flex items-center gap-4">
+                            {language === 'bn' ? <span className="text-[#021E14]">{t("aboutPage.title1")}</span> : <span className="text-[#021E14]">BEYOND</span>} <br />
+                            <span className="text-[#021E14] italic font-serif inline-flex items-center gap-4">
                                 {language === 'bn' ? t("aboutPage.title2") : 'ORDINARY'}
                                 <span className="h-[3px] w-16 lg:w-32 bg-gray-900 dark:bg-white inline-block rounded-full" />
                             </span> <br />
@@ -78,14 +78,14 @@ const AboutHero = () => {
                             <p className={`text-base lg:text-lg text-gray-500 dark:text-gray-500 leading-relaxed mb-8 font-normal ${bengaliClass}`}>
                                 {language === 'bn'
                                     ? t("aboutPage.description")
-                                    : 'We don\'t just teach skills; we build the architectural foundation of your professional career. Jayed Uddin: Where ambition meets elite training.'
+                                    : 'We don\'t just teach skills; we build the architectural foundation of your professional career. Zayed Uddin: Where ambition meets elite training.'
                                 }
                             </p>
 
                             <div className="flex flex-wrap items-center gap-6">
                                 <Link
                                     href="/courses"
-                                    className="group relative px-10 py-5 bg-red-500 text-white rounded-2xl font-black text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-red-500/20"
+                                    className="group relative px-10 py-5 bg-[#021E14] text-white rounded-2xl font-black text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-red-500/20"
                                 >
                                     <span className={`relative z-10 flex items-center gap-3 ${headingFont}`}>
                                         {language === 'bn' ? t("aboutPage.exploreCourses") : 'EXPLORE COURSES'}
@@ -95,7 +95,7 @@ const AboutHero = () => {
 
                                 <button className="flex items-center gap-4 group">
                                     <div className="w-14 h-14 rounded-2xl border-2 border-gray-200 dark:border-white/10 flex items-center justify-center group-hover:bg-gray-900 dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-all duration-500">
-                                        <LuPlay className="ml-1 text-[#F79952]" />
+                                        <LuPlay className="ml-1 text-[#021E14]" />
                                     </div>
                                     <span className={`font-black text-sm tracking-[0.2em] uppercase text-gray-900 dark:text-white ${headingFont}`}>
                                         Showreel
@@ -112,8 +112,8 @@ const AboutHero = () => {
                             className="hidden lg:grid grid-cols-2 gap-6"
                         >
                             {[
-                                { icon: LuSmile, value: '10K+', label: 'Happy Students', color: 'text-red-500' },
-                                { icon: LuTrophy, value: '50+', label: 'Awards Won', color: 'text-[#F79952]' },
+                                { icon: LuSmile, value: '10K+', label: 'Happy Students', color: 'text-[#021E14]' },
+                                { icon: LuTrophy, value: '50+', label: 'Awards Won', color: 'text-[#021E14]' },
                             ].map((item, i) => (
                                 <div key={i} className="p-8 rounded-[40px] bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 backdrop-blur-sm">
                                     <item.icon className={`${item.color} mb-6`} size={32} />
@@ -135,10 +135,10 @@ const AboutHero = () => {
                         {[1, 2, 3, 4].map((i) => (
                             <div key={i} className="flex items-center gap-16 px-8">
                                 {[
-                                    { text: 'JAYED UDDIN', icon: LuZap, iconColor: 'text-[#F79952]' },
-                                    { text: 'Innovation', icon: LuTrophy, iconColor: 'text-red-500' },
-                                    { text: 'Excellence', icon: LuSmile, iconColor: 'text-red-500' },
-                                    { text: 'Elite Training', icon: LuZap, iconColor: 'text-[#F79952]' }
+                                    { text: 'JAYED UDDIN', icon: LuZap, iconColor: 'text-[#021E14]' },
+                                    { text: 'Innovation', icon: LuTrophy, iconColor: 'text-[#021E14]' },
+                                    { text: 'Excellence', icon: LuSmile, iconColor: 'text-[#021E14]' },
+                                    { text: 'Elite Training', icon: LuZap, iconColor: 'text-[#021E14]' }
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-center gap-16 group">
                                         <div className="flex items-center gap-4">
@@ -147,7 +147,7 @@ const AboutHero = () => {
                                                 {item.text}
                                             </span>
                                         </div>
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#F79952]/50" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#021E14]/50" />
                                     </div>
                                 ))}
                             </div>

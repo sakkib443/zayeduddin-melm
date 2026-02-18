@@ -87,7 +87,7 @@ const Login = () => {
           <div className="grid lg:grid-cols-5 gap-0 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
 
             {/* Left Side - Info Section */}
-            <div className="lg:col-span-2 bg-gradient-to-br from-[#E62D26] to-[#38a89d] p-8 lg:p-12 text-white relative overflow-hidden">
+            <div className="lg:col-span-2 bg-gradient-to-br from-[#021E14] to-[#38a89d] p-8 lg:p-12 text-white relative overflow-hidden">
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-10 right-10 w-40 h-40 border-2 border-white rounded-full"></div>
@@ -146,7 +146,7 @@ const Login = () => {
                   </h3>
                   <p className={`text-gray-500 text-sm ${bengaliClass}`}>
                     {language === "bn" ? "অ্যাকাউন্ট নেই? " : "Don't have an account? "}
-                    <Link href="/register" className="text-[#E62D26] font-semibold hover:underline">
+                    <Link href="/register" className="text-[#021E14] font-semibold hover:underline">
                       {language === "bn" ? "রেজিস্টার করুন" : "Create one"}
                     </Link>
                   </p>
@@ -166,7 +166,7 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder={language === "bn" ? "আপনার ইমেইল" : "you@example.com"}
-                        className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                        className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                       />
                     </div>
                   </div>
@@ -184,12 +184,12 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         placeholder={language === "bn" ? "পাসওয়ার্ড দিন" : "Enter password"}
-                        className={`w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                        className={`w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-3.5 text-gray-400 hover:text-[#E62D26] transition"
+                        className="absolute right-4 top-3.5 text-gray-400 hover:text-[#021E14] transition"
                       >
                         {showPassword ? <MdOutlineVisibilityOff size={20} /> : <MdOutlineRemoveRedEye size={20} />}
                       </button>
@@ -199,7 +199,7 @@ const Login = () => {
                   {/* Remember & Forgot */}
                   <div className="flex items-center justify-between">
                     <label className="flex items-center gap-2 cursor-pointer">
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition ${rememberMe ? 'bg-[#E62D26] border-[#E62D26]' : 'border-gray-300'}`}>
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition ${rememberMe ? 'bg-[#021E14] border-[#021E14]' : 'border-gray-300'}`}>
                         {rememberMe && <FiCheck className="text-white" size={12} />}
                       </div>
                       <input
@@ -212,15 +212,15 @@ const Login = () => {
                         {language === "bn" ? "মনে রাখুন" : "Remember me"}
                       </span>
                     </label>
-                    <Link href="/forgot-password" className={`text-sm text-[#E62D26] hover:underline font-medium ${bengaliClass}`}>
+                    <Link href="/forgot-password" className={`text-sm text-[#021E14] hover:underline font-medium ${bengaliClass}`}>
                       {language === "bn" ? "পাসওয়ার্ড ভুলে গেছেন?" : "Forgot password?"}
                     </Link>
                   </div>
 
                   {/* Error Message */}
                   {error && (
-                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
-                      <p className="text-red-600 text-sm text-center">{error}</p>
+                    <div className="p-3 bg-[#021E14] border border-[#021E14] rounded-xl">
+                      <p className="text-[#021E14] text-sm text-center">{error}</p>
                     </div>
                   )}
 
@@ -230,7 +230,7 @@ const Login = () => {
                     disabled={loading}
                     className={`w-full py-3.5 rounded-xl text-white font-semibold shadow-lg transition text-base ${loading
                       ? "bg-gray-300 cursor-not-allowed"
-                      : "bg-gradient-to-r from-[#E62D26] to-[#38a89d] hover:shadow-xl hover:-translate-y-0.5"
+                      : "bg-gradient-to-r from-[#021E14] to-[#38a89d] hover:shadow-xl hover:-translate-y-0.5"
                       } ${bengaliClass}`}
                   >
                     {loading ? (

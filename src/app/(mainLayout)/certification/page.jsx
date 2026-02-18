@@ -92,11 +92,11 @@ const CertificationPage = () => {
         <div className="container mx-auto px-4 lg:px-16">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm">
-              <LuAward className="text-[#F79952] text-lg" />
+              <LuAward className="text-[#021E14] text-lg" />
               <span className={`text-sm font-medium text-gray-700 work ${bengaliClass}`}>{t("certificationPage.badge")}</span>
             </div>
             <h1 className={`text-3xl lg:text-4xl font-bold outfit text-gray-800 mb-4 ${bengaliClass}`}>
-              {t("certificationPage.title1")}<span className="text-[#E62D26]">{t("certificationPage.title2")}</span>
+              {t("certificationPage.title1")}<span className="text-[#021E14]">{t("certificationPage.title2")}</span>
             </h1>
             <p className={`text-gray-500 work ${bengaliClass}`}>
               {t("certificationPage.subtitle")}
@@ -119,7 +119,7 @@ const CertificationPage = () => {
                   type="text"
                   id="phoneNumber"
                   placeholder="e.g. 01712345678"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-[#E62D26] focus:border-[#E62D26] outline-none transition-all text-sm"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-[#021E14] focus:border-[#021E14] outline-none transition-all text-sm"
                   value={searchValues.phoneNumber}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
@@ -138,7 +138,7 @@ const CertificationPage = () => {
                   type="email"
                   id="email"
                   placeholder="e.g. student@email.com"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-[#E62D26] focus:border-[#E62D26] outline-none transition-all text-sm"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-[#021E14] focus:border-[#021E14] outline-none transition-all text-sm"
                   value={searchValues.email}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
@@ -157,7 +157,7 @@ const CertificationPage = () => {
                   type="text"
                   id="studentId"
                   placeholder="e.g. BAC-2024-001"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-[#E62D26] focus:border-[#E62D26] outline-none transition-all text-sm"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-2 focus:ring-[#021E14] focus:border-[#021E14] outline-none transition-all text-sm"
                   value={searchValues.studentId}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
@@ -172,7 +172,7 @@ const CertificationPage = () => {
             <button
               onClick={handleSearch}
               disabled={isLoading}
-              className={`flex items-center gap-2 px-6 py-3 bg-[#E62D26] hover:bg-[#38a89d] text-white font-medium rounded-md transition-all hover:shadow-lg disabled:opacity-50 ${bengaliClass}`}
+              className={`flex items-center gap-2 px-6 py-3 bg-[#021E14] hover:bg-[#38a89d] text-white font-medium rounded-md transition-all hover:shadow-lg disabled:opacity-50 ${bengaliClass}`}
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -194,7 +194,7 @@ const CertificationPage = () => {
         <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden">
           <div className="p-6 border-b border-gray-200">
             <h2 className={`text-xl font-bold text-gray-800 outfit flex items-center gap-2 ${bengaliClass}`}>
-              <LuAward className="text-[#E62D26]" />
+              <LuAward className="text-[#021E14]" />
               {t("certificationPage.certificateResults")}
               {hasSearched && (
                 <span className={`text-sm font-normal text-gray-500 work ${bengaliClass}`}>
@@ -218,8 +218,8 @@ const CertificationPage = () => {
               </div>
             ) : filteredUsers.length === 0 ? (
               <div className="text-center py-12">
-                <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <LuAward className="text-3xl text-red-400" />
+                <div className="w-20 h-20 bg-[#021E14] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <LuAward className="text-3xl text-[#021E14]" />
                 </div>
                 <h3 className={`text-lg font-medium text-gray-700 outfit mb-2 ${bengaliClass}`}>{t("certificationPage.noCertificatesFound")}</h3>
                 <p className={`text-gray-400 work text-sm ${bengaliClass}`}>
@@ -231,11 +231,11 @@ const CertificationPage = () => {
                 {filteredUsers.map((user) => (
                   <div
                     key={user.id}
-                    className="group bg-gray-50 border border-gray-200 rounded-md p-5 hover:shadow-lg hover:border-[#E62D26]/30 transition-all duration-300"
+                    className="group bg-gray-50 border border-gray-200 rounded-md p-5 hover:shadow-lg hover:border-[#021E14]/30 transition-all duration-300"
                   >
                     {/* Header */}
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#E62D26]">
+                      <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#021E14]">
                         <Image
                           src={user.image || "/images/placeholder.png"}
                           alt={user.name}
@@ -265,14 +265,14 @@ const CertificationPage = () => {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleView(user.studentId)}
-                        className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-[#E62D26] hover:bg-[#38a89d] text-white text-sm font-medium rounded-md transition-colors ${bengaliClass}`}
+                        className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-[#021E14] hover:bg-[#38a89d] text-white text-sm font-medium rounded-md transition-colors ${bengaliClass}`}
                       >
                         <LuEye />
                         {t("certificationPage.view")}
                       </button>
                       <button
                         onClick={() => handleDownload(user.studentId)}
-                        className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-[#F79952] hover:bg-[#e68a47] text-white text-sm font-medium rounded-md transition-colors ${bengaliClass}`}
+                        className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-[#021E14] hover:bg-[#e68a47] text-white text-sm font-medium rounded-md transition-colors ${bengaliClass}`}
                       >
                         <LuDownload />
                         {t("certificationPage.download")}
@@ -289,12 +289,12 @@ const CertificationPage = () => {
       {/* Footer Banner */}
       <section className="container mx-auto px-4 lg:px-16 pt-6 pb-4">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-2 px-4 text-center md:flex-row md:justify-between md:text-left">
-          <h2 className={`text-2xl font-bold text-orange-400 font-Inter sm:text-3xl ${bengaliClass}`}>
+          <h2 className={`text-2xl font-bold text-[#021E14] font-Inter sm:text-3xl ${bengaliClass}`}>
             {t("certificationPage.registerFreeSeminar")}
           </h2>
           <Link
             href="#"
-            className={`flex items-center gap-2 rounded-full px-12 py-4 bg-white text-[#E62D26] font-bold hover:shadow-lg transition-all ${bengaliClass}`}
+            className={`flex items-center gap-2 rounded-full px-12 py-4 bg-white text-[#021E14] font-bold hover:shadow-lg transition-all ${bengaliClass}`}
           >
             {t("certificationPage.joinNow")}
             <LuArrowRight />
@@ -304,7 +304,7 @@ const CertificationPage = () => {
 
       {/* Info Section */}
       <section className="container mx-auto px-4 lg:px-16 pb-12">
-        <div className="bg-gradient-to-r from-[#E62D26] to-[#38a89d] rounded-md p-8 text-white">
+        <div className="bg-gradient-to-r from-[#021E14] to-[#38a89d] rounded-md p-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 className={`text-xl font-bold outfit mb-2 ${bengaliClass}`}>{t("certificationPage.needHelp")}</h3>
@@ -316,7 +316,7 @@ const CertificationPage = () => {
               href="https://wa.me/8801714117701"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 px-6 py-3 bg-white text-[#E62D26] font-medium rounded-md hover:shadow-lg transition-all shrink-0 ${bengaliClass}`}
+              className={`inline-flex items-center gap-2 px-6 py-3 bg-white text-[#021E14] font-medium rounded-md hover:shadow-lg transition-all shrink-0 ${bengaliClass}`}
             >
               {t("certificationPage.contactSupport")}
             </a>

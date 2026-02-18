@@ -100,7 +100,7 @@ const PopularCourseCard = () => {
             <button
               onClick={handlePrev}
               disabled={isAnimating}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-md shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#E62D26] hover:text-white hover:border-[#E62D26] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-md shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#021E14] hover:text-white hover:border-[#021E14] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
             >
               <LuChevronLeft size={20} />
             </button>
@@ -108,7 +108,7 @@ const PopularCourseCard = () => {
             <button
               onClick={handleNext}
               disabled={isAnimating}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-md shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#E62D26] hover:text-white hover:border-[#E62D26] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-md shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#021E14] hover:text-white hover:border-[#021E14] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
             >
               <LuChevronRight size={20} />
             </button>
@@ -127,8 +127,8 @@ const PopularCourseCard = () => {
         {/* Error State */}
         {error && !loading && (
           <div className="text-center py-16">
-            <div className="w-20 h-20 bg-red-50 rounded-md flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-20 h-20 bg-[#021E14] rounded-md flex items-center justify-center mx-auto mb-4">
+              <svg className="w-10 h-10 text-[#021E14]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -176,7 +176,7 @@ const PopularCourseCard = () => {
                 key={index}
                 onClick={() => setStartIndex(index * visibleItems)}
                 className={`transition-all duration-300 rounded-md ${Math.floor(startIndex / visibleItems) === index
-                  ? "w-8 h-2 bg-[#E62D26]"
+                  ? "w-8 h-2 bg-[#021E14]"
                   : "w-2 h-2 bg-gray-200 hover:bg-gray-300"
                   }`}
               />

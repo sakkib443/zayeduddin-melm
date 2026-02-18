@@ -84,7 +84,7 @@ const WriteReviewModal = ({ isOpen, onClose, productId, productType }) => {
                                                 <FaStar
                                                     className={
                                                         star <= (hoverRating || rating)
-                                                            ? "text-amber-400 fill-amber-400"
+                                                            ? "text-[#D4AF37] fill-[#D4AF37]"
                                                             : "text-gray-200"
                                                     }
                                                 />
@@ -106,27 +106,27 @@ const WriteReviewModal = ({ isOpen, onClose, productId, productType }) => {
                                         type="text"
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-[#021E14] focus:border-transparent outline-none transition-all placeholder-gray-400"
                                         placeholder="Summarize your experience"
                                     />
                                 </div>
 
                                 {/* Comment */}
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Review <span className="text-red-500">*</span></label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Review <span className="text-[#021E14]">*</span></label>
                                     <textarea
                                         value={comment}
                                         onChange={(e) => setComment(e.target.value)}
                                         rows="4"
                                         required
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder-gray-400 resize-none"
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-[#021E14] focus:border-transparent outline-none transition-all placeholder-gray-400 resize-none"
                                         placeholder="What did you like or dislike?"
                                     ></textarea>
                                 </div>
 
                                 {/* Error Message */}
                                 {submitError && (
-                                    <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
+                                    <div className="p-3 bg-[#021E14] text-[#021E14] text-sm rounded-lg border border-[#021E14]">
                                         {submitError}
                                     </div>
                                 )}
@@ -135,7 +135,7 @@ const WriteReviewModal = ({ isOpen, onClose, productId, productType }) => {
                                 <button
                                     type="submit"
                                     disabled={submitLoading || !comment.trim()}
-                                    className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-lg hover:from-red-600 hover:to-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-red-500/20"
+                                    className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-[#021E14] to-[#01140D] text-white font-bold rounded-lg hover:from-[#021E14] hover:to-[#01140D] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-red-500/20"
                                 >
                                     {submitLoading ? (
                                         <>

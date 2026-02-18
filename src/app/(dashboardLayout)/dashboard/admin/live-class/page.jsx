@@ -103,8 +103,8 @@ export default function LiveClassPage() {
 
     const getStatusBadge = (status) => {
         const styles = {
-            scheduled: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-            live: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+            scheduled: 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/30 dark:text-[#021E14]',
+            live: 'bg-[#021E14] text-[#01140D] dark:bg-[#021E14]/30 dark:text-[#021E14]',
             completed: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
             cancelled: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
         };
@@ -133,7 +133,7 @@ export default function LiveClassPage() {
                 </div>
                 <Link
                     href="/dashboard/admin/live-class/create"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-colors font-medium"
                 >
                     <FiPlus size={18} />
                     Schedule Class
@@ -153,7 +153,7 @@ export default function LiveClassPage() {
                             className={`w-full pl-10 pr-4 py-2.5 rounded-md border font-normal ${isDark
                                 ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                 : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                         />
                     </div>
                     <select
@@ -162,7 +162,7 @@ export default function LiveClassPage() {
                         className={`px-4 py-2.5 rounded-md border font-normal ${isDark
                             ? 'bg-slate-700 border-slate-600 text-white'
                             : 'bg-white border-gray-200 text-gray-900'
-                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                     >
                         <option value="">All Status</option>
                         <option value="scheduled">Scheduled</option>
@@ -297,7 +297,7 @@ export default function LiveClassPage() {
                                                         setSelectedClass(liveClass);
                                                         setShowDeleteModal(true);
                                                     }}
-                                                    className={`p-2 rounded-md transition-colors text-red-500 ${isDark ? 'hover:bg-red-900/20' : 'hover:bg-red-50'}`}
+                                                    className={`p-2 rounded-md transition-colors text-[#021E14] ${isDark ? 'hover:bg-[#021E14]/20' : 'hover:bg-[#021E14]'}`}
                                                     title="Delete"
                                                 >
                                                     <FiTrash2 size={16} />
@@ -367,7 +367,7 @@ export default function LiveClassPage() {
                             </button>
                             <button
                                 onClick={handleDelete}
-                                className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 font-medium"
+                                className="px-4 py-2 rounded-md bg-[#021E14] text-white hover:bg-[#01140D] font-medium"
                             >
                                 Delete
                             </button>

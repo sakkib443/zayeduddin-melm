@@ -42,10 +42,10 @@ export default function MentorWebsitePage() {
 
     const getStatusBadge = (status) => {
         switch (status) {
-            case 'approved': return <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-600 rounded-lg text-[10px] font-semibold uppercase tracking-wide flex items-center gap-1.5"><FiCheckCircle size={11} /> Live</span>;
-            case 'pending': return <span className="px-2.5 py-1 bg-amber-500/10 text-amber-600 rounded-lg text-[10px] font-semibold uppercase tracking-wide flex items-center gap-1.5"><FiClock size={11} /> Pending</span>;
+            case 'approved': return <span className="px-2.5 py-1 bg-[#021E14]/10 text-[#021E14] rounded-lg text-[10px] font-semibold uppercase tracking-wide flex items-center gap-1.5"><FiCheckCircle size={11} /> Live</span>;
+            case 'pending': return <span className="px-2.5 py-1 bg-[#D4AF37]/10 text-amber-600 rounded-lg text-[10px] font-semibold uppercase tracking-wide flex items-center gap-1.5"><FiClock size={11} /> Pending</span>;
             case 'draft': return <span className="px-2.5 py-1 bg-slate-500/10 text-slate-500 rounded-lg text-[10px] font-semibold uppercase tracking-wide">Draft</span>;
-            default: return <span className="px-2.5 py-1 bg-rose-500/10 text-rose-500 rounded-lg text-[10px] font-semibold uppercase tracking-wide">{status}</span>;
+            default: return <span className="px-2.5 py-1 bg-[#021E14]/10 text-[#021E14] rounded-lg text-[10px] font-semibold uppercase tracking-wide">{status}</span>;
         }
     };
 
@@ -61,13 +61,13 @@ export default function MentorWebsitePage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white rounded-2xl border border-slate-200/60 p-5 shadow-sm">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center shadow-lg shadow-emerald-500/25">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center shadow-lg shadow-[#021E14]/25">
                         <FiGlobe className="text-white text-xl" />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h1 className="text-xl font-bold text-slate-800">Website Templates</h1>
-                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">
+                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">
                                 Mentor
                             </span>
                         </div>
@@ -84,7 +84,7 @@ export default function MentorWebsitePage() {
                         Reload
                     </button>
                     <Link href="/dashboard/instructor/website/create">
-                        <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-red-500 hover:from-emerald-600 hover:to-red-600 text-white rounded-xl text-sm font-semibold shadow-lg shadow-emerald-500/25 transition-all">
+                        <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#021E14] to-[#01140D] hover:from-[#021E14] hover:to-[#01140D] text-white rounded-xl text-sm font-semibold shadow-lg shadow-[#021E14]/25 transition-all">
                             <FiPlus size={16} />
                             New Website
                         </button>
@@ -114,7 +114,7 @@ export default function MentorWebsitePage() {
                                 <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Published</p>
                                 <p className="text-3xl font-bold text-slate-800">{stats.live}</p>
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center shadow-lg">
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center shadow-lg">
                                 <FiCheckCircle className="text-2xl text-white" />
                             </div>
                         </div>
@@ -127,7 +127,7 @@ export default function MentorWebsitePage() {
                                 <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Pending</p>
                                 <p className="text-3xl font-bold text-slate-800">{stats.pending}</p>
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg">
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#01140D] flex items-center justify-center shadow-lg">
                                 <FiClock className="text-2xl text-white" />
                             </div>
                         </div>
@@ -140,7 +140,7 @@ export default function MentorWebsitePage() {
                                 <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">Featured</p>
                                 <p className="text-3xl font-bold text-slate-800">{stats.featured}</p>
                             </div>
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-amber-500 flex items-center justify-center shadow-lg">
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-[#D4AF37] flex items-center justify-center shadow-lg">
                                 <FiStar className="text-2xl text-white" />
                             </div>
                         </div>
@@ -199,7 +199,7 @@ export default function MentorWebsitePage() {
                             <p className="text-xs text-slate-400 mt-1">Try adjusting your filters or add new template</p>
                         </div>
                         <Link href="/dashboard/instructor/website/create">
-                            <button className="mt-2 flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition-all">
+                            <button className="mt-2 flex items-center gap-2 px-5 py-2.5 bg-[#021E14] text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition-all">
                                 <FiPlus size={14} /> Create Website
                             </button>
                         </Link>
@@ -226,7 +226,7 @@ export default function MentorWebsitePage() {
                                                 <FiEye size={14} /> Preview
                                             </Link>
                                         )}
-                                        <Link href={`/dashboard/instructor/website/edit/${w._id}`} className="flex-1 flex items-center justify-center gap-2 bg-emerald-500 text-white py-2 rounded-lg text-xs font-semibold hover:bg-emerald-600 transition-all shadow-sm">
+                                        <Link href={`/dashboard/instructor/website/edit/${w._id}`} className="flex-1 flex items-center justify-center gap-2 bg-[#021E14] text-white py-2 rounded-lg text-xs font-semibold hover:bg-[#021E14] transition-all shadow-sm">
                                             <FiEdit2 size={14} /> Edit
                                         </Link>
                                     </div>
@@ -234,7 +234,7 @@ export default function MentorWebsitePage() {
                                 {/* Badges */}
                                 <div className="absolute top-3 left-3 flex gap-2">
                                     {w.isFeatured && (
-                                        <span className="px-2.5 py-1 bg-amber-500 text-white text-[10px] font-semibold rounded-lg flex items-center gap-1 shadow-sm">
+                                        <span className="px-2.5 py-1 bg-[#D4AF37] text-white text-[10px] font-semibold rounded-lg flex items-center gap-1 shadow-sm">
                                             <FiStar size={10} /> Featured
                                         </span>
                                     )}
@@ -249,13 +249,13 @@ export default function MentorWebsitePage() {
                                 <h3 className="text-sm font-bold text-slate-800 line-clamp-1 mb-2">{w.title}</h3>
                                 <div className="flex items-center gap-2 mb-3">
                                     <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-medium">{w.category?.name || 'Uncategorized'}</span>
-                                    <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded text-[10px] font-medium">{w.platform || 'HTML'}</span>
+                                    <span className="px-2 py-0.5 bg-emerald-50 text-[#021E14] rounded text-[10px] font-medium">{w.platform || 'HTML'}</span>
                                 </div>
                                 <div className="flex items-center justify-between pt-3 border-t border-slate-100">
                                     <div>
                                         {w.offerPrice && w.offerPrice > 0 ? (
                                             <>
-                                                <p className="text-lg font-bold text-emerald-600">?{w.offerPrice?.toLocaleString()}</p>
+                                                <p className="text-lg font-bold text-[#021E14]">?{w.offerPrice?.toLocaleString()}</p>
                                                 <p className="text-xs text-slate-400 line-through">?{w.price?.toLocaleString()}</p>
                                             </>
                                         ) : (

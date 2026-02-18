@@ -40,13 +40,13 @@ const AboutMission = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-blue-500/5 border border-blue-500/10 rounded-full mb-8">
-                                <LuZap className="text-blue-500" size={14} />
-                                <span className={`text-[10px] font-black tracking-[0.3em] uppercase text-blue-600 dark:text-blue-400 ${headingFont}`}>{language === 'bn' ? t("aboutPage.mission.foundation") : 'Foundation'}</span>
+                            <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-[#021E14]/5 border border-[#021E14]/10 rounded-full mb-8">
+                                <LuZap className="text-[#021E14]" size={14} />
+                                <span className={`text-[10px] font-black tracking-[0.3em] uppercase text-[#021E14] dark:text-[#021E14] ${headingFont}`}>{language === 'bn' ? t("aboutPage.mission.foundation") : 'Foundation'}</span>
                             </div>
 
                             <h2 className={`${headingFont} text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[0.9] mb-10 tracking-tight`}>
-                                {language === 'bn' ? (t("aboutPage.mission.title").split(' ')[0]) : 'THE'} <span className="text-red-500 italic font-serif">{language === 'bn' ? (t("aboutPage.mission.title").split(' ')[1] || '') : 'CORE'}</span> <br />
+                                {language === 'bn' ? (t("aboutPage.mission.title").split(' ')[0]) : 'THE'} <span className="text-[#021E14] italic font-serif">{language === 'bn' ? (t("aboutPage.mission.title").split(' ')[1] || '') : 'CORE'}</span> <br />
                                 {language === 'bn' ? (t("aboutPage.mission.title").split(' ').slice(2).join(' ')) : 'PRINCIPLES'} <br />
                                 {language === 'bn' ? '' : 'OF SUCCESS'}
                             </h2>
@@ -54,12 +54,12 @@ const AboutMission = () => {
                             <p className={`text-xl text-gray-600 dark:text-gray-400 leading-relaxed font-medium mb-12 max-w-lg ${bengaliClass}`}>
                                 {language === 'bn'
                                     ? t("aboutPage.mission.desc")
-                                    : 'We are architecting a future where skill meets strategy. Jayed Uddin is more than an academy; it\'s your partner in professional evolution.'
+                                    : 'We are architecting a future where skill meets strategy. Zayed Uddin is more than an academy; it\'s your partner in professional evolution.'
                                 }
                             </p>
 
                             <div className="relative p-10 rounded-[40px] bg-gray-900 dark:bg-white text-white dark:text-black shadow-2xl overflow-hidden group">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/20 rounded-full blur-[40px] group-hover:scale-150 transition-transform duration-1000" />
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#021E14]/20 rounded-full blur-[40px] group-hover:scale-150 transition-transform duration-1000" />
                                 <h4 className={`${headingFont} text-4xl font-black mb-4 relative z-10`}>{language === 'bn' ? t("aboutPage.mission.yearsExperience").split(' ')[0] : '5+ Years'}</h4>
                                 <p className={`text-sm font-bold opacity-60 uppercase tracking-widest relative z-10 ${headingFont}`}>{language === 'bn' ? t("aboutPage.mission.yearsExperience").split(' ').slice(1).join(' ') : 'Of Industrial Experience'}</p>
                             </div>
@@ -83,8 +83,8 @@ const AboutMission = () => {
                                         {card.number}
                                     </div>
                                     <div className="relative z-10">
-                                        <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center mb-8 group-hover:border-red-500 transition-colors duration-500 shadow-sm">
-                                            <card.icon className="text-red-500" size={28} />
+                                        <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center mb-8 group-hover:border-[#021E14] transition-colors duration-500 shadow-sm">
+                                            <card.icon className="text-[#021E14]" size={28} />
                                         </div>
                                         <h3 className={`${headingFont} text-2xl font-black mb-4 text-gray-900 dark:text-white tracking-tight`}>
                                             {card.title}

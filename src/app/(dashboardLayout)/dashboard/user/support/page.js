@@ -47,24 +47,24 @@ export default function UserSupportPage() {
             title: 'Phone Support',
             value: '+880 1730-481212',
             subtext: 'Mon-Fri, 9AM-6PM',
-            color: 'text-indigo-500',
-            bg: 'bg-indigo-500/10',
+            color: 'text-[#021E14]',
+            bg: 'bg-[#021E14]/10',
         },
         {
             icon: FiMail,
             title: 'Email Support',
             value: 'support@ejobsit.com',
             subtext: '24-48 hours response',
-            color: 'text-purple-500',
-            bg: 'bg-purple-500/10',
+            color: 'text-[#021E14]',
+            bg: 'bg-[#021E14]/10',
         },
         {
             icon: FiMessageCircle,
             title: 'Live Chat',
             value: 'Coming Soon',
             subtext: 'Real-time support',
-            color: 'text-blue-500',
-            bg: 'bg-blue-500/10',
+            color: 'text-[#021E14]',
+            bg: 'bg-[#021E14]/10',
         },
     ];
 
@@ -94,7 +94,7 @@ export default function UserSupportPage() {
                     return (
                         <div
                             key={index}
-                            className={`${cardClass} p-6 hover:border-indigo-500/30 group`}
+                            className={`${cardClass} p-6 hover:border-[#021E14]/30 group`}
                         >
                             <div className="flex items-start gap-4">
                                 <div className={`w-12 h-12 rounded-xl ${method.bg} flex items-center justify-center transition-transform group-hover:scale-110`}>
@@ -102,7 +102,7 @@ export default function UserSupportPage() {
                                 </div>
                                 <div>
                                     <h3 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{method.title}</h3>
-                                    <p className={`text-sm font-black outfit mt-1 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>{method.value}</p>
+                                    <p className={`text-sm font-black outfit mt-1 ${isDark ? 'text-[#021E14]' : 'text-[#021E14]'}`}>{method.value}</p>
                                     <p className="text-[10px] uppercase font-black tracking-widest text-slate-500 mt-1">{method.subtext}</p>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@ export default function UserSupportPage() {
                 {/* FAQs */}
                 <div className={`${cardClass} p-8`}>
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                        <div className="w-10 h-10 rounded-xl bg-[#021E14]/10 flex items-center justify-center text-[#021E14]">
                             <FiHelpCircle size={20} />
                         </div>
                         <h2 className={`text-lg font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>Frequently Asked Questions</h2>
@@ -129,11 +129,11 @@ export default function UserSupportPage() {
                             >
                                 <button
                                     onClick={() => setExpandedFaq(expandedFaq === faq.id ? null : faq.id)}
-                                    className="w-full flex items-center justify-between p-4 text-left hover:bg-indigo-500/5 transition"
+                                    className="w-full flex items-center justify-between p-4 text-left hover:bg-[#021E14]/5 transition"
                                 >
                                     <span className={`font-bold text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{faq.question}</span>
                                     {expandedFaq === faq.id ? (
-                                        <FiChevronUp className="text-indigo-500" />
+                                        <FiChevronUp className="text-[#021E14]" />
                                     ) : (
                                         <FiChevronDown className="text-slate-400" />
                                     )}
@@ -150,7 +150,7 @@ export default function UserSupportPage() {
                     {/* More Help Link */}
                     <a
                         href="/help"
-                        className="mt-8 flex items-center justify-center gap-2 text-indigo-500 text-xs font-black uppercase tracking-widest hover:underline"
+                        className="mt-8 flex items-center justify-center gap-2 text-[#021E14] text-xs font-black uppercase tracking-widest hover:underline"
                     >
                         View All FAQs
                         <FiExternalLink size={14} />
@@ -160,7 +160,7 @@ export default function UserSupportPage() {
                 {/* Submit Ticket */}
                 <div className={`${cardClass} p-8`}>
                     <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500">
+                        <div className="w-10 h-10 rounded-xl bg-[#021E14]/10 flex items-center justify-center text-[#021E14]">
                             <FiMessageCircle size={20} />
                         </div>
                         <h2 className={`text-lg font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>Submit a Support Ticket</h2>
@@ -176,8 +176,8 @@ export default function UserSupportPage() {
                                 onChange={(e) => setTicketForm({ ...ticketForm, subject: e.target.value })}
                                 placeholder="Brief description of your issue"
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all ${isDark
-                                    ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
-                                    : 'bg-white border-slate-200 text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm'
+                                    ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20'
+                                    : 'bg-white border-slate-200 text-slate-800 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 shadow-sm'
                                     }`}
                             />
                         </div>
@@ -189,8 +189,8 @@ export default function UserSupportPage() {
                                 value={ticketForm.category}
                                 onChange={(e) => setTicketForm({ ...ticketForm, category: e.target.value })}
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all ${isDark
-                                    ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-indigo-500'
-                                    : 'bg-white border-slate-200 text-slate-800 focus:border-indigo-500 shadow-sm'
+                                    ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-[#021E14]'
+                                    : 'bg-white border-slate-200 text-slate-800 focus:border-[#021E14] shadow-sm'
                                     }`}
                             >
                                 <option value="general">General Inquiry</option>
@@ -210,8 +210,8 @@ export default function UserSupportPage() {
                                 placeholder="Describe your issue in detail..."
                                 rows={4}
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all resize-none ${isDark
-                                    ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
-                                    : 'bg-white border-slate-200 text-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm'
+                                    ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20'
+                                    : 'bg-white border-slate-200 text-slate-800 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 shadow-sm'
                                     }`}
                             />
                         </div>
@@ -219,7 +219,7 @@ export default function UserSupportPage() {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            className="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-black text-xs uppercase tracking-widest rounded-xl hover:shadow-lg hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2"
+                            className="w-full py-4 bg-gradient-to-r from-[#021E14] to-[#01140D] text-white font-black text-xs uppercase tracking-widest rounded-xl hover:shadow-lg hover:shadow-[#021E14]/25 transition-all flex items-center justify-center gap-2"
                         >
                             <FiSend size={16} />
                             Submit Ticket

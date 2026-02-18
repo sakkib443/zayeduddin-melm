@@ -59,7 +59,7 @@ const ScrollToTop = () => {
                     {/* Button */}
                     <div className="relative">
                         {/* Main Button */}
-                        <div className="relative w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg transition-colors duration-300 hover:bg-red-700">
+                        <div className="relative w-12 h-12 bg-[#021E14] rounded-full flex items-center justify-center shadow-lg transition-colors duration-300 hover:bg-[#01140D]">
                             <FaArrowUp className="text-white text-lg" />
                         </div>
                     </div>

@@ -115,19 +115,19 @@ const HomeCategory = () => {
     const getColorClasses = (color) => {
         if (color === 'teal') {
             return {
-                gradient: 'from-[#E62D26] to-[#c41e18]',
-                light: 'bg-[#E62D26]/5',
-                text: 'text-[#E62D26]',
-                border: 'border-[#E62D26]/15',
-                shadow: 'shadow-[#E62D26]/10'
+                gradient: 'from-[#021E14] to-[#021E14]',
+                light: 'bg-[#021E14]/5',
+                text: 'text-[#021E14]',
+                border: 'border-[#021E14]/15',
+                shadow: 'shadow-[#021E14]/10'
             };
         }
         return {
-            gradient: 'from-[#F79952] to-[#fb923c]',
-            light: 'bg-[#F79952]/5',
-            text: 'text-[#F79952]',
-            border: 'border-[#F79952]/15',
-            shadow: 'shadow-[#F79952]/10'
+            gradient: 'from-[#021E14] to-[#021E14]',
+            light: 'bg-[#021E14]/5',
+            text: 'text-[#021E14]',
+            border: 'border-[#021E14]/15',
+            shadow: 'shadow-[#021E14]/10'
         };
     };
 
@@ -137,22 +137,22 @@ const HomeCategory = () => {
             {/* Background Elements - Static */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {/* Static Circles */}
-                <div className="absolute top-20 left-[10%] w-72 h-72 bg-gradient-to-br from-[#E62D26]/5 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute bottom-20 right-[10%] w-80 h-80 bg-gradient-to-br from-[#F79952]/5 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#E62D26]/3 to-[#F79952]/3 rounded-full blur-3xl"></div>
+                <div className="absolute top-20 left-[10%] w-72 h-72 bg-gradient-to-br from-[#021E14]/5 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute bottom-20 right-[10%] w-80 h-80 bg-gradient-to-br from-[#021E14]/5 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#021E14]/3 to-[#021E14]/3 rounded-full blur-3xl"></div>
 
                 {/* Static Geometric Shapes */}
-                <div className="absolute top-32 right-[15%] w-16 h-16 border-2 border-[#E62D26]/20 rounded-xl"></div>
-                <div className="absolute top-1/4 left-[8%] w-12 h-12 border-2 border-[#F79952]/20 rounded-full"></div>
-                <div className="absolute bottom-1/4 right-[8%] w-20 h-20 border-2 border-[#E62D26]/15 rounded-2xl"></div>
-                <div className="absolute bottom-32 left-[20%] w-8 h-8 bg-[#F79952]/10 rounded-lg"></div>
+                <div className="absolute top-32 right-[15%] w-16 h-16 border-2 border-[#021E14]/20 rounded-xl"></div>
+                <div className="absolute top-1/4 left-[8%] w-12 h-12 border-2 border-[#021E14]/20 rounded-full"></div>
+                <div className="absolute bottom-1/4 right-[8%] w-20 h-20 border-2 border-[#021E14]/15 rounded-2xl"></div>
+                <div className="absolute bottom-32 left-[20%] w-8 h-8 bg-[#021E14]/10 rounded-lg"></div>
 
                 {/* Dots Pattern */}
                 <div className="absolute top-40 left-[5%] flex flex-col gap-2 opacity-30">
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="flex gap-2">
                             {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#E62D26] rounded-full"></div>
+                                <div key={j} className="w-1.5 h-1.5 bg-[#021E14] rounded-full"></div>
                             ))}
                         </div>
                     ))}
@@ -161,7 +161,7 @@ const HomeCategory = () => {
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="flex gap-2">
                             {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#F79952] rounded-full"></div>
+                                <div key={j} className="w-1.5 h-1.5 bg-[#021E14] rounded-full"></div>
                             ))}
                         </div>
                     ))}
@@ -179,16 +179,16 @@ const HomeCategory = () => {
                 >
                     {/* Badge */}
                     <motion.div
-                        className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-full bg-white dark:bg-black/50 border border-red-500/30 dark:border-red-500/20 shadow-sm backdrop-blur-md"
+                        className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-full bg-white dark:bg-black/50 border border-[#021E14]/30 dark:border-[#021E14]/20 shadow-sm backdrop-blur-md"
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-red-500/20 to-cyan-500/20 flex items-center justify-center">
-                            <span className="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#021E14]/20 to-cyan-500/20 flex items-center justify-center">
+                            <span className="w-2.5 h-2.5 bg-[#021E14] rounded-full"></span>
                         </div>
-                        <span className={`text-xs font-black text-red-600 dark:text-red-400 uppercase tracking-[0.2em] ${bengaliClass}`}>
+                        <span className={`text-xs font-black text-[#021E14] dark:text-[#021E14] uppercase tracking-[0.2em] ${bengaliClass}`}>
                             {language === 'bn' ? t("home_sections.ourProducts") : 'Our Products'}
                         </span>
                     </motion.div>

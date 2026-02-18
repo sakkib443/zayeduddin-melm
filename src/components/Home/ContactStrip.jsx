@@ -20,7 +20,7 @@ const ContactStrip = () => {
                     {/* Enquiry Button */}
                     <Link
                         href="/contact"
-                        className={`inline-block px-10 py-4 bg-[#300000] text-white text-lg md:text-xl font-semibold rounded-full hover:bg-[#4a0000] transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 ${bengaliClass}`}
+                        className={`inline-block px-10 py-4 bg-[#021E14] text-white text-lg md:text-xl font-semibold rounded-full hover:bg-[#021E14] transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 ${bengaliClass}`}
                     >
                         {t("contactStrip.enquiry")}
                     </Link>
@@ -34,7 +34,7 @@ const ContactStrip = () => {
                         {/* Call Text */}
                         <a
                             href="tel:+8801714117701"
-                            className={`text-base md:text-lg font-bold text-gray-800 dark:text-gray-200 mt-1 hover:text-[#300000] transition-colors ${bengaliClass}`}
+                            className={`text-base md:text-lg font-bold text-gray-800 dark:text-gray-200 mt-1 hover:text-[#021E14] transition-colors ${bengaliClass}`}
                         >
                             {t("contactStrip.call")}
                         </a>

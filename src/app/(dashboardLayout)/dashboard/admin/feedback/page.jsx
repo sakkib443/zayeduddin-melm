@@ -75,7 +75,7 @@ export default function FeedbackPage() {
       case 'Pending':
         return 'bg-yellow-50 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-400';
       case 'Rejected':
-        return 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400';
+        return 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]';
       default:
         return 'bg-gray-50 text-gray-600 dark:bg-gray-500/10 dark:text-gray-400';
     }
@@ -88,7 +88,7 @@ export default function FeedbackPage() {
           <FiStar
             key={i}
             size={14}
-            className={i < rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}
+            className={i < rating ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-gray-300'}
           />
         ))}
       </div>
@@ -107,8 +107,8 @@ export default function FeedbackPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <div className={`p-2 rounded-md ${isDark ? 'bg-amber-500/10' : 'bg-amber-50'}`}>
-            <FiMessageSquare className="text-amber-500" size={20} />
+          <div className={`p-2 rounded-md ${isDark ? 'bg-[#D4AF37]/10' : 'bg-amber-50'}`}>
+            <FiMessageSquare className="text-[#D4AF37]" size={20} />
           </div>
           <h1 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
             Feedback & Reviews
@@ -127,7 +127,7 @@ export default function FeedbackPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Avg Rating</p>
-          <p className="text-2xl font-semibold mt-1 text-amber-500">{stats.avgRating}/5</p>
+          <p className="text-2xl font-semibold mt-1 text-[#D4AF37]">{stats.avgRating}/5</p>
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Published</p>
@@ -148,7 +148,7 @@ export default function FeedbackPage() {
             placeholder="Search feedback..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-amber-500 ${
+            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-[#D4AF37] ${
               isDark ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500' : 'bg-white border-gray-200 text-gray-900'
             }`}
           />
@@ -205,13 +205,13 @@ export default function FeedbackPage() {
                 </span>
               </div>
               <div className="flex items-center gap-1">
-                <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-blue-400' : 'hover:bg-gray-100 text-gray-400 hover:text-blue-500'}`}>
+                <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                   <FiEye size={16} />
                 </button>
-                <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-orange-400' : 'hover:bg-gray-100 text-gray-400 hover:text-orange-500'}`}>
+                <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                   <FiEdit2 size={16} />
                 </button>
-                <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-red-400' : 'hover:bg-gray-100 text-gray-400 hover:text-red-500'}`}>
+                <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                   <FiTrash2 size={16} />
                 </button>
               </div>
@@ -231,7 +231,7 @@ export default function FeedbackPage() {
           }`}>
             Previous
           </button>
-          <button className="px-3 py-1.5 text-xs rounded-md bg-amber-500 text-white">1</button>
+          <button className="px-3 py-1.5 text-xs rounded-md bg-[#D4AF37] text-white">1</button>
           <button className={`px-3 py-1.5 text-xs rounded-md border ${
             isDark ? 'border-slate-700 text-slate-400 hover:bg-slate-700' : 'border-gray-200 text-gray-500 hover:bg-gray-50'
           }`}>

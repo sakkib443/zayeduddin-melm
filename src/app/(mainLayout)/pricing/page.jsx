@@ -77,7 +77,7 @@ const PricingPage = () => {
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className={`text-4xl md:text-6xl font-bold text-[#300000] dark:text-[#D4AF37] mb-4`}
+                        className={`text-4xl md:text-6xl font-bold text-[#021E14] dark:text-[#D4AF37] mb-4`}
                     >
                         {language === 'bn' ? 'সহজ মূল্যতালিকা' : 'Simple Pricing'}
                     </motion.h1>
@@ -98,7 +98,7 @@ const PricingPage = () => {
                             <button
                                 onClick={() => setBillingCycle("monthly")}
                                 className={`px-8 py-2.5 rounded-full text-xs font-bold transition-all duration-300 ${billingCycle === "monthly"
-                                    ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
+                                    ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                                     : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
                                     }`}
                             >
@@ -107,12 +107,12 @@ const PricingPage = () => {
                             <button
                                 onClick={() => setBillingCycle("yearly")}
                                 className={`px-8 py-2.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-2 ${billingCycle === "yearly"
-                                    ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
+                                    ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                                     : "text-slate-500 hover:text-slate-800 dark:hover:text-white"
                                     }`}
                             >
                                 <span>{language === 'bn' ? 'বার্ষিক' : 'Yearly'}</span>
-                                <span className="bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 text-[10px] px-1.5 py-0.5 rounded-full">-20%</span>
+                                <span className="bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14] text-[10px] px-1.5 py-0.5 rounded-full">-20%</span>
                             </button>
                         </div>
                     </div>
@@ -128,13 +128,13 @@ const PricingPage = () => {
                             transition={{ delay: idx * 0.1 }}
                             viewport={{ once: true }}
                             className={`relative bg-white dark:bg-[#0d0d0d] rounded-[32px] p-8 md:p-10 flex flex-col items-start transition-all duration-500 ${plan.highlight
-                                ? "ring-2 ring-indigo-500/50 shadow-2xl shadow-indigo-500/10 scale-105 z-10"
+                                ? "ring-2 ring-[#021E14]/50 shadow-2xl shadow-[#021E14]/10 scale-105 z-10"
                                 : "border border-slate-100 dark:border-white/5 hover:border-slate-300 dark:hover:border-white/20 shadow-xl shadow-black/5"
                                 }`}
                         >
                             {plan.badge && (
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                    <span className="bg-indigo-600 text-white text-[10px] font-bold tracking-widest px-6 py-1.5 rounded-full shadow-lg">
+                                    <span className="bg-[#021E14] text-white text-[10px] font-bold tracking-widest px-6 py-1.5 rounded-full shadow-lg">
                                         {language === 'bn' ? plan.badgeBn : plan.badge}
                                     </span>
                                 </div>
@@ -166,7 +166,7 @@ const PricingPage = () => {
                                 {plan.features.map((feature, fIdx) => (
                                     <div key={fIdx} className="flex items-center gap-3">
                                         <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${feature.included
-                                            ? "bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                                            ? "bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]"
                                             : "bg-slate-100 dark:bg-white/5 text-slate-400/50"
                                             }`}>
                                             {feature.included ? <LuCheck size={12} strokeWidth={3} /> : <LuX size={12} />}
@@ -183,7 +183,7 @@ const PricingPage = () => {
 
                             <button
                                 className={`w-full py-4 rounded-full text-sm font-bold transition-all duration-300 mt-auto ${plan.highlight
-                                    ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-600/30 hover:-translate-y-1"
+                                    ? "bg-[#021E14] text-white hover:bg-[#01140D] shadow-lg shadow-[#021E14]/30 hover:-translate-y-1"
                                     : "bg-slate-50 dark:bg-white/5 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 hover:-translate-y-1"
                                     } ${bengaliClass}`}
                             >
@@ -196,7 +196,7 @@ const PricingPage = () => {
                 {/* FAQ or Footer info if needed */}
                 <div className="mt-24 text-center">
                     <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl shadow-sm">
-                        <LuZap className="text-amber-400" size={20} />
+                        <LuZap className="text-[#D4AF37]" size={20} />
                         <p className={`text-slate-600 dark:text-slate-400 text-sm font-medium ${bengaliClass}`}>
                             {language === 'bn'
                                 ? 'কোন প্রশ্ন আছে? আমাদের সাপোর্ট টিমের সাথে কথা বলুন।'

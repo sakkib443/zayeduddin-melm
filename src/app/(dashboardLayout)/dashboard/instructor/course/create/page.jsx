@@ -31,7 +31,7 @@ export default function MentorCreateCoursePage() {
                         <div>
                             <div className="flex items-center gap-2">
                                 <h1 className="text-2xl font-bold text-slate-800">Course Management</h1>
-                                <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">
+                                <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">
                                     Mentor
                                 </span>
                             </div>
@@ -79,15 +79,15 @@ export default function MentorCreateCoursePage() {
                     {/* Step Indicator */}
                     <div className="px-6 py-3 bg-slate-50 border-b border-slate-100">
                         <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
-                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'course' ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-200 text-slate-500'}`}>
+                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'course' ? 'bg-[#021E14] text-[#01140D]' : 'bg-slate-200 text-slate-500'}`}>
                                 ?. Course
                             </span>
                             <span className="text-slate-300">?</span>
-                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'module' ? 'bg-purple-100 text-purple-700' : 'bg-slate-200 text-slate-500'}`}>
+                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'module' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
                                 ?. Module
                             </span>
                             <span className="text-slate-300">?</span>
-                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'lesson' ? 'bg-rose-100 text-rose-700' : 'bg-slate-200 text-slate-500'}`}>
+                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'lesson' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
                                 ?. Lesson
                             </span>
                         </div>

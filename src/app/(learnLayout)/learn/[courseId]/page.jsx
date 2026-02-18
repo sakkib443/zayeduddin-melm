@@ -145,7 +145,7 @@ export default function CourseLearnPage() {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-[#E62D26] border-t-transparent rounded-full animate-spin mx-auto"></div>
+                    <div className="w-12 h-12 border-4 border-[#021E14] border-t-transparent rounded-full animate-spin mx-auto"></div>
                     <p className="text-gray-500 text-sm mt-4 font-medium">Loading course...</p>
                 </div>
             </div>
@@ -157,14 +157,14 @@ export default function CourseLearnPage() {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
                 <div className="max-w-md w-full bg-white p-8 rounded-2xl border border-gray-200 shadow-xl text-center">
-                    <div className="w-16 h-16 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                    <div className="w-16 h-16 bg-[#021E14] text-[#021E14] rounded-2xl flex items-center justify-center mx-auto mb-5">
                         <FiX size={32} />
                     </div>
                     <h2 className="text-xl font-bold text-gray-800 mb-3">Oops! Something went wrong</h2>
                     <p className="text-gray-500 mb-6">{error}</p>
                     <button
                         onClick={() => router.push('/dashboard/user/courses')}
-                        className="w-full py-3 bg-[#E62D26] text-white rounded-xl font-bold hover:bg-[#c41e18] transition-all"
+                        className="w-full py-3 bg-[#021E14] text-white rounded-xl font-bold hover:bg-[#021E14] transition-all"
                     >
                         Back to My Courses
                     </button>
@@ -185,7 +185,7 @@ export default function CourseLearnPage() {
                         <div className="flex items-center gap-4">
                             {/* Logo */}
                             <div className="flex items-center gap-2 group">
-                                <Logo size="small" align="left" color="#300000" />
+                                <Logo size="small" align="left" color="#021E14" />
                             </div>
 
                             {/* Divider */}
@@ -195,14 +195,14 @@ export default function CourseLearnPage() {
                             <div className="hidden sm:flex items-center gap-1">
                                 <Link
                                     href="/"
-                                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-500 hover:text-[#E62D26] hover:bg-[#E62D26]/5 transition-all text-sm font-medium"
+                                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-500 hover:text-[#021E14] hover:bg-[#021E14]/5 transition-all text-sm font-medium"
                                 >
                                     <FiHome size={14} />
                                     Home
                                 </Link>
                                 <button
                                     onClick={() => router.push('/dashboard/user/courses')}
-                                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-500 hover:text-[#E62D26] hover:bg-[#E62D26]/5 transition-all text-sm font-medium"
+                                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-500 hover:text-[#021E14] hover:bg-[#021E14]/5 transition-all text-sm font-medium"
                                 >
                                     <FiArrowLeft size={14} />
                                     My Courses
@@ -213,7 +213,7 @@ export default function CourseLearnPage() {
                         {/* Center: Course Title & Progress */}
                         <div className="hidden lg:flex items-center gap-5 flex-1 max-w-xl mx-6">
                             <div className="flex-1 min-w-0">
-                                <p className="text-[10px] text-[#E62D26] font-bold uppercase tracking-wider">Learning Now</p>
+                                <p className="text-[10px] text-[#021E14] font-bold uppercase tracking-wider">Learning Now</p>
                                 <h1 className="text-gray-800 font-semibold truncate text-sm">
                                     {currentCourse.title}
                                 </h1>
@@ -223,10 +223,10 @@ export default function CourseLearnPage() {
                                 <div className="flex flex-col items-end">
                                     <span className="text-xs text-gray-400">{completedLessons.length}/{totalLessons}</span>
                                     <div className="w-24 h-1.5 bg-gray-200 rounded-full overflow-hidden mt-1">
-                                        <div className="h-full bg-gradient-to-r from-[#E62D26] to-[#F79952] rounded-full" style={{ width: `${progressPercent}%` }}></div>
+                                        <div className="h-full bg-gradient-to-r from-[#021E14] to-[#021E14] rounded-full" style={{ width: `${progressPercent}%` }}></div>
                                     </div>
                                 </div>
-                                <span className="text-sm font-bold text-[#E62D26]">{progressPercent}%</span>
+                                <span className="text-sm font-bold text-[#021E14]">{progressPercent}%</span>
                             </div>
                         </div>
 
@@ -234,11 +234,11 @@ export default function CourseLearnPage() {
                         <div className="flex items-center gap-3">
                             {/* Stats */}
                             <div className="hidden md:flex items-center gap-2">
-                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E62D26]/10 text-[#E62D26] text-xs font-bold">
+                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#021E14]/10 text-[#021E14] text-xs font-bold">
                                     <FiBookOpen size={13} />
                                     <span>{totalLessons}</span>
                                 </div>
-                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F79952]/10 text-[#F79952] text-xs font-bold">
+                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#021E14]/10 text-[#021E14] text-xs font-bold">
                                     <FiClock size={13} />
                                     <span>{Math.round(totalDuration / 60)}m</span>
                                 </div>
@@ -247,7 +247,7 @@ export default function CourseLearnPage() {
                             {/* Dashboard Link */}
                             <Link
                                 href="/dashboard/user"
-                                className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-[#E62D26] hover:text-white transition-all text-sm font-medium"
+                                className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-[#021E14] hover:text-white transition-all text-sm font-medium"
                             >
                                 <FiUser size={14} />
                                 Dashboard
@@ -278,14 +278,14 @@ export default function CourseLearnPage() {
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id)}
                                         className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all whitespace-nowrap ${activeTab === tab.id
-                                            ? 'bg-[#E62D26] text-white shadow-sm'
+                                            ? 'bg-[#021E14] text-white shadow-sm'
                                             : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                                             }`}
                                     >
                                         <tab.icon size={15} />
                                         {tab.label}
                                         {tab.badge > 0 && (
-                                            <span className={`ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold ${activeTab === tab.id ? 'bg-white/20' : 'bg-[#E62D26]/10 text-[#E62D26]'}`}>
+                                            <span className={`ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold ${activeTab === tab.id ? 'bg-white/20' : 'bg-[#021E14]/10 text-[#021E14]'}`}>
                                                 {tab.badge}
                                             </span>
                                         )}
@@ -325,7 +325,7 @@ export default function CourseLearnPage() {
                                     <button
                                         onClick={() => setVideoMode(videoMode === 'theater' ? 'normal' : 'theater')}
                                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${videoMode === 'theater'
-                                            ? 'bg-[#F79952] text-white'
+                                            ? 'bg-[#021E14] text-white'
                                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                             }`}
                                     >
@@ -390,12 +390,12 @@ export default function CourseLearnPage() {
                                 <div className="flex-1">
                                     {/* Breadcrumb Tags */}
                                     <div className="flex items-center gap-2 mb-3 flex-wrap">
-                                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E62D26]/10 text-[#E62D26] text-xs font-bold">
+                                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#021E14]/10 text-[#021E14] text-xs font-bold">
                                             <FiBookOpen size={12} />
                                             Module {groupedContent.findIndex(m => m.lessons.some(l => l._id === activeLesson?._id)) + 1}
                                         </span>
                                         <FiChevronRight size={14} className="text-gray-300" />
-                                        <span className="px-3 py-1.5 rounded-lg bg-[#F79952]/10 text-[#F79952] text-xs font-bold">
+                                        <span className="px-3 py-1.5 rounded-lg bg-[#021E14]/10 text-[#021E14] text-xs font-bold">
                                             Lesson {activeLesson?.order || 1}
                                         </span>
                                     </div>
@@ -421,13 +421,13 @@ export default function CourseLearnPage() {
                                             </span>
                                         )}
                                         {activeLesson?.documents?.length > 0 && (
-                                            <span className="inline-flex items-center gap-1.5 text-xs text-[#E62D26] bg-[#E62D26]/10 px-3 py-1.5 rounded-lg">
+                                            <span className="inline-flex items-center gap-1.5 text-xs text-[#021E14] bg-[#021E14]/10 px-3 py-1.5 rounded-lg">
                                                 <FiFile size={12} />
                                                 {activeLesson.documents.length} resources
                                             </span>
                                         )}
                                         {activeLesson?.questions?.length > 0 && (
-                                            <span className="inline-flex items-center gap-1.5 text-xs text-[#F79952] bg-[#F79952]/10 px-3 py-1.5 rounded-lg">
+                                            <span className="inline-flex items-center gap-1.5 text-xs text-[#021E14] bg-[#021E14]/10 px-3 py-1.5 rounded-lg">
                                                 <FiHelpCircle size={12} />
                                                 {activeLesson.questions.length} questions
                                             </span>
@@ -438,19 +438,19 @@ export default function CourseLearnPage() {
                                 {/* Action Button */}
                                 <div className="flex-shrink-0">
                                     {completedLessons.includes(activeLesson?._id) ? (
-                                        <div className="flex items-center gap-3 px-5 py-3 rounded-xl bg-[#E62D26]/10 border border-[#E62D26]/20">
-                                            <div className="w-9 h-9 rounded-full bg-[#E62D26] flex items-center justify-center">
+                                        <div className="flex items-center gap-3 px-5 py-3 rounded-xl bg-[#021E14]/10 border border-[#021E14]/20">
+                                            <div className="w-9 h-9 rounded-full bg-[#021E14] flex items-center justify-center">
                                                 <FiCheck size={16} className="text-white" />
                                             </div>
                                             <div>
-                                                <p className="text-[#E62D26] font-bold text-sm">Completed!</p>
-                                                <p className="text-[#E62D26]/60 text-xs">Great job!</p>
+                                                <p className="text-[#021E14] font-bold text-sm">Completed!</p>
+                                                <p className="text-[#021E14]/60 text-xs">Great job!</p>
                                             </div>
                                         </div>
                                     ) : (
                                         <button
                                             onClick={handleMarkAsDone}
-                                            className="group flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white font-bold text-sm shadow-lg shadow-[#E62D26]/20 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all"
+                                            className="group flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-[#021E14] to-[#021E14] text-white font-bold text-sm shadow-lg shadow-[#021E14]/20 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all"
                                         >
                                             <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                                                 <FiCheck size={14} />
@@ -467,9 +467,9 @@ export default function CourseLearnPage() {
                     <aside className={`hidden lg:block w-[340px] flex-shrink-0 ${!sidebarOpen ? 'lg:hidden' : ''}`}>
                         <div className="sticky top-[80px] bg-white rounded-2xl border border-gray-200 overflow-hidden">
                             {/* Header */}
-                            <div className="p-5 border-b border-gray-100 bg-gradient-to-r from-[#E62D26]/5 to-[#F79952]/5">
+                            <div className="p-5 border-b border-gray-100 bg-gradient-to-r from-[#021E14]/5 to-[#021E14]/5">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center shadow-md">
+                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center shadow-md">
                                         <FiBookOpen size={18} className="text-white" />
                                     </div>
                                     <div>
@@ -482,10 +482,10 @@ export default function CourseLearnPage() {
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between text-xs">
                                         <span className="text-gray-500">{completedLessons.length} of {totalLessons}</span>
-                                        <span className="text-[#E62D26] font-bold">{progressPercent}%</span>
+                                        <span className="text-[#021E14] font-bold">{progressPercent}%</span>
                                     </div>
                                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                                        <div className="h-full bg-gradient-to-r from-[#E62D26] to-[#F79952] rounded-full transition-all" style={{ width: `${progressPercent}%` }}></div>
+                                        <div className="h-full bg-gradient-to-r from-[#021E14] to-[#021E14] rounded-full transition-all" style={{ width: `${progressPercent}%` }}></div>
                                     </div>
                                 </div>
                             </div>
@@ -496,10 +496,10 @@ export default function CourseLearnPage() {
                                     <div key={module._id} className="border-b border-gray-50 last:border-0">
                                         <button
                                             onClick={() => toggleModule(module._id)}
-                                            className={`w-full p-4 flex items-start gap-3 text-left transition-all ${expandedModules[module._id] ? 'bg-[#E62D26]/5' : 'hover:bg-gray-50'}`}
+                                            className={`w-full p-4 flex items-start gap-3 text-left transition-all ${expandedModules[module._id] ? 'bg-[#021E14]/5' : 'hover:bg-gray-50'}`}
                                         >
                                             <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold transition-all ${expandedModules[module._id]
-                                                ? 'bg-[#E62D26] text-white shadow-md'
+                                                ? 'bg-[#021E14] text-white shadow-md'
                                                 : 'bg-gray-100 text-gray-500'
                                                 }`}>
                                                 {mIdx + 1}
@@ -536,14 +536,14 @@ export default function CourseLearnPage() {
                                                                     key={lesson._id}
                                                                     onClick={() => setActiveLesson(lesson)}
                                                                     className={`w-full ml-8 px-3 py-2.5 rounded-lg flex items-center gap-3 text-left transition-all ${isActive
-                                                                        ? 'bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white shadow-md'
+                                                                        ? 'bg-gradient-to-r from-[#021E14] to-[#021E14] text-white shadow-md'
                                                                         : 'hover:bg-gray-50'
                                                                         }`}
                                                                 >
                                                                     <div className={`flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center ${isActive
                                                                         ? 'bg-white/20'
                                                                         : isCompleted
-                                                                            ? 'bg-[#E62D26]/10 text-[#E62D26]'
+                                                                            ? 'bg-[#021E14]/10 text-[#021E14]'
                                                                             : 'bg-gray-100 text-gray-400'
                                                                         }`}>
                                                                         {isCompleted && !isActive ? <FiCheck size={11} /> : <FiPlay size={9} />}
@@ -600,9 +600,9 @@ export default function CourseLearnPage() {
                                     <div key={module._id}>
                                         <button
                                             onClick={() => toggleModule(module._id)}
-                                            className={`w-full p-3 rounded-xl flex items-center gap-3 text-left transition-all ${expandedModules[module._id] ? 'bg-[#E62D26]/10' : 'bg-gray-50 hover:bg-gray-100'}`}
+                                            className={`w-full p-3 rounded-xl flex items-center gap-3 text-left transition-all ${expandedModules[module._id] ? 'bg-[#021E14]/10' : 'bg-gray-50 hover:bg-gray-100'}`}
                                         >
-                                            <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${expandedModules[module._id] ? 'bg-[#E62D26] text-white' : 'bg-white text-gray-500'}`}>
+                                            <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${expandedModules[module._id] ? 'bg-[#021E14] text-white' : 'bg-white text-gray-500'}`}>
                                                 {mIdx + 1}
                                             </div>
                                             <span className="flex-1 text-sm font-semibold text-gray-700 truncate">{module.title}</span>
@@ -624,7 +624,7 @@ export default function CourseLearnPage() {
                                                                     key={lesson._id}
                                                                     onClick={() => { setActiveLesson(lesson); setSidebarOpen(false); }}
                                                                     className={`w-full p-2.5 rounded-lg text-left text-sm font-medium transition-all ${isActive
-                                                                        ? 'bg-[#E62D26] text-white'
+                                                                        ? 'bg-[#021E14] text-white'
                                                                         : 'text-gray-600 hover:bg-gray-100'
                                                                         }`}
                                                                 >

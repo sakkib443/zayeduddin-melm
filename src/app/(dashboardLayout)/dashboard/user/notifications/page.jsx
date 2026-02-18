@@ -101,12 +101,12 @@ export default function UserNotificationsPage() {
 
     const getNotificationIcon = (type) => {
         switch (type) {
-            case 'course': return <FiBookOpen className="text-[#E62D26]" size={18} />;
-            case 'certificate': return <FiAward className="text-[#F79952]" size={18} />;
+            case 'course': return <FiBookOpen className="text-[#021E14]" size={18} />;
+            case 'certificate': return <FiAward className="text-[#021E14]" size={18} />;
             case 'success': return <FiCheckCircle className="text-green-500" size={18} />;
-            case 'resource': return <FiDownload className="text-blue-500" size={18} />;
-            case 'live_class': return <FiVideo className="text-[#E62D26]" size={18} />;
-            case 'batch': return <FiBookOpen className="text-blue-500" size={18} />;
+            case 'resource': return <FiDownload className="text-[#021E14]" size={18} />;
+            case 'live_class': return <FiVideo className="text-[#021E14]" size={18} />;
+            case 'batch': return <FiBookOpen className="text-[#021E14]" size={18} />;
             default: return <FiBell className="text-gray-500" size={18} />;
         }
     };
@@ -133,7 +133,7 @@ export default function UserNotificationsPage() {
             <div className={`${cardClass} p-6`}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center text-white shadow-lg">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-lg">
                             <FiBell size={28} />
                         </div>
                         <div>
@@ -146,7 +146,7 @@ export default function UserNotificationsPage() {
                     {unreadCount > 0 && (
                         <button
                             onClick={markAllAsRead}
-                            className="flex items-center gap-2 px-4 py-2 bg-[#E62D26]/10 text-[#E62D26] rounded-xl font-medium hover:bg-[#E62D26]/20 transition-all text-sm"
+                            className="flex items-center gap-2 px-4 py-2 bg-[#021E14]/10 text-[#021E14] rounded-xl font-medium hover:bg-[#021E14]/20 transition-all text-sm"
                         >
                             <FiCheck size={16} />
                             Mark all as read
@@ -166,7 +166,7 @@ export default function UserNotificationsPage() {
                         key={f.id}
                         onClick={() => setFilter(f.id)}
                         className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${filter === f.id
-                            ? 'bg-[#E62D26] text-white'
+                            ? 'bg-[#021E14] text-white'
                             : isDark ? 'bg-slate-800 text-slate-400 hover:bg-slate-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }`}
                     >
@@ -192,7 +192,7 @@ export default function UserNotificationsPage() {
                         <div
                             key={notif._id}
                             className={`flex items-start gap-4 p-5 transition-colors ${!notif.isRead
-                                ? isDark ? 'bg-[#E62D26]/5' : 'bg-[#E62D26]/5'
+                                ? isDark ? 'bg-[#021E14]/5' : 'bg-[#021E14]/5'
                                 : isDark ? 'hover:bg-slate-700/30' : 'hover:bg-gray-50'
                                 }`}
                         >
@@ -205,7 +205,7 @@ export default function UserNotificationsPage() {
                                         <p className={`font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>
                                             {notif.title}
                                             {!notif.isRead && (
-                                                <span className="ml-2 w-2 h-2 bg-[#E62D26] rounded-full inline-block"></span>
+                                                <span className="ml-2 w-2 h-2 bg-[#021E14] rounded-full inline-block"></span>
                                             )}
                                         </p>
                                         <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>
@@ -220,8 +220,8 @@ export default function UserNotificationsPage() {
                                             <button
                                                 onClick={() => markAsRead(notif._id)}
                                                 className={`p-2 rounded-lg transition-colors ${isDark
-                                                    ? 'bg-slate-700 text-slate-400 hover:text-[#E62D26]'
-                                                    : 'bg-gray-100 text-gray-500 hover:text-[#E62D26]'
+                                                    ? 'bg-slate-700 text-slate-400 hover:text-[#021E14]'
+                                                    : 'bg-gray-100 text-gray-500 hover:text-[#021E14]'
                                                     }`}
                                                 title="Mark as read"
                                             >
@@ -231,8 +231,8 @@ export default function UserNotificationsPage() {
                                         <button
                                             onClick={() => deleteNotification(notif._id)}
                                             className={`p-2 rounded-lg transition-colors ${isDark
-                                                ? 'bg-slate-700 text-slate-400 hover:text-red-500 hover:bg-red-500/10'
-                                                : 'bg-gray-100 text-gray-500 hover:text-red-500 hover:bg-red-50'
+                                                ? 'bg-slate-700 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14]/10'
+                                                : 'bg-gray-100 text-gray-500 hover:text-[#021E14] hover:bg-[#021E14]'
                                                 }`}
                                             title="Delete"
                                         >

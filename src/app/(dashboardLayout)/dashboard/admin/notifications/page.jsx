@@ -79,10 +79,10 @@ export default function NotificationsPage() {
 
   const getIcon = (type) => {
     switch (type) {
-      case 'order': return <FiShoppingBag className="text-emerald-500" size={18} />;
-      case 'enrollment': return <FiBookOpen className="text-blue-500" size={18} />;
-      case 'user': return <FiUser className="text-violet-500" size={18} />;
-      case 'review': return <FiStar className="text-amber-500" size={18} />;
+      case 'order': return <FiShoppingBag className="text-[#021E14]" size={18} />;
+      case 'enrollment': return <FiBookOpen className="text-[#021E14]" size={18} />;
+      case 'user': return <FiUser className="text-[#021E14]" size={18} />;
+      case 'review': return <FiStar className="text-[#D4AF37]" size={18} />;
       default: return <FiBell className="text-slate-500" size={18} />;
     }
   };
@@ -106,7 +106,7 @@ export default function NotificationsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-md border border-gray-200 dark:border-slate-700">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-500 rounded-md flex items-center justify-center">
+          <div className="w-10 h-10 bg-[#021E14] rounded-md flex items-center justify-center">
             <FiBell className="text-white" size={18} />
           </div>
           <div>
@@ -124,7 +124,7 @@ export default function NotificationsPage() {
           {meta.unreadCount > 0 && (
             <button
               onClick={markAllAsRead}
-              className="flex items-center gap-2 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md transition-colors"
+              className="flex items-center gap-2 px-3 py-2 bg-[#021E14] hover:bg-[#021E14] text-white text-sm font-medium rounded-md transition-colors"
             >
               <FiCheckCircle size={14} /> Mark all read
             </button>
@@ -136,7 +136,7 @@ export default function NotificationsPage() {
       <div className="bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16">
-            <FiRefreshCw className="animate-spin text-blue-500" size={24} />
+            <FiRefreshCw className="animate-spin text-[#021E14]" size={24} />
           </div>
         ) : notifications.length === 0 ? (
           <div className="py-16 text-center">
@@ -148,7 +148,7 @@ export default function NotificationsPage() {
             {notifications.map((notification) => (
               <div
                 key={notification._id}
-                className={`p-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-700/50 ${!notification.isRead ? 'bg-blue-50/50 dark:bg-blue-500/5' : ''}`}
+                className={`p-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-700/50 ${!notification.isRead ? 'bg-[#021E14]/50 dark:bg-[#021E14]/5' : ''}`}
               >
                 <div className="flex gap-3">
                   <div className="w-10 h-10 rounded-md bg-gray-100 dark:bg-slate-700 flex items-center justify-center shrink-0">
@@ -162,14 +162,14 @@ export default function NotificationsPage() {
                             {notification.title}
                           </p>
                           {!notification.isRead && (
-                            <span className="w-2 h-2 bg-blue-500 rounded-full" />
+                            <span className="w-2 h-2 bg-[#021E14] rounded-full" />
                           )}
                         </div>
                         <p className="text-sm text-slate-500 mt-0.5">{notification.message}</p>
                         <div className="flex items-center gap-3 mt-1">
                           <span className="text-xs text-slate-400">{formatTime(notification.createdAt)}</span>
                           {notification.data?.amount && (
-                            <span className="text-xs text-emerald-500 font-medium">৳{notification.data.amount.toLocaleString()}</span>
+                            <span className="text-xs text-[#021E14] font-medium">৳{notification.data.amount.toLocaleString()}</span>
                           )}
                         </div>
                       </div>
@@ -178,7 +178,7 @@ export default function NotificationsPage() {
                           <Link
                             href={notification.data.link}
                             onClick={() => !notification.isRead && markAsRead(notification._id)}
-                            className="p-1.5 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-md transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors"
                           >
                             <FiExternalLink size={14} />
                           </Link>
@@ -186,14 +186,14 @@ export default function NotificationsPage() {
                         {!notification.isRead && (
                           <button
                             onClick={() => markAsRead(notification._id)}
-                            className="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-md transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-emerald-50 rounded-md transition-colors"
                           >
                             <FiCheck size={14} />
                           </button>
                         )}
                         <button
                           onClick={() => deleteNotification(notification._id)}
-                          className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                          className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors"
                         >
                           <FiTrash2 size={14} />
                         </button>

@@ -29,7 +29,7 @@ const BlogSection = () => {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="inline-block px-4 py-1.5 rounded-full bg-[#300000]/5 text-[#300000] text-[10px] font-bold uppercase tracking-widest mb-4"
+                            className="inline-block px-4 py-1.5 rounded-full bg-[#021E14]/5 text-[#021E14] text-[10px] font-bold uppercase tracking-widest mb-4"
                         >
                             {t("blogSection.badge")}
                         </motion.span>
@@ -38,7 +38,7 @@ const BlogSection = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className={`text-3xl md:text-4xl lg:text-5xl font-bold text-[#300000] ${bengaliClass}`}
+                            className={`text-3xl md:text-4xl lg:text-5xl font-bold text-[#021E14] ${bengaliClass}`}
                             style={{ fontFamily: 'var(--font-poppins)' }}
                         >
                             {t("blogSection.title")}
@@ -51,7 +51,7 @@ const BlogSection = () => {
                     >
                         <Link
                             href="/blog"
-                            className="group inline-flex items-center gap-2 text-[#300000] font-bold text-sm tracking-widest uppercase hover:gap-4 transition-all"
+                            className="group inline-flex items-center gap-2 text-[#021E14] font-bold text-sm tracking-widest uppercase hover:gap-4 transition-all"
                         >
                             {t("blogSection.viewAll")}
                             <LuArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -74,7 +74,7 @@ const BlogSection = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="group flex flex-col h-full bg-[#fafafa] dark:bg-white/5 rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-white/10 hover:shadow-2xl hover:shadow-[#300000]/5 hover:border-[#300000]/10 transition-all duration-500"
+                                className="group flex flex-col h-full bg-[#fafafa] dark:bg-white/5 rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-white/10 hover:shadow-2xl hover:shadow-[#021E14]/5 hover:border-[#021E14]/10 transition-all duration-500"
                             >
                                 {/* Image Wrapper */}
                                 <div className="relative h-64 w-full overflow-hidden shrink-0 p-4">
@@ -87,10 +87,10 @@ const BlogSection = () => {
                                         />
                                         {/* Date Badge */}
                                         <div className="absolute top-4 left-4 px-4 py-2 bg-white/90 backdrop-blur-md rounded-2xl flex flex-col items-center shadow-lg">
-                                            <span className="text-xl font-bold text-[#300000] leading-none">
+                                            <span className="text-xl font-bold text-[#021E14] leading-none">
                                                 {new Date(blog.createdAt).getDate()}
                                             </span>
-                                            <span className="text-[10px] font-bold text-[#300000] uppercase tracking-tighter opacity-70">
+                                            <span className="text-[10px] font-bold text-[#021E14] uppercase tracking-tighter opacity-70">
                                                 {new Date(blog.createdAt).toLocaleString('default', { month: 'short' })}
                                             </span>
                                         </div>
@@ -104,13 +104,13 @@ const BlogSection = () => {
                                             {language === 'bn' ? (blog.category?.nameBn || blog.category?.name || t("blogSection.category")) : (blog.category?.name || t("blogSection.category"))}
                                         </span>
                                         <span className="flex items-center gap-1.5">
-                                            <LuMessageSquare className="text-[#300000]" size={14} />
+                                            <LuMessageSquare className="text-[#021E14]" size={14} />
                                             {blog.commentsCount || 0}
                                         </span>
                                     </div>
 
                                     <Link href={`/blog/${blog.slug}`} className="mb-3 block">
-                                        <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#300000] transition-colors ${bengaliClass}`}>
+                                        <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
                                             {blog.title}
                                         </h3>
                                     </Link>
@@ -135,7 +135,7 @@ const BlogSection = () => {
                                         </div>
                                         <Link
                                             href={`/blog/${blog.slug}`}
-                                            className="w-10 h-10 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#300000] dark:text-white border border-slate-100 dark:border-white/10 hover:bg-[#300000] hover:text-white transition-all duration-300"
+                                            className="w-10 h-10 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#021E14] dark:text-white border border-slate-100 dark:border-white/10 hover:bg-[#021E14] hover:text-white transition-all duration-300"
                                         >
                                             <LuArrowRight size={18} />
                                         </Link>

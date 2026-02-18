@@ -125,7 +125,7 @@ const SoftwareDetailsPage = () => {
                 <p className="text-gray-500 dark:text-gray-400 poppins text-sm mb-6 text-center max-w-sm">The software you're looking for doesn't exist or has been removed.</p>
                 <button
                     onClick={() => router.push('/software')}
-                    className="px-6 py-2.5 bg-gray-900 dark:bg-red-500 text-white text-sm font-semibold rounded-md hover:bg-red-600 transition-colors"
+                    className="px-6 py-2.5 bg-gray-900 dark:bg-[#021E14] text-white text-sm font-semibold rounded-md hover:bg-[#021E14] transition-colors"
                 >
                     Browse Software
                 </button>
@@ -138,24 +138,24 @@ const SoftwareDetailsPage = () => {
             {/* Hero Section */}
             <section className="relative overflow-hidden bg-gradient-to-br from-[#f0fffe] via-[#e8f9f8] to-[#f5f5ff] dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pt-12 pb-28 lg:pt-16 lg:pb-36">
                 {/* Background Effects - Subtle */}
-                <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-red-400/10 dark:from-red-500/5 to-transparent blur-3xl pointer-events-none"></div>
-                <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-amber-400/8 dark:bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#021E14]/10 dark:from-[#021E14]/5 to-transparent blur-3xl pointer-events-none"></div>
+                <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#D4AF37]/8 dark:bg-[#D4AF37]/5 rounded-full blur-3xl pointer-events-none"></div>
 
                 {/* Animated Shapes */}
-                <div className="absolute top-20 right-[15%] w-20 h-20 border-2 border-red-500/20 rounded-2xl rotate-12 animate-float"></div>
-                <div className="absolute bottom-32 left-[10%] w-16 h-16 border-2 border-orange-500/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute top-1/3 right-[8%] w-12 h-12 bg-red-500/10 rounded-xl rotate-45 animate-float" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute top-20 right-[15%] w-20 h-20 border-2 border-[#021E14]/20 rounded-2xl rotate-12 animate-float"></div>
+                <div className="absolute bottom-32 left-[10%] w-16 h-16 border-2 border-[#021E14]/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-1/3 right-[8%] w-12 h-12 bg-[#021E14]/10 rounded-xl rotate-45 animate-float" style={{ animationDelay: '2s' }}></div>
 
                 {/* Floating Elements - Refined */}
                 <motion.div
                     animate={{ y: [0, -15, 0] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-28 right-1/4 w-16 h-16 bg-gradient-to-br from-red-400/20 to-cyan-400/10 rounded-md blur-sm pointer-events-none"
+                    className="absolute top-28 right-1/4 w-16 h-16 bg-gradient-to-br from-[#021E14]/20 to-cyan-400/10 rounded-md blur-sm pointer-events-none"
                 ></motion.div>
                 <motion.div
                     animate={{ y: [0, 12, 0] }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    className="absolute bottom-32 right-1/3 w-12 h-12 bg-gradient-to-br from-amber-400/15 to-orange-300/10 rounded-full blur-sm pointer-events-none"
+                    className="absolute bottom-32 right-1/3 w-12 h-12 bg-gradient-to-br from-[#D4AF37]/15 to-[#01140D]/10 rounded-full blur-sm pointer-events-none"
                 ></motion.div>
 
                 {/* Grid Pattern - Lighter */}
@@ -169,9 +169,9 @@ const SoftwareDetailsPage = () => {
                             animate={{ opacity: 1 }}
                             className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6"
                         >
-                            <Link href="/" className="hover:text-red-600 transition-colors">Home</Link>
+                            <Link href="/" className="hover:text-[#021E14] transition-colors">Home</Link>
                             <span>/</span>
-                            <Link href="/software" className="hover:text-red-600 transition-colors">Software</Link>
+                            <Link href="/software" className="hover:text-[#021E14] transition-colors">Software</Link>
                             <span>/</span>
                             <span className="text-gray-700 dark:text-white font-medium truncate max-w-[200px]">{software.title}</span>
                         </motion.div>
@@ -182,14 +182,14 @@ const SoftwareDetailsPage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             className="flex flex-wrap items-center gap-2 mb-5"
                         >
-                            <span className="px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 rounded text-white text-[11px] font-bold uppercase tracking-wider">
+                            <span className="px-3 py-1 bg-gradient-to-r from-[#021E14] to-[#01140D] rounded text-white text-[11px] font-bold uppercase tracking-wider">
                                 {software.softwareType || 'Software'}
                             </span>
                             <span className="px-3 py-1 bg-white/90 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded text-gray-600 dark:text-gray-300 text-[11px] font-bold uppercase tracking-wider">
                                 v{software.version || '1.0'}
                             </span>
                             {software.isFeatured && (
-                                <span className="px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                <span className="px-3 py-1 bg-gradient-to-r from-[#D4AF37] to-[#01140D] rounded text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
                                     <LuSparkles size={10} /> Featured
                                 </span>
                             )}
@@ -224,7 +224,7 @@ const SoftwareDetailsPage = () => {
                         >
                             {/* Rating */}
                             <div className="flex items-center gap-2 bg-white px-8 py-2.5 rounded-md border border-gray-200">
-                                <div className="flex text-amber-400 gap-0.5">
+                                <div className="flex text-[#D4AF37] gap-0.5">
                                     {[1, 2, 3, 4, 5].map((s) => <FaStar key={s} size={12} />)}
                                 </div>
                                 <span className="font-bold outfit text-gray-900">{software.rating || '5.0'}</span>
@@ -234,7 +234,7 @@ const SoftwareDetailsPage = () => {
                             {/* Sales */}
                             <div className="flex items-center gap-3 bg-white px-8 py-2.5 rounded-md border border-gray-200">
                                 <div className="w-7 h-7 rounded bg-emerald-50 flex items-center justify-center">
-                                    <LuPackage className="text-emerald-600" size={14} />
+                                    <LuPackage className="text-[#021E14]" size={14} />
                                 </div>
                                 <span className="text-gray-700 font-medium text-sm">
                                     <AnimatedCounter value={software.salesCount || 0} />
@@ -244,8 +244,8 @@ const SoftwareDetailsPage = () => {
 
                             {/* Views */}
                             <div className="flex items-center gap-3 bg-white px-8 py-2.5 rounded-md border border-gray-200">
-                                <div className="w-7 h-7 rounded bg-blue-50 flex items-center justify-center">
-                                    <LuEye className="text-blue-600" size={14} />
+                                <div className="w-7 h-7 rounded bg-[#021E14] flex items-center justify-center">
+                                    <LuEye className="text-[#021E14]" size={14} />
                                 </div>
                                 <span className="text-gray-700 font-medium text-sm">
                                     <AnimatedCounter value={software.viewCount || 0} />
@@ -263,16 +263,16 @@ const SoftwareDetailsPage = () => {
                         >
                             <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md border border-gray-200">
                                 <span className="text-gray-400 text-sm">Platform</span>
-                                <span className="text-red-600 font-semibold text-sm outfit">{software.platform}</span>
-                                <MdVerified className="text-blue-500" size={16} />
+                                <span className="text-[#021E14] font-semibold text-sm outfit">{software.platform}</span>
+                                <MdVerified className="text-[#021E14]" size={16} />
                             </div>
 
                             <button
                                 onClick={handleToggleLike}
                                 disabled={isLiking}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-md border transition-all ${software.isLiked
-                                    ? 'bg-rose-50 border-rose-200 text-rose-600'
-                                    : 'bg-white border-gray-150 text-gray-600 hover:border-rose-200 hover:text-rose-500'
+                                    ? 'bg-[#021E14] border-[#021E14] text-[#021E14]'
+                                    : 'bg-white border-gray-150 text-gray-600 hover:border-[#021E14] hover:text-[#021E14]'
                                     }`}
                             >
                                 {software.isLiked ? <FaHeart size={14} /> : <FaRegHeart size={14} />}
@@ -300,7 +300,7 @@ const SoftwareDetailsPage = () => {
                                         <span className="text-2xl font-bold text-gray-900 outfit">৳{software.price?.toLocaleString()}</span>
                                         {software.offerPrice && <span className="text-gray-400 line-through text-sm">৳{software.offerPrice?.toLocaleString()}</span>}
                                     </div>
-                                    <button onClick={handleBuyNow} className="w-full py-3 bg-red-500 text-white font-semibold rounded-md active:scale-[0.98] transition-transform">
+                                    <button onClick={handleBuyNow} className="w-full py-3 bg-[#021E14] text-white font-semibold rounded-md active:scale-[0.98] transition-transform">
                                         Buy Now
                                     </button>
                                 </div>
@@ -320,7 +320,7 @@ const SoftwareDetailsPage = () => {
                                             key={tab.id}
                                             onClick={() => setActiveTab(tab.id)}
                                             className={`flex-1 flex items-center justify-center gap-2 py-4 text-sm font-semibold transition-all border-b-2 -mb-[1px] ${activeTab === tab.id
-                                                ? "text-red-600 border-red-500 bg-white"
+                                                ? "text-[#021E14] border-[#021E14] bg-white"
                                                 : "text-gray-500 border-transparent hover:text-gray-700"
                                                 }`}
                                         >
@@ -345,7 +345,7 @@ const SoftwareDetailsPage = () => {
                                                 {/* About */}
                                                 <div>
                                                     <h2 className="text-lg font-bold outfit text-gray-900 mb-4 flex items-center gap-2">
-                                                        <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                                                        <span className="w-1 h-5 bg-[#021E14] rounded-full"></span>
                                                         About This Software
                                                     </h2>
                                                     <p className="text-gray-600 poppins text-[15px] leading-7">
@@ -362,14 +362,14 @@ const SoftwareDetailsPage = () => {
                                                 {software.technologies?.length > 0 && (
                                                     <div>
                                                         <h3 className="text-base font-bold outfit text-gray-900 mb-4 flex items-center gap-2">
-                                                            <span className="w-1 h-5 bg-amber-500 rounded-full"></span>
+                                                            <span className="w-1 h-5 bg-[#D4AF37] rounded-full"></span>
                                                             Technologies Used
                                                         </h3>
                                                         <div className="flex flex-wrap gap-2">
                                                             {software.technologies.map((tech, idx) => (
                                                                 <span
                                                                     key={idx}
-                                                                    className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded text-gray-700 font-medium text-sm hover:border-teal-300 hover:bg-red-50 transition-colors cursor-default"
+                                                                    className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded text-gray-700 font-medium text-sm hover:border-teal-300 hover:bg-[#021E14] transition-colors cursor-default"
                                                                 >
                                                                     {tech}
                                                                 </span>
@@ -389,7 +389,7 @@ const SoftwareDetailsPage = () => {
                                                 transition={{ duration: 0.2 }}
                                             >
                                                 <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
-                                                    <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                                                    <span className="w-1 h-5 bg-[#021E14] rounded-full"></span>
                                                     Key Features
                                                 </h2>
 
@@ -398,10 +398,10 @@ const SoftwareDetailsPage = () => {
                                                         {software.features.map((feature, idx) => (
                                                             <div
                                                                 key={idx}
-                                                                className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-100 rounded-md hover:border-teal-200 hover:bg-red-50/30 transition-colors"
+                                                                className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-100 rounded-md hover:border-teal-200 hover:bg-[#021E14]/30 transition-colors"
                                                             >
-                                                                <div className="w-8 h-8 rounded bg-red-100 flex items-center justify-center flex-shrink-0">
-                                                                    <LuCheck className="text-red-600" size={16} strokeWidth={3} />
+                                                                <div className="w-8 h-8 rounded bg-[#021E14] flex items-center justify-center flex-shrink-0">
+                                                                    <LuCheck className="text-[#021E14]" size={16} strokeWidth={3} />
                                                                 </div>
                                                                 <span className="text-gray-700 font-medium text-sm leading-relaxed pt-1">{feature}</span>
                                                             </div>
@@ -428,7 +428,7 @@ const SoftwareDetailsPage = () => {
                                                 {/* Requirements */}
                                                 <div>
                                                     <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
-                                                        <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                                                        <span className="w-1 h-5 bg-[#021E14] rounded-full"></span>
                                                         System Requirements
                                                     </h2>
 
@@ -439,7 +439,7 @@ const SoftwareDetailsPage = () => {
                                                                     key={idx}
                                                                     className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-100 rounded-md"
                                                                 >
-                                                                    <span className="w-6 h-6 rounded bg-white border border-gray-200 flex items-center justify-center text-xs font-bold text-red-600 outfit">
+                                                                    <span className="w-6 h-6 rounded bg-white border border-gray-200 flex items-center justify-center text-xs font-bold text-[#021E14] outfit">
                                                                         {idx + 1}
                                                                     </span>
                                                                     <span className="text-gray-700 text-sm">{req}</span>
@@ -458,7 +458,7 @@ const SoftwareDetailsPage = () => {
                                                 {software.browserCompatibility?.length > 0 && (
                                                     <div>
                                                         <h3 className="text-base font-bold outfit text-gray-900 mb-4 flex items-center gap-2">
-                                                            <span className="w-1 h-5 bg-amber-500 rounded-full"></span>
+                                                            <span className="w-1 h-5 bg-[#D4AF37] rounded-full"></span>
                                                             Browser Support
                                                         </h3>
                                                         <div className="flex flex-wrap gap-2">
@@ -518,20 +518,20 @@ const SoftwareDetailsPage = () => {
                                                     <span className="text-gray-400 line-through text-sm">৳{software.offerPrice?.toLocaleString()}</span>
                                                 )}
                                             </div>
-                                            <p className="text-red-600 text-xs font-semibold uppercase tracking-wide mt-1 poppins">Lifetime License</p>
+                                            <p className="text-[#021E14] text-xs font-semibold uppercase tracking-wide mt-1 poppins">Lifetime License</p>
                                         </div>
 
                                         {/* Buttons */}
                                         <div className="space-y-2.5">
                                             <button
                                                 onClick={handleBuyNow}
-                                                className="w-full py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-md transition-colors flex items-center justify-center gap-2"
+                                                className="w-full py-3 bg-[#021E14] hover:bg-[#021E14] text-white font-semibold rounded-md transition-colors flex items-center justify-center gap-2"
                                             >
                                                 Buy Now <FaArrowRight size={12} />
                                             </button>
                                             <button
                                                 onClick={handleAddToCart}
-                                                className="w-full py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-md hover:border-red-400 hover:text-red-600 transition-colors"
+                                                className="w-full py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-md hover:border-[#021E14] hover:text-[#021E14] transition-colors"
                                             >
                                                 Add to Cart
                                             </button>
@@ -539,7 +539,7 @@ const SoftwareDetailsPage = () => {
                                                 <a
                                                     href={software.previewUrl}
                                                     target="_blank"
-                                                    className="w-full py-2.5 bg-gray-50 border border-gray-200 text-gray-600 font-medium rounded-md hover:border-red-400 hover:text-red-600 transition-colors flex items-center justify-center gap-2 text-sm"
+                                                    className="w-full py-2.5 bg-gray-50 border border-gray-200 text-gray-600 font-medium rounded-md hover:border-[#021E14] hover:text-[#021E14] transition-colors flex items-center justify-center gap-2 text-sm"
                                                 >
                                                     <LuExternalLink size={14} /> Live Preview
                                                 </a>
@@ -557,7 +557,7 @@ const SoftwareDetailsPage = () => {
                                                     { icon: LuShieldCheck, text: 'Premium Support' },
                                                 ].map((item, i) => (
                                                     <li key={i} className="flex items-center gap-2.5 text-gray-600 text-sm poppins">
-                                                        <item.icon className="text-red-500" size={15} />
+                                                        <item.icon className="text-[#021E14]" size={15} />
                                                         <span>{item.text}</span>
                                                     </li>
                                                 ))}
@@ -580,19 +580,19 @@ const SoftwareDetailsPage = () => {
                                                     />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <h4 className="text-sm font-semibold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1 outfit">{item.title}</h4>
-                                                    <div className="flex items-center gap-1 text-amber-400 mt-0.5">
+                                                    <h4 className="text-sm font-semibold text-gray-900 group-hover:text-[#021E14] transition-colors line-clamp-1 outfit">{item.title}</h4>
+                                                    <div className="flex items-center gap-1 text-[#D4AF37] mt-0.5">
                                                         <FaStar size={10} />
                                                         <span className="text-gray-600 text-xs font-medium poppins">{item.rating || '5.0'}</span>
                                                     </div>
-                                                    <span className="text-red-600 font-bold text-xs poppins">৳{item.price?.toLocaleString()}</span>
+                                                    <span className="text-[#021E14] font-bold text-xs poppins">৳{item.price?.toLocaleString()}</span>
                                                 </div>
                                             </Link>
                                         ))}
                                     </div>
                                     <Link
                                         href="/software"
-                                        className="flex items-center justify-center w-full py-2.5 mt-4 text-red-600 font-semibold text-sm border border-dashed border-teal-200 rounded-md hover:bg-red-50 transition-colors poppins"
+                                        className="flex items-center justify-center w-full py-2.5 mt-4 text-[#021E14] font-semibold text-sm border border-dashed border-teal-200 rounded-md hover:bg-[#021E14] transition-colors poppins"
                                     >
                                         View All Software
                                     </Link>

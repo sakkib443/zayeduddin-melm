@@ -62,17 +62,17 @@ export default function MentorOrdersPage() {
         switch (status) {
             case 'completed': return 'bg-emerald-100 text-emerald-700';
             case 'pending': return 'bg-amber-100 text-amber-700';
-            case 'failed': return 'bg-red-100 text-red-700';
-            case 'refunded': return 'bg-purple-100 text-purple-700';
+            case 'failed': return 'bg-[#021E14] text-[#01140D]';
+            case 'refunded': return 'bg-[#021E14] text-[#021E14]';
             default: return 'bg-slate-100 text-slate-700';
         }
     };
 
     const getStatusIcon = (status) => {
         switch (status) {
-            case 'completed': return <FiCheck className="text-emerald-500" />;
-            case 'pending': return <FiClock className="text-amber-500" />;
-            case 'failed': return <FiX className="text-red-500" />;
+            case 'completed': return <FiCheck className="text-[#021E14]" />;
+            case 'pending': return <FiClock className="text-[#D4AF37]" />;
+            case 'failed': return <FiX className="text-[#021E14]" />;
             default: return <FiAlertCircle className="text-slate-400" />;
         }
     };
@@ -90,13 +90,13 @@ export default function MentorOrdersPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white rounded-2xl border border-slate-200/60 p-5 shadow-sm">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center shadow-lg shadow-[#021E14]/25">
                         <FiShoppingBag className="text-white text-xl" />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h1 className="text-xl font-bold text-slate-800">Orders Management</h1>
-                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">Mentor</span>
+                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">Mentor</span>
                         </div>
                         <p className="text-sm text-slate-500">{orders.length} total orders (View Only)</p>
                     </div>
@@ -122,10 +122,10 @@ export default function MentorOrdersPage() {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-red-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#021E14]/20 to-[#01140D]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative bg-white rounded-2xl border border-slate-200/60 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center text-white shadow-lg">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shadow-lg">
                                 <FiDollarSign size={22} />
                             </div>
                             <div>
@@ -137,10 +137,10 @@ export default function MentorOrdersPage() {
                 </div>
 
                 <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/20 to-[#01140D]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative bg-white rounded-2xl border border-slate-200/60 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white shadow-lg">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#01140D] flex items-center justify-center text-white shadow-lg">
                                 <FiClock size={22} />
                             </div>
                             <div>
@@ -152,10 +152,10 @@ export default function MentorOrdersPage() {
                 </div>
 
                 <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#021E14]/20 to-[#021E14]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative bg-white rounded-2xl border border-slate-200/60 p-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-lg">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-lg">
                                 <FiCheck size={22} />
                             </div>
                             <div>
@@ -177,7 +177,7 @@ export default function MentorOrdersPage() {
                             placeholder="Search by order number, customer name or email..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14] outline-none transition-all"
                         />
                     </div>
                     <div className="flex items-center gap-2">
@@ -216,7 +216,7 @@ export default function MentorOrdersPage() {
                             {loading ? (
                                 <tr>
                                     <td colSpan={7} className="px-6 py-16 text-center">
-                                        <FiRefreshCw className="animate-spin mx-auto mb-3 text-indigo-500" size={28} />
+                                        <FiRefreshCw className="animate-spin mx-auto mb-3 text-[#021E14]" size={28} />
                                         <p className="text-slate-500">Loading orders...</p>
                                     </td>
                                 </tr>
@@ -237,7 +237,7 @@ export default function MentorOrdersPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white text-sm font-bold">
                                                     {order.user?.firstName?.charAt(0) || 'U'}
                                                 </div>
                                                 <div>
@@ -250,7 +250,7 @@ export default function MentorOrdersPage() {
                                             <span className="text-sm text-slate-700">{order.items?.length || 0} item(s)</span>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className="font-bold text-emerald-600 text-lg">?{order.totalAmount?.toLocaleString()}</span>
+                                            <span className="font-bold text-[#021E14] text-lg">?{order.totalAmount?.toLocaleString()}</span>
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold capitalize ${getPaymentStyle(order.paymentStatus)}`}>
@@ -269,7 +269,7 @@ export default function MentorOrdersPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
                                                     onClick={() => openOrderDetails(order)}
-                                                    className="p-2.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 transition-colors"
+                                                    className="p-2.5 rounded-lg bg-[#021E14] hover:bg-[#021E14] text-[#021E14] transition-colors"
                                                     title="View Details"
                                                 >
                                                     <FiEye size={16} />
@@ -315,14 +315,14 @@ export default function MentorOrdersPage() {
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
                         {/* Header */}
-                        <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-t-2xl">
+                        <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-[#021E14] to-[#01140D] rounded-t-2xl">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <h3 className="text-xl font-bold text-white">Order Details</h3>
                                         <span className="px-2 py-0.5 text-[10px] font-bold uppercase bg-white/20 text-white rounded-full">View Only</span>
                                     </div>
-                                    <p className="text-indigo-100 text-sm flex items-center gap-2 mt-1">
+                                    <p className="text-[#021E14] text-sm flex items-center gap-2 mt-1">
                                         <FiHash size={14} /> {selectedOrder.orderNumber || selectedOrder._id?.slice(-6).toUpperCase()}
                                     </p>
                                 </div>
@@ -354,7 +354,7 @@ export default function MentorOrdersPage() {
                                 <div className="bg-slate-50 rounded-xl p-4">
                                     <p className="text-xs text-slate-500 mb-1">Payment Method</p>
                                     <p className="font-semibold text-slate-800 text-sm capitalize flex items-center gap-2">
-                                        <FiCreditCard size={14} className="text-indigo-500" />
+                                        <FiCreditCard size={14} className="text-[#021E14]" />
                                         {selectedOrder.paymentMethod || 'N/A'}
                                     </p>
                                 </div>
@@ -371,7 +371,7 @@ export default function MentorOrdersPage() {
                             <div className="bg-slate-50 rounded-xl p-5">
                                 <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Customer Information</h4>
                                 <div className="flex items-start gap-4">
-                                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xl font-bold">
+                                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white text-xl font-bold">
                                         {selectedOrder.user?.firstName?.charAt(0) || 'U'}
                                     </div>
                                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -408,19 +408,19 @@ export default function MentorOrdersPage() {
                                             <div className="flex-1 min-w-0">
                                                 <p className="font-bold text-slate-800">{item.title}</p>
                                                 <div className="flex items-center gap-3 mt-1">
-                                                    <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-600 rounded capitalize">{item.productType}</span>
+                                                    <span className="text-xs px-2 py-0.5 bg-[#021E14] text-[#021E14] rounded capitalize">{item.productType}</span>
                                                 </div>
                                             </div>
-                                            <span className="text-xl font-bold text-emerald-600">?{item.price?.toLocaleString()}</span>
+                                            <span className="text-xl font-bold text-[#021E14]">?{item.price?.toLocaleString()}</span>
                                         </div>
                                     ))}
                                 </div>
                             </div>
 
                             {/* Order Summary */}
-                            <div className="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl p-6 text-white">
+                            <div className="bg-gradient-to-r from-[#021E14] to-[#01140D] rounded-xl p-6 text-white">
                                 <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/20">
-                                    <span className="text-indigo-100">Subtotal</span>
+                                    <span className="text-[#021E14]">Subtotal</span>
                                     <span className="font-semibold">?{selectedOrder.totalAmount?.toLocaleString()}</span>
                                 </div>
                                 <div className="flex items-center justify-between">

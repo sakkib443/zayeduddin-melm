@@ -85,11 +85,11 @@ export default function ImagesPage() {
 
   const getCategoryStyle = (category) => {
     const styles = {
-      'Course Banner': 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400',
-      'Mentor Profile': 'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400',
-      'Gallery': 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
-      'Logo': 'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400',
-      'Success Story': 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400',
+      'Course Banner': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Mentor Profile': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Gallery': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Logo': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Success Story': 'bg-emerald-50 text-[#021E14] dark:bg-[#021E14]/10 dark:text-emerald-400',
     };
     return styles[category] || 'bg-gray-50 text-gray-600 dark:bg-gray-500/10 dark:text-gray-400';
   };
@@ -106,8 +106,8 @@ export default function ImagesPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <div className={`p-2 rounded-md ${isDark ? 'bg-blue-500/10' : 'bg-blue-50'}`}>
-            <FiImage className="text-blue-500" size={20} />
+          <div className={`p-2 rounded-md ${isDark ? 'bg-[#021E14]/10' : 'bg-[#021E14]'}`}>
+            <FiImage className="text-[#021E14]" size={20} />
           </div>
           <h1 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
             Images
@@ -126,7 +126,7 @@ export default function ImagesPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Storage Used</p>
-          <p className="text-2xl font-semibold mt-1 text-orange-500">{stats.storage}</p>
+          <p className="text-2xl font-semibold mt-1 text-[#021E14]">{stats.storage}</p>
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Active</p>
@@ -134,7 +134,7 @@ export default function ImagesPage() {
         </div>
         <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <p className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Unused</p>
-          <p className="text-2xl font-semibold mt-1 text-red-500">{stats.unused}</p>
+          <p className="text-2xl font-semibold mt-1 text-[#021E14]">{stats.unused}</p>
         </div>
       </div>
 
@@ -147,7 +147,7 @@ export default function ImagesPage() {
             placeholder="Search images..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+            className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-[#021E14] ${
               isDark ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500' : 'bg-white border-gray-200 text-gray-900'
             }`}
           />
@@ -160,7 +160,7 @@ export default function ImagesPage() {
             <span>Category</span>
             <FiChevronDown size={14} />
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-md">
+          <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#021E14] hover:bg-[#021E14] rounded-md">
             <FiPlus size={16} />
             <span>Upload Image</span>
           </button>
@@ -234,13 +234,13 @@ export default function ImagesPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-center gap-1">
-                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-blue-400' : 'hover:bg-gray-100 text-gray-400 hover:text-blue-500'}`}>
+                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                         <FiEye size={16} />
                       </button>
-                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-orange-400' : 'hover:bg-gray-100 text-gray-400 hover:text-orange-500'}`}>
+                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                         <FiDownload size={16} />
                       </button>
-                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-red-400' : 'hover:bg-gray-100 text-gray-400 hover:text-red-500'}`}>
+                      <button className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-[#021E14]' : 'hover:bg-gray-100 text-gray-400 hover:text-[#021E14]'}`}>
                         <FiTrash2 size={16} />
                       </button>
                     </div>

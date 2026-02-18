@@ -92,7 +92,7 @@ export default function LessonsPage() {
                         <FiRefreshCw size={18} className={`text-gray-500 ${loading ? 'animate-spin' : ''}`} />
                     </button>
                     <Link href="/dashboard/admin/lesson/create">
-                        <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition-colors">
+                        <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-medium transition-colors">
                             <FiPlus size={18} />
                             Add Lesson
                         </button>
@@ -104,8 +104,8 @@ export default function LessonsPage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-500/10 rounded-md flex items-center justify-center">
-                            <FiPlay className="text-indigo-600 dark:text-indigo-400" size={18} />
+                        <div className="w-10 h-10 bg-[#021E14] dark:bg-[#021E14]/10 rounded-md flex items-center justify-center">
+                            <FiPlay className="text-[#021E14] dark:text-[#021E14]" size={18} />
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 dark:text-gray-400">Total Lessons</p>
@@ -116,8 +116,8 @@ export default function LessonsPage() {
 
                 <div className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-500/10 rounded-md flex items-center justify-center">
-                            <FiCheckCircle className="text-emerald-600 dark:text-emerald-400" size={18} />
+                        <div className="w-10 h-10 bg-emerald-50 dark:bg-[#021E14]/10 rounded-md flex items-center justify-center">
+                            <FiCheckCircle className="text-[#021E14] dark:text-emerald-400" size={18} />
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 dark:text-gray-400">Published</p>
@@ -128,8 +128,8 @@ export default function LessonsPage() {
 
                 <div className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-amber-50 dark:bg-amber-500/10 rounded-md flex items-center justify-center">
-                            <FiClock className="text-amber-600 dark:text-amber-400" size={18} />
+                        <div className="w-10 h-10 bg-amber-50 dark:bg-[#D4AF37]/10 rounded-md flex items-center justify-center">
+                            <FiClock className="text-amber-600 dark:text-[#D4AF37]" size={18} />
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 dark:text-gray-400">Total Duration</p>
@@ -160,7 +160,7 @@ export default function LessonsPage() {
                         placeholder="Search lessons..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-colors"
+                        className="w-full pl-10 pr-4 py-2 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors"
                     />
                 </div>
             </div>
@@ -182,7 +182,7 @@ export default function LessonsPage() {
                             {loading ? (
                                 <tr>
                                     <td colSpan={5} className="px-4 py-12 text-center">
-                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-indigo-500" size={24} />
+                                        <FiRefreshCw className="animate-spin mx-auto mb-2 text-[#021E14]" size={24} />
                                         <p className="text-sm text-gray-500">Loading lessons...</p>
                                     </td>
                                 </tr>
@@ -198,8 +198,8 @@ export default function LessonsPage() {
                                     <tr key={lesson._id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
                                         <td className="px-4 py-3">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-md bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center">
-                                                    <FiPlay size={16} className={lesson.isPublished ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400'} />
+                                                <div className="w-10 h-10 rounded-md bg-[#021E14] dark:bg-[#021E14]/10 flex items-center justify-center">
+                                                    <FiPlay size={16} className={lesson.isPublished ? 'text-[#021E14] dark:text-[#021E14]' : 'text-gray-400'} />
                                                 </div>
                                                 <div>
                                                     <h3 className="text-sm font-medium text-gray-900 dark:text-white">{lesson.title}</h3>
@@ -210,7 +210,7 @@ export default function LessonsPage() {
                                         <td className="px-4 py-3">
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2">
-                                                    <FiBook className="text-indigo-500" size={12} />
+                                                    <FiBook className="text-[#021E14]" size={12} />
                                                     <span className="text-sm text-gray-700 dark:text-gray-300">{lesson.course?.title || 'No course'}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
@@ -227,10 +227,10 @@ export default function LessonsPage() {
                                         </td>
                                         <td className="px-4 py-3">
                                             <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-medium ${lesson.isPublished
-                                                ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                                                ? 'bg-emerald-50 dark:bg-[#021E14]/10 text-emerald-700 dark:text-emerald-400'
                                                 : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400'
                                                 }`}>
-                                                <span className={`w-1.5 h-1.5 rounded-full ${lesson.isPublished ? 'bg-emerald-500' : 'bg-gray-400'}`}></span>
+                                                <span className={`w-1.5 h-1.5 rounded-full ${lesson.isPublished ? 'bg-[#021E14]' : 'bg-gray-400'}`}></span>
                                                 {lesson.isPublished ? 'Published' : 'Draft'}
                                             </span>
                                         </td>
@@ -238,13 +238,13 @@ export default function LessonsPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/dashboard/admin/lesson/create?edit=${lesson._id}`}
-                                                    className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-500 hover:text-indigo-600 transition-colors"
+                                                    className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-500 hover:text-[#021E14] transition-colors"
                                                 >
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button
                                                     onClick={() => setDeleteModal({ show: true, id: lesson._id, title: lesson.title })}
-                                                    className="p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-500/10 text-gray-500 hover:text-red-600 transition-colors"
+                                                    className="p-2 rounded-md hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 text-gray-500 hover:text-[#021E14] transition-colors"
                                                 >
                                                     <FiTrash2 size={16} />
                                                 </button>
@@ -276,7 +276,7 @@ export default function LessonsPage() {
                                     key={i}
                                     onClick={() => setCurrentPage(i + 1)}
                                     className={`w-8 h-8 rounded-md text-sm font-medium transition-colors ${currentPage === i + 1
-                                        ? 'bg-indigo-600 text-white'
+                                        ? 'bg-[#021E14] text-white'
                                         : 'border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 text-gray-600 dark:text-gray-400'
                                         }`}
                                 >
@@ -300,8 +300,8 @@ export default function LessonsPage() {
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white dark:bg-slate-800 rounded-md p-6 w-full max-w-md border border-gray-200 dark:border-slate-700 shadow-lg">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-red-50 dark:bg-red-500/10 rounded-md flex items-center justify-center">
-                                <FiTrash2 className="text-red-600" size={20} />
+                            <div className="w-10 h-10 bg-[#021E14] dark:bg-[#021E14]/10 rounded-md flex items-center justify-center">
+                                <FiTrash2 className="text-[#021E14]" size={20} />
                             </div>
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Delete Lesson</h3>
                         </div>
@@ -317,7 +317,7 @@ export default function LessonsPage() {
                             </button>
                             <button
                                 onClick={handleDelete}
-                                className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition-colors"
+                                className="flex-1 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-medium transition-colors"
                             >
                                 Delete
                             </button>

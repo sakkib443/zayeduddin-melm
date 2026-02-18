@@ -109,8 +109,8 @@ export default function EnrollmentsPage() {
     const getStatusBadge = (status) => {
         const styles = {
             active: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-            completed: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-            expired: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+            completed: 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/30 dark:text-[#021E14]',
+            expired: 'bg-[#021E14] text-[#01140D] dark:bg-[#021E14]/30 dark:text-[#021E14]',
             cancelled: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
         };
         return styles[status] || styles.active;
@@ -159,7 +159,7 @@ export default function EnrollmentsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-md bg-indigo-500 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
                             <FiUsers className="text-white" size={18} />
                         </div>
                         <span className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stats.total}</span>
@@ -177,7 +177,7 @@ export default function EnrollmentsPage() {
                 </div>
                 <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-md bg-blue-500 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
                             <FiAward className="text-white" size={18} />
                         </div>
                         <span className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stats.completed}</span>
@@ -186,7 +186,7 @@ export default function EnrollmentsPage() {
                 </div>
                 <div className={`p-4 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-md bg-red-500 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
                             <FiXCircle className="text-white" size={18} />
                         </div>
                         <span className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stats.expired}</span>
@@ -209,7 +209,7 @@ export default function EnrollmentsPage() {
                             className={`w-full pl-10 pr-4 py-2.5 rounded-md border font-normal ${isDark
                                 ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                 : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                                } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                         />
                     </div>
 
@@ -220,7 +220,7 @@ export default function EnrollmentsPage() {
                         className={`px-4 py-2.5 rounded-md border font-normal ${isDark
                             ? 'bg-slate-700 border-slate-600 text-white'
                             : 'bg-white border-gray-200 text-gray-900'
-                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                     >
                         <option value="">All Status</option>
                         <option value="active">Active</option>
@@ -236,7 +236,7 @@ export default function EnrollmentsPage() {
                         className={`px-4 py-2.5 rounded-md border font-normal min-w-[200px] ${isDark
                             ? 'bg-slate-700 border-slate-600 text-white'
                             : 'bg-white border-gray-200 text-gray-900'
-                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                     >
                         <option value="">All Courses</option>
                         {courses.map((course) => (
@@ -253,7 +253,7 @@ export default function EnrollmentsPage() {
                         className={`px-4 py-2.5 rounded-md border font-normal ${isDark
                             ? 'bg-slate-700 border-slate-600 text-white'
                             : 'bg-white border-gray-200 text-gray-900'
-                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                     >
                         <option value="">All Time</option>
                         <option value="today">Today</option>
@@ -265,9 +265,9 @@ export default function EnrollmentsPage() {
                     {hasActiveFilters && (
                         <button
                             onClick={clearFilters}
-                            className={`px-4 py-2.5 rounded-md border font-medium text-red-500 ${isDark
-                                ? 'border-red-900/30 hover:bg-red-900/20'
-                                : 'border-red-200 hover:bg-red-50'
+                            className={`px-4 py-2.5 rounded-md border font-medium text-[#021E14] ${isDark
+                                ? 'border-[#021E14]/30 hover:bg-[#021E14]/20'
+                                : 'border-[#021E14] hover:bg-[#021E14]'
                                 } transition-colors`}
                         >
                             <FiX size={16} />
@@ -320,7 +320,7 @@ export default function EnrollmentsPage() {
                                                 {enroll.student?.avatar ? (
                                                     <img src={enroll.student.avatar} alt={enroll.student.name} className="w-10 h-10 rounded-full object-cover" />
                                                 ) : (
-                                                    <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-medium">
+                                                    <div className="w-10 h-10 rounded-full bg-[#021E14] flex items-center justify-center text-white font-medium">
                                                         {enroll.student?.name?.charAt(0) || enroll.user?.firstName?.charAt(0) || 'U'}
                                                     </div>
                                                 )}
@@ -356,7 +356,7 @@ export default function EnrollmentsPage() {
                                             <div className="flex items-center gap-3">
                                                 <div className="flex-1 max-w-[100px]">
                                                     <div className={`w-full h-2 rounded-full ${isDark ? 'bg-slate-600' : 'bg-gray-200'}`}>
-                                                        <div className={`h-full rounded-full transition-all ${enroll.progress >= 100 ? 'bg-green-500' : 'bg-indigo-500'}`}
+                                                        <div className={`h-full rounded-full transition-all ${enroll.progress >= 100 ? 'bg-green-500' : 'bg-[#021E14]'}`}
                                                             style={{ width: `${Math.min(enroll.progress || 0, 100)}%` }} />
                                                     </div>
                                                 </div>
@@ -449,7 +449,7 @@ export default function EnrollmentsPage() {
                                                 alt={selectedEnrollment.student?.name || selectedEnrollment.user?.firstName}
                                                 className="w-16 h-16 rounded-full object-cover" />
                                         ) : (
-                                            <div className="w-16 h-16 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xl font-medium">
+                                            <div className="w-16 h-16 rounded-full bg-[#021E14] flex items-center justify-center text-white text-xl font-medium">
                                                 {selectedEnrollment.student?.name?.charAt(0) || selectedEnrollment.user?.firstName?.charAt(0) || 'U'}
                                             </div>
                                         )}
@@ -525,7 +525,7 @@ export default function EnrollmentsPage() {
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className={`flex-1 h-2 rounded-full ${isDark ? 'bg-slate-600' : 'bg-gray-200'}`}>
-                                                <div className="h-full rounded-full bg-indigo-500" style={{ width: `${selectedEnrollment.progress || 0}%` }} />
+                                                <div className="h-full rounded-full bg-[#021E14]" style={{ width: `${selectedEnrollment.progress || 0}%` }} />
                                             </div>
                                             <span className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{selectedEnrollment.progress || 0}%</span>
                                         </div>

@@ -360,7 +360,7 @@ const DesignTemplateContent = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className={`text-3xl md:text-4xl font-bold text-[#300000] mb-2 ${bengaliClass}`}>
+                        <h1 className={`text-3xl md:text-4xl font-bold text-[#021E14] mb-2 ${bengaliClass}`}>
                             {t('designTemplatePage.title')}
                         </h1>
                         <p className={`text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed mb-6 ${bengaliClass}`}>
@@ -370,13 +370,13 @@ const DesignTemplateContent = () => {
                         {/* Search Bar */}
                         <div className="max-w-xl mx-auto mb-8 px-4">
                             <div className="relative group">
-                                <LuSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#300000] transition-colors" size={18} />
+                                <LuSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#021E14] transition-colors" size={18} />
                                 <input
                                     type="text"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     placeholder={t('designTemplatePage.searchPlaceholder')}
-                                    className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#300000]/5 transition-all text-slate-800 dark:text-white text-sm"
+                                    className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#021E14]/5 transition-all text-slate-800 dark:text-white text-sm"
                                 />
                             </div>
                         </div>
@@ -388,7 +388,7 @@ const DesignTemplateContent = () => {
                                 <button
                                     onClick={() => { setSelectedCategory("all"); setSelectedPrice("all"); setSelectedRating("all"); setSelectedSort("popular"); setSelectedTool("all"); }}
                                     className={`flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-normal transition-all duration-300 ${selectedCategory === "all" && selectedPrice === "all" && selectedRating === "all"
-                                        ? "bg-[#300000] text-white shadow-lg shadow-[#300000]/20"
+                                        ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                                         : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"
                                         }`}
                                 >
@@ -403,7 +403,7 @@ const DesignTemplateContent = () => {
                                     <select
                                         value={selectedCategory}
                                         onChange={(e) => setSelectedCategory(e.target.value)}
-                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedCategory !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#021E14]/20 ${selectedCategory !== "all" ? "bg-[#021E14] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
                                     >
                                         <option value="all">{t('designTemplatePage.allCategories')}</option>
                                         {categories.map((cat) => (
@@ -419,7 +419,7 @@ const DesignTemplateContent = () => {
                                     <select
                                         value={selectedPrice}
                                         onChange={(e) => setSelectedPrice(e.target.value)}
-                                        className={`appearance-none pl-9 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedPrice !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
+                                        className={`appearance-none pl-9 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#021E14]/20 ${selectedPrice !== "all" ? "bg-[#021E14] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
                                     >
                                         <option value="all">{t('designTemplatePage.allPrices')}</option>
                                         <option value="free">{t('designTemplatePage.priceFree')}</option>
@@ -433,11 +433,11 @@ const DesignTemplateContent = () => {
 
                                 {/* Rating Dropdown */}
                                 <div className="relative">
-                                    <LuStar className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-400 z-10 pointer-events-none" size={14} />
+                                    <LuStar className="absolute left-4 top-1/2 -translate-y-1/2 text-[#D4AF37] z-10 pointer-events-none" size={14} />
                                     <select
                                         value={selectedRating}
                                         onChange={(e) => setSelectedRating(e.target.value)}
-                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedRating !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#021E14]/20 ${selectedRating !== "all" ? "bg-[#021E14] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
                                     >
                                         <option value="all">{t('designTemplatePage.allRatings')}</option>
                                         <option value="4plus">{t('designTemplatePage.rating4plus')}</option>
@@ -456,7 +456,7 @@ const DesignTemplateContent = () => {
                                     <select
                                         value={selectedTool}
                                         onChange={(e) => setSelectedTool(e.target.value)}
-                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 ${selectedTool !== "all" ? "bg-[#300000] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#021E14]/20 ${selectedTool !== "all" ? "bg-[#021E14] text-white" : "bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100"} ${bengaliClass}`}
                                     >
                                         <option value="all">{t('designTemplatePage.allTools')}</option>
                                         {DESIGN_TOOLS_OPTIONS.map(tool => (
@@ -472,7 +472,7 @@ const DesignTemplateContent = () => {
                                     <select
                                         value={selectedSort}
                                         onChange={(e) => setSelectedSort(e.target.value)}
-                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#300000]/20 bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100 ${bengaliClass}`}
+                                        className={`appearance-none pl-10 pr-8 py-2.5 rounded-md text-xs font-normal transition-all outline-none cursor-pointer border-none focus:ring-1 focus:ring-[#021E14]/20 bg-slate-50 dark:bg-white/5 text-gray-800 dark:text-gray-300 hover:bg-slate-100 ${bengaliClass}`}
                                     >
                                         <option value="popular">{t('designTemplatePage.mostPopular')}</option>
                                         <option value="newest">{t('designTemplatePage.sortNewest')}</option>
@@ -553,7 +553,7 @@ const DesignTemplateContent = () => {
                                     <div className="px-4 lg:px-8 py-4">
                                         <div className="flex items-center justify-between">
                                             <nav className="flex items-center gap-2 text-sm overflow-hidden">
-                                                <button onClick={closeModal} className={`hover:text-blue-600 transition-colors shrink-0 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                                <button onClick={closeModal} className={`hover:text-[#021E14] transition-colors shrink-0 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                                                     <FiChevronLeft size={20} className="inline mr-1" />
                                                     {t('designTemplatePage.back')}
                                                 </button>
@@ -585,7 +585,7 @@ const DesignTemplateContent = () => {
                                                     {/* Like Button */}
                                                     <button
                                                         onClick={handleLike}
-                                                        className={`p-2.5 border rounded-lg transition-all ${isLiked ? 'text-red-500 border-red-500/30 bg-red-500/5' : isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}
+                                                        className={`p-2.5 border rounded-lg transition-all ${isLiked ? 'text-[#021E14] border-[#021E14]/30 bg-[#021E14]/5' : isDark ? 'border-white/10 hover:bg-white/5 text-gray-400' : 'border-gray-200 hover:bg-gray-50 text-gray-600'}`}
                                                     >
                                                         <LuHeart size={18} className={isLiked ? 'fill-current' : ''} />
                                                     </button>
@@ -595,7 +595,7 @@ const DesignTemplateContent = () => {
                                                 <div className="flex items-stretch rounded-lg overflow-hidden border-0">
                                                     <button
                                                         onClick={handleBuyNow}
-                                                        className={`flex items-center gap-2 px-6 py-2.5 font-bold text-sm transition-all shadow-none ${selectedTemplate.accessType === 'free' ? 'bg-[#00C853] hover:bg-[#00B24A] text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+                                                        className={`flex items-center gap-2 px-6 py-2.5 font-bold text-sm transition-all shadow-none ${selectedTemplate.accessType === 'free' ? 'bg-[#00C853] hover:bg-[#00B24A] text-white' : 'bg-[#021E14] hover:bg-[#021E14] text-white'}`}
                                                     >
                                                         {selectedTemplate.accessType === 'free' ? t('designTemplatePage.freeDownload') : t('designTemplatePage.buyTemplate')}
                                                     </button>
@@ -643,7 +643,7 @@ const DesignTemplateContent = () => {
                                                             key={idx}
                                                             onClick={() => setActiveImage(img)}
                                                             className={`relative w-20 h-14 md:w-28 md:h-20 shrink-0 rounded-md overflow-hidden border-2 transition-all ${activeImage === img
-                                                                ? "border-blue-500 ring-2 ring-blue-500/30"
+                                                                ? "border-[#021E14] ring-2 ring-[#021E14]/30"
                                                                 : isDark ? "border-white/10 opacity-60 hover:opacity-100" : "border-gray-200 opacity-60 hover:opacity-100"
                                                                 }`}
                                                         >
@@ -657,7 +657,7 @@ const DesignTemplateContent = () => {
                                             <div className="py-6">
                                                 <div className="flex flex-wrap items-center gap-2 mb-3">
                                                     {selectedTemplate.category?.name && (
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-blue-50 text-blue-600 border border-blue-100'}`}>
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20' : 'bg-[#021E14] text-[#021E14] border border-[#021E14]'}`}>
                                                             {selectedTemplate.category.name}
                                                         </span>
                                                     )}
@@ -678,10 +678,10 @@ const DesignTemplateContent = () => {
                                                         <LuEye size={16} /> {selectedTemplate.viewCount || 0} {t('designTemplatePage.views')}
                                                     </span>
                                                     <span className="flex items-center gap-1.5">
-                                                        <LuHeart size={16} className={isLiked ? "text-red-500 fill-red-500" : ""} /> {likeCount} {t('designTemplatePage.likes')}
+                                                        <LuHeart size={16} className={isLiked ? "text-[#021E14] fill-red-500" : ""} /> {likeCount} {t('designTemplatePage.likes')}
                                                     </span>
                                                     <span className="flex items-center gap-1.5">
-                                                        <LuStar size={16} className="text-amber-500" /> {selectedTemplate.rating || 0} ({selectedTemplate.reviewCount || 0} {t('designTemplatePage.reviews')})
+                                                        <LuStar size={16} className="text-[#D4AF37]" /> {selectedTemplate.rating || 0} ({selectedTemplate.reviewCount || 0} {t('designTemplatePage.reviews')})
                                                     </span>
                                                     <span className="flex items-center gap-1.5">
                                                         <LuDownload size={16} /> {selectedTemplate.salesCount || 0} {t('designTemplatePage.sales')}
@@ -705,7 +705,7 @@ const DesignTemplateContent = () => {
                                                 {/* Design Tools Card */}
                                                 <div className={`p-5 rounded-xl border ${isDark ? 'bg-white/[0.02] border-white/10' : 'bg-white border-gray-200'}`}>
                                                     <h3 className={`font-bold mb-4 flex items-center gap-2 text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                        <LuLayers className="text-blue-600" size={16} /> {t('designTemplatePage.designTools')}
+                                                        <LuLayers className="text-[#021E14]" size={16} /> {t('designTemplatePage.designTools')}
                                                     </h3>
                                                     <div className="flex flex-wrap gap-2">
                                                         {(selectedTemplate.designTools?.length > 0 ? selectedTemplate.designTools : [selectedTemplate.platform || "Other"]).map((tool, i) => (
@@ -749,10 +749,10 @@ const DesignTemplateContent = () => {
                                     onClick={closeModal}
                                     className="group flex flex-col items-center gap-1.5"
                                 >
-                                    <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500 ${isDark ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+                                    <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all group-hover:bg-[#021E14] group-hover:text-white group-hover:border-[#021E14] ${isDark ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
                                         <LuX size={16} />
                                     </div>
-                                    <span className={`text-[8px] font-bold text-gray-400 group-hover:text-red-500 transition-colors uppercase tracking-wider ${bengaliClass}`}>{t('designTemplatePage.close')}</span>
+                                    <span className={`text-[8px] font-bold text-gray-400 group-hover:text-[#021E14] transition-colors uppercase tracking-wider ${bengaliClass}`}>{t('designTemplatePage.close')}</span>
                                 </button>
 
                                 <div className={`w-8 h-px ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
@@ -774,11 +774,11 @@ const DesignTemplateContent = () => {
                                     className="group flex flex-col items-center gap-1.5"
                                 >
                                     <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${isLiked
-                                        ? 'bg-red-500 text-white border-red-500'
-                                        : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-red-500 group-hover:text-white group-hover:border-red-500'}`}>
+                                        ? 'bg-[#021E14] text-white border-[#021E14]'
+                                        : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-[#021E14] group-hover:text-white group-hover:border-[#021E14]' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-[#021E14] group-hover:text-white group-hover:border-[#021E14]'}`}>
                                         <LuHeart size={16} className={isLiked ? 'fill-white' : ''} />
                                     </div>
-                                    <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${bengaliClass} ${isLiked ? 'text-red-500' : 'text-gray-400 group-hover:text-red-500'}`}>{t('designTemplatePage.save')}</span>
+                                    <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${bengaliClass} ${isLiked ? 'text-[#021E14]' : 'text-gray-400 group-hover:text-[#021E14]'}`}>{t('designTemplatePage.save')}</span>
                                 </button>
 
                                 {/* Share - Copy Link */}
@@ -789,10 +789,10 @@ const DesignTemplateContent = () => {
                                     }}
                                     className="group flex flex-col items-center gap-1.5"
                                 >
-                                    <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 ${isDark ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+                                    <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all group-hover:bg-[#021E14] group-hover:text-white group-hover:border-[#021E14] ${isDark ? 'bg-white/5 text-gray-400 border-white/10' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
                                         <FiShare2 size={16} />
                                     </div>
-                                    <span className={`text-[8px] font-bold text-gray-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider ${bengaliClass}`}>{t('designTemplatePage.share')}</span>
+                                    <span className={`text-[8px] font-bold text-gray-400 group-hover:text-[#021E14] transition-colors uppercase tracking-wider ${bengaliClass}`}>{t('designTemplatePage.share')}</span>
                                 </button>
 
                                 {selectedTemplate.accessType !== 'free' && (
@@ -802,10 +802,10 @@ const DesignTemplateContent = () => {
                                     >
                                         <div className={`w-10 h-10 rounded-md flex items-center justify-center border transition-all ${isAdded
                                             ? 'bg-green-500 text-white border-green-500'
-                                            : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500'}`}>
+                                            : isDark ? 'bg-white/5 text-gray-400 border-white/10 group-hover:bg-[#D4AF37] group-hover:text-white group-hover:border-[#D4AF37]' : 'bg-gray-100 text-gray-500 border-gray-200 group-hover:bg-[#D4AF37] group-hover:text-white group-hover:border-[#D4AF37]'}`}>
                                             {isAdded ? <LuCheck size={16} /> : <LuShoppingCart size={16} />}
                                         </div>
-                                        <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${bengaliClass} ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-amber-500'}`}>{isAdded ? t('designTemplatePage.added') : t('designTemplatePage.cart')}</span>
+                                        <span className={`text-[8px] font-bold transition-colors uppercase tracking-wider ${bengaliClass} ${isAdded ? 'text-green-500' : 'text-gray-400 group-hover:text-[#D4AF37]'}`}>{isAdded ? t('designTemplatePage.added') : t('designTemplatePage.cart')}</span>
                                     </button>
                                 )}
 
@@ -834,7 +834,7 @@ const DesignTemplateContent = () => {
                                     onClick={handleBuyNow}
                                     className={`w-full py-2.5 px-3 rounded-md text-xs font-bold transition-all ${selectedTemplate.accessType === 'free'
                                         ? 'bg-green-600 hover:bg-green-700 text-white'
-                                        : isAdded ? 'bg-green-500 text-white' : 'bg-[#300000] hover:bg-[#400000] text-white'
+                                        : isAdded ? 'bg-green-500 text-white' : 'bg-[#021E14] hover:bg-[#400000] text-white'
                                         }`}
                                 >
                                     {selectedTemplate.accessType === 'free' ? t('designTemplatePage.freeDownloadBtn') : isAdded ? t('designTemplatePage.added') + '!' : t('designTemplatePage.buyNow')}
@@ -845,7 +845,7 @@ const DesignTemplateContent = () => {
                             <div className={`lg:hidden fixed bottom-0 left-0 w-full z-50 backdrop-blur-xl border-t p-3 flex items-center gap-3 ${isDark ? 'bg-[#0f0f0f]/95 border-white/10' : 'bg-white/95 border-gray-200'}`}>
                                 <button
                                     onClick={handleLike}
-                                    className={`p-3 rounded-md border transition-all ${isLiked ? "bg-blue-600 border-blue-600 text-white" : isDark ? "bg-white/5 border-white/10 text-gray-400" : "bg-gray-100 border-gray-200 text-gray-500"}`}
+                                    className={`p-3 rounded-md border transition-all ${isLiked ? "bg-[#021E14] border-[#021E14] text-white" : isDark ? "bg-white/5 border-white/10 text-gray-400" : "bg-gray-100 border-gray-200 text-gray-500"}`}
                                 >
                                     <FiThumbsUp size={18} />
                                 </button>
@@ -861,7 +861,7 @@ const DesignTemplateContent = () => {
                                 </div>
                                 <button
                                     onClick={handleBuyNow}
-                                    className={`px-6 py-3 rounded-md font-bold text-sm shadow-lg flex items-center gap-2 ${selectedTemplate.accessType === 'free' ? 'bg-green-600 text-white shadow-green-600/20' : 'bg-blue-600 text-white shadow-blue-600/20'}`}
+                                    className={`px-6 py-3 rounded-md font-bold text-sm shadow-lg flex items-center gap-2 ${selectedTemplate.accessType === 'free' ? 'bg-green-600 text-white shadow-green-600/20' : 'bg-[#021E14] text-white shadow-[#021E14]/20'}`}
                                 >
                                     <LuDownload size={16} />
                                     {selectedTemplate.accessType === 'free' ? t('designTemplatePage.freeDownloadBtn') : t('designTemplatePage.buyNow')}
@@ -938,7 +938,7 @@ const DesignTemplatePage = () => {
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#020202]">
                 <div className="animate-pulse flex flex-col items-center gap-4">
-                    <LuPalette className="text-blue-600 mb-2" size={48} />
+                    <LuPalette className="text-[#021E14] mb-2" size={48} />
                     <p className="text-gray-500 font-medium tracking-wider text-sm uppercase">Loading...</p>
                 </div>
             </div>

@@ -28,14 +28,14 @@ const ContactInfoCard = ({ icon: Icon, title, value, link, color, idx }) => (
     transition={{ delay: idx * 0.1 }}
     className="group relative p-8 bg-white dark:bg-white/5 rounded-[32px] border border-slate-100 dark:border-white/10 shadow-xl shadow-black/5 hover:-translate-y-2 transition-all duration-500 overflow-hidden"
   >
-    <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#300000]/5 dark:bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#300000]/10 dark:group-hover:bg-[#D4AF37]/10 transition-colors" />
+    <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#021E14]/5 dark:bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#021E14]/10 dark:group-hover:bg-[#D4AF37]/10 transition-colors" />
     <div className="relative z-10">
-      <div className="w-14 h-14 mb-6 rounded-2xl bg-[#300000]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center group-hover:bg-[#300000] dark:group-hover:bg-[#D4AF37] transition-colors duration-500">
-        <Icon className="w-6 h-6 text-[#300000] dark:text-[#D4AF37] group-hover:text-white dark:group-hover:text-[#300000] transition-colors duration-500" />
+      <div className="w-14 h-14 mb-6 rounded-2xl bg-[#021E14]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center group-hover:bg-[#021E14] dark:group-hover:bg-[#D4AF37] transition-colors duration-500">
+        <Icon className="w-6 h-6 text-[#021E14] dark:text-[#D4AF37] group-hover:text-white dark:group-hover:text-[#021E14] transition-colors duration-500" />
       </div>
       <h3 className="text-xs font-bold text-slate-400 dark:text-white/50 uppercase tracking-widest mb-3">{title}</h3>
       {link ? (
-        <a href={link} className="text-lg font-bold text-slate-800 dark:text-white hover:text-[#300000] dark:hover:text-[#D4AF37] transition-colors break-words">
+        <a href={link} className="text-lg font-bold text-slate-800 dark:text-white hover:text-[#021E14] dark:hover:text-[#D4AF37] transition-colors break-words">
           {value}
         </a>
       ) : (
@@ -52,7 +52,7 @@ const ContactPage = () => {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [content, setContent] = useState({
     contactInfo: {
-      email: 'info@jayeduddin.com',
+      email: 'info@zayeduddin.com',
       phone: '+880 1829-818616',
       address: 'Dhaka, Bangladesh',
       addressBn: 'ঢাকা, বাংলাদেশ',
@@ -101,19 +101,19 @@ const ContactPage = () => {
     <div className="min-h-screen bg-white dark:bg-[#020202]">
       {/* Header Section */}
       <header className="relative pt-24 pb-20 items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#30000008,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#021E1408,transparent_50%)]" />
         <div className="container mx-auto px-4 lg:px-16 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#300000]/5 dark:bg-[#D4AF37]/10 border border-[#300000]/10 dark:border-[#D4AF37]/20 rounded-full mb-8">
-              <LuSparkles className="text-[#300000] dark:text-[#D4AF37]" size={14} />
-              <span className="text-[10px] font-bold text-[#300000] dark:text-[#D4AF37] tracking-widest uppercase">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#021E14]/5 dark:bg-[#D4AF37]/10 border border-[#021E14]/10 dark:border-[#D4AF37]/20 rounded-full mb-8">
+              <LuSparkles className="text-[#021E14] dark:text-[#D4AF37]" size={14} />
+              <span className="text-[10px] font-bold text-[#021E14] dark:text-[#D4AF37] tracking-widest uppercase">
                 {language === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}
               </span>
             </div>
-            <h1 className={`text-4xl md:text-7xl font-bold text-[#300000] dark:text-[#D4AF37] mb-6 leading-tight ${bengaliClass}`}>
+            <h1 className={`text-4xl md:text-7xl font-bold text-[#021E14] dark:text-[#D4AF37] mb-6 leading-tight ${bengaliClass}`}>
               {language === 'bn' ? 'আমাদের সাথে যোগাযোগ করুন' : "Let's Start a Conversation"}
             </h1>
             <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
@@ -146,7 +146,7 @@ const ContactPage = () => {
           >
             <div className="p-8 md:p-12 bg-white dark:bg-white/5 rounded-[48px] border border-slate-100 dark:border-white/10 shadow-2xl shadow-black/5">
               <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-10 flex items-center gap-4">
-                <span className="w-12 h-1 bg-[#300000] dark:bg-[#D4AF37] rounded-full" />
+                <span className="w-12 h-1 bg-[#021E14] dark:bg-[#D4AF37] rounded-full" />
                 {language === 'bn' ? 'মেসেজ পাঠান' : 'Send us a Message'}
               </h2>
 
@@ -158,7 +158,7 @@ const ContactPage = () => {
                       required
                       type="text"
                       placeholder="John Doe"
-                      className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#300000]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
+                      className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
                     />
                   </div>
                   <div className="space-y-2">
@@ -167,7 +167,7 @@ const ContactPage = () => {
                       required
                       type="email"
                       placeholder="john@example.com"
-                      className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#300000]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
+                      className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
                     />
                   </div>
                 </div>
@@ -177,7 +177,7 @@ const ContactPage = () => {
                     required
                     type="text"
                     placeholder="How can we help?"
-                    className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#300000]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
+                    className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
                   />
                 </div>
                 <div className="space-y-2">
@@ -186,13 +186,13 @@ const ContactPage = () => {
                     required
                     rows="6"
                     placeholder="Write your message here..."
-                    className="w-full px-8 py-6 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#300000]/20 dark:focus:border-[#D4AF37]/20 rounded-[32px] outline-none transition-all dark:text-white resize-none"
+                    className="w-full px-8 py-6 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-[32px] outline-none transition-all dark:text-white resize-none"
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-5 bg-[#300000] text-white rounded-full font-bold shadow-2xl shadow-[#300000]/20 hover:bg-[#4a0000] transition-all flex items-center justify-center gap-3 group overflow-hidden relative"
+                  className="w-full py-5 bg-[#021E14] text-white rounded-full font-bold shadow-2xl shadow-[#021E14]/20 hover:bg-[#021E14] transition-all flex items-center justify-center gap-3 group overflow-hidden relative"
                 >
                   <AnimatePresence mode="wait">
                     {messageSent ? (
@@ -252,7 +252,7 @@ const ContactPage = () => {
 
             {/* Social Links Card */}
             <div className="p-10 bg-slate-50 dark:bg-white/5 rounded-[48px] border border-slate-100 dark:border-white/10 shadow-xl shadow-black/5">
-              <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-8 border-b border-[#300000]/10 dark:border-white/10 pb-4 uppercase tracking-widest text-xs">Stay Connected</h3>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-8 border-b border-[#021E14]/10 dark:border-white/10 pb-4 uppercase tracking-widest text-xs">Stay Connected</h3>
               <div className="flex flex-wrap gap-4">
                 {socialLinks.map((social, i) => (
                   <Link
@@ -267,7 +267,7 @@ const ContactPage = () => {
             </div>
 
             {/* Support Hours Card */}
-            <div className="p-10 bg-[#300000] rounded-[48px] text-white shadow-2xl shadow-[#300000]/20">
+            <div className="p-10 bg-[#021E14] rounded-[48px] text-white shadow-2xl shadow-[#021E14]/20">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-[#D4AF37]">
                 <LuHeadphones />
                 Support Hours
@@ -279,7 +279,7 @@ const ContactPage = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-white/50 text-sm">Friday</span>
-                  <span className="text-red-400 font-bold uppercase tracking-widest text-xs">Holiday</span>
+                  <span className="text-[#021E14] font-bold uppercase tracking-widest text-xs">Holiday</span>
                 </div>
               </div>
             </div>

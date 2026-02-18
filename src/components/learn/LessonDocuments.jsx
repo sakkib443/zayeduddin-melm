@@ -20,16 +20,16 @@ export default function LessonDocuments({ documents = [] }) {
     }
 
     const fileTypeConfig = {
-        pdf: { icon: FiFileText, color: 'text-red-500 bg-red-50 border-red-100' },
-        doc: { icon: FiFileText, color: 'text-blue-500 bg-blue-50 border-blue-100' },
-        docx: { icon: FiFileText, color: 'text-blue-500 bg-blue-50 border-blue-100' },
-        ppt: { icon: FiFile, color: 'text-orange-500 bg-orange-50 border-orange-100' },
-        pptx: { icon: FiFile, color: 'text-orange-500 bg-orange-50 border-orange-100' },
+        pdf: { icon: FiFileText, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
+        doc: { icon: FiFileText, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
+        docx: { icon: FiFileText, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
+        ppt: { icon: FiFile, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
+        pptx: { icon: FiFile, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
         xls: { icon: FiFile, color: 'text-green-500 bg-green-50 border-green-100' },
         xlsx: { icon: FiFile, color: 'text-green-500 bg-green-50 border-green-100' },
-        zip: { icon: FiArchive, color: 'text-amber-500 bg-amber-50 border-amber-100' },
-        image: { icon: FiImage, color: 'text-purple-500 bg-purple-50 border-purple-100' },
-        video: { icon: FiVideo, color: 'text-pink-500 bg-pink-50 border-pink-100' },
+        zip: { icon: FiArchive, color: 'text-[#D4AF37] bg-amber-50 border-amber-100' },
+        image: { icon: FiImage, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
+        video: { icon: FiVideo, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
         other: { icon: FiFile, color: 'text-slate-500 bg-slate-50 border-slate-100' },
     };
 
@@ -38,7 +38,7 @@ export default function LessonDocuments({ documents = [] }) {
     return (
         <div className="space-y-3">
             <h4 className="text-sm font-bold text-slate-700 flex items-center gap-2 mb-4">
-                <FiFile className="text-indigo-500" />
+                <FiFile className="text-[#021E14]" />
                 Lesson Resources ({documents.length})
             </h4>
 
@@ -72,7 +72,7 @@ export default function LessonDocuments({ documents = [] }) {
                                     href={doc.fileUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-semibold hover:shadow-lg hover:shadow-indigo-200 transition-all opacity-80 group-hover:opacity-100"
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-[#01140D] text-white text-sm font-semibold hover:shadow-lg hover:shadow-indigo-200 transition-all opacity-80 group-hover:opacity-100"
                                 >
                                     <FiDownload size={16} />
                                     Download

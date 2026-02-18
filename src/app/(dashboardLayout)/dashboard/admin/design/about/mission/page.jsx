@@ -66,7 +66,7 @@ const AboutMissionDesignPage = () => {
                     onChange={onChange}
                     placeholder={placeholder}
                     rows={3}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#021E14] transition-all"
                 />
             ) : (
                 <input
@@ -74,7 +74,7 @@ const AboutMissionDesignPage = () => {
                     value={value || ''}
                     onChange={onChange}
                     placeholder={placeholder}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#021E14] transition-all"
                 />
             )}
         </div>
@@ -83,7 +83,7 @@ const AboutMissionDesignPage = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
-                <FiRefreshCw className="w-12 h-12 text-red-500 animate-spin" />
+                <FiRefreshCw className="w-12 h-12 text-[#021E14] animate-spin" />
             </div>
         );
     }
@@ -99,7 +99,7 @@ const AboutMissionDesignPage = () => {
                     <button onClick={fetchContent} className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
                         <FiRefreshCw size={18} /> Refresh
                     </button>
-                    <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white disabled:opacity-50">
+                    <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white disabled:opacity-50">
                         <FiSave size={18} /> {saving ? 'Saving...' : 'Save'}
                     </button>
                 </div>

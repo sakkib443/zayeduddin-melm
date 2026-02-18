@@ -26,12 +26,12 @@ const iconMap = {
 };
 
 const pageColors = {
-    home: 'bg-emerald-500',
-    about: 'bg-indigo-500',
-    contact: 'bg-amber-500',
-    training: 'bg-blue-500',
-    software: 'bg-pink-500',
-    successStory: 'bg-violet-500',
+    home: 'bg-[#021E14]',
+    about: 'bg-[#021E14]',
+    contact: 'bg-[#D4AF37]',
+    training: 'bg-[#021E14]',
+    software: 'bg-[#021E14]',
+    successStory: 'bg-[#021E14]',
 };
 
 export default function PageContentDashboard() {
@@ -62,7 +62,7 @@ export default function PageContentDashboard() {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="text-center">
-                    <FiLoader className="w-10 h-10 text-indigo-500 animate-spin mx-auto" />
+                    <FiLoader className="w-10 h-10 text-[#021E14] animate-spin mx-auto" />
                     <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">Loading page content...</p>
                 </div>
             </div>
@@ -87,9 +87,9 @@ export default function PageContentDashboard() {
             </div>
 
             {/* Info Card */}
-            <div className="bg-indigo-50 dark:bg-indigo-500/10 rounded-md border border-indigo-100 dark:border-indigo-500/20 p-4">
+            <div className="bg-[#021E14] dark:bg-[#021E14]/10 rounded-md border border-[#021E14] dark:border-[#021E14]/20 p-4">
                 <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-indigo-500 rounded-md flex items-center justify-center text-white shrink-0">
+                    <div className="w-10 h-10 bg-[#021E14] rounded-md flex items-center justify-center text-white shrink-0">
                         <FiSettings size={20} />
                     </div>
                     <div>
@@ -112,7 +112,7 @@ export default function PageContentDashboard() {
                         <Link
                             key={page.pageKey}
                             href={`/dashboard/admin/page-content/${page.pageKey}`}
-                            className="group bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-500/50 transition-all hover:shadow-md"
+                            className="group bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 hover:border-[#021E14] dark:hover:border-[#021E14]/50 transition-all hover:shadow-md"
                         >
                             <div className="p-5">
                                 {/* Icon & Arrow */}
@@ -121,7 +121,7 @@ export default function PageContentDashboard() {
                                         <Icon size={22} />
                                     </div>
                                     <FiChevronRight
-                                        className="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all"
+                                        className="text-gray-300 dark:text-gray-600 group-hover:text-[#021E14] group-hover:translate-x-1 transition-all"
                                         size={20}
                                     />
                                 </div>
@@ -141,9 +141,9 @@ export default function PageContentDashboard() {
                                             {page.completedSections} / {page.totalSections} sections
                                         </span>
                                         <span className={`font-medium ${page.progress >= 80
-                                            ? 'text-emerald-600 dark:text-emerald-400'
+                                            ? 'text-[#021E14] dark:text-emerald-400'
                                             : page.progress >= 50
-                                                ? 'text-amber-600 dark:text-amber-400'
+                                                ? 'text-amber-600 dark:text-[#D4AF37]'
                                                 : 'text-gray-500 dark:text-gray-400'
                                             }`}>
                                             {page.progress}%
@@ -152,9 +152,9 @@ export default function PageContentDashboard() {
                                     <div className="h-1.5 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
                                         <div
                                             className={`h-full rounded-full transition-all ${page.progress >= 80
-                                                ? 'bg-emerald-500'
+                                                ? 'bg-[#021E14]'
                                                 : page.progress >= 50
-                                                    ? 'bg-amber-500'
+                                                    ? 'bg-[#D4AF37]'
                                                     : 'bg-gray-400'
                                                 }`}
                                             style={{ width: `${page.progress}%` }}
@@ -165,7 +165,7 @@ export default function PageContentDashboard() {
                                 {/* Route Badge */}
                                 {page.route && (
                                     <div className="mt-4 inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 dark:bg-slate-700 rounded-md text-xs font-medium text-gray-600 dark:text-gray-400">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#021E14]" />
                                         {page.route}
                                     </div>
                                 )}

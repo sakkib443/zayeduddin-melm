@@ -69,7 +69,7 @@ const DigitalProductsDesignPage = () => {
                 value={value || ''}
                 onChange={onChange}
                 placeholder={placeholder}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#021E14] focus:border-transparent transition-all"
             />
         </div>
     );
@@ -78,7 +78,7 @@ const DigitalProductsDesignPage = () => {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="text-center">
-                    <FiRefreshCw className="w-12 h-12 text-red-500 animate-spin mx-auto" />
+                    <FiRefreshCw className="w-12 h-12 text-[#021E14] animate-spin mx-auto" />
                     <p className="mt-4 text-gray-500">Loading...</p>
                 </div>
             </div>
@@ -104,7 +104,7 @@ const DigitalProductsDesignPage = () => {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white font-medium hover:shadow-lg transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white font-medium hover:shadow-lg transition-all disabled:opacity-50"
                     >
                         <FiSave size={18} />
                         {saving ? 'Saving...' : 'Save Changes'}

@@ -202,7 +202,7 @@ export default function CreateUserPage() {
                 {/* Basic Info Section */}
                 <div className="border-b border-slate-100 dark:border-slate-700 pb-4 mb-4">
                     <h3 className="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
-                        <FiUser className="text-indigo-500" /> Basic Information
+                        <FiUser className="text-[#021E14]" /> Basic Information
                     </h3>
                 </div>
 
@@ -217,7 +217,7 @@ export default function CreateUserPage() {
                             onChange={handleChange}
                             required
                             placeholder="John"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                     </div>
                     <div>
@@ -229,7 +229,7 @@ export default function CreateUserPage() {
                             onChange={handleChange}
                             required
                             placeholder="Doe"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                     </div>
                 </div>
@@ -246,7 +246,7 @@ export default function CreateUserPage() {
                             onChange={handleChange}
                             required
                             placeholder="user@example.com"
-                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                     </div>
                 </div>
@@ -259,7 +259,7 @@ export default function CreateUserPage() {
                             name="countryCode"
                             value={formData.countryCode}
                             onChange={handleChange}
-                            className="w-28 px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                            className="w-28 px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all"
                         >
                             {countryCodes.map(c => (
                                 <option key={c.code} value={c.code}>{c.code} ({c.country})</option>
@@ -273,7 +273,7 @@ export default function CreateUserPage() {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 placeholder="1XXX-XXXXXX"
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                             />
                         </div>
                     </div>
@@ -290,7 +290,7 @@ export default function CreateUserPage() {
                                 value={formData.role}
                                 onChange={handleChange}
                                 required
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all appearance-none"
+                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all appearance-none"
                             >
                                 <option value="student">Student</option>
                                 <option value="mentor">Mentor</option>
@@ -305,7 +305,7 @@ export default function CreateUserPage() {
                             value={formData.status}
                             onChange={handleChange}
                             required
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all"
                         >
                             <option value="active">Active</option>
                             <option value="blocked">Blocked</option>
@@ -318,7 +318,7 @@ export default function CreateUserPage() {
                             name="gender"
                             value={formData.gender}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all"
                         >
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>
@@ -331,7 +331,7 @@ export default function CreateUserPage() {
                 {/* Address Section */}
                 <div className="border-b border-slate-100 dark:border-slate-700 pb-4 mb-4 pt-4">
                     <h3 className="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
-                        <FiMapPin className="text-indigo-500" /> Address Information
+                        <FiMapPin className="text-[#021E14]" /> Address Information
                     </h3>
                 </div>
 
@@ -344,7 +344,7 @@ export default function CreateUserPage() {
                         value={formData.address}
                         onChange={handleChange}
                         placeholder="123 Main Street"
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                     />
                 </div>
 
@@ -358,7 +358,7 @@ export default function CreateUserPage() {
                             value={formData.city}
                             onChange={handleChange}
                             placeholder="Dhaka"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all"
                         />
                     </div>
                     <div>
@@ -369,7 +369,7 @@ export default function CreateUserPage() {
                             value={formData.state}
                             onChange={handleChange}
                             placeholder="Dhaka"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all"
                         />
                     </div>
                     <div>
@@ -380,7 +380,7 @@ export default function CreateUserPage() {
                             value={formData.postalCode}
                             onChange={handleChange}
                             placeholder="1205"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all"
                         />
                     </div>
                 </div>
@@ -396,7 +396,7 @@ export default function CreateUserPage() {
                             value={formData.country}
                             onChange={handleChange}
                             placeholder="Bangladesh"
-                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 outline-none transition-all"
+                            className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all"
                         />
                     </div>
                 </div>
@@ -410,14 +410,14 @@ export default function CreateUserPage() {
                         onChange={handleChange}
                         rows={3}
                         placeholder="Brief description about the user..."
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all resize-none"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all resize-none"
                     />
                 </div>
 
                 {/* Password Section */}
                 <div className="border-b border-slate-100 dark:border-slate-700 pb-4 mb-4 pt-4">
                     <h3 className="text-lg font-semibold text-slate-800 dark:text-white flex items-center gap-2">
-                        <FiLock className="text-indigo-500" /> Security
+                        <FiLock className="text-[#021E14]" /> Security
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Password must be 8+ characters with uppercase, lowercase, number, and special character</p>
                 </div>
@@ -434,7 +434,7 @@ export default function CreateUserPage() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 placeholder={isEditMode ? "Leave blank to keep current" : "Strong password"}
-                                className={`w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all ${isEditMode ? 'bg-slate-50 dark:bg-slate-800' : ''}`}
+                                className={`w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all ${isEditMode ? 'bg-slate-50 dark:bg-slate-800' : ''}`}
                             />
                         </div>
                     </div>
@@ -449,7 +449,7 @@ export default function CreateUserPage() {
                                 onChange={handleChange}
                                 required={!isEditMode}
                                 placeholder={isEditMode ? "Leave blank to keep current" : "Re-enter password"}
-                                className={`w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all ${isEditMode ? 'bg-slate-50 dark:bg-slate-800' : ''}`}
+                                className={`w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all ${isEditMode ? 'bg-slate-50 dark:bg-slate-800' : ''}`}
                             />
                         </div>
                     </div>
@@ -467,7 +467,7 @@ export default function CreateUserPage() {
                     <button
                         type="submit"
                         disabled={loading || fetching}
-                        className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-[#01140D] text-white font-medium hover:shadow-lg hover:shadow-[#021E14]/30 transition-all disabled:opacity-50"
                     >
                         <FiSave size={18} />
                         {loading ? (isEditMode ? 'Updating...' : 'Creating...') : (isEditMode ? 'Update User' : 'Create User')}

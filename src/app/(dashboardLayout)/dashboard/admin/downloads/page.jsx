@@ -44,7 +44,7 @@ export default function DownloadsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-md border border-gray-200 dark:border-slate-700">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-violet-500 rounded-md flex items-center justify-center">
+          <div className="w-10 h-10 bg-[#021E14] rounded-md flex items-center justify-center">
             <FiDownload className="text-white" size={18} />
           </div>
           <div>
@@ -52,7 +52,7 @@ export default function DownloadsPage() {
             <p className="text-sm text-slate-500">Track product downloads</p>
           </div>
         </div>
-        <span className="px-3 py-1 bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 rounded-md text-sm font-medium">
+        <span className="px-3 py-1 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14] rounded-md text-sm font-medium">
           {downloads.length} total
         </span>
       </div>
@@ -66,7 +66,7 @@ export default function DownloadsPage() {
             placeholder="Search downloads..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-violet-400 focus:ring-1 focus:ring-violet-400 outline-none text-sm transition-colors"
+            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none text-sm transition-colors"
           />
         </div>
         <button
@@ -95,7 +95,7 @@ export default function DownloadsPage() {
               {loading ? (
                 <tr>
                   <td colSpan={5} className="px-4 py-12 text-center">
-                    <FiRefreshCw className="animate-spin mx-auto mb-2 text-violet-500" size={24} />
+                    <FiRefreshCw className="animate-spin mx-auto mb-2 text-[#021E14]" size={24} />
                     <p className="text-sm text-slate-500">Loading downloads...</p>
                   </td>
                 </tr>
@@ -111,7 +111,7 @@ export default function DownloadsPage() {
                   <tr key={dl._id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-violet-500 flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-8 h-8 rounded-full bg-[#021E14] flex items-center justify-center text-white text-xs font-medium">
                           {dl.user?.firstName?.charAt(0) || 'U'}
                         </div>
                         <div>
@@ -125,7 +125,7 @@ export default function DownloadsPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        dl.productType === 'website' ? 'bg-emerald-50 text-emerald-600' : 'bg-blue-50 text-blue-600'
+                        dl.productType === 'website' ? 'bg-emerald-50 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'
                       }`}>
                         {dl.productType || 'website'}
                       </span>

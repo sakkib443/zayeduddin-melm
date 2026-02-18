@@ -44,13 +44,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-[#300000] overflow-hidden text-white">
+    <footer className="relative bg-[#021E14] overflow-hidden text-white">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.05)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20"></div>
 
       {/* Gradient Orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-[#E62D26]/5 dark:bg-[#E62D26]/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#F79952]/5 dark:bg-[#F79952]/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-[#021E14]/5 dark:bg-[#021E14]/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#021E14]/5 dark:bg-[#021E14]/10 rounded-full blur-3xl"></div>
 
       {/* Top CTA Section */}
       <div className="relative border-b border-white/10">
@@ -70,7 +70,7 @@ const Footer = () => {
             </div>
             <Link
               href="/courses"
-              className={`group relative z-10 inline-flex items-center gap-3 px-8 py-4 bg-[#D4AF37] text-[#300000] rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-xl hover:-translate-y-1 ${bengaliClass}`}
+              className={`group relative z-10 inline-flex items-center gap-3 px-8 py-4 bg-[#D4AF37] text-[#021E14] rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-xl hover:-translate-y-1 ${bengaliClass}`}
             >
               <span>{t("footer.exploreCourses")}</span>
               <LuArrowUpRight className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -125,7 +125,7 @@ const Footer = () => {
                   placeholder={t("footer.enterEmail")}
                   className={`flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-md text-white text-sm work placeholder:text-gray-500 focus:outline-none focus:border-[#D4AF37] transition-colors ${bengaliClass}`}
                 />
-                <button className="px-4 py-2.5 bg-[#E62D26] hover:bg-[#38a89d] text-white rounded-md transition-colors">
+                <button className="px-4 py-2.5 bg-[#021E14] hover:bg-[#38a89d] text-white rounded-md transition-colors">
                   <LuSend className="text-lg" />
                 </button>
               </div>
@@ -193,13 +193,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@jayeduddin.com" className="group flex items-start gap-3">
+                <a href="mailto:info@zayeduddin.com" className="group flex items-start gap-3">
                   <div className="w-9 h-9 rounded-md bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#D4AF37] transition-colors">
                     <IoMailOutline className="text-[#D4AF37]" />
                   </div>
                   <div>
                     <p className={`text-xs text-gray-400 work ${bengaliClass}`}>{t("footer.email")}</p>
-                    <p className="text-gray-200 text-sm work group-hover:text-[#D4AF37] transition-colors break-all">info@jayeduddin.com</p>
+                    <p className="text-gray-200 text-sm work group-hover:text-[#D4AF37] transition-colors break-all">info@zayeduddin.com</p>
                   </div>
                 </a>
               </li>

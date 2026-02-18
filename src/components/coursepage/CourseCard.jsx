@@ -30,7 +30,7 @@ const CourseCard = ({ course }) => {
               <BiCategory />
               <p className="text-[13px] work">{category}</p>
             </div>
-            <p className="bg-[#F79952] text-white text-[13px] px-2 py-1 work rounded-[4px]">
+            <p className="bg-[#021E14] text-white text-[13px] px-2 py-1 work rounded-[4px]">
               {type}
             </p>
           </div>
@@ -51,7 +51,7 @@ const CourseCard = ({ course }) => {
                   key={i}
                   type="radio"
                   name={`rating-${id}`}
-                  className="mask mask-star-2 bg-orange-400 w-5"
+                  className="mask mask-star-2 bg-[#021E14] w-5"
                   aria-label={`${i + 1} star`}
                   defaultChecked={i + 1 === rating}
                 />
@@ -65,7 +65,7 @@ const CourseCard = ({ course }) => {
         <div className="flex justify-between gap-2 items-center mt-2 mb-2">
           <Link
             href={`/${id}`}
-            className="flex gap-2 text-xl items-center border bg-[#E62D26] border-[#E62D26] px-4 ml-2 py-2 rounded-md"
+            className="flex gap-2 text-xl items-center border bg-[#021E14] border-[#021E14] px-4 ml-2 py-2 rounded-md"
           >
             <LuBookOpenCheck className="text-md font-semibold text-white" />
             <p className="work tracking-tight text-[15px] text-white">
@@ -80,9 +80,9 @@ const CourseCard = ({ course }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className="flex gap-1 text-xl items-center border border-[#E62D26] px-4 py-2 mr-6 rounded-md hover:bg-[#e0f7f5] cursor-pointer transition">
-              <FaWhatsapp className="text-xl text-[#E62D26] font-medium" />
-              <p className="text-[#E62D26] work text-[15px] tracking-tight">
+            <div className="flex gap-1 text-xl items-center border border-[#021E14] px-4 py-2 mr-6 rounded-md hover:bg-[#e0f7f5] cursor-pointer transition">
+              <FaWhatsapp className="text-xl text-[#021E14] font-medium" />
+              <p className="text-[#021E14] work text-[15px] tracking-tight">
                 Get Course
               </p>
             </div>

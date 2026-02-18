@@ -54,8 +54,8 @@ const SuccessHistoryPage = () => {
       <section className="relative overflow-hidden border-b border-gray-100">
         {/* Background Decorations */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#e8f9f9] via-white to-[#fff8f0]"></div>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-[#E62D26]/10 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-[#F79952]/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-[#021E14]/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-[#021E14]/10 to-transparent rounded-full blur-3xl"></div>
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(65,191,184,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(65,191,184,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
@@ -64,7 +64,7 @@ const SuccessHistoryPage = () => {
           <div className={`text-center max-w-3xl mx-auto transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
             {/* Badge */}
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm">
-              <HiOutlineSparkles className="text-[#F79952] text-lg" />
+              <HiOutlineSparkles className="text-[#021E14] text-lg" />
               <span className={`text-sm font-medium text-gray-700 work ${bengaliClass}`}>
                 {language === "bn" ? "?????? ???????? ????" : "Our Success Stories"}
               </span>
@@ -73,7 +73,7 @@ const SuccessHistoryPage = () => {
             {/* Title */}
             <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold outfit text-gray-800 mb-4 ${bengaliClass}`}>
               {language === "bn" ? "????????????? " : "Student "}
-              <span className="bg-gradient-to-r from-[#E62D26] to-[#38a89d] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#021E14] to-[#38a89d] bg-clip-text text-transparent">
                 {language === "bn" ? "???????? ????" : "Success Stories"}
               </span>
             </h1>
@@ -91,8 +91,8 @@ const SuccessHistoryPage = () => {
                 const Icon = stat.icon;
                 return (
                   <div key={index} className="flex items-center gap-3 bg-white px-5 py-3 rounded-xl shadow-sm border border-gray-100">
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#E62D26]/10 to-[#E62D26]/5 rounded-lg flex items-center justify-center">
-                      <Icon className="text-[#E62D26] text-lg" />
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#021E14]/10 to-[#021E14]/5 rounded-lg flex items-center justify-center">
+                      <Icon className="text-[#021E14] text-lg" />
                     </div>
                     <div className="text-left">
                       <p className="text-lg font-bold text-gray-800 outfit">{stat.value}</p>
@@ -107,7 +107,7 @@ const SuccessHistoryPage = () => {
             <div className="flex items-center justify-center gap-2">
               <div className="flex">
                 {[1, 2, 3, 4, 5].map(i => (
-                  <FaStar key={i} className="text-[#F79952] text-sm" />
+                  <FaStar key={i} className="text-[#021E14] text-sm" />
                 ))}
               </div>
               <span className={`text-sm text-gray-600 work ${bengaliClass}`}>
@@ -127,8 +127,8 @@ const SuccessHistoryPage = () => {
               key={filter.key}
               onClick={() => setActiveFilter(filter.key)}
               className={`relative px-6 py-3 rounded-xl font-medium work transition-all duration-300 ${bengaliClass} ${activeFilter === filter.key
-                ? "bg-gradient-to-r from-[#E62D26] to-[#38a89d] text-white shadow-lg shadow-[#E62D26]/30"
-                : "bg-white text-gray-600 border border-gray-200 hover:border-[#E62D26]/50 hover:text-[#E62D26]"
+                ? "bg-gradient-to-r from-[#021E14] to-[#38a89d] text-white shadow-lg shadow-[#021E14]/30"
+                : "bg-white text-gray-600 border border-gray-200 hover:border-[#021E14]/50 hover:text-[#021E14]"
                 }`}
             >
               {filter.label}
@@ -159,13 +159,13 @@ const SuccessHistoryPage = () => {
 
                   {/* Play Button */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl transform scale-90 group-hover:scale-100 transition-all duration-300 group-hover:bg-[#E62D26]">
-                      <LuPlay className="w-6 h-6 text-[#E62D26] group-hover:text-white ml-1" />
+                    <div className="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl transform scale-90 group-hover:scale-100 transition-all duration-300 group-hover:bg-[#021E14]">
+                      <LuPlay className="w-6 h-6 text-[#021E14] group-hover:text-white ml-1" />
                     </div>
                   </div>
 
                   {/* Badge */}
-                  <div className={`absolute top-3 left-3 px-3 py-1 bg-[#F79952] text-white text-xs font-medium rounded-lg ${bengaliClass}`}>
+                  <div className={`absolute top-3 left-3 px-3 py-1 bg-[#021E14] text-white text-xs font-medium rounded-lg ${bengaliClass}`}>
                     {activeFilter === "journey"
                       ? (language === "bn" ? "???????? ????" : "Success Story")
                       : (language === "bn" ? "????????" : "Feedback")}
@@ -184,7 +184,7 @@ const SuccessHistoryPage = () => {
 
         {/* CTA Section */}
         <div className={`text-center mt-12 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-          <div className="bg-gradient-to-r from-[#E62D26]/10 via-white to-[#F79952]/10 rounded-2xl p-8 border border-gray-100">
+          <div className="bg-gradient-to-r from-[#021E14]/10 via-white to-[#021E14]/10 rounded-2xl p-8 border border-gray-100">
             <h3 className={`text-2xl font-bold text-gray-800 outfit mb-3 ${bengaliClass}`}>
               {language === "bn" ? "??????? ???????? ???? ????? ??? ????!" : "Your Success Story Could Be Next!"}
             </h3>
@@ -195,7 +195,7 @@ const SuccessHistoryPage = () => {
             </p>
             <Link
               href="/courses"
-              className={`inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#E62D26] to-[#38a89d] text-white rounded-xl font-semibold work hover:shadow-xl hover:shadow-[#E62D26]/30 transition-all duration-300 group ${bengaliClass}`}
+              className={`inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#021E14] to-[#38a89d] text-white rounded-xl font-semibold work hover:shadow-xl hover:shadow-[#021E14]/30 transition-all duration-300 group ${bengaliClass}`}
             >
               <span>{language === "bn" ? "????? ?????" : "Explore Courses"}</span>
               <LuArrowRight className="transform group-hover:translate-x-1 transition-transform" />

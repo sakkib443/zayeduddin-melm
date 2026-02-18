@@ -18,7 +18,7 @@ const CTASection = () => {
                     viewport={{ once: true }}
                     className="max-w-4xl mx-auto bg-[#F9F7F3] dark:bg-white/5 p-8 md:p-14 rounded-[2.5rem] border border-amber-100/50 dark:border-white/10"
                 >
-                    <h2 className={`text-2xl md:text-4xl font-bold text-[#300000] mb-4 ${bengaliClass}`} style={{ fontFamily: 'var(--font-poppins)' }}>
+                    <h2 className={`text-2xl md:text-4xl font-bold text-[#021E14] mb-4 ${bengaliClass}`} style={{ fontFamily: 'var(--font-poppins)' }}>
                         {language === 'bn'
                             ? 'আপনার শেখার যাত্রা শুরু করতে প্রস্তুত?'
                             : 'Ready to Start Your Learning Journey?'}
@@ -30,7 +30,7 @@ const CTASection = () => {
                     </p>
                     <Link
                         href="/courses"
-                        className={`inline-flex items-center gap-2 px-10 py-4 bg-[#300000] text-white font-bold rounded-xl hover:bg-[#4a0000] transition-all shadow-xl hover:-translate-y-1 ${bengaliClass}`}
+                        className={`inline-flex items-center gap-2 px-10 py-4 bg-[#021E14] text-white font-bold rounded-xl hover:bg-[#021E14] transition-all shadow-xl hover:-translate-y-1 ${bengaliClass}`}
                     >
                         {language === 'bn' ? 'কোর্সগুলো দেখুন' : 'Explore Courses'}
                         <LuArrowRight />

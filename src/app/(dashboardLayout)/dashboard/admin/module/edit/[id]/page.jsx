@@ -115,7 +115,7 @@ export default function EditModulePage({ params: paramsPromise }) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
                 <div className="text-center">
-                    <FiRefreshCw className="animate-spin mx-auto mb-3 text-indigo-500" size={32} />
+                    <FiRefreshCw className="animate-spin mx-auto mb-3 text-[#021E14]" size={32} />
                     <p className="text-slate-500">Loading module data...</p>
                 </div>
             </div>
@@ -151,7 +151,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                         value={formData.course}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all appearance-none bg-white"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all appearance-none bg-white"
                     >
                         <option value="">Choose a course</option>
                         {courses.map(course => (
@@ -171,7 +171,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                             onChange={handleChange}
                             required
                             placeholder="e.g. Getting Started"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                     </div>
                     <div>
@@ -182,7 +182,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                             value={formData.titleBn}
                             onChange={handleChange}
                             placeholder="যেমনঃ শুরু করা যাক"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                     </div>
                 </div>
@@ -196,7 +196,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                         onChange={handleChange}
                         rows={3}
                         placeholder="Brief description of this module..."
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all resize-none"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all resize-none"
                     />
                 </div>
 
@@ -211,7 +211,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                             onChange={handleChange}
                             required
                             min="1"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition-all"
                         />
                         <p className="text-xs text-slate-400 mt-1">Position of this module in the course</p>
                     </div>
@@ -222,7 +222,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                                 name="isPublished"
                                 checked={formData.isPublished}
                                 onChange={handleChange}
-                                className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                className="w-5 h-5 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]"
                             />
                             <span className="text-sm text-slate-700">Published</span>
                         </label>
@@ -241,7 +241,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-[#01140D] text-white font-medium hover:shadow-lg hover:shadow-[#021E14]/30 transition-all disabled:opacity-50"
                     >
                         <FiSave size={18} />
                         {loading ? 'Updating...' : 'Update Module'}
@@ -250,9 +250,9 @@ export default function EditModulePage({ params: paramsPromise }) {
             </form>
 
             {/* Info Card */}
-            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-6">
+            <div className="bg-gradient-to-r from-[#021E14] to-[#01140D] rounded-2xl border border-[#021E14] p-6">
                 <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shrink-0">
                         <FiLayers size={24} />
                     </div>
                     <div>

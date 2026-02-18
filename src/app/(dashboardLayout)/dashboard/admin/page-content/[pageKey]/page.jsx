@@ -232,7 +232,7 @@ const PageContentEditor = ({ params }) => {
         const inputClasses = `w-full mt-1.5 px-4 py-3 rounded-xl ${isDark
             ? 'bg-slate-700 text-white border-slate-600 placeholder:text-slate-500'
             : 'bg-gray-50 text-gray-900 border-gray-200 placeholder:text-gray-400'
-            } border focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all`;
+            } border focus:ring-2 focus:ring-[#021E14] focus:border-transparent transition-all`;
 
         switch (field.type) {
             case 'textarea':
@@ -269,7 +269,7 @@ const PageContentEditor = ({ params }) => {
                                 className="sr-only"
                             />
                             <div className={`w-12 h-6 rounded-full transition-colors ${(value ?? field.defaultValue)
-                                ? 'bg-red-500'
+                                ? 'bg-[#021E14]'
                                 : isDark ? 'bg-slate-600' : 'bg-gray-300'
                                 }`}>
                                 <div className={`w-5 h-5 rounded-full bg-white shadow-md transform transition-transform ${(value ?? field.defaultValue) ? 'translate-x-6' : 'translate-x-0.5'
@@ -295,14 +295,14 @@ const PageContentEditor = ({ params }) => {
                                     className={`flex-1 px-4 py-2.5 rounded-xl ${isDark
                                         ? 'bg-slate-700 text-white border-slate-600'
                                         : 'bg-gray-50 text-gray-900 border-gray-200'
-                                        } border focus:ring-2 focus:ring-red-500`}
+                                        } border focus:ring-2 focus:ring-[#021E14]`}
                                     placeholder={`Item ${index + 1}`}
                                 />
                                 {arrayValue.length > 1 && (
                                     <button
                                         type="button"
                                         onClick={() => removeArrayItem(section.sectionKey, field.key, index)}
-                                        className="px-3 py-2 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20 transition-colors"
+                                        className="px-3 py-2 bg-[#021E14]/10 text-[#021E14] rounded-xl hover:bg-[#021E14]/20 transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>
@@ -312,7 +312,7 @@ const PageContentEditor = ({ params }) => {
                         <button
                             type="button"
                             onClick={() => addArrayItem(section.sectionKey, field.key)}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-500 hover:bg-red-500/10 rounded-xl transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-[#021E14] hover:bg-[#021E14]/10 rounded-xl transition-colors"
                         >
                             <FiPlus size={16} />
                             Add Item
@@ -340,7 +340,7 @@ const PageContentEditor = ({ params }) => {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="text-center">
-                    <FiLoader className="w-12 h-12 text-red-500 animate-spin mx-auto" />
+                    <FiLoader className="w-12 h-12 text-[#021E14] animate-spin mx-auto" />
                     <p className="mt-4 text-gray-500">Loading page content...</p>
                 </div>
             </div>
@@ -350,11 +350,11 @@ const PageContentEditor = ({ params }) => {
     if (!pageData) {
         return (
             <div className="text-center py-16">
-                <FiX className="w-16 h-16 text-red-400 mx-auto" />
+                <FiX className="w-16 h-16 text-[#021E14] mx-auto" />
                 <h3 className="mt-4 text-lg font-semibold text-gray-500">Page not found</h3>
                 <Link
                     href="/dashboard/admin/page-content"
-                    className="mt-4 inline-flex items-center gap-2 text-red-500 hover:text-red-600"
+                    className="mt-4 inline-flex items-center gap-2 text-[#021E14] hover:text-[#021E14]"
                 >
                     <FiArrowLeft size={18} />
                     Back to all pages
@@ -368,7 +368,7 @@ const PageContentEditor = ({ params }) => {
             {/* Success Toast */}
             {successMessage && (
                 <div className="fixed top-4 right-4 z-50 animate-slideIn">
-                    <div className="flex items-center gap-3 px-5 py-3 bg-emerald-500 text-white rounded-xl shadow-lg">
+                    <div className="flex items-center gap-3 px-5 py-3 bg-[#021E14] text-white rounded-xl shadow-lg">
                         <FiCheck size={20} />
                         <span className="font-medium">{successMessage}</span>
                     </div>
@@ -419,7 +419,7 @@ const PageContentEditor = ({ params }) => {
                     <button
                         onClick={saveAllSections}
                         disabled={saving}
-                        className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-500 to-emerald-500 text-white rounded-xl font-semibold shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/30 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-semibold shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/30 transition-all disabled:opacity-50"
                     >
                         {saving ? <FiLoader className="animate-spin" size={18} /> : <FiSave size={18} />}
                         {saving ? 'Saving...' : 'Save All'}
@@ -449,7 +449,7 @@ const PageContentEditor = ({ params }) => {
                                     }`}
                             >
                                 <div className="flex items-center gap-4">
-                                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-emerald-500 flex items-center justify-center shadow-lg`}>
+                                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center shadow-lg`}>
                                         <Icon className="text-white" size={24} />
                                     </div>
                                     <div>
@@ -503,7 +503,7 @@ const PageContentEditor = ({ params }) => {
                                                         </span>
                                                     )}
                                                     {field.required && (
-                                                        <span className="text-red-400 ml-1">*</span>
+                                                        <span className="text-[#021E14] ml-1">*</span>
                                                     )}
                                                 </label>
                                                 {renderField(section, field)}

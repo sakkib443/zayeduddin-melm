@@ -105,7 +105,7 @@ const ResetPasswordContent = () => {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-[#e8f9f9] flex items-center justify-center p-4">
             <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 p-8 lg:p-10">
                 <div className="mb-8 flex justify-center">
-                    <Logo color="#E62D26" align="center" size="large" />
+                    <Logo color="#021E14" align="center" size="large" />
                 </div>
 
                 {status === 'success' ? (
@@ -150,12 +150,12 @@ const ResetPasswordContent = () => {
                                         onChange={handleChange}
                                         required
                                         placeholder="••••••••"
-                                        className={`w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                                        className={`w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-4 top-3.5 text-gray-400 hover:text-[#E62D26] transition"
+                                        className="absolute right-4 top-3.5 text-gray-400 hover:text-[#021E14] transition"
                                     >
                                         {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                                     </button>
@@ -183,13 +183,13 @@ const ResetPasswordContent = () => {
                                         onChange={handleChange}
                                         required
                                         placeholder="••••••••"
-                                        className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none transition ${bengaliClass}`}
+                                        className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                                     />
                                 </div>
                             </div>
 
                             {error && (
-                                <div className={`p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center ${bengaliClass}`}>
+                                <div className={`p-3 bg-[#021E14] border border-[#021E14] rounded-xl text-[#021E14] text-sm text-center ${bengaliClass}`}>
                                     {error}
                                 </div>
                             )}
@@ -197,7 +197,7 @@ const ResetPasswordContent = () => {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className={`w-full py-3.5 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#38a89d] text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition ${bengaliClass}`}
+                                className={`w-full py-3.5 rounded-xl bg-gradient-to-r from-[#021E14] to-[#38a89d] text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition ${bengaliClass}`}
                             >
                                 {loading ? (
                                     <span className="flex items-center justify-center gap-2">
@@ -225,7 +225,7 @@ export default function ResetPasswordPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center">
-                <FiLoader className="text-[#E62D26] animate-spin" size={40} />
+                <FiLoader className="text-[#021E14] animate-spin" size={40} />
             </div>
         }>
             <ResetPasswordContent />

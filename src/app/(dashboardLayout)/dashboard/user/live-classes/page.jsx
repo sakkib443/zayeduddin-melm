@@ -84,7 +84,7 @@ export default function MyLiveClassesPage() {
     };
 
     const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
-        ? 'bg-slate-800/50 border-white/5 hover:border-[#E62D26]/20'
+        ? 'bg-slate-800/50 border-white/5 hover:border-[#021E14]/20'
         : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
         }`;
 
@@ -121,7 +121,7 @@ export default function MyLiveClassesPage() {
             {/* Header */}
             <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 ${cardClass}`}>
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#E62D26] to-[#f79952] flex items-center justify-center text-white shadow-md shadow-[#E62D26]/10">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md shadow-[#021E14]/10">
                         <FiVideo size={24} />
                     </div>
                     <div>
@@ -149,7 +149,7 @@ export default function MyLiveClassesPage() {
             {todayClasses.length > 0 && (
                 <div>
                     <h2 className={`text-lg font-bold mb-4 flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                        <span className="w-2 h-2 bg-[#021E14] rounded-full animate-pulse"></span>
                         Today's Classes
                     </h2>
                     <div className="space-y-4">
@@ -160,13 +160,13 @@ export default function MyLiveClassesPage() {
                             return (
                                 <div
                                     key={batch._id}
-                                    className={`${cardClass} p-6 ${isLive ? 'ring-2 ring-red-500' : ''}`}
+                                    className={`${cardClass} p-6 ${isLive ? 'ring-2 ring-[#021E14]' : ''}`}
                                 >
                                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                         <div className="flex-1">
                                             <div className="flex items-center gap-3 mb-2">
                                                 {isLive ? (
-                                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-red-500/10 text-red-500 animate-pulse">
+                                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#021E14]/10 text-[#021E14] animate-pulse">
                                                         🔴 Live Now
                                                     </span>
                                                 ) : (
@@ -209,8 +209,8 @@ export default function MyLiveClassesPage() {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm shadow-lg transition-all hover:scale-105 ${isLive
-                                                        ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-red-500/30'
-                                                        : 'bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white shadow-[#E62D26]/20'
+                                                        ? 'bg-gradient-to-r from-[#021E14] to-[#01140D] text-white shadow-red-500/30'
+                                                        : 'bg-gradient-to-r from-[#021E14] to-[#021E14] text-white shadow-[#021E14]/20'
                                                     }`}
                                             >
                                                 <FiPlay size={16} />
@@ -244,8 +244,8 @@ export default function MyLiveClassesPage() {
                                         </p>
                                     </div>
                                     <span className={`px-2.5 py-1 text-xs font-medium rounded-full capitalize ${batch.status === 'ongoing'
-                                            ? 'bg-emerald-500/10 text-emerald-500'
-                                            : 'bg-blue-500/10 text-blue-500'
+                                            ? 'bg-[#021E14]/10 text-[#021E14]'
+                                            : 'bg-[#021E14]/10 text-[#021E14]'
                                         }`}>
                                         {batch.status}
                                     </span>
@@ -308,7 +308,7 @@ export default function MyLiveClassesPage() {
                     </p>
                     <Link
                         href="/courses"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
                     >
                         Browse Courses <FiExternalLink size={16} />
                     </Link>

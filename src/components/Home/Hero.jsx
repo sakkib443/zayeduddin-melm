@@ -12,7 +12,7 @@ const Hero = () => {
 
     const colors = {
         bg: "#fafafa",
-        dark: "#300000",
+        dark: "#021E14",
         gold: "#D4AF37",
         white: "#FFFFFF",
     };

@@ -71,7 +71,7 @@ const DesignTemplatePage = () => {
     const getStatusBadge = (status) => {
         const styles = {
             approved: 'bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-400',
-            pending: 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400',
+            pending: 'bg-amber-50 dark:bg-[#D4AF37]/10 text-amber-600 dark:text-[#D4AF37]',
             draft: 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-400'
         };
         const labels = {
@@ -89,12 +89,12 @@ const DesignTemplatePage = () => {
 
     const getPlatformBadge = (platform) => {
         const colors = {
-            'Figma': 'bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400',
-            'Photoshop': 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400',
-            'Illustrator': 'bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400',
-            'WordPress': 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400',
+            'Figma': 'bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14]',
+            'Photoshop': 'bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14]',
+            'Illustrator': 'bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14]',
+            'WordPress': 'bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14]',
             'React': 'bg-cyan-50 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400',
-            'HTML/CSS': 'bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400',
+            'HTML/CSS': 'bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14]',
         };
         return colors[platform] || 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300';
     };
@@ -118,7 +118,7 @@ const DesignTemplatePage = () => {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 p-5 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-md bg-indigo-500 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
                         <FiImage className="text-white" size={18} />
                     </div>
                     <div>
@@ -136,7 +136,7 @@ const DesignTemplatePage = () => {
                         Reload
                     </button>
                     <Link href="/dashboard/admin/design-template/create">
-                        <button className="flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md text-sm font-medium transition-colors">
+                        <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white rounded-md text-sm font-medium transition-colors">
                             <FiPlus size={14} />
                             Add Template
                         </button>
@@ -166,7 +166,7 @@ const DesignTemplatePage = () => {
                 </div>
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                        <div className="w-9 h-9 bg-amber-500 rounded-md flex items-center justify-center">
+                        <div className="w-9 h-9 bg-[#D4AF37] rounded-md flex items-center justify-center">
                             <FiLoader className="text-white" size={16} />
                         </div>
                         <span className="text-xl font-semibold text-gray-800 dark:text-white">{stats.pending}</span>
@@ -192,7 +192,7 @@ const DesignTemplatePage = () => {
                         placeholder="Search templates..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none text-sm transition-colors"
+                        className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none text-sm transition-colors"
                     />
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -201,7 +201,7 @@ const DesignTemplatePage = () => {
                             key={status}
                             onClick={() => setStatusFilter(status)}
                             className={`px-3 py-2 rounded-md text-xs font-medium transition-colors ${statusFilter === status
-                                    ? 'bg-indigo-500 text-white'
+                                    ? 'bg-[#021E14] text-white'
                                     : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600'
                                 }`}
                         >
@@ -238,7 +238,7 @@ const DesignTemplatePage = () => {
             {/* Content */}
             {loading ? (
                 <div className="flex flex-col items-center justify-center py-16 gap-3">
-                    <FiLoader className="animate-spin text-indigo-500" size={28} />
+                    <FiLoader className="animate-spin text-[#021E14]" size={28} />
                     <p className="text-sm text-gray-500 font-medium">Loading templates...</p>
                 </div>
             ) : filtered.length === 0 ? (
@@ -249,7 +249,7 @@ const DesignTemplatePage = () => {
                     <h3 className="text-sm font-semibold text-gray-800 dark:text-white">No Templates Found</h3>
                     <p className="text-xs text-gray-500 mt-1">Add your first design template</p>
                     <Link href="/dashboard/admin/design-template/create">
-                        <button className="mt-4 flex items-center gap-2 px-4 py-2 bg-indigo-500 text-white text-sm font-medium rounded-md mx-auto hover:bg-indigo-600 transition-colors">
+                        <button className="mt-4 flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white text-sm font-medium rounded-md mx-auto hover:bg-[#021E14] transition-colors">
                             <FiPlus size={14} /> Add Template
                         </button>
                     </Link>
@@ -289,11 +289,11 @@ const DesignTemplatePage = () => {
                             <div className="p-4">
                                 <h3 className="text-sm font-semibold text-gray-800 dark:text-white line-clamp-1 mb-2">{item.title}</h3>
                                 <div className="flex items-center gap-2 mb-3">
-                                    <span className="text-xs text-indigo-500 font-medium">{item.templateType}</span>
+                                    <span className="text-xs text-[#021E14] font-medium">{item.templateType}</span>
                                 </div>
                                 <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-slate-400 mb-3 py-2 border-t border-gray-100 dark:border-slate-700">
                                     <span className="flex items-center gap-1">
-                                        <FiStar className="text-amber-500" size={12} /> {item.rating?.toFixed(1) || '0.0'}
+                                        <FiStar className="text-[#D4AF37]" size={12} /> {item.rating?.toFixed(1) || '0.0'}
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <FiDownload size={12} /> {item.salesCount || 0}
@@ -308,21 +308,21 @@ const DesignTemplatePage = () => {
                                                 {item.offerPrice && item.offerPrice < item.price && (
                                                     <span className="text-xs text-gray-400 line-through mr-1">৳{item.price}</span>
                                                 )}
-                                                <span className="text-base font-semibold text-indigo-600 dark:text-indigo-400">৳{item.offerPrice || item.price}</span>
+                                                <span className="text-base font-semibold text-[#021E14] dark:text-[#021E14]">৳{item.offerPrice || item.price}</span>
                                             </div>
                                         )}
                                     </div>
                                     <div className="flex gap-1">
                                         <button
                                             onClick={() => handleEdit(item._id)}
-                                            className="p-2 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400 hover:bg-indigo-500 hover:text-white rounded-md transition-colors"
+                                            className="p-2 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400 hover:bg-[#021E14] hover:text-white rounded-md transition-colors"
                                             title="Edit"
                                         >
                                             <FiEdit3 size={14} />
                                         </button>
                                         <button
                                             onClick={() => handleDelete(item._id)}
-                                            className="p-2 bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-md transition-colors"
+                                            className="p-2 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] hover:bg-[#021E14] hover:text-white rounded-md transition-colors"
                                             title="Delete"
                                         >
                                             <FiTrash2 size={14} />
@@ -381,10 +381,10 @@ const DesignTemplatePage = () => {
                                             <FiEye size={14} />
                                         </a>
                                     )}
-                                    <button onClick={() => handleEdit(item._id)} className="p-2 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded-md transition-colors" title="Edit">
+                                    <button onClick={() => handleEdit(item._id)} className="p-2 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] hover:bg-[#021E14] hover:text-white rounded-md transition-colors" title="Edit">
                                         <FiEdit3 size={14} />
                                     </button>
-                                    <button onClick={() => handleDelete(item._id)} className="p-2 bg-red-50 dark:bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-md transition-colors" title="Delete">
+                                    <button onClick={() => handleDelete(item._id)} className="p-2 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] hover:bg-[#021E14] hover:text-white rounded-md transition-colors" title="Delete">
                                         <FiTrash2 size={14} />
                                     </button>
                                 </div>

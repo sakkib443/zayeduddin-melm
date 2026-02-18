@@ -132,7 +132,7 @@ export default function BatchClassLinksPage() {
 
             {/* Notifications */}
             {error && (
-                <div className="p-4 bg-red-100 border border-red-200 text-red-700 rounded-md flex items-center gap-2">
+                <div className="p-4 bg-[#021E14] border border-[#021E14] text-[#01140D] rounded-md flex items-center gap-2">
                     <FiX size={18} />
                     {error}
                 </div>
@@ -156,7 +156,7 @@ export default function BatchClassLinksPage() {
                         className={`w-full pl-10 pr-4 py-2.5 rounded-md border font-normal ${isDark
                             ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                             : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                            } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                     />
                 </div>
             </div>
@@ -191,7 +191,7 @@ export default function BatchClassLinksPage() {
                                     <h3 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                                         {batch.batchName}
                                     </h3>
-                                    <p className={`text-sm font-medium text-indigo-500 mb-2`}>
+                                    <p className={`text-sm font-medium text-[#021E14] mb-2`}>
                                         {batch.batchCode}
                                     </p>
                                     <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -215,7 +215,7 @@ export default function BatchClassLinksPage() {
                                                 className={`w-full px-3 py-2 rounded-md border text-sm ${isDark
                                                     ? 'bg-slate-700 border-slate-600 text-white'
                                                     : 'bg-white border-gray-200 text-gray-900'
-                                                    } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                             >
                                                 {PLATFORMS.map(p => (
                                                     <option key={p.value} value={p.value}>{p.label}</option>
@@ -236,7 +236,7 @@ export default function BatchClassLinksPage() {
                                                     className={`w-full pl-9 pr-4 py-2 rounded-md border text-sm ${isDark
                                                         ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-500'
                                                         : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
-                                                        } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                                                        } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                                 />
                                             </div>
                                         </div>
@@ -249,7 +249,7 @@ export default function BatchClassLinksPage() {
                                                     href={batch.meetingLink}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-500 hover:text-emerald-600 transition-colors"
+                                                    className="inline-flex items-center gap-1.5 text-xs font-medium text-[#021E14] hover:text-[#021E14] transition-colors"
                                                 >
                                                     <FiVideo size={14} />
                                                     Test Link
@@ -261,7 +261,7 @@ export default function BatchClassLinksPage() {
                                         <button
                                             onClick={() => handleSaveLink(batch._id)}
                                             disabled={savingId === batch._id}
-                                            className="inline-flex items-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-indigo-500/20"
+                                            className="inline-flex items-center gap-2 px-6 py-2 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-all font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-[#021E14]/20"
                                         >
                                             {savingId === batch._id ? (
                                                 <FiRefreshCw size={16} className="animate-spin" />

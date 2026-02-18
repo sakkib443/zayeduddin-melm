@@ -35,7 +35,7 @@ export default function AdminMessagesPage() {
                         {messages.filter(m => m.unread).length} unread messages
                     </p>
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-medium transition-colors">
                     <FiEdit size={16} />
                     Compose
                 </button>
@@ -56,7 +56,7 @@ export default function AdminMessagesPage() {
                                     key={f.id}
                                     onClick={() => setFilter(f.id)}
                                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${filter === f.id
-                                        ? 'bg-indigo-600 text-white'
+                                        ? 'bg-[#021E14] text-white'
                                         : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-slate-600'
                                         }`}
                                 >
@@ -74,13 +74,13 @@ export default function AdminMessagesPage() {
                                 key={msg.id}
                                 onClick={() => setSelectedMessage(msg)}
                                 className={`p-4 cursor-pointer transition-colors ${selectedMessage?.id === msg.id
-                                    ? 'bg-indigo-50 dark:bg-indigo-500/10'
+                                    ? 'bg-[#021E14] dark:bg-[#021E14]/10'
                                     : 'hover:bg-gray-50 dark:hover:bg-slate-700/50'
                                     } ${msg.unread ? 'font-medium' : ''}`}
                             >
                                 <div className="flex items-start gap-3">
                                     <div className={`w-9 h-9 rounded-md flex items-center justify-center text-white text-sm font-medium ${msg.unread
-                                        ? 'bg-indigo-600'
+                                        ? 'bg-[#021E14]'
                                         : 'bg-gray-300 dark:bg-slate-600'
                                         }`}>
                                         {msg.from[0]}
@@ -95,7 +95,7 @@ export default function AdminMessagesPage() {
                                     </div>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); toggleStar(msg.id); }}
-                                        className={msg.starred ? 'text-amber-500' : 'text-gray-300 dark:text-slate-600'}
+                                        className={msg.starred ? 'text-[#D4AF37]' : 'text-gray-300 dark:text-slate-600'}
                                     >
                                         <FiStar size={14} fill={msg.starred ? 'currentColor' : 'none'} />
                                     </button>
@@ -120,7 +120,7 @@ export default function AdminMessagesPage() {
                                     <button className="p-2 rounded-md bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
                                         <FiArchive size={16} />
                                     </button>
-                                    <button className="p-2 rounded-md bg-gray-100 dark:bg-slate-700 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                                    <button className="p-2 rounded-md bg-gray-100 dark:bg-slate-700 text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 transition-colors">
                                         <FiTrash2 size={16} />
                                     </button>
                                 </div>
@@ -142,10 +142,10 @@ export default function AdminMessagesPage() {
                                 <textarea
                                     placeholder="Write your reply..."
                                     rows={4}
-                                    className="w-full p-4 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 resize-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                    className="w-full p-4 rounded-md border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 resize-none focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none"
                                 />
                                 <div className="flex justify-end mt-3">
-                                    <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm font-medium transition-colors">
+                                    <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-medium transition-colors">
                                         <FiSend size={16} />
                                         Send Reply
                                     </button>

@@ -192,7 +192,7 @@ export default function MentorEditBlogPage() {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="text-center">
-                    <FiLoader className="w-12 h-12 mx-auto animate-spin text-red-500" />
+                    <FiLoader className="w-12 h-12 mx-auto animate-spin text-[#021E14]" />
                     <p className={`mt-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Loading blog...</p>
                 </div>
             </div>
@@ -213,14 +213,14 @@ export default function MentorEditBlogPage() {
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <button onClick={() => setPreviewMode(!previewMode)} className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all ${previewMode ? 'bg-gradient-to-r from-red-500 to-cyan-500 text-white' : isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'}`}>
+                    <button onClick={() => setPreviewMode(!previewMode)} className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all ${previewMode ? 'bg-gradient-to-r from-[#021E14] to-cyan-500 text-white' : isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'}`}>
                         {previewMode ? <FiEdit3 size={16} /> : <FiEye size={16} />}
                         {previewMode ? 'Edit' : 'Preview'}
                     </button>
                     <button onClick={() => handleSubmit('draft')} disabled={saving} className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'}`}>
                         <FiSave size={16} /> Save Draft
                     </button>
-                    <button onClick={() => handleSubmit(formData.status)} disabled={saving} className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white font-semibold shadow-lg disabled:opacity-50">
+                    <button onClick={() => handleSubmit(formData.status)} disabled={saving} className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white font-semibold shadow-lg disabled:opacity-50">
                         {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <FiCheck size={16} />}
                         Update
                     </button>
@@ -234,10 +234,10 @@ export default function MentorEditBlogPage() {
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Title *</label>
                         <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter your blog title..."
-                            className={`w-full px-4 py-3 rounded-xl border text-lg font-medium ${isDark ? 'bg-slate-700/50 border-slate-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'} focus:outline-none focus:ring-2 focus:ring-red-500/20`} />
+                            className={`w-full px-4 py-3 rounded-xl border text-lg font-medium ${isDark ? 'bg-slate-700/50 border-slate-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'} focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`} />
 
                         <input type="text" name="titleBn" value={formData.titleBn} onChange={handleChange} placeholder="বাংলা শিরোনাম (ঐচ্ছিক)"
-                            className={`w-full mt-3 px-4 py-2.5 rounded-xl border transition-all ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'} focus:outline-none focus:ring-2 focus:ring-red-500/20`} />
+                            className={`w-full mt-3 px-4 py-2.5 rounded-xl border transition-all ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'} focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`} />
                     </div>
 
                     {/* Excerpt */}
@@ -272,12 +272,12 @@ export default function MentorEditBlogPage() {
                         {formData.thumbnail ? (
                             <div className="relative rounded-xl overflow-hidden">
                                 <Image src={formData.thumbnail} alt="Thumbnail" width={400} height={225} className="w-full h-48 object-cover" />
-                                <button onClick={() => setFormData(prev => ({ ...prev, thumbnail: '' }))} className="absolute top-2 right-2 p-1.5 rounded-lg bg-red-500 text-white"><FiX size={14} /></button>
+                                <button onClick={() => setFormData(prev => ({ ...prev, thumbnail: '' }))} className="absolute top-2 right-2 p-1.5 rounded-lg bg-[#021E14] text-white"><FiX size={14} /></button>
                             </div>
                         ) : (
-                            <label className={`flex flex-col items-center justify-center h-48 border-2 border-dashed rounded-xl cursor-pointer ${isDark ? 'border-slate-600 hover:border-red-500' : 'border-slate-300 hover:border-red-500'}`}>
+                            <label className={`flex flex-col items-center justify-center h-48 border-2 border-dashed rounded-xl cursor-pointer ${isDark ? 'border-slate-600 hover:border-[#021E14]' : 'border-slate-300 hover:border-[#021E14]'}`}>
                                 <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
-                                {uploading ? <div className="w-8 h-8 border-3 border-red-500/30 border-t-red-500 rounded-full animate-spin" /> : <><FiUpload className={isDark ? 'text-slate-500' : 'text-slate-400'} size={24} /><span className={`text-sm mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Upload</span></>}
+                                {uploading ? <div className="w-8 h-8 border-3 border-[#021E14]/30 border-t-red-500 rounded-full animate-spin" /> : <><FiUpload className={isDark ? 'text-slate-500' : 'text-slate-400'} size={24} /><span className={`text-sm mt-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Upload</span></>}
                             </label>
                         )}
                     </div>
@@ -297,12 +297,12 @@ export default function MentorEditBlogPage() {
                         <div className="flex gap-2">
                             <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())} placeholder="Add tag..."
                                 className={`flex-1 px-3 py-2 rounded-lg border text-sm ${isDark ? 'bg-slate-700/50 border-slate-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'}`} />
-                            <button onClick={addTag} className="px-3 py-2 rounded-lg bg-red-500 text-white"><FiTag size={16} /></button>
+                            <button onClick={addTag} className="px-3 py-2 rounded-lg bg-[#021E14] text-white"><FiTag size={16} /></button>
                         </div>
                         <div className="flex flex-wrap gap-2 mt-3">
                             {formData.tags.map((tag, idx) => (
-                                <span key={idx} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs ${isDark ? 'bg-red-500/20 text-red-400' : 'bg-red-50 text-red-600'}`}>
-                                    #{tag}<button onClick={() => removeTag(tag)} className="hover:text-red-500"><FiX size={12} /></button>
+                                <span key={idx} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs ${isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'}`}>
+                                    #{tag}<button onClick={() => removeTag(tag)} className="hover:text-[#021E14]"><FiX size={12} /></button>
                                 </span>
                             ))}
                         </div>
@@ -333,15 +333,15 @@ export default function MentorEditBlogPage() {
                         <h3 className={`text-sm font-medium mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Options</h3>
                         <div className="space-y-3">
                             <label className="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]" />
                                 <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Featured Blog</span>
                             </label>
                             <label className="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="isPopular" checked={formData.isPopular} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <input type="checkbox" name="isPopular" checked={formData.isPopular} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]" />
                                 <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Mark as Popular</span>
                             </label>
                             <label className="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="allowComments" checked={formData.allowComments} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-red-500 focus:ring-red-500" />
+                                <input type="checkbox" name="allowComments" checked={formData.allowComments} onChange={handleChange} className="w-4 h-4 rounded border-slate-300 text-[#021E14] focus:ring-[#021E14]" />
                                 <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Allow Comments</span>
                             </label>
                         </div>

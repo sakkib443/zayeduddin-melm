@@ -59,7 +59,7 @@ const HomePage = () => {
   }, [dispatch, mounted]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-black selection:bg-red-500 selection:text-black font-poppins antialiased">
+    <div className="relative min-h-screen bg-white dark:bg-black selection:bg-[#021E14] selection:text-black font-poppins antialiased">
       <main className="relative">
         {/* Hero Section */}
         <section className="relative w-full overflow-hidden z-0 bg-white dark:bg-black">

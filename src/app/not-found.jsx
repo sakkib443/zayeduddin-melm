@@ -6,13 +6,13 @@ import { LuHouse, LuArrowLeft, LuSearch, LuTriangleAlert } from "react-icons/lu"
 
 const NotFound = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#050505] overflow-hidden relative selection:bg-red-500/30">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#050505] overflow-hidden relative selection:bg-[#021E14]/30">
 
             {/* Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-red-500/5 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-orange-500/5 rounded-full blur-[120px]" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-red-500/5 to-orange-500/5 rounded-full blur-[100px] opacity-50" />
+                <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#021E14]/5 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#021E14]/5 rounded-full blur-[120px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-[#021E14]/5 to-[#01140D]/5 rounded-full blur-[100px] opacity-50" />
             </div>
 
             <div className="container mx-auto px-4 relative z-10 text-center">
@@ -24,7 +24,7 @@ const NotFound = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="relative mb-8"
                 >
-                    <h1 className="text-[150px] sm:text-[200px] font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500/20 via-gray-200 dark:via-gray-800 to-orange-500/20 select-none">
+                    <h1 className="text-[150px] sm:text-[200px] font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#021E14]/20 via-gray-200 dark:via-gray-800 to-[#01140D]/20 select-none">
                         404
                     </h1>
                     <motion.div
@@ -34,7 +34,7 @@ const NotFound = () => {
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                     >
                         <div className="bg-white dark:bg-[#0d0d0d] p-6 rounded-3xl border border-gray-100 dark:border-white/10 shadow-2xl shadow-red-500/10 backdrop-blur-xl">
-                            <LuTriangleAlert className="w-12 h-12 text-orange-500 mx-auto" />
+                            <LuTriangleAlert className="w-12 h-12 text-[#021E14] mx-auto" />
                         </div>
                     </motion.div>
                 </motion.div>

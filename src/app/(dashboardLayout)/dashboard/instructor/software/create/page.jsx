@@ -209,7 +209,7 @@ function CreateSoftwareContent() {
         finally { setLoading(false); }
     };
 
-    const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-100 outline-none text-sm transition-all bg-white text-slate-700 placeholder:text-slate-400";
+    const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14] outline-none text-sm transition-all bg-white text-slate-700 placeholder:text-slate-400";
     const labelClass = "block text-sm font-medium text-slate-700 mb-2";
     const cardClass = "bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm";
     const sectionTitle = "text-sm font-semibold text-slate-700 mb-4 flex items-center gap-2";
@@ -218,7 +218,7 @@ function CreateSoftwareContent() {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
-                    <FiLoader className="animate-spin text-violet-600 mx-auto mb-4" size={48} />
+                    <FiLoader className="animate-spin text-[#021E14] mx-auto mb-4" size={48} />
                     <p className="text-sm font-bold text-slate-600">Loading software data...</p>
                 </div>
             </div>
@@ -252,7 +252,7 @@ function CreateSoftwareContent() {
                 <button
                     onClick={handleSubmit(onSubmit)}
                     disabled={loading}
-                    className={`flex items-center gap-2 ${isEditMode ? 'bg-gradient-to-r from-amber-500 to-orange-500' : 'bg-gradient-to-r from-violet-600 to-purple-600'} text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-all disabled:opacity-50 hover:scale-105`}
+                    className={`flex items-center gap-2 ${isEditMode ? 'bg-gradient-to-r from-[#D4AF37] to-[#01140D]' : 'bg-gradient-to-r from-[#021E14] to-[#01140D]'} text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-all disabled:opacity-50 hover:scale-105`}
                 >
                     {loading ? <FiLoader className="animate-spin" /> : isEditMode ? <FiEdit3 size={18} /> : <FiZap size={18} />}
                     {loading ? (isEditMode ? 'Updating...' : 'Publishing...') : (isEditMode ? 'Update Software' : 'Publish Software')}
@@ -267,12 +267,12 @@ function CreateSoftwareContent() {
 
                     {/* Basic Information */}
                     <div className={cardClass}>
-                        <h2 className={sectionTitle}><FiPackage className="text-violet-600" /> Basic Information</h2>
+                        <h2 className={sectionTitle}><FiPackage className="text-[#021E14]" /> Basic Information</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="md:col-span-2">
                                 <label className={labelClass}>Software Title *</label>
                                 <input {...register('title')} className={inputClass} placeholder="e.g. Advanced Form Builder" />
-                                {errors.title && <p className="text-rose-500 text-xs mt-1">{errors.title.message}</p>}
+                                {errors.title && <p className="text-[#021E14] text-xs mt-1">{errors.title.message}</p>}
                             </div>
                             <div>
                                 <label className={labelClass}>Platform *</label>
@@ -292,7 +292,7 @@ function CreateSoftwareContent() {
                                     <option value="">Select Category</option>
                                     {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
                                 </select>
-                                {errors.category && <p className="text-rose-500 text-xs mt-1">{errors.category.message}</p>}
+                                {errors.category && <p className="text-[#021E14] text-xs mt-1">{errors.category.message}</p>}
                             </div>
                             <div>
                                 <label className={labelClass}>Version *</label>
@@ -303,12 +303,12 @@ function CreateSoftwareContent() {
 
                     {/* Description */}
                     <div className={cardClass}>
-                        <h2 className={sectionTitle}><FiFileText className="text-violet-600" /> Description</h2>
+                        <h2 className={sectionTitle}><FiFileText className="text-[#021E14]" /> Description</h2>
                         <div className="space-y-4">
                             <div>
                                 <label className={labelClass}>Short Description *</label>
                                 <textarea {...register('description')} rows={3} className={inputClass} placeholder="Brief description of the software..." />
-                                {errors.description && <p className="text-rose-500 text-xs mt-1">{errors.description.message}</p>}
+                                {errors.description && <p className="text-[#021E14] text-xs mt-1">{errors.description.message}</p>}
                             </div>
                             <div>
                                 <label className={labelClass}>Long Description</label>
@@ -323,13 +323,13 @@ function CreateSoftwareContent() {
 
                     {/* Features & Requirements */}
                     <div className={cardClass}>
-                        <h2 className={sectionTitle}><FiStar className="text-violet-600" /> Features & Requirements</h2>
+                        <h2 className={sectionTitle}><FiStar className="text-[#021E14]" /> Features & Requirements</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Features */}
                             <div>
                                 <div className="flex items-center justify-between mb-3">
                                     <label className={labelClass}>Features</label>
-                                    <button type="button" onClick={() => featureFields.append('')} className="text-violet-600 text-xs font-bold flex items-center gap-1">
+                                    <button type="button" onClick={() => featureFields.append('')} className="text-[#021E14] text-xs font-bold flex items-center gap-1">
                                         <FiPlus size={12} /> Add
                                     </button>
                                 </div>
@@ -338,7 +338,7 @@ function CreateSoftwareContent() {
                                         <div key={field.id} className="flex gap-2">
                                             <input {...register(`features.${idx}`)} className={inputClass} placeholder="Feature point" />
                                             {featureFields.fields.length > 1 && (
-                                                <button type="button" onClick={() => featureFields.remove(idx)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg">
+                                                <button type="button" onClick={() => featureFields.remove(idx)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-lg">
                                                     <FiTrash2 size={16} />
                                                 </button>
                                             )}
@@ -350,7 +350,7 @@ function CreateSoftwareContent() {
                             <div>
                                 <div className="flex items-center justify-between mb-3">
                                     <label className={labelClass}>Requirements</label>
-                                    <button type="button" onClick={() => requirementFields.append('')} className="text-violet-600 text-xs font-bold flex items-center gap-1">
+                                    <button type="button" onClick={() => requirementFields.append('')} className="text-[#021E14] text-xs font-bold flex items-center gap-1">
                                         <FiPlus size={12} /> Add
                                     </button>
                                 </div>
@@ -359,7 +359,7 @@ function CreateSoftwareContent() {
                                         <div key={field.id} className="flex gap-2">
                                             <input {...register(`requirements.${idx}`)} className={inputClass} placeholder="Requirement" />
                                             {requirementFields.fields.length > 1 && (
-                                                <button type="button" onClick={() => requirementFields.remove(idx)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg">
+                                                <button type="button" onClick={() => requirementFields.remove(idx)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-lg">
                                                     <FiTrash2 size={16} />
                                                 </button>
                                             )}
@@ -372,10 +372,10 @@ function CreateSoftwareContent() {
 
                     {/* Technologies */}
                     <div className={cardClass}>
-                        <h2 className={sectionTitle}><FiCode className="text-violet-600" /> Technologies</h2>
+                        <h2 className={sectionTitle}><FiCode className="text-[#021E14]" /> Technologies</h2>
                         <div className="flex items-center justify-between mb-3">
                             <label className={labelClass}>Tech Stack Used</label>
-                            <button type="button" onClick={() => techFields.append('')} className="text-violet-600 text-xs font-bold flex items-center gap-1">
+                            <button type="button" onClick={() => techFields.append('')} className="text-[#021E14] text-xs font-bold flex items-center gap-1">
                                 <FiPlus size={12} /> Add
                             </button>
                         </div>
@@ -384,7 +384,7 @@ function CreateSoftwareContent() {
                                 <div key={field.id} className="flex gap-2">
                                     <input {...register(`technologies.${idx}`)} className={inputClass} placeholder="React, Node.js etc" />
                                     {techFields.fields.length > 1 && (
-                                        <button type="button" onClick={() => techFields.remove(idx)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg">
+                                        <button type="button" onClick={() => techFields.remove(idx)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-lg">
                                             <FiTrash2 size={14} />
                                         </button>
                                     )}
@@ -395,13 +395,13 @@ function CreateSoftwareContent() {
 
                     {/* Compatibility */}
                     <div className={cardClass}>
-                        <h2 className={sectionTitle}><FiMonitor className="text-violet-600" /> Compatibility</h2>
+                        <h2 className={sectionTitle}><FiMonitor className="text-[#021E14]" /> Compatibility</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Browser Compatibility */}
                             <div>
                                 <div className="flex items-center justify-between mb-3">
                                     <label className={labelClass}>Browser Compatibility</label>
-                                    <button type="button" onClick={() => browserFields.append('')} className="text-violet-600 text-xs font-bold flex items-center gap-1">
+                                    <button type="button" onClick={() => browserFields.append('')} className="text-[#021E14] text-xs font-bold flex items-center gap-1">
                                         <FiPlus size={12} /> Add
                                     </button>
                                 </div>
@@ -410,7 +410,7 @@ function CreateSoftwareContent() {
                                         <div key={field.id} className="flex gap-2">
                                             <input {...register(`browserCompatibility.${idx}`)} className={inputClass} placeholder="Chrome, Firefox..." />
                                             {browserFields.fields.length > 1 && (
-                                                <button type="button" onClick={() => browserFields.remove(idx)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg">
+                                                <button type="button" onClick={() => browserFields.remove(idx)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-lg">
                                                     <FiTrash2 size={16} />
                                                 </button>
                                             )}
@@ -422,7 +422,7 @@ function CreateSoftwareContent() {
                             <div>
                                 <div className="flex items-center justify-between mb-3">
                                     <label className={labelClass}>Software Compatibility</label>
-                                    <button type="button" onClick={() => softwareCompatFields.append('')} className="text-violet-600 text-xs font-bold flex items-center gap-1">
+                                    <button type="button" onClick={() => softwareCompatFields.append('')} className="text-[#021E14] text-xs font-bold flex items-center gap-1">
                                         <FiPlus size={12} /> Add
                                     </button>
                                 </div>
@@ -431,7 +431,7 @@ function CreateSoftwareContent() {
                                         <div key={field.id} className="flex gap-2">
                                             <input {...register(`softwareCompatibility.${idx}`)} className={inputClass} placeholder="WordPress 6.0+..." />
                                             {softwareCompatFields.fields.length > 1 && (
-                                                <button type="button" onClick={() => softwareCompatFields.remove(idx)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg">
+                                                <button type="button" onClick={() => softwareCompatFields.remove(idx)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-lg">
                                                     <FiTrash2 size={16} />
                                                 </button>
                                             )}
@@ -448,7 +448,7 @@ function CreateSoftwareContent() {
 
                     {/* Pricing */}
                     <div className={cardClass}>
-                        <h2 className={sectionTitle}><FiDollarSign className="text-emerald-600" /> Pricing</h2>
+                        <h2 className={sectionTitle}><FiDollarSign className="text-[#021E14]" /> Pricing</h2>
                         <div className="space-y-4">
                             <div>
                                 <label className={labelClass}>Access Type</label>
@@ -508,13 +508,13 @@ function CreateSoftwareContent() {
 
                     {/* Media & Links */}
                     <div className={cardClass}>
-                        <h2 className={sectionTitle}><FiImage className="text-violet-600" /> Media & Links</h2>
+                        <h2 className={sectionTitle}><FiImage className="text-[#021E14]" /> Media & Links</h2>
                         <div className="space-y-4">
                             {/* Images */}
                             <div>
                                 <div className="flex items-center justify-between mb-2">
                                     <label className={labelClass}>Image URLs *</label>
-                                    <button type="button" onClick={() => imageFields.append('')} className="text-violet-600 text-xs font-bold flex items-center gap-1">
+                                    <button type="button" onClick={() => imageFields.append('')} className="text-[#021E14] text-xs font-bold flex items-center gap-1">
                                         <FiPlus size={12} /> Add
                                     </button>
                                 </div>
@@ -523,14 +523,14 @@ function CreateSoftwareContent() {
                                         <div key={field.id} className="flex gap-2">
                                             <input {...register(`images.${idx}`)} className={inputClass} placeholder="https://..." />
                                             {imageFields.fields.length > 1 && (
-                                                <button type="button" onClick={() => imageFields.remove(idx)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg">
+                                                <button type="button" onClick={() => imageFields.remove(idx)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-lg">
                                                     <FiTrash2 size={14} />
                                                 </button>
                                             )}
                                         </div>
                                     ))}
                                 </div>
-                                {errors.images && <p className="text-rose-500 text-xs mt-1">{errors.images.message}</p>}
+                                {errors.images && <p className="text-[#021E14] text-xs mt-1">{errors.images.message}</p>}
                             </div>
                             <div>
                                 <label className={labelClass}>Preview URL</label>
@@ -539,7 +539,7 @@ function CreateSoftwareContent() {
                             <div>
                                 <label className={labelClass}>Download File URL *</label>
                                 <input {...register('downloadFile')} className={inputClass} placeholder="https://..." />
-                                {errors.downloadFile && <p className="text-rose-500 text-xs mt-1">{errors.downloadFile.message}</p>}
+                                {errors.downloadFile && <p className="text-[#021E14] text-xs mt-1">{errors.downloadFile.message}</p>}
                             </div>
                             <div>
                                 <label className={labelClass}>Documentation URL</label>
@@ -558,7 +558,7 @@ export default function CreateSoftwarePage() {
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-slate-50">
                 <div className="flex flex-col items-center gap-4">
-                    <FiLoader className="animate-spin text-violet-600" size={32} />
+                    <FiLoader className="animate-spin text-[#021E14]" size={32} />
                     <p className="text-gray-500 font-medium">Loading Software Editor...</p>
                 </div>
             </div>

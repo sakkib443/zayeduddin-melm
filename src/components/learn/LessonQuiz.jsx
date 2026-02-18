@@ -133,12 +133,12 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
             <div className="space-y-6">
                 {/* Result Card */}
                 <div className={`p-8 rounded-2xl text-center ${result.passed
-                    ? 'bg-gradient-to-br from-[#E62D26]/10 to-[#c41e18]/10 border border-[#E62D26]/20'
-                    : 'bg-gradient-to-br from-[#F79952]/10 to-orange-100 border border-[#F79952]/20'
+                    ? 'bg-gradient-to-br from-[#021E14]/10 to-[#021E14]/10 border border-[#021E14]/20'
+                    : 'bg-gradient-to-br from-[#021E14]/10 to-[#01140D] border border-[#021E14]/20'
                     }`}>
                     <div className={`w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center ${result.passed
-                        ? 'bg-gradient-to-br from-[#E62D26] to-[#c41e18] shadow-lg shadow-[#E62D26]/30'
-                        : 'bg-gradient-to-br from-[#F79952] to-orange-400 shadow-lg shadow-[#F79952]/30'
+                        ? 'bg-gradient-to-br from-[#021E14] to-[#021E14] shadow-lg shadow-[#021E14]/30'
+                        : 'bg-gradient-to-br from-[#021E14] to-[#01140D] shadow-lg shadow-[#021E14]/30'
                         }`}>
                         {result.passed ? (
                             <FiAward size={36} className="text-white" />
@@ -147,11 +147,11 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                         )}
                     </div>
 
-                    <h3 className={`text-2xl font-bold mb-2 ${result.passed ? 'text-[#E62D26]' : 'text-[#F79952]'}`}>
+                    <h3 className={`text-2xl font-bold mb-2 ${result.passed ? 'text-[#021E14]' : 'text-[#021E14]'}`}>
                         {result.passed ? 'Congratulations!' : 'Keep Learning!'}
                     </h3>
 
-                    <p className={`text-sm mb-6 ${result.passed ? 'text-[#E62D26]/80' : 'text-[#F79952]/80'}`}>
+                    <p className={`text-sm mb-6 ${result.passed ? 'text-[#021E14]/80' : 'text-[#021E14]/80'}`}>
                         {result.passed
                             ? 'You have successfully passed this quiz!'
                             : `You need ${quizSettings.passingScore || 70}% to pass. Try again!`}
@@ -174,7 +174,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                     {!result.passed && (quizSettings.maxAttempts === 0 || true) && (
                         <button
                             onClick={handleRetry}
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white font-semibold hover:shadow-lg hover:shadow-[#E62D26]/30 transition-all"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#021E14] to-[#021E14] text-white font-semibold hover:shadow-lg hover:shadow-[#021E14]/30 transition-all"
                         >
                             <FiRefreshCw size={18} />
                             Retry Quiz
@@ -192,12 +192,12 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                                 <div
                                     key={r.questionId}
                                     className={`p-4 rounded-xl border ${r.correct
-                                        ? 'bg-[#E62D26]/5 border-[#E62D26]/20'
-                                        : 'bg-red-50 border-red-100'
+                                        ? 'bg-[#021E14]/5 border-[#021E14]/20'
+                                        : 'bg-[#021E14] border-[#021E14]'
                                         }`}
                                 >
                                     <div className="flex items-start gap-3">
-                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${r.correct ? 'bg-[#E62D26] text-white' : 'bg-red-500 text-white'}`}>
+                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${r.correct ? 'bg-[#021E14] text-white' : 'bg-[#021E14] text-white'}`}>
                                             {r.correct ? <FiCheck size={16} /> : <FiX size={16} />}
                                         </div>
                                         <div className="flex-1">
@@ -208,7 +208,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                                                 Your answer: <span className="font-medium">{r.userAnswer || 'Not answered'}</span>
                                             </p>
                                             {!r.correct && r.correctAnswer && (
-                                                <p className="text-xs text-[#E62D26] mt-1">
+                                                <p className="text-xs text-[#021E14] mt-1">
                                                     Correct answer: <span className="font-medium">{r.correctAnswer}</span>
                                                 </p>
                                             )}
@@ -231,7 +231,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
             {/* Quiz Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center shadow-lg shadow-[#E62D26]/20">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center shadow-lg shadow-[#021E14]/20">
                         <FiHelpCircle size={20} className="text-white" />
                     </div>
                     <div>
@@ -242,12 +242,12 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
 
                 <div className="flex items-center gap-4">
                     {timeRemaining !== null && (
-                        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-sm font-bold ${timeRemaining < 60 ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'}`}>
+                        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-sm font-bold ${timeRemaining < 60 ? 'bg-[#021E14] text-[#021E14]' : 'bg-gray-100 text-gray-600'}`}>
                             <FiClock size={14} />
                             {formatTime(timeRemaining)}
                         </div>
                     )}
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#E62D26]/10 text-[#E62D26] text-sm font-semibold">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#021E14]/10 text-[#021E14] text-sm font-semibold">
                         <FiList size={14} />
                         {answeredCount}/{questions.length}
                     </div>
@@ -257,7 +257,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
             {/* Progress Bar */}
             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                 <motion.div
-                    className="h-full bg-gradient-to-r from-[#E62D26] to-[#F79952]"
+                    className="h-full bg-gradient-to-r from-[#021E14] to-[#021E14]"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.3 }}
@@ -277,8 +277,8 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                     {/* Question Text */}
                     <div className="mb-6">
                         <span className={`inline-block px-2.5 py-1 rounded-lg text-xs font-bold mb-3 ${currentQuestion.type === 'mcq'
-                            ? 'bg-[#E62D26]/10 text-[#E62D26]'
-                            : 'bg-[#F79952]/10 text-[#F79952]'
+                            ? 'bg-[#021E14]/10 text-[#021E14]'
+                            : 'bg-[#021E14]/10 text-[#021E14]'
                             }`}>
                             {currentQuestion.type === 'mcq' ? 'Multiple Choice' : 'Short Answer'}
                         </span>
@@ -286,7 +286,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                             {currentQuestion.question}
                         </h4>
                         {currentQuestion.hint && (
-                            <p className="text-sm text-[#F79952] mt-2 flex items-center gap-1">
+                            <p className="text-sm text-[#021E14] mt-2 flex items-center gap-1">
                                 ?? Hint: {currentQuestion.hint}
                             </p>
                         )}
@@ -302,21 +302,21 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                                         key={option._id || idx}
                                         onClick={() => handleAnswer(currentQuestion._id, option._id)}
                                         className={`w-full p-4 rounded-xl border-2 text-left flex items-center gap-4 transition-all ${isSelected
-                                            ? 'border-[#E62D26] bg-[#E62D26]/5'
+                                            ? 'border-[#021E14] bg-[#021E14]/5'
                                             : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                                             }`}
                                     >
                                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${isSelected
-                                            ? 'bg-[#E62D26] text-white'
+                                            ? 'bg-[#021E14] text-white'
                                             : 'bg-gray-100 text-gray-500'
                                             }`}>
                                             {String.fromCharCode(65 + idx)}
                                         </div>
-                                        <span className={`flex-1 font-medium ${isSelected ? 'text-[#E62D26]' : 'text-gray-700'}`}>
+                                        <span className={`flex-1 font-medium ${isSelected ? 'text-[#021E14]' : 'text-gray-700'}`}>
                                             {option.text}
                                         </span>
                                         {isSelected && (
-                                            <FiCheck className="text-[#E62D26]" size={20} />
+                                            <FiCheck className="text-[#021E14]" size={20} />
                                         )}
                                     </button>
                                 );
@@ -332,7 +332,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                                 onChange={(e) => handleAnswer(currentQuestion._id, e.target.value)}
                                 placeholder="Type your answer here..."
                                 rows={4}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none text-gray-700 resize-none transition-all"
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none text-gray-700 resize-none transition-all"
                             />
                         </div>
                     )}
@@ -356,9 +356,9 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                             key={idx}
                             onClick={() => setCurrentIndex(idx)}
                             className={`w-3 h-3 rounded-full transition-all ${idx === currentIndex
-                                ? 'bg-[#E62D26] scale-125'
+                                ? 'bg-[#021E14] scale-125'
                                 : answers[questions[idx]._id]
-                                    ? 'bg-[#E62D26]/50'
+                                    ? 'bg-[#021E14]/50'
                                     : 'bg-gray-200'
                                 }`}
                         />
@@ -369,7 +369,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white font-semibold hover:shadow-lg hover:shadow-[#E62D26]/30 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#021E14] to-[#021E14] text-white font-semibold hover:shadow-lg hover:shadow-[#021E14]/30 transition-all disabled:opacity-50"
                     >
                         {loading ? 'Submitting...' : 'Submit Quiz'}
                         <FiCheck size={18} />
@@ -377,7 +377,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                 ) : (
                     <button
                         onClick={() => setCurrentIndex(prev => Math.min(questions.length - 1, prev + 1))}
-                        className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#E62D26] text-white font-semibold hover:bg-[#c41e18] transition-all"
+                        className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#021E14] text-white font-semibold hover:bg-[#021E14] transition-all"
                     >
                         Next
                         <FiChevronRight size={18} />

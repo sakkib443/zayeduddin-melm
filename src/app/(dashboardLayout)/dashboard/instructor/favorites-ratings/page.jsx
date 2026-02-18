@@ -74,12 +74,12 @@ const MentorFavoritesRatingsPage = () => {
                 <div>
                     <div className="flex items-center gap-3">
                         <h1 className="text-2xl font-bold font-outfit flex items-center gap-3">
-                            <span className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-500 rounded-xl flex items-center justify-center text-white">
+                            <span className="w-10 h-10 bg-gradient-to-br from-[#021E14] to-[#01140D] rounded-xl flex items-center justify-center text-white">
                                 <FiHeart size={20} />
                             </span>
                             Like & Rating
                         </h1>
-                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">Mentor</span>
+                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">Mentor</span>
                     </div>
                     <p className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                         View all product likes and customer ratings (View Only)
@@ -93,7 +93,7 @@ const MentorFavoritesRatingsPage = () => {
                         placeholder="Search..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className={`pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-rose-500 w-full md:w-64 ${isDark ? 'bg-slate-800 border-slate-700 placeholder-slate-500' : 'bg-white border-slate-200'
+                        className={`pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#021E14] w-full md:w-64 ${isDark ? 'bg-slate-800 border-slate-700 placeholder-slate-500' : 'bg-white border-slate-200'
                             }`}
                     />
                 </div>
@@ -111,10 +111,10 @@ const MentorFavoritesRatingsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className={`p-6 rounded-2xl border transition-all hover:shadow-lg ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="flex items-center justify-between mb-4">
-                        <div className="w-14 h-14 bg-rose-500/10 text-rose-600 rounded-2xl flex items-center justify-center">
+                        <div className="w-14 h-14 bg-[#021E14]/10 text-[#021E14] rounded-2xl flex items-center justify-center">
                             <FiHeart size={28} className="fill-current" />
                         </div>
-                        <div className="px-3 py-1 bg-rose-500/10 text-rose-600 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                        <div className="px-3 py-1 bg-[#021E14]/10 text-[#021E14] rounded-full text-[10px] font-bold uppercase tracking-wider">
                             Real-time
                         </div>
                     </div>
@@ -126,10 +126,10 @@ const MentorFavoritesRatingsPage = () => {
 
                 <div className={`p-6 rounded-2xl border transition-all hover:shadow-lg ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="flex items-center justify-between mb-4">
-                        <div className="w-14 h-14 bg-amber-500/10 text-amber-600 rounded-2xl flex items-center justify-center">
+                        <div className="w-14 h-14 bg-[#D4AF37]/10 text-amber-600 rounded-2xl flex items-center justify-center">
                             <FiStar size={28} className="fill-current" />
                         </div>
-                        <div className="px-3 py-1 bg-amber-500/10 text-amber-600 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                        <div className="px-3 py-1 bg-[#D4AF37]/10 text-amber-600 rounded-full text-[10px] font-bold uppercase tracking-wider">
                             Customer Feedback
                         </div>
                     </div>
@@ -141,10 +141,10 @@ const MentorFavoritesRatingsPage = () => {
 
                 <div className={`p-6 rounded-2xl border transition-all hover:shadow-lg ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="flex items-center justify-between mb-4">
-                        <div className="w-14 h-14 bg-emerald-500/10 text-emerald-600 rounded-2xl flex items-center justify-center">
+                        <div className="w-14 h-14 bg-[#021E14]/10 text-[#021E14] rounded-2xl flex items-center justify-center">
                             <FiStar size={28} />
                         </div>
-                        <div className="px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                        <div className="px-3 py-1 bg-[#021E14]/10 text-[#021E14] rounded-full text-[10px] font-bold uppercase tracking-wider">
                             Quality Score
                         </div>
                     </div>
@@ -152,7 +152,7 @@ const MentorFavoritesRatingsPage = () => {
                         <p className={`text-sm font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Average Rating</p>
                         <div className="flex items-baseline gap-2 mt-1">
                             <p className="text-3xl font-bold font-outfit tracking-tight">{avgRating}</p>
-                            <div className="flex text-amber-400 gap-0.5">
+                            <div className="flex text-[#D4AF37] gap-0.5">
                                 {[...Array(5)].map((_, i) => (
                                     <FiStar key={i} size={12} className={i < Math.round(avgRating) ? "fill-current" : "text-slate-300"} />
                                 ))}
@@ -167,7 +167,7 @@ const MentorFavoritesRatingsPage = () => {
                 <button
                     onClick={() => setActiveTab("favorites")}
                     className={`px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 transition-all ${activeTab === "favorites"
-                        ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/30"
+                        ? "bg-gradient-to-r from-[#021E14] to-[#01140D] text-white shadow-lg shadow-rose-500/30"
                         : isDark ? "bg-slate-800 text-slate-400 hover:text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                         }`}
                 >
@@ -177,7 +177,7 @@ const MentorFavoritesRatingsPage = () => {
                 <button
                     onClick={() => setActiveTab("ratings")}
                     className={`px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2 transition-all ${activeTab === "ratings"
-                        ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30"
+                        ? "bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white shadow-lg shadow-[#D4AF37]/30"
                         : isDark ? "bg-slate-800 text-slate-400 hover:text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                         }`}
                 >
@@ -238,16 +238,16 @@ const MentorFavoritesRatingsPage = () => {
                                                 </div>
                                             </td>
                                             <td className="p-4">
-                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${fav.productType === 'course' ? 'bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400' :
-                                                    fav.productType === 'website' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400' :
-                                                        'bg-purple-100 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400'
+                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${fav.productType === 'course' ? 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]' :
+                                                    fav.productType === 'website' ? 'bg-emerald-100 text-[#021E14] dark:bg-[#021E14]/20 dark:text-emerald-400' :
+                                                        'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]'
                                                     }`}>
                                                     {fav.productType}
                                                 </span>
                                             </td>
                                             <td className="p-4">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-10 h-10 rounded-lg bg-rose-50 dark:bg-rose-500/10 flex items-center justify-center text-rose-500">
+                                                    <div className="w-10 h-10 rounded-lg bg-[#021E14] dark:bg-[#021E14]/10 flex items-center justify-center text-[#021E14]">
                                                         <FiHeart size={18} className="fill-current" />
                                                     </div>
                                                     <span className="font-bold text-slate-700 dark:text-slate-200">
@@ -318,7 +318,7 @@ const MentorFavoritesRatingsPage = () => {
                                         <tr key={review._id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
                                             <td className="p-4">
                                                 <div className="flex flex-col">
-                                                    <span className="uppercase text-[10px] text-red-500 font-bold tracking-wider mb-0.5">{review.productType}</span>
+                                                    <span className="uppercase text-[10px] text-[#021E14] font-bold tracking-wider mb-0.5">{review.productType}</span>
                                                     <span className="font-semibold text-sm line-clamp-1 max-w-[180px]">
                                                         {review.productDetails?.title || "Unknown Product"}
                                                     </span>
@@ -326,7 +326,7 @@ const MentorFavoritesRatingsPage = () => {
                                             </td>
                                             <td className="p-4">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xs">
+                                                    <div className="w-8 h-8 rounded-full bg-[#021E14] text-[#021E14] flex items-center justify-center font-bold text-xs">
                                                         {review.user?.firstName?.[0]}
                                                     </div>
                                                     <div>
@@ -340,7 +340,7 @@ const MentorFavoritesRatingsPage = () => {
                                                 <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{review.comment}</p>
                                             </td>
                                             <td className="p-4">
-                                                <div className="flex items-center text-amber-400 gap-0.5">
+                                                <div className="flex items-center text-[#D4AF37] gap-0.5">
                                                     {[...Array(5)].map((_, i) => (
                                                         <FiStar key={i} size={14} className={i < review.rating ? "fill-current" : "text-slate-200"} />
                                                     ))}

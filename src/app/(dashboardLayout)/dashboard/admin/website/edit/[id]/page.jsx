@@ -156,14 +156,14 @@ export default function EditWebsitePage() {
         }
     };
 
-    const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none text-sm transition-all placeholder:text-slate-400";
+    const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none text-sm transition-all placeholder:text-slate-400";
     const labelClass = "block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5";
     const cardClass = "bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm";
 
     if (fetching) return (
         <div className="h-screen flex items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-                <FiLoader className="animate-spin text-emerald-500 shadow-lg shadow-emerald-500/20 rounded-full" size={48} />
+                <FiLoader className="animate-spin text-[#021E14] shadow-lg shadow-[#021E14]/20 rounded-full" size={48} />
                 <p className="text-sm font-bold text-slate-500 tracking-widest uppercase">Initializing Editor...</p>
             </div>
         </div>
@@ -179,7 +179,7 @@ export default function EditWebsitePage() {
                     </Link>
                     <div>
                         <h1 className="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-                            <FiEdit3 className="text-emerald-500" />
+                            <FiEdit3 className="text-[#021E14]" />
                             Edit Website
                         </h1>
                         <p className="text-xs font-medium text-slate-500 dark:text-slate-400">ID: {id}</p>
@@ -195,7 +195,7 @@ export default function EditWebsitePage() {
                     <button
                         onClick={handleSubmit(onSubmit)}
                         disabled={loading}
-                        className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-emerald-500/30 transition-all disabled:opacity-50 active:scale-95"
+                        className="flex items-center gap-2 bg-gradient-to-r from-[#021E14] to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-[#021E14]/30 transition-all disabled:opacity-50 active:scale-95"
                     >
                         {loading ? <FiLoader className="animate-spin" /> : <FiSave size={16} />}
                         {loading ? 'Saving...' : 'Update Template'}
@@ -210,7 +210,7 @@ export default function EditWebsitePage() {
 
                     {/* Basic Info */}
                     <div className={cardClass}>
-                        <div className="flex items-center gap-2 mb-6 text-emerald-600">
+                        <div className="flex items-center gap-2 mb-6 text-[#021E14]">
                             <FiInfo size={18} />
                             <h2 className="font-bold uppercase tracking-wider text-xs">Essential Information</h2>
                         </div>
@@ -223,7 +223,7 @@ export default function EditWebsitePage() {
                                     placeholder="e.g. AgencyPro - Responsive Business Next.js Template"
                                     className={inputClass}
                                 />
-                                {errors.title && <p className="text-rose-500 text-xs mt-1 font-medium">{errors.title.message}</p>}
+                                {errors.title && <p className="text-[#021E14] text-xs mt-1 font-medium">{errors.title.message}</p>}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -235,7 +235,7 @@ export default function EditWebsitePage() {
                                             {PLATFORM_OPTIONS.map(p => <option key={p} value={p}>{p}</option>)}
                                         </select>
                                     </div>
-                                    {errors.platform && <p className="text-rose-500 text-xs mt-1 font-medium">{errors.platform.message}</p>}
+                                    {errors.platform && <p className="text-[#021E14] text-xs mt-1 font-medium">{errors.platform.message}</p>}
                                 </div>
                                 <div>
                                     <label className={labelClass}>Category</label>
@@ -250,7 +250,7 @@ export default function EditWebsitePage() {
                                             ))}
                                         </select>
                                     </div>
-                                    {errors.category && <p className="text-rose-500 text-xs mt-1 font-medium">{errors.category.message}</p>}
+                                    {errors.category && <p className="text-[#021E14] text-xs mt-1 font-medium">{errors.category.message}</p>}
                                 </div>
                             </div>
                         </div>
@@ -258,7 +258,7 @@ export default function EditWebsitePage() {
 
                     {/* Extended Content */}
                     <div className={cardClass}>
-                        <div className="flex items-center gap-2 mb-6 text-emerald-600">
+                        <div className="flex items-center gap-2 mb-6 text-[#021E14]">
                             <FiCheck size={18} />
                             <h2 className="font-bold uppercase tracking-wider text-xs">Features & Tech Stack</h2>
                         </div>
@@ -271,7 +271,7 @@ export default function EditWebsitePage() {
                                     <button
                                         type="button"
                                         onClick={() => techFields.append('')}
-                                        className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-lg text-xs font-bold border border-emerald-100 dark:border-emerald-500/20 hover:bg-emerald-100 transition-all self-end"
+                                        className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-[#021E14]/10 text-[#021E14] dark:text-emerald-400 rounded-lg text-xs font-bold border border-emerald-100 dark:border-[#021E14]/20 hover:bg-emerald-100 transition-all self-end"
                                     >
                                         <FiPlus size={12} /> Add Tech
                                     </button>
@@ -281,13 +281,13 @@ export default function EditWebsitePage() {
                                         <div key={field.id} className="group relative animate-in fade-in zoom-in duration-200">
                                             <input
                                                 {...register(`technologies.${idx}`)}
-                                                className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-sm border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 outline-none focus:bg-white dark:focus:bg-slate-700 focus:border-emerald-300 dark:focus:border-emerald-500 w-36 transition-all"
+                                                className="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-sm border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 outline-none focus:bg-white dark:focus:bg-slate-700 focus:border-emerald-300 dark:focus:border-[#021E14] w-36 transition-all"
                                                 placeholder="e.g. React"
                                             />
                                             <button
                                                 type="button"
                                                 onClick={() => techFields.remove(idx)}
-                                                className="absolute -top-1.5 -right-1.5 bg-rose-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-all shadow-md hover:scale-110"
+                                                className="absolute -top-1.5 -right-1.5 bg-[#021E14] text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-all shadow-md hover:scale-110"
                                             >
                                                 <FiTrash2 size={10} />
                                             </button>
@@ -304,7 +304,7 @@ export default function EditWebsitePage() {
                                     <button
                                         type="button"
                                         onClick={() => featureFields.append('')}
-                                        className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-lg text-xs font-bold border border-emerald-100 dark:border-emerald-500/20 hover:bg-emerald-100 transition-all self-end"
+                                        className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-[#021E14]/10 text-[#021E14] dark:text-emerald-400 rounded-lg text-xs font-bold border border-emerald-100 dark:border-[#021E14]/20 hover:bg-emerald-100 transition-all self-end"
                                     >
                                         <FiPlus size={12} /> Add Feature
                                     </button>
@@ -316,7 +316,7 @@ export default function EditWebsitePage() {
                                                 <FiZap className="absolute left-3 top-3.5 text-emerald-400" size={14} />
                                                 <input {...register(`features.${idx}`)} className={`${inputClass} pl-10`} placeholder="e.g. SEO Optimized Code" />
                                             </div>
-                                            <button type="button" onClick={() => featureFields.remove(idx)} className="text-rose-400 hover:text-rose-500 p-2.5 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-xl transition-all"><FiTrash2 size={18} /></button>
+                                            <button type="button" onClick={() => featureFields.remove(idx)} className="text-[#021E14] hover:text-[#021E14] p-2.5 hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 rounded-xl transition-all"><FiTrash2 size={18} /></button>
                                         </div>
                                     ))}
                                     {featureFields.fields.length === 0 && <p className="text-slate-400 text-xs italic col-span-full">No features listed yet...</p>}
@@ -327,7 +327,7 @@ export default function EditWebsitePage() {
 
                     {/* Media Assets */}
                     <div className={cardClass}>
-                        <div className="flex items-center gap-2 mb-6 text-emerald-600">
+                        <div className="flex items-center gap-2 mb-6 text-[#021E14]">
                             <FiImage size={18} />
                             <h2 className="font-bold uppercase tracking-wider text-xs">Media & Content</h2>
                         </div>
@@ -339,7 +339,7 @@ export default function EditWebsitePage() {
                                     <button
                                         type="button"
                                         onClick={() => imageFields.append('')}
-                                        className="text-xs font-bold text-emerald-600 hover:underline flex items-center gap-1"
+                                        className="text-xs font-bold text-[#021E14] hover:underline flex items-center gap-1"
                                     >
                                         <FiPlus size={14} /> Add Image Link
                                     </button>
@@ -354,13 +354,13 @@ export default function EditWebsitePage() {
                                             <button
                                                 type="button"
                                                 onClick={() => imageFields.remove(idx)}
-                                                className="p-3 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-xl transition-all"
+                                                className="p-3 text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 rounded-xl transition-all"
                                             >
                                                 <FiTrash2 size={18} />
                                             </button>
                                         </div>
                                     ))}
-                                    {errors.images && <p className="text-rose-500 text-xs font-medium">{errors.images.message}</p>}
+                                    {errors.images && <p className="text-[#021E14] text-xs font-medium">{errors.images.message}</p>}
                                 </div>
                             </div>
 
@@ -371,7 +371,7 @@ export default function EditWebsitePage() {
                                         <FiGlobe className="absolute left-3 top-3.5 text-slate-400" size={16} />
                                         <input {...register('previewUrl')} className={`${inputClass} pl-10`} placeholder="https://demo.example.com" />
                                     </div>
-                                    {errors.previewUrl && <p className="text-rose-500 text-xs mt-1 font-medium">{errors.previewUrl.message}</p>}
+                                    {errors.previewUrl && <p className="text-[#021E14] text-xs mt-1 font-medium">{errors.previewUrl.message}</p>}
                                 </div>
                                 <div>
                                     <label className={labelClass}>Static Source/Download Path</label>
@@ -379,7 +379,7 @@ export default function EditWebsitePage() {
                                         <FiLink className="absolute left-3 top-3.5 text-slate-400" size={16} />
                                         <input {...register('downloadFile')} className={`${inputClass} pl-10`} placeholder="Path or external link..." />
                                     </div>
-                                    {errors.downloadFile && <p className="text-rose-500 text-xs mt-1 font-medium">{errors.downloadFile.message}</p>}
+                                    {errors.downloadFile && <p className="text-[#021E14] text-xs mt-1 font-medium">{errors.downloadFile.message}</p>}
                                 </div>
                             </div>
                         </div>
@@ -391,7 +391,7 @@ export default function EditWebsitePage() {
                             <label className={labelClass}>Brief Summary Description</label>
                             <textarea {...register('description')} rows={4} className={`${inputClass} resize-none`} placeholder="Describe the template's purpose and highlights..."></textarea>
                             <div className="flex justify-between mt-1.5 px-1">
-                                {errors.description && <p className="text-rose-500 text-xs font-medium">{errors.description.message}</p>}
+                                {errors.description && <p className="text-[#021E14] text-xs font-medium">{errors.description.message}</p>}
                                 <p className="text-[10px] text-slate-400 dark:text-slate-500 ml-auto">Max 1000 characters</p>
                             </div>
                         </div>
@@ -425,11 +425,11 @@ export default function EditWebsitePage() {
                                     <input
                                         type="number"
                                         {...register('price')}
-                                        className="w-full bg-transparent border-b-2 border-slate-700 py-2 pl-8 pr-2 text-3xl font-black text-white focus:border-emerald-500 outline-none transition-all placeholder:text-slate-700"
+                                        className="w-full bg-transparent border-b-2 border-slate-700 py-2 pl-8 pr-2 text-3xl font-black text-white focus:border-[#021E14] outline-none transition-all placeholder:text-slate-700"
                                         placeholder="0"
                                     />
                                 </div>
-                                {errors.price && <p className="text-rose-400 text-xs mt-2 font-medium">{errors.price.message}</p>}
+                                {errors.price && <p className="text-[#021E14] text-xs mt-2 font-medium">{errors.price.message}</p>}
                             </div>
 
                             <div>
@@ -439,7 +439,7 @@ export default function EditWebsitePage() {
                                     <input
                                         type="number"
                                         {...register('offerPrice')}
-                                        className="w-full bg-transparent border-b-2 border-slate-700 py-2 pl-8 pr-2 text-3xl font-black text-white focus:border-emerald-500 outline-none transition-all placeholder:text-slate-700"
+                                        className="w-full bg-transparent border-b-2 border-slate-700 py-2 pl-8 pr-2 text-3xl font-black text-white focus:border-[#021E14] outline-none transition-all placeholder:text-slate-700"
                                         placeholder="0"
                                     />
                                 </div>
@@ -449,8 +449,8 @@ export default function EditWebsitePage() {
                             <div className="pt-4 space-y-4">
                                 <label className="flex items-center gap-3 p-4 bg-slate-800/40 border border-slate-800 rounded-2xl cursor-pointer hover:bg-slate-800 transition-all active:scale-[0.98]">
                                     <div className="relative flex items-center">
-                                        <input type="checkbox" {...register('isFeatured')} className="w-5 h-5 rounded-md accent-emerald-500 opacity-0 absolute z-10 cursor-pointer" />
-                                        <div className={`w-5 h-5 border-2 rounded-md flex items-center justify-center transition-all ${watch('isFeatured') ? 'bg-emerald-500 border-emerald-500' : 'border-slate-600'}`}>
+                                        <input type="checkbox" {...register('isFeatured')} className="w-5 h-5 rounded-md accent-[#021E14] opacity-0 absolute z-10 cursor-pointer" />
+                                        <div className={`w-5 h-5 border-2 rounded-md flex items-center justify-center transition-all ${watch('isFeatured') ? 'bg-[#021E14] border-[#021E14]' : 'border-slate-600'}`}>
                                             {watch('isFeatured') && <FiCheck className="text-white" size={12} />}
                                         </div>
                                     </div>
@@ -458,15 +458,15 @@ export default function EditWebsitePage() {
                                 </label>
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className={`p-3 rounded-2xl border transition-all cursor-pointer ${watch('accessType') === 'paid' ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-slate-800/40 border-slate-800'}`} onClick={() => setValue('accessType', 'paid')}>
+                                    <div className={`p-3 rounded-2xl border transition-all cursor-pointer ${watch('accessType') === 'paid' ? 'bg-[#021E14]/10 border-[#021E14]/30' : 'bg-slate-800/40 border-slate-800'}`} onClick={() => setValue('accessType', 'paid')}>
                                         <div className="flex flex-col items-center gap-1.5">
-                                            <FiDollarSign className={watch('accessType') === 'paid' ? 'text-emerald-500' : 'text-slate-500'} />
+                                            <FiDollarSign className={watch('accessType') === 'paid' ? 'text-[#021E14]' : 'text-slate-500'} />
                                             <span className="text-[10px] font-bold uppercase tracking-widest">Premium</span>
                                         </div>
                                     </div>
-                                    <div className={`p-3 rounded-2xl border transition-all cursor-pointer ${watch('accessType') === 'free' ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-slate-800/40 border-slate-800'}`} onClick={() => setValue('accessType', 'free')}>
+                                    <div className={`p-3 rounded-2xl border transition-all cursor-pointer ${watch('accessType') === 'free' ? 'bg-[#021E14]/10 border-[#021E14]/30' : 'bg-slate-800/40 border-slate-800'}`} onClick={() => setValue('accessType', 'free')}>
                                         <div className="flex flex-col items-center gap-1.5">
-                                            <FiGlobe className={watch('accessType') === 'free' ? 'text-emerald-500' : 'text-slate-500'} />
+                                            <FiGlobe className={watch('accessType') === 'free' ? 'text-[#021E14]' : 'text-slate-500'} />
                                             <span className="text-[10px] font-bold uppercase tracking-widest">Free</span>
                                         </div>
                                     </div>

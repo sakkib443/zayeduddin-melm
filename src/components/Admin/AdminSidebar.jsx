@@ -77,18 +77,18 @@ const AdminSidebar = () => {
       title: 'Dashboard',
       href: '/dashboard/admin',
       icon: FiHome,
-      gradient: 'from-indigo-500 to-purple-500'
+      gradient: 'from-[#021E14] to-[#01140D]'
     },
     {
       title: 'Analytics',
       icon: FiBarChart2,
-      gradient: 'from-pink-500 to-rose-500',
+      gradient: 'from-[#021E14] to-[#01140D]',
       isProtected: true
     },
     {
       title: 'LMS',
       icon: FiBook,
-      gradient: 'from-amber-500 to-orange-500',
+      gradient: 'from-[#D4AF37] to-[#01140D]',
       submenu: [
         { title: 'All Courses', href: '/dashboard/admin/course', icon: FiBook },
         { title: 'Create Course', href: '/dashboard/admin/course/create', icon: FiFileText },
@@ -102,7 +102,7 @@ const AdminSidebar = () => {
     {
       title: 'Batch Management',
       icon: FiGrid,
-      gradient: 'from-orange-500 to-red-500',
+      gradient: 'from-[#D4AF37] to-[#01140D]',
       submenu: [
         { title: 'All Batches', href: '/dashboard/admin/batch', icon: FiUsers },
         { title: 'Create Batch', href: '/dashboard/admin/batch/create', icon: FiFileText },
@@ -114,7 +114,7 @@ const AdminSidebar = () => {
     {
       title: 'Instructors',
       icon: FiUserCheck,
-      gradient: 'from-blue-600 to-indigo-600',
+      gradient: 'from-[#021E14] to-[#021E14]',
       submenu: [
         { title: 'All Instructors', href: '/dashboard/admin/instructor', icon: FiUsers },
         { title: 'Create Instructor', href: '/dashboard/admin/instructor/create', icon: FiFileText },
@@ -123,7 +123,7 @@ const AdminSidebar = () => {
     {
       title: 'Marketplace',
       icon: FiGlobe,
-      gradient: 'from-emerald-500 to-red-500',
+      gradient: 'from-[#021E14] to-[#01140D]',
       submenu: [
         { title: 'All Websites', href: '/dashboard/admin/website', icon: FiGlobe },
         { title: 'Create Website', href: '/dashboard/admin/website/create', icon: FiFileText },
@@ -134,7 +134,7 @@ const AdminSidebar = () => {
     {
       title: 'Categories',
       icon: FiLayers,
-      gradient: 'from-violet-500 to-purple-500',
+      gradient: 'from-[#021E14] to-[#01140D]',
       submenu: [
         { title: 'All Categories', href: '/dashboard/admin/category', icon: FiLayers },
         { title: 'Create Category', href: '/dashboard/admin/category/create', icon: FiFileText },
@@ -143,7 +143,7 @@ const AdminSidebar = () => {
     {
       title: 'Users',
       icon: FiUsers,
-      gradient: 'from-blue-500 to-cyan-500',
+      gradient: 'from-[#021E14] to-cyan-500',
       submenu: [
         { title: 'All Users', href: '/dashboard/admin/user', icon: FiUsers },
         { title: 'Create User', href: '/dashboard/admin/user/create', icon: FiFileText },
@@ -154,18 +154,18 @@ const AdminSidebar = () => {
       title: 'Orders',
       href: '/dashboard/admin/orders',
       icon: FiShoppingBag,
-      gradient: 'from-green-500 to-emerald-500'
+      gradient: 'from-green-500 to-[#021E14]'
     },
     {
       title: 'Coupons',
       href: '/dashboard/admin/coupons',
       icon: FiTag,
-      gradient: 'from-amber-500 to-orange-500'
+      gradient: 'from-[#D4AF37] to-[#01140D]'
     },
     {
       title: 'Blog',
       icon: FiEdit3,
-      gradient: 'from-red-500 to-cyan-500',
+      gradient: 'from-[#021E14] to-cyan-500',
       submenu: [
         { title: 'All Blogs', href: '/dashboard/admin/blog', icon: FiEdit3 },
         { title: 'Create Blog', href: '/dashboard/admin/blog/create', icon: FiFileText },
@@ -175,18 +175,18 @@ const AdminSidebar = () => {
       title: 'Like & Rating',
       href: '/dashboard/admin/favorites-ratings',
       icon: FiStar,
-      gradient: 'from-rose-500 to-pink-500'
+      gradient: 'from-[#021E14] to-[#01140D]'
     },
     {
       title: 'Reports',
       href: '/dashboard/admin/reports',
       icon: FiFileText,
-      gradient: 'from-cyan-500 to-blue-500'
+      gradient: 'from-cyan-500 to-[#021E14]'
     },
     {
       title: 'Design',
       icon: FiImage,
-      gradient: 'from-pink-500 to-purple-500',
+      gradient: 'from-[#021E14] to-[#01140D]',
       submenu: [
         { title: 'Home Page', href: '/dashboard/admin/design/home', icon: FiHome },
         { title: 'About Page', href: '/dashboard/admin/design/about', icon: FiGrid },
@@ -207,7 +207,7 @@ const AdminSidebar = () => {
       {/* Mobile Toggle */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white shadow-lg shadow-[#E62D26]/30 hover:shadow-xl hover:shadow-[#E62D26]/40 transition-all"
+        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl bg-gradient-to-r from-[#021E14] to-[#021E14] text-white shadow-lg shadow-[#021E14]/30 hover:shadow-xl hover:shadow-[#021E14]/40 transition-all"
       >
         {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
       </button>
@@ -222,14 +222,14 @@ const AdminSidebar = () => {
           }`}
       >
         {/* Decorative Elements */}
-        <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-br from-[#E62D26]/10 to-transparent' : 'bg-gradient-to-br from-[#E62D26]/5 to-transparent'
+        <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-br from-[#021E14]/10 to-transparent' : 'bg-gradient-to-br from-[#021E14]/5 to-transparent'
           }`} />
-        <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-tr from-[#f79952]/10 to-transparent' : 'bg-gradient-to-tr from-[#f79952]/5 to-transparent'
+        <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-tr from-[#021E14]/10 to-transparent' : 'bg-gradient-to-tr from-[#021E14]/5 to-transparent'
           }`} />
 
         {/* Logo */}
         <div className={`relative px-6 py-5 border-b ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-          <Logo size="small" align="left" color={isDark ? "#D4AF37" : "#300000"} />
+          <Logo size="small" align="left" color={isDark ? "#D4AF37" : "#021E14"} />
         </div>
 
         {/* Back to Website */}
@@ -265,8 +265,8 @@ const AdminSidebar = () => {
                     className={`group w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all
                     ${activeSub
                         ? isDark
-                          ? 'bg-gradient-to-r from-[#E62D26]/20 to-[#f79952]/20 text-white'
-                          : 'bg-gradient-to-r from-[#E62D26]/10 to-[#f79952]/10 text-slate-800'
+                          ? 'bg-gradient-to-r from-[#021E14]/20 to-[#021E14]/20 text-white'
+                          : 'bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 text-slate-800'
                         : isDark
                           ? 'text-slate-400 hover:text-white hover:bg-white/5'
                           : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -301,7 +301,7 @@ const AdminSidebar = () => {
                             href={sub.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-all
                             ${isSubActive
-                                ? 'bg-gradient-to-r from-[#E62D26] to-[#f79952] text-white font-semibold shadow-lg shadow-[#E62D26]/30'
+                                ? 'bg-gradient-to-r from-[#021E14] to-[#021E14] text-white font-semibold shadow-lg shadow-[#021E14]/30'
                                 : isDark
                                   ? 'text-slate-400 hover:text-white hover:bg-white/5'
                                   : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -329,8 +329,8 @@ const AdminSidebar = () => {
                     className={`group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
                     ${isActive('/dashboard/admin/analytics')
                         ? isDark
-                          ? 'bg-gradient-to-r from-[#E62D26]/20 to-[#f79952]/20 text-white'
-                          : 'bg-gradient-to-r from-[#E62D26]/10 to-[#f79952]/10 text-slate-800'
+                          ? 'bg-gradient-to-r from-[#021E14]/20 to-[#021E14]/20 text-white'
+                          : 'bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 text-slate-800'
                         : isDark
                           ? 'text-slate-400 hover:text-white hover:bg-white/5'
                           : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -352,8 +352,8 @@ const AdminSidebar = () => {
                     className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
                     ${isActive(item.href)
                         ? isDark
-                          ? 'bg-gradient-to-r from-[#E62D26]/20 to-[#f79952]/20 text-white'
-                          : 'bg-gradient-to-r from-[#E62D26]/10 to-[#f79952]/10 text-slate-800'
+                          ? 'bg-gradient-to-r from-[#021E14]/20 to-[#021E14]/20 text-white'
+                          : 'bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 text-slate-800'
                         : isDark
                           ? 'text-slate-400 hover:text-white hover:bg-white/5'
                           : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -398,8 +398,8 @@ const AdminSidebar = () => {
               } backdrop-blur-xl rounded-3xl p-8 shadow-2xl border`}>
               {/* Modal Content */}
               <div className="text-center">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-6 ring-4 ring-indigo-500/10 transition-transform hover:scale-110 duration-300">
-                  <FiBarChart2 className="text-indigo-500 animate-bounce" size={40} />
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-[#021E14]/20 to-[#01140D]/20 rounded-2xl flex items-center justify-center mb-6 ring-4 ring-[#021E14]/10 transition-transform hover:scale-110 duration-300">
+                  <FiBarChart2 className="text-[#021E14] animate-bounce" size={40} />
                 </div>
                 <h3 className={`text-2xl font-bold font-outfit mb-3 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                   Secure Data Access
@@ -423,7 +423,7 @@ const AdminSidebar = () => {
                       setShowAnalyticsConfirm(false);
                       router.push('/dashboard/admin/analytics');
                     }}
-                    className="px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl text-sm font-bold shadow-lg shadow-indigo-500/30 hover:scale-[1.02] active:scale-95 transition-all"
+                    className="px-6 py-3.5 bg-gradient-to-r from-[#021E14] to-[#01140D] text-white rounded-2xl text-sm font-bold shadow-lg shadow-[#021E14]/30 hover:scale-[1.02] active:scale-95 transition-all"
                   >
                     Yes, Proceed
                   </button>
@@ -437,7 +437,7 @@ const AdminSidebar = () => {
         <div className={`absolute bottom-0 left-0 w-full p-3 border-t backdrop-blur-sm ${isDark ? 'border-white/5 bg-slate-900/95' : 'border-slate-200 bg-white/95'
           }`}>
           <button
-            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[#021E14] hover:text-[#021E14] hover:bg-[#021E14]/10 transition-all"
           >
             <FiLogOut size={16} />
             <span className="text-xs font-medium">Logout</span>

@@ -81,7 +81,7 @@ const Preloader = () => {
                     initial="initial"
                     exit="exit"
                     className="fixed inset-0 z-[9999] flex items-center justify-center bg-primary"
-                    style={{ backgroundColor: '#300000' }}
+                    style={{ backgroundColor: '#021E14' }}
                 >
                     <div className="flex flex-col items-center justify-center z-10 w-full px-4 text-white">
 

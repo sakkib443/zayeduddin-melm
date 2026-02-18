@@ -29,8 +29,8 @@ const AdminReviewsPage = () => {
 
   const StatusBadge = ({ status }) => {
     const styles = {
-      approved: "bg-emerald-50 text-emerald-600",
-      rejected: "bg-red-50 text-red-600",
+      approved: "bg-emerald-50 text-[#021E14]",
+      rejected: "bg-[#021E14] text-[#021E14]",
       pending: "bg-amber-50 text-amber-600",
     };
     return (
@@ -57,7 +57,7 @@ const AdminReviewsPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-md border border-gray-200 dark:border-slate-700">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-amber-500 rounded-md flex items-center justify-center">
+          <div className="w-10 h-10 bg-[#D4AF37] rounded-md flex items-center justify-center">
             <FiMessageSquare className="text-white" size={18} />
           </div>
           <div>
@@ -71,8 +71,8 @@ const AdminReviewsPage = () => {
       <div className="grid grid-cols-3 gap-4">
         {[
           { label: 'Total', value: stats.total, icon: FiMessageSquare, color: 'text-slate-600' },
-          { label: 'Pending', value: stats.pending, icon: FiStar, color: 'text-amber-500' },
-          { label: 'Approved', value: stats.approved, icon: FiCheck, color: 'text-emerald-500' }
+          { label: 'Pending', value: stats.pending, icon: FiStar, color: 'text-[#D4AF37]' },
+          { label: 'Approved', value: stats.approved, icon: FiCheck, color: 'text-[#021E14]' }
         ].map((stat, idx) => (
           <div key={idx} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-2">
@@ -93,7 +93,7 @@ const AdminReviewsPage = () => {
             placeholder="Search reviews..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 outline-none text-sm transition-colors"
+            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] outline-none text-sm transition-colors"
           />
         </div>
         <div className="relative">
@@ -101,7 +101,7 @@ const AdminReviewsPage = () => {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="pl-10 pr-8 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-amber-400 outline-none text-sm appearance-none"
+            className="pl-10 pr-8 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#D4AF37] outline-none text-sm appearance-none"
           >
             <option value="">All Status</option>
             <option value="pending">Pending</option>
@@ -143,7 +143,7 @@ const AdminReviewsPage = () => {
                   <tr key={review._id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
                     <td className="px-4 py-3">
                       <div>
-                        <span className="text-xs text-blue-500 font-medium">{review.productType}</span>
+                        <span className="text-xs text-[#021E14] font-medium">{review.productType}</span>
                         <p className="text-sm font-medium text-slate-800 dark:text-white line-clamp-1 max-w-[150px]">
                           {review.productDetails?.title || 'Unknown Product'}
                         </p>
@@ -151,7 +151,7 @@ const AdminReviewsPage = () => {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-8 h-8 rounded-full bg-[#021E14] flex items-center justify-center text-white text-xs font-medium">
                           {review.user?.firstName?.[0] || 'U'}
                         </div>
                         <div>
@@ -168,14 +168,14 @@ const AdminReviewsPage = () => {
                       <p className="text-xs text-slate-400 mt-1">
                         {new Date(review.createdAt).toLocaleDateString()}
                         {review.isVerifiedPurchase && (
-                          <span className="ml-2 text-emerald-500">✓ Verified</span>
+                          <span className="ml-2 text-[#021E14]">✓ Verified</span>
                         )}
                       </p>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
                         <span className="text-sm font-medium text-slate-800 dark:text-white">{review.rating}</span>
-                        <FiStar className="text-amber-400 fill-current" size={14} />
+                        <FiStar className="text-[#D4AF37] fill-current" size={14} />
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -187,14 +187,14 @@ const AdminReviewsPage = () => {
                           <>
                             <button
                               onClick={() => handleStatusUpdate(review._id, 'approved')}
-                              className="p-1.5 text-emerald-500 hover:bg-emerald-50 rounded-md transition-colors"
+                              className="p-1.5 text-[#021E14] hover:bg-emerald-50 rounded-md transition-colors"
                               title="Approve"
                             >
                               <FiCheck size={16} />
                             </button>
                             <button
                               onClick={() => handleStatusUpdate(review._id, 'rejected')}
-                              className="p-1.5 text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                              className="p-1.5 text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors"
                               title="Reject"
                             >
                               <FiX size={16} />
@@ -204,7 +204,7 @@ const AdminReviewsPage = () => {
                         {review.status === 'rejected' && (
                           <button
                             onClick={() => handleStatusUpdate(review._id, 'approved')}
-                            className="p-1.5 text-emerald-500 hover:bg-emerald-50 rounded-md transition-colors"
+                            className="p-1.5 text-[#021E14] hover:bg-emerald-50 rounded-md transition-colors"
                             title="Approve"
                           >
                             <FiCheck size={16} />
@@ -212,7 +212,7 @@ const AdminReviewsPage = () => {
                         )}
                         <button
                           onClick={() => handleDelete(review._id)}
-                          className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                          className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors"
                           title="Delete"
                         >
                           <FiTrash2 size={16} />

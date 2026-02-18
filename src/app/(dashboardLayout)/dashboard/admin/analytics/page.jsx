@@ -63,7 +63,7 @@ const StatsCard = ({ title, value, icon: Icon, trend, trendValue, color, loading
                         )}
                     </h3>
                     {trendValue && (
-                        <div className={`flex items-center gap-1.5 text-xs font-normal ${isPositive ? "text-emerald-600" : "text-red-500"}`}>
+                        <div className={`flex items-center gap-1.5 text-xs font-normal ${isPositive ? "text-[#021E14]" : "text-[#021E14]"}`}>
                             {isPositive ? <FiArrowUpRight className="w-3.5 h-3.5" /> : <FiArrowDownRight className="w-3.5 h-3.5" />}
                             <span>{trendValue} Growth</span>
                         </div>
@@ -140,7 +140,7 @@ export default function AnalyticsPage() {
             icon: FiDollarSign,
             trend: 'up',
             trendValue: '12%',
-            color: 'bg-indigo-600'
+            color: 'bg-[#021E14]'
         },
         {
             title: 'Successful Orders',
@@ -148,7 +148,7 @@ export default function AnalyticsPage() {
             icon: FiShoppingBag,
             trend: 'up',
             trendValue: '8%',
-            color: 'bg-rose-500'
+            color: 'bg-[#021E14]'
         },
         {
             title: 'Active Accounts',
@@ -156,7 +156,7 @@ export default function AnalyticsPage() {
             icon: FiUsers,
             trend: 'up',
             trendValue: '15%',
-            color: 'bg-emerald-500'
+            color: 'bg-[#021E14]'
         },
         {
             title: 'Inventory Scope',
@@ -164,7 +164,7 @@ export default function AnalyticsPage() {
             icon: FiPackage,
             trend: 'up',
             trendValue: '+5',
-            color: 'bg-amber-500'
+            color: 'bg-[#D4AF37]'
         },
     ];
 
@@ -196,7 +196,7 @@ export default function AnalyticsPage() {
                     </button>
                     <button
                         onClick={() => router.push('/dashboard/admin/reports')}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-normal hover:bg-indigo-700 transition-all"
+                        className="px-4 py-2 bg-[#021E14] text-white rounded-md text-sm font-normal hover:bg-[#01140D] transition-all"
                     >
                         Export Report
                     </button>
@@ -221,15 +221,15 @@ export default function AnalyticsPage() {
                         </div>
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2">
-                                <div className="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#021E14]"></div>
                                 <span className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Courses</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#021E14]"></div>
                                 <span className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Websites</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#D4AF37]"></div>
                                 <span className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Templates</span>
                             </div>
                         </div>
@@ -289,11 +289,11 @@ export default function AnalyticsPage() {
                         <div className={`grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5 pt-5 border-t ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
                             <div>
                                 <span className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Course Revenue</span>
-                                <p className="text-lg font-semibold text-indigo-600 mt-1">৳{(categoryRevenue?.courses?.[categoryRevenue?.courses?.length - 1] || 0).toLocaleString()}</p>
+                                <p className="text-lg font-semibold text-[#021E14] mt-1">৳{(categoryRevenue?.courses?.[categoryRevenue?.courses?.length - 1] || 0).toLocaleString()}</p>
                             </div>
                             <div>
                                 <span className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Website Revenue</span>
-                                <p className="text-lg font-semibold text-emerald-600 mt-1">৳{(categoryRevenue?.websites?.[categoryRevenue?.websites?.length - 1] || 0).toLocaleString()}</p>
+                                <p className="text-lg font-semibold text-[#021E14] mt-1">৳{(categoryRevenue?.websites?.[categoryRevenue?.websites?.length - 1] || 0).toLocaleString()}</p>
                             </div>
                             <div>
                                 <span className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Template Revenue</span>
@@ -310,7 +310,7 @@ export default function AnalyticsPage() {
                 {/* Platform Status */}
                 <div className={`lg:col-span-4 rounded-md p-5 border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="w-9 h-9 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                        <div className="w-9 h-9 rounded-md bg-[#021E14] text-[#021E14] flex items-center justify-center">
                             <FiActivity size={18} />
                         </div>
                         <div>
@@ -326,11 +326,11 @@ export default function AnalyticsPage() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-3">
-                            <div className="p-4 bg-indigo-600 text-white rounded-md">
+                            <div className="p-4 bg-[#021E14] text-white rounded-md">
                                 <p className="text-xs font-normal opacity-80">Students</p>
                                 <h4 className="text-lg font-semibold mt-1">{data?.totalStudents || 0}</h4>
                             </div>
-                            <div className="p-4 bg-emerald-600 text-white rounded-md">
+                            <div className="p-4 bg-[#021E14] text-white rounded-md">
                                 <p className="text-xs font-normal opacity-80">New Users</p>
                                 <h4 className="text-lg font-semibold mt-1">+{data?.newUsersThisMonth || 0}</h4>
                             </div>
@@ -341,7 +341,7 @@ export default function AnalyticsPage() {
                                 <p className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Active Enrollments</p>
                                 <h4 className={`text-lg font-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-800'}`}>{data?.activeEnrollments || 0}</h4>
                             </div>
-                            <div className="w-8 h-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin"></div>
+                            <div className="w-8 h-8 rounded-full border-2 border-[#021E14] border-t-transparent animate-spin"></div>
                         </div>
 
                         <div className={`p-4 rounded-md border ${isDark ? 'border-slate-600' : 'border-gray-200'}`}>
@@ -358,12 +358,12 @@ export default function AnalyticsPage() {
             {/* Metrics Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 {[
-                    { title: 'Websites', value: data?.totalWebsites || 0, icon: FiGlobe, color: 'bg-emerald-600' },
-                    { title: 'Templates', value: data?.totalDesignTemplates || 0, icon: FiCode, color: 'bg-indigo-600' },
+                    { title: 'Websites', value: data?.totalWebsites || 0, icon: FiGlobe, color: 'bg-[#021E14]' },
+                    { title: 'Templates', value: data?.totalDesignTemplates || 0, icon: FiCode, color: 'bg-[#021E14]' },
                     { title: 'Courses', value: data?.totalCourses || 0, icon: FiBook, color: 'bg-amber-600' },
-                    { title: 'Users', value: data?.totalUsers || 0, icon: FiUsers, color: 'bg-blue-600' },
-                    { title: 'Enrollments', value: data?.totalEnrollments || 0, icon: FiActivity, color: 'bg-rose-600' },
-                    { title: 'Lessons', value: data?.totalLessons || 0, icon: FiLayers, color: 'bg-violet-600' },
+                    { title: 'Users', value: data?.totalUsers || 0, icon: FiUsers, color: 'bg-[#021E14]' },
+                    { title: 'Enrollments', value: data?.totalEnrollments || 0, icon: FiActivity, color: 'bg-[#021E14]' },
+                    { title: 'Lessons', value: data?.totalLessons || 0, icon: FiLayers, color: 'bg-[#021E14]' },
                 ].map((item) => (
                     <div key={item.title} className={`p-4 rounded-md border flex flex-col items-center justify-center text-center transition-all ${isDark ? 'bg-slate-800 border-slate-700 hover:border-slate-600' : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-sm'}`}>
                         <div className={`w-10 h-10 rounded-md ${item.color} flex items-center justify-center text-white mb-3`}>
@@ -384,7 +384,7 @@ export default function AnalyticsPage() {
                             <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Recent Purchases</h3>
                             <p className={`text-sm font-normal mt-0.5 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Latest transactions</p>
                         </div>
-                        <button className={`text-sm font-normal text-indigo-600 hover:text-indigo-700 mt-2 md:mt-0`}>View All</button>
+                        <button className={`text-sm font-normal text-[#021E14] hover:text-[#01140D] mt-2 md:mt-0`}>View All</button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
@@ -401,7 +401,7 @@ export default function AnalyticsPage() {
                                         <tr key={purchase._id} className={`transition-all ${isDark ? 'hover:bg-slate-700/30' : 'hover:bg-gray-50'}`}>
                                             <td className="px-5 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-medium text-white bg-indigo-600`}>
+                                                    <div className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-medium text-white bg-[#021E14]`}>
                                                         {(purchase.user?.firstName || 'U')[0]}
                                                     </div>
                                                     <div>
@@ -459,7 +459,7 @@ export default function AnalyticsPage() {
                                         <h4 className={`text-sm font-medium truncate ${isDark ? 'text-white' : 'text-gray-800'}`}>{product.title}</h4>
                                         <div className="flex items-center gap-3 mt-1">
                                             <span className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{product.salesCount || 0} sales</span>
-                                            <span className="text-xs font-medium text-emerald-600">৳{((product.salesCount || 0) * (product.price || 0)).toLocaleString()}</span>
+                                            <span className="text-xs font-medium text-[#021E14]">৳{((product.salesCount || 0) * (product.price || 0)).toLocaleString()}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -96,7 +96,7 @@ const CreateCategory = () => {
   // Filter parent categories by selected type
   const filteredParents = parentCategories.filter(p => p.type === formData.type);
 
-  const inputClass = `w-full px-3 py-2.5 rounded-md border ${isDark ? 'border-slate-700 bg-slate-900 text-white' : 'border-gray-200 bg-white text-gray-800'} focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-sm transition-colors`;
+  const inputClass = `w-full px-3 py-2.5 rounded-md border ${isDark ? 'border-slate-700 bg-slate-900 text-white' : 'border-gray-200 bg-white text-gray-800'} focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none text-sm transition-colors`;
   const labelClass = `block text-xs font-medium ${isDark ? 'text-slate-400' : 'text-gray-600'} mb-1.5`;
   const cardClass = `${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'} p-5 rounded-md border`;
 
@@ -110,7 +110,7 @@ const CreateCategory = () => {
           </Link>
           <div>
             <h1 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-800'} flex items-center gap-2`}>
-              <FiFolder className="text-blue-500" size={18} />
+              <FiFolder className="text-[#021E14]" size={18} />
               Create Category
             </h1>
             <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
@@ -128,7 +128,7 @@ const CreateCategory = () => {
           <button
             onClick={handleSubmit}
             disabled={loading || (!formData.isParent && !formData.parentCategory) || !formData.name}
-            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 bg-[#021E14] hover:bg-[#021E14] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? <FiLoader className="animate-spin" size={16} /> : <FiSave size={16} />}
             {loading ? 'Creating...' : 'Create Category'}
@@ -138,9 +138,9 @@ const CreateCategory = () => {
 
       {/* Error Alert */}
       {error && (
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4 flex items-start gap-3">
-          <FiAlertCircle className="text-red-500 shrink-0 mt-0.5" size={18} />
-          <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+        <div className="bg-[#021E14] dark:bg-[#021E14]/20 border border-[#021E14] dark:border-[#021E14] rounded-md p-4 flex items-start gap-3">
+          <FiAlertCircle className="text-[#021E14] shrink-0 mt-0.5" size={18} />
+          <p className="text-sm text-[#01140D] dark:text-[#021E14]">{error}</p>
         </div>
       )}
 
@@ -151,22 +151,22 @@ const CreateCategory = () => {
           {/* Category Level */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiInfo size={16} className="text-blue-500" /> Category Level
+              <FiInfo size={16} className="text-[#021E14]" /> Category Level
             </h2>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, isParent: true, parentCategory: null })}
                 className={`p-4 rounded-md border-2 transition-all flex flex-col items-center gap-2 ${formData.isParent
-                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-500/10'
+                  ? 'border-[#021E14] bg-[#021E14] dark:bg-[#021E14]/10'
                   : isDark ? 'border-slate-700 hover:border-slate-600' : 'border-gray-200 hover:border-gray-300'
                   }`}
               >
-                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${formData.isParent ? 'bg-blue-500 text-white' : isDark ? 'bg-slate-700 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
+                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${formData.isParent ? 'bg-[#021E14] text-white' : isDark ? 'bg-slate-700 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
                   <FiFolder size={20} />
                 </div>
                 <div className="text-center">
-                  <p className={`text-sm font-medium ${formData.isParent ? 'text-blue-600 dark:text-blue-400' : isDark ? 'text-slate-300' : 'text-gray-700'}`}>Root Category</p>
+                  <p className={`text-sm font-medium ${formData.isParent ? 'text-[#021E14] dark:text-[#021E14]' : isDark ? 'text-slate-300' : 'text-gray-700'}`}>Root Category</p>
                   <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>Main parent category</p>
                 </div>
               </button>
@@ -175,15 +175,15 @@ const CreateCategory = () => {
                 type="button"
                 onClick={() => setFormData({ ...formData, isParent: false })}
                 className={`p-4 rounded-md border-2 transition-all flex flex-col items-center gap-2 ${!formData.isParent
-                  ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10'
+                  ? 'border-[#021E14] bg-emerald-50 dark:bg-[#021E14]/10'
                   : isDark ? 'border-slate-700 hover:border-slate-600' : 'border-gray-200 hover:border-gray-300'
                   }`}
               >
-                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${!formData.isParent ? 'bg-emerald-500 text-white' : isDark ? 'bg-slate-700 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
+                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${!formData.isParent ? 'bg-[#021E14] text-white' : isDark ? 'bg-slate-700 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
                   <FiChevronRight size={20} />
                 </div>
                 <div className="text-center">
-                  <p className={`text-sm font-medium ${!formData.isParent ? 'text-emerald-600 dark:text-emerald-400' : isDark ? 'text-slate-300' : 'text-gray-700'}`}>Sub Category</p>
+                  <p className={`text-sm font-medium ${!formData.isParent ? 'text-[#021E14] dark:text-emerald-400' : isDark ? 'text-slate-300' : 'text-gray-700'}`}>Sub Category</p>
                   <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>Child of a parent</p>
                 </div>
               </button>
@@ -217,11 +217,11 @@ const CreateCategory = () => {
           {!formData.isParent && (
             <div className={cardClass}>
               <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-                <FiLayers size={16} className="text-violet-500" /> Select Parent Category
+                <FiLayers size={16} className="text-[#021E14]" /> Select Parent Category
               </h2>
               {filteredParents.length === 0 ? (
-                <div className={`p-4 rounded-md ${isDark ? 'bg-amber-500/10 border-amber-500/20' : 'bg-amber-50 border-amber-200'} border flex items-center gap-3`}>
-                  <FiInfo className="text-amber-500" size={18} />
+                <div className={`p-4 rounded-md ${isDark ? 'bg-[#D4AF37]/10 border-[#D4AF37]/20' : 'bg-amber-50 border-amber-200'} border flex items-center gap-3`}>
+                  <FiInfo className="text-[#D4AF37]" size={18} />
                   <p className={`text-sm ${isDark ? 'text-amber-300' : 'text-amber-700'}`}>
                     No parent categories found for "{formData.type}". Create a root category first.
                   </p>
@@ -234,21 +234,21 @@ const CreateCategory = () => {
                       type="button"
                       onClick={() => setFormData({ ...formData, parentCategory: parent._id })}
                       className={`p-3 rounded-md border-2 transition-all flex items-center gap-3 text-left ${formData.parentCategory === parent._id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-500/10'
+                        ? 'border-[#021E14] bg-[#021E14] dark:bg-[#021E14]/10'
                         : isDark ? 'border-slate-700 hover:border-slate-600' : 'border-gray-200 hover:border-gray-300'
                         }`}
                     >
-                      <div className={`w-10 h-10 rounded-md flex items-center justify-center overflow-hidden ${formData.parentCategory === parent._id ? 'bg-blue-500 text-white' : isDark ? 'bg-slate-700 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
+                      <div className={`w-10 h-10 rounded-md flex items-center justify-center overflow-hidden ${formData.parentCategory === parent._id ? 'bg-[#021E14] text-white' : isDark ? 'bg-slate-700 text-slate-400' : 'bg-gray-100 text-gray-500'}`}>
                         {parent.image ? <img src={parent.image} className="w-full h-full object-cover" alt="" /> : <FiFolder size={18} />}
                       </div>
                       <div>
-                        <p className={`text-sm font-medium ${formData.parentCategory === parent._id ? 'text-blue-600 dark:text-blue-400' : isDark ? 'text-slate-200' : 'text-gray-700'}`}>
+                        <p className={`text-sm font-medium ${formData.parentCategory === parent._id ? 'text-[#021E14] dark:text-[#021E14]' : isDark ? 'text-slate-200' : 'text-gray-700'}`}>
                           {parent.name}
                         </p>
                         <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>/{parent.slug}</p>
                       </div>
                       {formData.parentCategory === parent._id && (
-                        <FiCheck className="ml-auto text-blue-500" size={18} />
+                        <FiCheck className="ml-auto text-[#021E14]" size={18} />
                       )}
                     </button>
                   ))}
@@ -312,7 +312,7 @@ const CreateCategory = () => {
                 type="button"
                 onClick={() => setFormData({ ...formData, status: 'active' })}
                 className={`flex-1 py-2 rounded text-xs font-medium transition-colors flex items-center justify-center gap-1.5 ${formData.status === 'active' 
-                  ? 'bg-emerald-500 text-white' 
+                  ? 'bg-[#021E14] text-white' 
                   : isDark ? 'text-slate-400 hover:text-slate-300' : 'text-gray-500 hover:text-gray-700'}`}
               >
                 {formData.status === 'active' && <FiCheck size={12} />} Active
@@ -335,7 +335,7 @@ const CreateCategory = () => {
           {/* Image */}
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
-              <FiImage size={16} className="text-rose-500" /> Image
+              <FiImage size={16} className="text-[#021E14]" /> Image
             </h2>
             <div>
               <label className={labelClass}>Image URL</label>
@@ -373,7 +373,7 @@ const CreateCategory = () => {
               </div>
               <div className="flex justify-between">
                 <span className={isDark ? 'text-slate-500' : 'text-gray-500'}>Status:</span>
-                <span className={`font-medium ${formData.status === 'active' ? 'text-emerald-500' : isDark ? 'text-slate-400' : 'text-gray-500'}`}>{formData.status}</span>
+                <span className={`font-medium ${formData.status === 'active' ? 'text-[#021E14]' : isDark ? 'text-slate-400' : 'text-gray-500'}`}>{formData.status}</span>
               </div>
               {!formData.isParent && formData.parentCategory && (
                 <div className="flex justify-between">

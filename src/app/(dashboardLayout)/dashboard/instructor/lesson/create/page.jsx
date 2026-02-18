@@ -161,7 +161,7 @@ export default function CreateLessonPage() {
         }
     };
 
-    const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rose-400 focus:ring-2 focus:ring-rose-100 outline-none text-sm transition-all bg-white text-slate-700 placeholder:text-slate-400";
+    const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14] outline-none text-sm transition-all bg-white text-slate-700 placeholder:text-slate-400";
     const labelClass = "block text-sm font-medium text-slate-700 mb-2";
 
     const tabs = [
@@ -180,13 +180,13 @@ export default function CreateLessonPage() {
                     <Link href="/dashboard/instructor/lesson" className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl transition-all">
                         <FiArrowLeft size={18} />
                     </Link>
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center shadow-lg shadow-rose-500/25">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center shadow-lg shadow-rose-500/25">
                         <FiPlay className="text-white text-lg" />
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h1 className="text-lg font-bold text-slate-800">Create New Lesson</h1>
-                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">Mentor</span>
+                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">Mentor</span>
                         </div>
                         <p className="text-sm text-slate-500">Add video, text, documents & quiz to your lesson</p>
                     </div>
@@ -194,7 +194,7 @@ export default function CreateLessonPage() {
                 <button
                     onClick={handleSubmit}
                     disabled={loading}
-                    className="flex items-center gap-2 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-rose-500/25 transition-all disabled:opacity-50"
+                    className="flex items-center gap-2 bg-gradient-to-r from-[#021E14] to-[#01140D] hover:from-[#021E14] hover:to-[#01140D] text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-rose-500/25 transition-all disabled:opacity-50"
                 >
                     <FiSave size={16} />
                     {loading ? 'Creating...' : 'Create Lesson'}
@@ -271,7 +271,7 @@ export default function CreateLessonPage() {
                             ))}
                         </select>
                         {formData.course && modules.length === 0 && !fetchingModules && (
-                            <p className="text-[10px] text-rose-500 mt-1 font-bold">No modules found for this course. Please create one first.</p>
+                            <p className="text-[10px] text-[#021E14] mt-1 font-bold">No modules found for this course. Please create one first.</p>
                         )}
                     </div>
                 </div>
@@ -449,9 +449,9 @@ export default function CreateLessonPage() {
 
                             {/* Quiz Settings */}
                             {formData.questions?.length > 0 && (
-                                <div className="mt-6 p-4 bg-indigo-50 rounded-2xl border border-indigo-100 space-y-4">
+                                <div className="mt-6 p-4 bg-[#021E14] rounded-2xl border border-[#021E14] space-y-4">
                                     <h4 className="font-bold text-slate-800 text-sm flex items-center gap-2">
-                                        <FiSettings className="text-indigo-600" />
+                                        <FiSettings className="text-[#021E14]" />
                                         Quiz Settings
                                     </h4>
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -492,7 +492,7 @@ export default function CreateLessonPage() {
                                                     type="checkbox"
                                                     checked={formData.quizSettings.showCorrectAnswers}
                                                     onChange={(e) => handleQuizSettingsChange('showCorrectAnswers', e.target.checked)}
-                                                    className="w-4 h-4 rounded border-slate-300 text-indigo-600"
+                                                    className="w-4 h-4 rounded border-slate-300 text-[#021E14]"
                                                 />
                                                 <span className="text-xs font-medium text-slate-700">Show Answers</span>
                                             </label>
@@ -501,7 +501,7 @@ export default function CreateLessonPage() {
                                                     type="checkbox"
                                                     checked={formData.quizSettings.shuffleQuestions}
                                                     onChange={(e) => handleQuizSettingsChange('shuffleQuestions', e.target.checked)}
-                                                    className="w-4 h-4 rounded border-slate-300 text-indigo-600"
+                                                    className="w-4 h-4 rounded border-slate-300 text-[#021E14]"
                                                 />
                                                 <span className="text-xs font-medium text-slate-700">Shuffle Questions</span>
                                             </label>
@@ -522,7 +522,7 @@ export default function CreateLessonPage() {
                                         name="isPublished"
                                         checked={formData.isPublished}
                                         onChange={handleChange}
-                                        className="w-5 h-5 rounded-lg border-slate-300 text-rose-600 focus:ring-rose-500"
+                                        className="w-5 h-5 rounded-lg border-slate-300 text-[#021E14] focus:ring-[#021E14]"
                                     />
                                     <div>
                                         <span className="text-sm font-bold text-slate-700 block">Publish Lesson</span>
@@ -535,7 +535,7 @@ export default function CreateLessonPage() {
                                         name="isFree"
                                         checked={formData.isFree}
                                         onChange={handleChange}
-                                        className="w-5 h-5 rounded-lg border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                                        className="w-5 h-5 rounded-lg border-slate-300 text-[#021E14] focus:ring-[#021E14]"
                                     />
                                     <div>
                                         <span className="text-sm font-bold text-slate-700 block">Free Preview</span>
@@ -549,15 +549,15 @@ export default function CreateLessonPage() {
                                 <h4 className="font-bold text-slate-800 text-sm mb-3">Lesson Summary</h4>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                                     <div className="p-3 bg-white rounded-xl">
-                                        <p className="text-2xl font-bold text-rose-600">{formData.videoUrl ? '1' : '0'}</p>
+                                        <p className="text-2xl font-bold text-[#021E14]">{formData.videoUrl ? '1' : '0'}</p>
                                         <p className="text-xs text-slate-500">Video</p>
                                     </div>
                                     <div className="p-3 bg-white rounded-xl">
-                                        <p className="text-2xl font-bold text-emerald-600">{formData.documents?.length || 0}</p>
+                                        <p className="text-2xl font-bold text-[#021E14]">{formData.documents?.length || 0}</p>
                                         <p className="text-xs text-slate-500">Documents</p>
                                     </div>
                                     <div className="p-3 bg-white rounded-xl">
-                                        <p className="text-2xl font-bold text-indigo-600">{formData.questions?.length || 0}</p>
+                                        <p className="text-2xl font-bold text-[#021E14]">{formData.questions?.length || 0}</p>
                                         <p className="text-xs text-slate-500">Questions</p>
                                     </div>
                                     <div className="p-3 bg-white rounded-xl">
@@ -583,7 +583,7 @@ export default function CreateLessonPage() {
                 <button
                     onClick={handleSubmit}
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold text-sm hover:shadow-lg hover:shadow-rose-500/30 transition-all disabled:opacity-50"
+                    className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#021E14] to-[#01140D] text-white font-bold text-sm hover:shadow-lg hover:shadow-rose-500/30 transition-all disabled:opacity-50"
                 >
                     <FiSave size={18} />
                     {loading ? 'Creating...' : 'Create Lesson'}

@@ -100,12 +100,12 @@ const CategoryPage = () => {
   };
 
   const getTypeColor = (type) => {
-    const colors = { course: 'bg-blue-500', website: 'bg-emerald-500', 'design-template': 'bg-violet-500' };
+    const colors = { course: 'bg-[#021E14]', website: 'bg-[#021E14]', 'design-template': 'bg-[#021E14]' };
     return colors[type] || 'bg-gray-500';
   };
 
   const getTypeBadgeColor = (type) => {
-    const colors = { course: 'bg-blue-50 text-blue-600', website: 'bg-emerald-50 text-emerald-600', 'design-template': 'bg-violet-50 text-violet-600' };
+    const colors = { course: 'bg-[#021E14] text-[#021E14]', website: 'bg-emerald-50 text-[#021E14]', 'design-template': 'bg-[#021E14] text-[#021E14]' };
     return colors[type] || 'bg-gray-100 text-gray-600';
   };
 
@@ -119,7 +119,7 @@ const CategoryPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-md border border-gray-200 dark:border-slate-700">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-500 rounded-md flex items-center justify-center">
+          <div className="w-10 h-10 bg-[#021E14] rounded-md flex items-center justify-center">
             <FiFolder className="text-white" size={18} />
           </div>
           <div>
@@ -132,7 +132,7 @@ const CategoryPage = () => {
             <FiRefreshCw size={16} className={loading ? 'animate-spin' : ''} />
           </button>
           <Link href="/dashboard/admin/category/create">
-            <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white text-sm font-medium rounded-md transition-colors">
               <FiPlus size={16} /> New Category
             </button>
           </Link>
@@ -143,10 +143,10 @@ const CategoryPage = () => {
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
           { label: 'Total', value: stats.total, icon: FiGrid, color: 'text-slate-600' },
-          { label: 'Courses', value: stats.course, icon: FiBook, color: 'text-blue-500' },
-          { label: 'Websites', value: stats.website, icon: FiLayout, color: 'text-emerald-500' },
-          { label: 'Designs', value: stats.designTemplate, icon: FiLayers, color: 'text-violet-500' },
-          { label: 'Root Groups', value: stats.parents, icon: FiFolder, color: 'text-amber-500' }
+          { label: 'Courses', value: stats.course, icon: FiBook, color: 'text-[#021E14]' },
+          { label: 'Websites', value: stats.website, icon: FiLayout, color: 'text-[#021E14]' },
+          { label: 'Designs', value: stats.designTemplate, icon: FiLayers, color: 'text-[#021E14]' },
+          { label: 'Root Groups', value: stats.parents, icon: FiFolder, color: 'text-[#D4AF37]' }
         ].map((stat, idx) => (
           <div key={idx} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
             <div className="flex items-center justify-between mb-2">
@@ -166,7 +166,7 @@ const CategoryPage = () => {
             placeholder="Filter categories by name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none text-sm transition-colors"
+            className="w-full pl-10 pr-4 py-2 rounded-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none text-sm transition-colors"
           />
         </div>
         <div className="flex items-center gap-2 overflow-x-auto">
@@ -176,7 +176,7 @@ const CategoryPage = () => {
               onClick={() => setTypeFilter(type)}
               className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors whitespace-nowrap ${
                 typeFilter === type
-                  ? 'bg-slate-800 dark:bg-blue-600 text-white'
+                  ? 'bg-slate-800 dark:bg-[#021E14] text-white'
                   : 'bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-gray-200'
               }`}
             >
@@ -203,7 +203,7 @@ const CategoryPage = () => {
       {/* Content */}
       {loading ? (
         <div className="flex flex-col items-center justify-center py-16 gap-3">
-          <FiLoader className="animate-spin text-blue-500" size={32} />
+          <FiLoader className="animate-spin text-[#021E14]" size={32} />
           <p className="text-sm text-slate-500">Loading categories...</p>
         </div>
       ) : viewMode === 'tree' ? (
@@ -214,7 +214,7 @@ const CategoryPage = () => {
               <h3 className="text-lg font-medium text-slate-800 dark:text-white">No Categories Found</h3>
               <p className="text-sm text-slate-500 mt-1">Create a category to get started.</p>
               <Link href="/dashboard/admin/category/create">
-                <button className="mt-4 flex items-center gap-2 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-md mx-auto">
+                <button className="mt-4 flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white text-sm font-medium rounded-md mx-auto">
                   <FiPlus size={16} /> Create Category
                 </button>
               </Link>
@@ -226,7 +226,7 @@ const CategoryPage = () => {
                   <button
                     onClick={() => toggleExpand(parent._id)}
                     className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${
-                      expandedParents.includes(parent._id) ? 'bg-blue-500 text-white' : 'bg-gray-100 dark:bg-slate-700 text-slate-500'
+                      expandedParents.includes(parent._id) ? 'bg-[#021E14] text-white' : 'bg-gray-100 dark:bg-slate-700 text-slate-500'
                     }`}
                   >
                     {expandedParents.includes(parent._id) ? <FiChevronDown size={16} /> : <FiChevronRight size={16} />}
@@ -241,14 +241,14 @@ const CategoryPage = () => {
                       <span className="text-xs text-slate-400">{parent.children?.length || 0} sub-categories</span>
                     </div>
                   </div>
-                  <span className={`px-2 py-1 rounded text-xs ${parent.status === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-500'}`}>
+                  <span className={`px-2 py-1 rounded text-xs ${parent.status === 'active' ? 'bg-emerald-50 text-[#021E14]' : 'bg-gray-100 text-gray-500'}`}>
                     {parent.status}
                   </span>
                   <div className="flex gap-1">
-                    <button onClick={() => setEditData(parent)} className="p-2 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-md transition-colors">
+                    <button onClick={() => setEditData(parent)} className="p-2 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors">
                       <FiEdit3 size={16} />
                     </button>
-                    <button onClick={() => handleDelete(parent._id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors">
+                    <button onClick={() => handleDelete(parent._id)} className="p-2 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors">
                       <FiTrash2 size={16} />
                     </button>
                   </div>
@@ -265,14 +265,14 @@ const CategoryPage = () => {
                           <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{child.name}</p>
                           <p className="text-xs text-slate-400">/{child.slug}</p>
                         </div>
-                        <span className={`px-2 py-0.5 rounded text-xs ${child.status === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-500'}`}>
+                        <span className={`px-2 py-0.5 rounded text-xs ${child.status === 'active' ? 'bg-emerald-50 text-[#021E14]' : 'bg-gray-100 text-gray-500'}`}>
                           {child.status}
                         </span>
                         <div className="flex gap-1">
-                          <button onClick={() => setEditData(child)} className="p-1.5 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded transition-colors">
+                          <button onClick={() => setEditData(child)} className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded transition-colors">
                             <FiEdit3 size={14} />
                           </button>
-                          <button onClick={() => handleDelete(child._id)} className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors">
+                          <button onClick={() => handleDelete(child._id)} className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded transition-colors">
                             <FiTrash2 size={14} />
                           </button>
                         </div>
@@ -293,7 +293,7 @@ const CategoryPage = () => {
             </div>
           ) : (
             filtered.map((cat) => (
-              <div key={cat._id} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700 hover:border-blue-300 transition-colors">
+              <div key={cat._id} className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700 hover:border-[#021E14] transition-colors">
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`w-12 h-12 rounded-md ${getTypeColor(cat.type)} flex items-center justify-center text-white overflow-hidden`}>
                     {cat.image ? <img src={cat.image} className="w-full h-full object-cover" alt="" /> : (cat.isParent ? <FiFolder size={20} /> : getTypeIcon(cat.type))}
@@ -308,7 +308,7 @@ const CategoryPage = () => {
                   <span className={`px-2 py-0.5 rounded text-xs ${cat.isParent ? 'bg-amber-50 text-amber-600' : 'bg-gray-100 text-gray-500'}`}>
                     {cat.isParent ? 'Root' : 'Child'}
                   </span>
-                  <span className={`px-2 py-0.5 rounded text-xs ${cat.status === 'active' ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-500'}`}>
+                  <span className={`px-2 py-0.5 rounded text-xs ${cat.status === 'active' ? 'bg-emerald-50 text-[#021E14]' : 'bg-gray-100 text-gray-500'}`}>
                     {cat.status}
                   </span>
                 </div>
@@ -322,7 +322,7 @@ const CategoryPage = () => {
                   <button onClick={() => setEditData(cat)} className="flex-1 py-2 bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-md text-xs font-medium transition-colors">
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(cat._id)} className="p-2 text-red-500 hover:bg-red-50 rounded-md transition-colors">
+                  <button onClick={() => handleDelete(cat._id)} className="p-2 text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors">
                     <FiTrash2 size={16} />
                   </button>
                 </div>
@@ -358,7 +358,7 @@ const CategoryPage = () => {
                   type="text"
                   value={editData.name || ''}
                   onChange={(e) => setEditData({ ...editData, name: e.target.value })}
-                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition-colors"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors"
                   placeholder="Category name"
                 />
               </div>
@@ -369,7 +369,7 @@ const CategoryPage = () => {
                   type="text"
                   value={editData.slug || ''}
                   onChange={(e) => setEditData({ ...editData, slug: e.target.value })}
-                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm font-mono focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition-colors"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm font-mono focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors"
                 />
               </div>
 
@@ -381,7 +381,7 @@ const CategoryPage = () => {
                     type="text"
                     value={editData.image || ''}
                     onChange={(e) => setEditData({ ...editData, image: e.target.value })}
-                    className="w-full pl-10 pr-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition-colors"
+                    className="w-full pl-10 pr-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors"
                     placeholder="https://..."
                   />
                 </div>
@@ -393,7 +393,7 @@ const CategoryPage = () => {
                   value={editData.description || ''}
                   onChange={(e) => setEditData({ ...editData, description: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition-colors resize-none"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors resize-none"
                   placeholder="Category description..."
                 />
               </div>
@@ -424,7 +424,7 @@ const CategoryPage = () => {
                   <select
                     value={editData.parentCategory?._id || editData.parentCategory || ''}
                     onChange={(e) => setEditData({ ...editData, parentCategory: e.target.value })}
-                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 outline-none transition-colors"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-md text-sm focus:border-[#021E14] focus:ring-1 focus:ring-[#021E14] outline-none transition-colors"
                   >
                     <option value="">No Parent (Root)</option>
                     {parentCategories
@@ -445,7 +445,7 @@ const CategoryPage = () => {
                 <button
                   type="button"
                   onClick={() => setEditData({ ...editData, status: editData.status === 'active' ? 'inactive' : 'active' })}
-                  className={`w-12 h-6 rounded-full transition-colors flex items-center p-0.5 ${editData.status === 'active' ? 'bg-emerald-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors flex items-center p-0.5 ${editData.status === 'active' ? 'bg-[#021E14]' : 'bg-gray-300'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transition-transform ${editData.status === 'active' ? 'translate-x-6' : 'translate-x-0'}`} />
                 </button>
@@ -461,7 +461,7 @@ const CategoryPage = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                  className="flex-1 bg-[#021E14] hover:bg-[#021E14] text-white py-2 rounded-md text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                 >
                   <FiCheck size={16} /> Save Changes
                 </button>

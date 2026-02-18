@@ -111,7 +111,7 @@ export default function WebsiteAdminPage() {
             approved: { bg: 'bg-emerald-100 text-emerald-700', icon: FiCheckCircle, label: 'Active' },
             pending: { bg: 'bg-amber-100 text-amber-700', icon: FiClock, label: 'Pending' },
             draft: { bg: 'bg-gray-100 text-gray-600', icon: null, label: 'Draft' },
-            rejected: { bg: 'bg-red-100 text-red-700', icon: FiAlertCircle, label: 'Rejected' },
+            rejected: { bg: 'bg-[#021E14] text-[#01140D]', icon: FiAlertCircle, label: 'Rejected' },
         };
         const style = styles[status] || styles.draft;
         return (
@@ -127,7 +127,7 @@ export default function WebsiteAdminPage() {
             {/* Page Header */}
             <div className={`flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-md bg-emerald-600 flex items-center justify-center text-white">
+                    <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center text-white">
                         <FiGlobe size={20} />
                     </div>
                     <div>
@@ -147,7 +147,7 @@ export default function WebsiteAdminPage() {
                         Refresh
                     </button>
                     <Link href="/dashboard/admin/website/create">
-                        <button className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-md text-sm font-medium hover:bg-emerald-700 transition-all">
+                        <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white rounded-md text-sm font-medium hover:bg-emerald-700 transition-all">
                             <FiPlus size={16} />
                             Add Website
                         </button>
@@ -158,9 +158,9 @@ export default function WebsiteAdminPage() {
             {/* Stats Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatsCard title="Total Websites" value={stats.total} icon={FiLayout} color="bg-slate-600" loading={loading} />
-                <StatsCard title="Live Templates" value={stats.live} icon={FiCheckCircle} color="bg-emerald-600" loading={loading} />
-                <StatsCard title="Pending Review" value={stats.pending} icon={FiClock} color="bg-amber-500" loading={loading} />
-                <StatsCard title="Total Sales" value={stats.totalSales} icon={FiBarChart2} color="bg-indigo-600" loading={loading} />
+                <StatsCard title="Live Templates" value={stats.live} icon={FiCheckCircle} color="bg-[#021E14]" loading={loading} />
+                <StatsCard title="Pending Review" value={stats.pending} icon={FiClock} color="bg-[#D4AF37]" loading={loading} />
+                <StatsCard title="Total Sales" value={stats.totalSales} icon={FiBarChart2} color="bg-[#021E14]" loading={loading} />
             </div>
 
             {/* Search & Filters */}
@@ -187,7 +187,7 @@ export default function WebsiteAdminPage() {
                                     key={status}
                                     onClick={() => { setStatusFilter(status); setCurrentPage(1); }}
                                     className={`px-3 py-1.5 rounded text-xs font-medium transition-all capitalize ${statusFilter === status
-                                        ? 'bg-emerald-600 text-white'
+                                        ? 'bg-[#021E14] text-white'
                                         : isDark ? 'text-slate-300 hover:bg-slate-600' : 'text-gray-600 hover:bg-gray-100'
                                         }`}
                                 >
@@ -277,7 +277,7 @@ export default function WebsiteAdminPage() {
                                 {/* Featured Badge */}
                                 {website.isFeatured && (
                                     <div className="absolute top-2 right-2">
-                                        <span className="p-1.5 bg-amber-500 text-white rounded">
+                                        <span className="p-1.5 bg-[#D4AF37] text-white rounded">
                                             <FiStar size={12} fill="currentColor" />
                                         </span>
                                     </div>
@@ -287,7 +287,7 @@ export default function WebsiteAdminPage() {
                             {/* Content */}
                             <div className="p-4">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className={`text-xs font-medium ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                                    <span className={`text-xs font-medium ${isDark ? 'text-emerald-400' : 'text-[#021E14]'}`}>
                                         {website.platform}
                                     </span>
                                     {website.category?.name && (
@@ -340,7 +340,7 @@ export default function WebsiteAdminPage() {
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(website._id)}
-                                        className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                                        className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-[#021E14] text-[#021E14] hover:bg-[#021E14] transition-colors"
                                     >
                                         <FiTrash2 size={12} />
                                         Delete
@@ -383,7 +383,7 @@ export default function WebsiteAdminPage() {
                                         key={pageNum}
                                         onClick={() => setCurrentPage(pageNum)}
                                         className={`w-8 h-8 rounded-md text-sm font-medium transition-colors ${currentPage === pageNum
-                                            ? 'bg-emerald-600 text-white'
+                                            ? 'bg-[#021E14] text-white'
                                             : isDark ? 'text-slate-300 hover:bg-slate-700' : 'text-gray-600 hover:bg-gray-100'
                                             }`}
                                     >

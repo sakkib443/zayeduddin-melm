@@ -127,8 +127,8 @@ const RightCoursesDetalis = ({ searchQuery, selectedType }) => {
       >
         {/* Left - Course Count */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-[#E62D26]/10 to-[#F79952]/10 rounded-lg border border-[#E62D26]/20">
-            <HiOutlineSparkles className="text-[#E62D26] text-sm" />
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-[#021E14]/10 to-[#021E14]/10 rounded-lg border border-[#021E14]/20">
+            <HiOutlineSparkles className="text-[#021E14] text-sm" />
             <span className="text-slate-800 dark:text-white font-bold outfit text-sm">
               {sortedCourses.length}
             </span>
@@ -143,7 +143,7 @@ const RightCoursesDetalis = ({ searchQuery, selectedType }) => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full sm:w-auto appearance-none pl-4 pr-10 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#E62D26]/20 focus:border-[#E62D26] cursor-pointer transition-all hover:bg-white dark:hover:bg-white/10"
+              className="w-full sm:w-auto appearance-none pl-4 pr-10 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#021E14]/20 focus:border-[#021E14] cursor-pointer transition-all hover:bg-white dark:hover:bg-white/10"
             >
               {sortOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
@@ -157,7 +157,7 @@ const RightCoursesDetalis = ({ searchQuery, selectedType }) => {
             <button
               onClick={() => setIsGridView(true)}
               className={`p-2 rounded-lg transition-all ${isGridView 
-                ? 'bg-white dark:bg-white/20 text-[#E62D26] shadow-sm' 
+                ? 'bg-white dark:bg-white/20 text-[#021E14] shadow-sm' 
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-white'}`}
             >
               <LuLayoutGrid size={18} />
@@ -165,7 +165,7 @@ const RightCoursesDetalis = ({ searchQuery, selectedType }) => {
             <button
               onClick={() => setIsGridView(false)}
               className={`p-2 rounded-lg transition-all ${!isGridView 
-                ? 'bg-white dark:bg-white/20 text-[#E62D26] shadow-sm' 
+                ? 'bg-white dark:bg-white/20 text-[#021E14] shadow-sm' 
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-white'}`}
             >
               <LuList size={18} />
@@ -220,7 +220,7 @@ const RightCoursesDetalis = ({ searchQuery, selectedType }) => {
           >
             {/* Empty State Illustration */}
             <div className="relative w-32 h-32 mx-auto mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#E62D26]/20 to-[#F79952]/20 rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#021E14]/20 to-[#021E14]/20 rounded-full animate-pulse"></div>
               <div className="absolute inset-4 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center">
                 <LuSearch className="w-12 h-12 text-slate-300 dark:text-slate-600" />
               </div>

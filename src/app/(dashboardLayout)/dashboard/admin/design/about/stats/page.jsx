@@ -61,7 +61,7 @@ const AboutStatsDesignPage = () => {
         setContent({ ...content, stats: updated });
     };
 
-    if (loading) return <div className="flex items-center justify-center min-h-[60vh]"><FiRefreshCw className="w-12 h-12 text-red-500 animate-spin" /></div>;
+    if (loading) return <div className="flex items-center justify-center min-h-[60vh]"><FiRefreshCw className="w-12 h-12 text-[#021E14] animate-spin" /></div>;
 
     return (
         <div className="p-6 max-w-4xl mx-auto">
@@ -72,7 +72,7 @@ const AboutStatsDesignPage = () => {
                 </div>
                 <div className="flex gap-3">
                     <button onClick={fetchContent} className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700"><FiRefreshCw size={18} /></button>
-                    <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white disabled:opacity-50">
+                    <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white disabled:opacity-50">
                         <FiSave size={18} /> {saving ? 'Saving...' : 'Save'}
                     </button>
                 </div>
@@ -81,13 +81,13 @@ const AboutStatsDesignPage = () => {
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white">Stats</h2>
-                    <button onClick={addStat} className="flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-500 rounded-xl"><FiPlus /> Add Stat</button>
+                    <button onClick={addStat} className="flex items-center gap-2 px-4 py-2 bg-[#021E14]/10 text-[#021E14] rounded-xl"><FiPlus /> Add Stat</button>
                 </div>
                 {content.stats?.map((stat, i) => (
                     <div key={i} className="p-4 border border-gray-200 dark:border-gray-700 rounded-xl mb-4">
                         <div className="flex justify-between mb-2">
                             <span className="text-sm text-gray-500">Stat #{i + 1}</span>
-                            {content.stats.length > 1 && <button onClick={() => removeStat(i)} className="text-red-500"><FiTrash2 /></button>}
+                            {content.stats.length > 1 && <button onClick={() => removeStat(i)} className="text-[#021E14]"><FiTrash2 /></button>}
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <input value={stat.value || ''} onChange={(e) => updateStat(i, 'value', e.target.value)} placeholder="Value (e.g., 10K+)" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />

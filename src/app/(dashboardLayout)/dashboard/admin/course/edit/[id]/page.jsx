@@ -148,7 +148,7 @@ export default function EditCoursePage() {
   };
 
   const inputClass = `w-full px-4 py-3 rounded-xl border outline-none text-sm transition-all ${isDark
-    ? 'bg-slate-950 border-slate-800 text-slate-200 focus:border-emerald-500 placeholder:text-slate-600'
+    ? 'bg-slate-950 border-slate-800 text-slate-200 focus:border-[#021E14] placeholder:text-slate-600'
     : 'bg-white border-slate-200 text-slate-700 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 placeholder:text-slate-400'
     }`;
   const labelClass = `block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`;
@@ -157,7 +157,7 @@ export default function EditCoursePage() {
   if (fetching) return (
     <div className="h-screen flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <FiLoader className="animate-spin text-emerald-500" size={40} />
+        <FiLoader className="animate-spin text-[#021E14]" size={40} />
         <p className={`text-sm font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Loading course data...</p>
       </div>
     </div>
@@ -171,7 +171,7 @@ export default function EditCoursePage() {
           <Link href="/dashboard/admin/course" className={`p-2.5 rounded-xl transition-all ${isDark ? 'bg-slate-800 hover:bg-slate-700 text-slate-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'}`}>
             <FiArrowLeft size={18} />
           </Link>
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center shadow-lg shadow-emerald-500/25">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center shadow-lg shadow-[#021E14]/25">
             <FiBookOpen className="text-white text-lg" />
           </div>
           <div>
@@ -182,7 +182,7 @@ export default function EditCoursePage() {
         <button
           onClick={handleSubmit(onSubmit)}
           disabled={loading}
-          className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-red-500 hover:from-emerald-600 hover:to-red-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-emerald-500/25 transition-all disabled:opacity-50"
+          className="flex items-center gap-2 bg-gradient-to-r from-[#021E14] to-[#01140D] hover:from-[#021E14] hover:to-[#01140D] text-white px-6 py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-[#021E14]/25 transition-all disabled:opacity-50"
         >
           {loading ? <FiLoader className="animate-spin" /> : <FiSave size={16} />}
           {loading ? 'Updating...' : 'Update Course'}
@@ -199,7 +199,7 @@ export default function EditCoursePage() {
                 <div>
                   <label className={labelClass}>Course Title (English)</label>
                   <input {...register('title')} placeholder="e.g. Video Editing Masterclass" className={inputClass} />
-                  {errors.title && <p className="text-rose-500 text-xs mt-1">{errors.title.message}</p>}
+                  {errors.title && <p className="text-[#021E14] text-xs mt-1">{errors.title.message}</p>}
                 </div>
                 <div>
                   <label className={labelClass}>Course Title (বাংলা)</label>
@@ -229,7 +229,7 @@ export default function EditCoursePage() {
                     <option value="">Select category...</option>
                     {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
                   </select>
-                  {errors.category && <p className="text-rose-500 text-xs mt-1">{errors.category.message}</p>}
+                  {errors.category && <p className="text-[#021E14] text-xs mt-1">{errors.category.message}</p>}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -259,13 +259,13 @@ export default function EditCoursePage() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <label className={labelClass}>What You Will Learn</label>
-                  <button type="button" onClick={() => learningFields.append('')} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
+                  <button type="button" onClick={() => learningFields.append('')} className="text-xs font-medium text-[#021E14] hover:text-emerald-700">+ Add</button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {learningFields.fields.map((field, idx) => (
                     <div key={field.id} className="group relative">
                       <input {...register(`whatYouWillLearn.${idx}`)} className={inputClass} placeholder="Topic name" />
-                      <button type="button" onClick={() => learningFields.remove(idx)} className="absolute -top-1 -right-1 bg-rose-500 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
+                      <button type="button" onClick={() => learningFields.remove(idx)} className="absolute -top-1 -right-1 bg-[#021E14] text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
                     </div>
                   ))}
                 </div>
@@ -274,13 +274,13 @@ export default function EditCoursePage() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <label className={labelClass}>Key Features</label>
-                  <button type="button" onClick={() => featuresFields.append('')} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
+                  <button type="button" onClick={() => featuresFields.append('')} className="text-xs font-medium text-[#021E14] hover:text-emerald-700">+ Add</button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {featuresFields.fields.map((field, idx) => (
                     <div key={field.id} className="group relative">
                       <input {...register(`features.${idx}`)} className={inputClass} placeholder="Feature name" />
-                      <button type="button" onClick={() => featuresFields.remove(idx)} className="absolute -top-1 -right-1 bg-rose-500 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
+                      <button type="button" onClick={() => featuresFields.remove(idx)} className="absolute -top-1 -right-1 bg-[#021E14] text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
                     </div>
                   ))}
                 </div>
@@ -298,7 +298,7 @@ export default function EditCoursePage() {
                     <FiImage className="absolute left-3 top-3.5 text-slate-400" size={16} />
                     <input {...register('thumbnail')} className={`${inputClass} pl-10`} placeholder="https://..." />
                   </div>
-                  {errors.thumbnail && <p className="text-rose-500 text-xs mt-1">{errors.thumbnail.message}</p>}
+                  {errors.thumbnail && <p className="text-[#021E14] text-xs mt-1">{errors.thumbnail.message}</p>}
                 </div>
                 <div>
                   <label className={labelClass}>Banner Image URL</label>
@@ -319,13 +319,13 @@ export default function EditCoursePage() {
                 <div>
                   <div className="flex justify-between items-center mb-1">
                     <label className={labelClass}>Search Tags</label>
-                    <button type="button" onClick={() => tagsFields.append('')} className="text-[10px] font-bold text-emerald-600">+ Add Tag</button>
+                    <button type="button" onClick={() => tagsFields.append('')} className="text-[10px] font-bold text-[#021E14]">+ Add Tag</button>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {tagsFields.fields.map((field, idx) => (
                       <div key={field.id} className="group relative">
                         <input {...register(`tags.${idx}`)} className="px-3 py-1.5 bg-slate-50 dark:bg-slate-900 rounded-lg text-xs border border-slate-200 dark:border-slate-800 outline-none focus:border-emerald-300 w-24" placeholder="tag" />
-                        <button type="button" onClick={() => tagsFields.remove(idx)} className="absolute -top-1 -right-1 bg-rose-500 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
+                        <button type="button" onClick={() => tagsFields.remove(idx)} className="absolute -top-1 -right-1 bg-[#021E14] text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
                       </div>
                     ))}
                   </div>
@@ -344,7 +344,7 @@ export default function EditCoursePage() {
               <div>
                 <label className={labelClass}>Full Description (English)</label>
                 <textarea {...register('description')} rows={5} className={`${inputClass} resize-none`} placeholder="Detailed course content..."></textarea>
-                {errors.description && <p className="text-rose-500 text-xs mt-1">{errors.description.message}</p>}
+                {errors.description && <p className="text-[#021E14] text-xs mt-1">{errors.description.message}</p>}
               </div>
             </div>
           </div>
@@ -360,23 +360,23 @@ export default function EditCoursePage() {
                 <label className="text-xs font-medium text-slate-400 block mb-2">Regular Price (৳)</label>
                 <div className="relative">
                   <span className="absolute left-4 top-3 font-semibold text-slate-500">৳</span>
-                  <input type="number" {...register('price')} placeholder="0" className={`w-full border border-slate-600 rounded-xl py-3 pl-10 px-4 text-white text-lg font-bold focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all ${isDark ? 'bg-black/40' : 'bg-slate-700/50'}`} />
+                  <input type="number" {...register('price')} placeholder="0" className={`w-full border border-slate-600 rounded-xl py-3 pl-10 px-4 text-white text-lg font-bold focus:ring-2 focus:ring-[#021E14] focus:border-[#021E14] transition-all ${isDark ? 'bg-black/40' : 'bg-slate-700/50'}`} />
                 </div>
               </div>
               <div>
                 <label className="text-xs font-medium text-slate-400 block mb-2">Offer Price (৳)</label>
                 <div className="relative">
                   <span className="absolute left-4 top-3 font-semibold text-slate-500">৳</span>
-                  <input type="number" {...register('discountPrice')} placeholder="0" className={`w-full border border-slate-600 rounded-xl py-3 pl-10 px-4 text-white text-lg font-bold focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all ${isDark ? 'bg-black/40' : 'bg-slate-700/50'}`} />
+                  <input type="number" {...register('discountPrice')} placeholder="0" className={`w-full border border-slate-600 rounded-xl py-3 pl-10 px-4 text-white text-lg font-bold focus:ring-2 focus:ring-[#021E14] focus:border-[#021E14] transition-all ${isDark ? 'bg-black/40' : 'bg-slate-700/50'}`} />
                 </div>
               </div>
               <div className="space-y-3 pt-2">
                 <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors ${isDark ? 'bg-black/40 hover:bg-black/60' : 'bg-slate-700/50 hover:bg-slate-700'}`}>
-                  <input type="checkbox" {...register('isFeatured')} className="w-5 h-5 rounded accent-emerald-500" />
+                  <input type="checkbox" {...register('isFeatured')} className="w-5 h-5 rounded accent-[#021E14]" />
                   <span className="text-sm text-slate-300">Mark as Featured</span>
                 </label>
                 <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors ${isDark ? 'bg-black/40 hover:bg-black/60' : 'bg-slate-700/50 hover:bg-slate-700'}`}>
-                  <input type="checkbox" {...register('isPopular')} className="w-5 h-5 rounded accent-emerald-500" />
+                  <input type="checkbox" {...register('isPopular')} className="w-5 h-5 rounded accent-[#021E14]" />
                   <span className="text-sm text-slate-300">Popular Course</span>
                 </label>
               </div>

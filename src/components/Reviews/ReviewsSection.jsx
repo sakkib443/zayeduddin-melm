@@ -29,9 +29,9 @@ const ReviewsSection = ({ productId, productType }) => {
                 <div>
                     <h2 className="text-2xl font-bold text-gray-900 outfit mb-2">Customer Reviews</h2>
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1 text-amber-400 text-lg">
+                        <div className="flex items-center gap-1 text-[#D4AF37] text-lg">
                             {[1, 2, 3, 4, 5].map((star) => (
-                                <FaStar key={star} className={star <= Math.round(avgRating) ? "fill-amber-400" : "text-gray-200"} />
+                                <FaStar key={star} className={star <= Math.round(avgRating) ? "fill-[#D4AF37]" : "text-gray-200"} />
                             ))}
                         </div>
                         <span className="text-gray-900 font-bold text-xl">{avgRating || 0}</span>
@@ -42,7 +42,7 @@ const ReviewsSection = ({ productId, productType }) => {
                 <div className="w-full md:w-auto">
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-gray-200"
+                        className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 hover:bg-[#021E14] text-white font-semibold rounded-lg transition-colors shadow-lg shadow-gray-200"
                     >
                         <LuMessageSquarePlus size={18} />
                         Write a Review
@@ -72,7 +72,7 @@ const ReviewsSection = ({ productId, productType }) => {
                                     {review.user?.avatar ? (
                                         <img src={review.user.avatar} alt="User" className="w-10 h-10 rounded-full object-cover border border-gray-200" />
                                     ) : (
-                                        <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                                        <div className="w-10 h-10 rounded-full bg-[#021E14] flex items-center justify-center text-[#021E14]">
                                             <FaUserCircle size={24} />
                                         </div>
                                     )}
@@ -85,9 +85,9 @@ const ReviewsSection = ({ productId, productType }) => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="flex text-amber-400 text-xs gap-0.5">
+                                <div className="flex text-[#D4AF37] text-xs gap-0.5">
                                     {[1, 2, 3, 4, 5].map((star) => (
-                                        <FaStar key={star} className={star <= review.rating ? "fill-amber-400" : "text-gray-200"} />
+                                        <FaStar key={star} className={star <= review.rating ? "fill-[#D4AF37]" : "text-gray-200"} />
                                     ))}
                                 </div>
                             </div>
@@ -97,14 +97,14 @@ const ReviewsSection = ({ productId, productType }) => {
 
                             <div className="flex items-center justify-between pt-4 border-t border-gray-200/50">
                                 {review.isVerifiedPurchase && (
-                                    <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#021E14] bg-emerald-50 px-2 py-1 rounded-full">
                                         <FaCheckCircle size={14} /> Verified Purchase
                                     </div>
                                 )}
 
                                 <button
                                     onClick={() => handleHelpful(review._id)}
-                                    className="flex items-center gap-1.5 text-gray-400 hover:text-red-600 text-xs font-medium transition-colors ml-auto"
+                                    className="flex items-center gap-1.5 text-gray-400 hover:text-[#021E14] text-xs font-medium transition-colors ml-auto"
                                 >
                                     <FaThumbsUp size={12} />
                                     Helpful ({review.helpfulCount || 0})
