@@ -287,19 +287,6 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="container mx-auto px-4 lg:px-16 pb-32">
-        <div className="rounded-[60px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl border-8 border-white dark:border-white/5">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.8986834879085!2d90.41723!3d23.7656976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c754583dd209%3A0xdd0c5fcc7d2d3836!2sDaisy%20Garden!5e0!3m2!1sen!2sbd!4v1704532086149!5m2!1sen!2sbd"
-            width="100%"
-            height="500"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-          ></iframe>
-        </div>
-      </section>
 
       <style jsx global>{`
                 .font-script {
