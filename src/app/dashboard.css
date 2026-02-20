@@ -350,34 +350,18 @@
     border-color: #1e293b !important;
 }
 
-/* Icon backgrounds (soft colors) */
-.dark .dashboard-container [class*="bg-[#021E14]/10"] {
-    background-color: rgba(99, 102, 241, 0.15) !important;
+/* Icon backgrounds (soft colors) - Brand color dark mode override */
+.dark .dashboard-container .bg-\[\#021E14\]\/10 {
+    background-color: rgba(2, 30, 20, 0.15) !important;
 }
 
-.dark .dashboard-container [class*="bg-[#021E14]/10"] {
-    background-color: rgba(16, 185, 129, 0.15) !important;
-}
-
-.dark .dashboard-container [class*="bg-[#D4AF37]/10"] {
-    background-color: rgba(245, 158, 11, 0.15) !important;
-}
-
-.dark .dashboard-container [class*="bg-[#021E14]/10"] {
-    background-color: rgba(168, 85, 247, 0.15) !important;
-}
-
-.dark .dashboard-container [class*="bg-[#021E14]/10"] {
-    background-color: rgba(20, 184, 166, 0.15) !important;
+.dark .dashboard-container .bg-\[\#D4AF37\]\/10 {
+    background-color: rgba(212, 175, 55, 0.15) !important;
 }
 
 /* Badge backgrounds */
 .dark .dashboard-container [class*="bg-emerald-50"] {
     background-color: rgba(16, 185, 129, 0.2) !important;
-}
-
-.dark .dashboard-container [class*="bg-[#021E14]"] {
-    background-color: rgba(239, 68, 68, 0.2) !important;
 }
 
 /* Hover shadow for cards */
@@ -386,10 +370,9 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Links text */
-.dark .dashboard-container a.text-[#021E14],
-.dark .dashboard-container [class*="text-[#021E14]"] {
-    color: #818cf8 !important;
+/* Links text - brand color in dark mode */
+.dark .dashboard-container a.text-\[\#021E14\] {
+    color: #5eead4 !important;
 }
 
 /* Stats cards hover shadow */
@@ -437,21 +420,13 @@
     background-color: #334155 !important;
 }
 
-.dark .dashboard-container .bg-[#021E14] {
-    background-color: rgba(99, 102, 241, 0.2) !important;
-}
-
-.dark .dashboard-container .bg-[#021E14] {
-    background-color: rgba(168, 85, 247, 0.2) !important;
-}
-
-.dark .dashboard-container .bg-[#021E14] {
-    background-color: rgba(244, 63, 94, 0.2) !important;
+/* Brand color backgrounds in dark mode */
+.dark .dashboard-container .bg-\[\#021E14\] {
+    background-color: rgba(2, 30, 20, 0.3) !important;
 }
 
 /* Info cards - amber/orange gradient */
-.dark .dashboard-container [class*="bg-gradient-to-r"][class*="from-amber-50"],
-.dark .dashboard-container [class*="from-amber-50"][class*="to-[#01140D]"] {
+.dark .dashboard-container [class*="bg-gradient-to-r"][class*="from-amber-50"] {
     background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1)) !important;
 }
 
@@ -469,32 +444,13 @@
     background-color: rgba(51, 65, 85, 0.5) !important;
 }
 
-/* Active tab backgrounds */
-.dark .dashboard-container [class*="bg-[#021E14]"] {
-    background-color: rgba(99, 102, 241, 0.1) !important;
+/* Section header gradients - brand color in dark mode */
+.dark .dashboard-container .from-\[\#021E14\] {
+    --tw-gradient-from: rgba(2, 30, 20, 0.3) !important;
 }
 
-.dark .dashboard-container [class*="bg-[#021E14]"] {
-    background-color: rgba(168, 85, 247, 0.1) !important;
-}
-
-.dark .dashboard-container [class*="bg-[#021E14]"] {
-    background-color: rgba(244, 63, 94, 0.1) !important;
-}
-
-.dark .dashboard-container [class*="bg-[#021E14]"] {
-    background-color: rgba(236, 72, 153, 0.1) !important;
-}
-
-/* Section header gradients */
-.dark .dashboard-container [class*="bg-gradient-to-r"][class*="from-[#021E14]"],
-.dark .dashboard-container [class*="from-[#021E14]"][class*="to-[#01140D]"] {
-    background: linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1)) !important;
-}
-
-.dark .dashboard-container [class*="bg-gradient-to-r"][class*="from-[#021E14]"],
-.dark .dashboard-container [class*="from-[#021E14]"][class*="to-[#01140D]"] {
-    background: linear-gradient(to right, rgba(236, 72, 153, 0.1), rgba(244, 63, 94, 0.1)) !important;
+.dark .dashboard-container .to-\[\#01140D\] {
+    --tw-gradient-to: rgba(1, 20, 13, 0.3) !important;
 }
 
 /* Input field backgrounds */
