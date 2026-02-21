@@ -185,7 +185,7 @@ const MentorCreateCategory = () => {
                                                     <FiFolder size={18} />
                                                 </div>
                                                 <div>
-                                                    <p className={`text-sm font-bold ${formData.parentCategory === parent._id ? 'text-[#01140D]' : 'text-slate-700'}`}>{parent.name}</p>
+                                                    <p className={`text-sm font-bold ${formData.parentCategory === parent._id ? 'text-emerald-700' : 'text-slate-700'}`}>{parent.name}</p>
                                                     <p className="text-[9px] text-slate-400 uppercase tracking-widest">{parent.type}</p>
                                                 </div>
                                             </button>

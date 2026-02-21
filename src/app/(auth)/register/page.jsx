@@ -278,9 +278,9 @@ const Register = () => {
                             value={formData.firstName}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.firstName ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.firstName ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
-                          {fieldErrors.firstName && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.firstName}</p>}
+                          {fieldErrors.firstName && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.firstName}</p>}
                         </div>
                         <div className="relative">
                           <FiUser className="absolute left-4 top-3.5 text-gray-400" size={18} />
@@ -290,9 +290,9 @@ const Register = () => {
                             value={formData.lastName}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.lastName ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.lastName ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
-                          {fieldErrors.lastName && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.lastName}</p>}
+                          {fieldErrors.lastName && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.lastName}</p>}
                         </div>
                       </div>
 
@@ -307,10 +307,10 @@ const Register = () => {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.email ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.email ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
                         </div>
-                        {fieldErrors.email && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.email}</p>}
+                        {fieldErrors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.email}</p>}
                       </div>
 
                       {/* Phone */}
@@ -322,10 +322,10 @@ const Register = () => {
                             placeholder={language === "bn" ? "ফোন নম্বর (ঐচ্ছিক)" : "Phone number (optional)"}
                             value={formData.phoneNumber}
                             onChange={handleChange}
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.phoneNumber ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.phoneNumber ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
                         </div>
-                        {fieldErrors.phoneNumber && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.phoneNumber}</p>}
+                        {fieldErrors.phoneNumber && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.phoneNumber}</p>}
                       </div>
 
                       {/* Password Fields */}
@@ -340,7 +340,7 @@ const Register = () => {
                               value={formData.password}
                               onChange={handleChange}
                               required
-                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.password ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.password ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                             />
                             <button
                               type="button"
@@ -350,7 +350,7 @@ const Register = () => {
                               {showPassword ? <MdOutlineVisibilityOff size={18} /> : <MdOutlineRemoveRedEye size={18} />}
                             </button>
                           </div>
-                          {fieldErrors.password && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.password}</p>}
+                          {fieldErrors.password && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.password}</p>}
                           {/* Password Strength */}
                           <div className="mt-2 text-left">
                             <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
@@ -379,7 +379,7 @@ const Register = () => {
                               value={formData.confirmPassword}
                               onChange={handleChange}
                               required
-                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.confirmPassword ? 'border-[#021E14] bg-[#021E14]' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.confirmPassword ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                             />
                             <button
                               type="button"
@@ -389,14 +389,14 @@ const Register = () => {
                               {showConfirmPassword ? <MdOutlineVisibilityOff size={18} /> : <MdOutlineRemoveRedEye size={18} />}
                             </button>
                           </div>
-                          {fieldErrors.confirmPassword && <p className="text-[#021E14] text-[10px] mt-1 ml-1">{fieldErrors.confirmPassword}</p>}
+                          {fieldErrors.confirmPassword && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.confirmPassword}</p>}
                         </div>
                       </div>
 
                       {/* Error Message */}
                       {error && (
-                        <div className="p-3 bg-[#021E14] border border-[#021E14] rounded-xl text-left">
-                          <p className="text-[#021E14] text-xs">{error}</p>
+                        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-left">
+                          <p className="text-red-600 text-xs font-medium">{error}</p>
                         </div>
                       )}
 

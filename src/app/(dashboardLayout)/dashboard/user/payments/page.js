@@ -66,7 +66,7 @@ export default function UserPaymentsPage() {
         switch (status) {
             case 'completed': return isDark ? 'bg-[#021E14]/10 text-emerald-400' : 'bg-emerald-50 text-[#021E14]';
             case 'pending': return isDark ? 'bg-[#D4AF37]/10 text-[#D4AF37]' : 'bg-amber-50 text-amber-600';
-            case 'failed': return isDark ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]';
+            case 'failed': return isDark ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14] text-white';
             default: return 'bg-slate-100 text-slate-600';
         }
     };

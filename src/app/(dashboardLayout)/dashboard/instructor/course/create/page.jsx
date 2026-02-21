@@ -79,15 +79,15 @@ export default function MentorCreateCoursePage() {
                     {/* Step Indicator */}
                     <div className="px-6 py-3 bg-slate-50 border-b border-slate-100">
                         <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
-                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'course' ? 'bg-[#021E14] text-[#01140D]' : 'bg-slate-200 text-slate-500'}`}>
+                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'course' ? 'bg-[#021E14] text-white' : 'bg-slate-200 text-slate-500'}`}>
                                 ?. Course
                             </span>
                             <span className="text-slate-300">?</span>
-                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'module' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
+                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'module' ? 'bg-[#021E14] text-white' : 'bg-slate-200 text-slate-500'}`}>
                                 ?. Module
                             </span>
                             <span className="text-slate-300">?</span>
-                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'lesson' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
+                            <span className={`px-3 py-1 rounded-full font-semibold ${activeTab === 'lesson' ? 'bg-[#021E14] text-white' : 'bg-slate-200 text-slate-500'}`}>
                                 ?. Lesson
                             </span>
                         </div>

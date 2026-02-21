@@ -96,8 +96,13 @@ const AdminSidebar = () => {
         { title: 'Create Module', href: '/dashboard/admin/module/create', icon: FiFileText },
         { title: 'All Lessons', href: '/dashboard/admin/lesson', icon: FiPlay },
         { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
-        { title: 'Enrollments', href: '/dashboard/admin/enrollment', icon: FiUserCheck },
       ],
+    },
+    {
+      title: 'Enrollments',
+      href: '/dashboard/admin/enrollment',
+      icon: FiUserCheck,
+      gradient: 'from-emerald-600 to-[#021E14]'
     },
     {
       title: 'Batch Management',

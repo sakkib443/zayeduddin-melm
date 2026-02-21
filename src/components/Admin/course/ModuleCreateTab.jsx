@@ -126,7 +126,7 @@ export default function ModuleCreateTab({ onSuccess }) {
             <div className="bg-white border border-slate-200 rounded-md p-4 shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-md bg-[#021E14] flex items-center justify-center text-[#021E14]">
+                        <div className="w-9 h-9 rounded-md bg-[#021E14] flex items-center justify-center text-white">
                             <FiBook size={16} />
                         </div>
                         <div>
@@ -164,7 +164,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                         className="w-full flex items-center justify-between px-4 py-3 hover:bg-emerald-100/50 transition-colors"
                     >
                         <div className="flex items-center gap-2">
-                            <FiCheck className="text-[#021E14]" size={16} />
+                            <FiCheck className="text-emerald-600" size={16} />
                             <span className="font-medium text-emerald-700 text-sm">
                                 {createdModules.length} Module{createdModules.length > 1 ? 's' : ''} Created
                             </span>
@@ -191,7 +191,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                                             {mod.order}
                                         </span>
                                         <span className="text-sm text-slate-700">{mod.title}</span>
-                                        <FiCheck className="text-[#021E14]" size={12} />
+                                        <FiCheck className="text-emerald-600" size={12} />
                                     </div>
                                 ))}
                             </div>
@@ -204,7 +204,7 @@ export default function ModuleCreateTab({ onSuccess }) {
             <form onSubmit={handleSubmit} className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                 <div className="px-5 py-3 border-b border-slate-100 bg-slate-50">
                     <h2 className="font-semibold text-sm text-slate-800 flex items-center gap-2">
-                        <FiLayers size={16} className="text-[#021E14]" />
+                        <FiLayers size={16} className="text-emerald-600" />
                         Add New Module
                     </h2>
                     <p className="text-xs text-slate-500 mt-0.5">Modules group related lessons together</p>
@@ -213,7 +213,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                 <div className="p-5 space-y-4">
                     {/* Course Selection */}
                     <div>
-                        <label className={labelClass}>Select Course <span className="text-[#021E14]">*</span></label>
+                        <label className={labelClass}>Select Course <span className="text-red-500">*</span></label>
                         <select
                             name="course"
                             value={formData.course}
@@ -231,7 +231,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                     {/* Titles */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className={labelClass}>Module Title (English) <span className="text-[#021E14]">*</span></label>
+                            <label className={labelClass}>Module Title (English) <span className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 name="title"

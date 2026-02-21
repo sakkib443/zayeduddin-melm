@@ -73,10 +73,10 @@ export default function BatchPage() {
 
     const getStatusBadge = (status) => {
         const styles = {
-            upcoming: 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/30 dark:text-[#021E14]',
+            upcoming: 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/30 dark:text-[#021E14]',
             ongoing: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
             completed: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
-            cancelled: 'bg-[#021E14] text-[#01140D] dark:bg-[#021E14]/30 dark:text-[#021E14]',
+            cancelled: 'bg-[#021E14] text-white dark:bg-[#021E14]/30 dark:text-[#021E14]',
         };
         return styles[status] || styles.upcoming;
     };

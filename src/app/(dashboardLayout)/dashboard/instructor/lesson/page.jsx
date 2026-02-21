@@ -162,7 +162,7 @@ export default function LessonsPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/dashboard/instructor/lesson/edit/${lesson._id}`}
-                                                    className="p-2 rounded-lg hover:bg-[#021E14] text-[#021E14] transition-colors"
+                                                    className="p-2 rounded-lg hover:bg-[#021E14]/10 text-[#021E14] transition-colors"
                                                 >
                                                     <FiEdit2 size={16} />
                                                 </Link>

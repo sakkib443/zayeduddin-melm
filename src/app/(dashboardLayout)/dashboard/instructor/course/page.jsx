@@ -242,7 +242,7 @@ export default function MentorCoursesPage() {
                                 <h3 className="text-sm font-bold text-slate-800 line-clamp-2 mb-3 min-h-[40px] leading-relaxed">{course.title}</h3>
 
                                 <div className="flex items-center gap-2 mb-4">
-                                    <span className="px-2 py-1 bg-[#021E14] text-[#021E14] text-[10px] font-bold rounded-lg uppercase">{course.level}</span>
+                                    <span className="px-2 py-1 bg-[#021E14] text-white text-[10px] font-bold rounded-lg uppercase">{course.level}</span>
                                     <span className="px-2 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-lg uppercase">{course.language}</span>
                                 </div>
 
@@ -296,7 +296,7 @@ export default function MentorCoursesPage() {
                             </div>
                             {/* Mentor Actions - NO DELETE BUTTON */}
                             <div className="flex gap-2">
-                                <Link href={`/dashboard/instructor/course/modules/${course._id}`} className="p-2.5 bg-[#021E14] text-[#021E14] hover:text-[#021E14] hover:bg-white border border-[#021E14] rounded-xl shadow-sm transition-all" title="Manage Modules"><FiLayers size={15} /></Link>
+                                <Link href={`/dashboard/instructor/course/modules/${course._id}`} className="p-2.5 bg-[#021E14] text-white hover:text-[#021E14] hover:bg-white border border-[#021E14] rounded-xl shadow-sm transition-all" title="Manage Modules"><FiLayers size={15} /></Link>
                                 <Link href={`/dashboard/instructor/course/edit/${course._id}`} className="p-2.5 bg-slate-50 text-slate-500 hover:text-slate-800 hover:bg-white border border-slate-100 rounded-xl shadow-sm transition-all"><FiEdit2 size={15} /></Link>
                             </div>
                         </div>

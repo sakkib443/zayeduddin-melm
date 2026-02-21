@@ -69,7 +69,7 @@ const LeftWebsiteFilter = ({ searchQuery, setSearchQuery, selectedType, setSelec
             {hasActiveFilters && (
                 <button
                     onClick={clearAllFilters}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#021E14] text-[#021E14] rounded-md text-sm font-medium work hover:bg-[#021E14] transition-colors"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#021E14] text-white rounded-md text-sm font-medium work hover:bg-[#01140D] transition-colors"
                 >
                     <LuX className="text-base" />
                     {language === 'bn' ? '??????? ?????' : 'Clear All Filters'}

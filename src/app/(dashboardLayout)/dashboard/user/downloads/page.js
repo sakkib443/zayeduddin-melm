@@ -356,8 +356,8 @@ export default function AllAssetsPage() {
                                 <h3 className={`text-sm font-bold truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{item.productTitle}</h3>
                                 <div className="flex items-center gap-3 mt-1">
                                     <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded tracking-wider ${item.productType === 'software'
-                                        ? 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
-                                        : 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
+                                        ? 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
+                                        : 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
                                         }`}>
                                         {item.productType}
                                     </span>

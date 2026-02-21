@@ -88,9 +88,9 @@ export default function OrdersPage() {
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'completed': return <span className="px-2 py-0.5 bg-emerald-50 text-[#021E14] rounded text-xs font-medium flex items-center gap-1"><FiCheck size={12} /> Completed</span>;
+      case 'completed': return <span className="px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded text-xs font-medium flex items-center gap-1"><FiCheck size={12} /> Completed</span>;
       case 'pending': return <span className="px-2 py-0.5 bg-amber-50 text-amber-600 rounded text-xs font-medium flex items-center gap-1"><FiClock size={12} /> Pending</span>;
-      case 'failed': return <span className="px-2 py-0.5 bg-[#021E14] text-[#021E14] rounded text-xs font-medium flex items-center gap-1"><FiX size={12} /> Failed</span>;
+      case 'failed': return <span className="px-2 py-0.5 bg-red-50 text-red-600 rounded text-xs font-medium flex items-center gap-1"><FiX size={12} /> Failed</span>;
       default: return <span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs font-medium">{status}</span>;
     }
   };
@@ -191,11 +191,10 @@ export default function OrdersPage() {
             <button
               key={status}
               onClick={() => setStatusFilter(status)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                statusFilter === status
-                  ? 'bg-[#021E14] text-white'
-                  : 'bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-gray-200'
-              }`}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${statusFilter === status
+                ? 'bg-[#021E14] text-white'
+                : 'bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-gray-200'
+                }`}
             >
               {status.charAt(0).toUpperCase() + status.slice(1)}
             </button>
@@ -256,7 +255,7 @@ export default function OrdersPage() {
                       <span className="text-sm text-slate-600 dark:text-slate-300">{order.items?.length || 0} items</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-sm font-medium text-[#021E14] dark:text-[#021E14]">৳{order.totalAmount?.toLocaleString()}</span>
+                      <span className="text-sm font-medium text-emerald-700 dark:text-emerald-400">৳{order.totalAmount?.toLocaleString()}</span>
                     </td>
                     <td className="px-4 py-3">
                       {getStatusBadge(order.paymentStatus)}
@@ -274,7 +273,7 @@ export default function OrdersPage() {
                           <button
                             onClick={() => handleUpdateStatus(order._id, 'completed')}
                             disabled={saving}
-                            className="p-1.5 bg-[#021E14] text-white rounded-md hover:bg-[#021E14] transition-colors"
+                            className="p-1.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors"
                             title="Mark Complete"
                           >
                             <FiCheck size={14} />
@@ -282,7 +281,7 @@ export default function OrdersPage() {
                         )}
                         <button
                           onClick={() => openOrderDetails(order)}
-                          className="p-1.5 text-slate-400 hover:text-[#021E14] hover:bg-[#021E14] rounded-md transition-colors"
+                          className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-md transition-colors"
                         >
                           <FiEye size={14} />
                         </button>
@@ -330,7 +329,7 @@ export default function OrdersPage() {
             <div className="px-5 py-4 border-b border-gray-200 dark:border-slate-700 bg-[#021E14] flex items-center justify-between">
               <div>
                 <h3 className="text-base font-semibold text-white">Order Details</h3>
-                <p className="text-[#021E14] text-xs flex items-center gap-1 mt-0.5">
+                <p className="text-emerald-300 text-xs flex items-center gap-1 mt-0.5">
                   <FiHash size={12} /> {selectedOrder.orderNumber || selectedOrder._id?.slice(-6).toUpperCase()}
                 </p>
               </div>
@@ -432,13 +431,12 @@ export default function OrdersPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-slate-800 dark:text-white truncate">{item.title}</p>
-                        <span className={`px-1.5 py-0.5 rounded text-xs ${
-                          item.productType === 'course' ? 'bg-[#021E14] text-[#021E14]' : 'bg-amber-50 text-amber-600'
-                        }`}>
+                        <span className={`px-1.5 py-0.5 rounded text-xs ${item.productType === 'course' ? 'bg-blue-50 text-blue-600' : 'bg-amber-50 text-amber-600'
+                          }`}>
                           {item.productType}
                         </span>
                       </div>
-                      <span className="text-sm font-medium text-[#021E14]">৳{item.price?.toLocaleString()}</span>
+                      <span className="text-sm font-medium text-emerald-700 dark:text-emerald-400">৳{item.price?.toLocaleString()}</span>
                     </div>
                   ))}
                 </div>
@@ -448,8 +446,8 @@ export default function OrdersPage() {
               <div className="p-4 bg-[#021E14] rounded-md text-white">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-[#021E14]">Total Amount</p>
-                    <p className="text-xs text-[#021E14] mt-0.5">Including all fees</p>
+                    <p className="text-emerald-300 text-xs">Total Amount</p>
+                    <p className="text-emerald-300/70 text-xs mt-0.5">Including all fees</p>
                   </div>
                   <span className="text-2xl font-semibold">৳{selectedOrder.totalAmount?.toLocaleString()}</span>
                 </div>
@@ -484,9 +482,9 @@ export default function OrdersPage() {
               )}
 
               {selectedOrder.paymentStatus === 'failed' && (
-                <div className="p-3 bg-[#021E14] border border-[#021E14] rounded-md flex items-center gap-2">
-                  <FiAlertCircle className="text-[#021E14]" size={16} />
-                  <p className="text-xs text-[#021E14]">This transaction was marked as failed. Please audit manually if necessary.</p>
+                <div className="p-3 bg-red-50 border border-red-200 rounded-md flex items-center gap-2">
+                  <FiAlertCircle className="text-red-500" size={16} />
+                  <p className="text-xs text-red-600">This transaction was marked as failed. Please audit manually if necessary.</p>
                 </div>
               )}
             </div>

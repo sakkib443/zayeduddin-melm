@@ -90,9 +90,9 @@ const ContactPage = () => {
   ];
 
   const socialLinks = [
-    { icon: FaFacebookF, href: "#", color: "hover:bg-[#1877F2]" },
+    { icon: FaFacebookF, href: "https://web.facebook.com/zayeduddin.official/", color: "hover:bg-[#1877F2]" },
     { icon: FaYoutube, href: "#", color: "hover:bg-[#FF0000]" },
-    { icon: FaLinkedinIn, href: "#", color: "hover:bg-[#0A66C2]" },
+    { icon: FaLinkedinIn, href: "https://www.linkedin.com/in/zayeduddin/", color: "hover:bg-[#0A66C2]" },
     { icon: FaInstagram, href: "#", color: "hover:bg-[#E4405F]" },
     { icon: FaWhatsapp, href: "#", color: "hover:bg-[#25D366]" },
   ];

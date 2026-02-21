@@ -10,8 +10,8 @@ const AboutMe = () => {
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
     const socialLinks = [
-        { icon: <FaFacebookF />, href: "https://facebook.com", color: "#1877F2" },
-        { icon: <FaLinkedinIn />, href: "https://linkedin.com", color: "#0A66C2" },
+        { icon: <FaFacebookF />, href: "https://web.facebook.com/zayeduddin.official/", color: "#1877F2" },
+        { icon: <FaLinkedinIn />, href: "https://www.linkedin.com/in/zayeduddin/", color: "#0A66C2" },
     ];
 
     return (

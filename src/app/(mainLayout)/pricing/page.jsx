@@ -112,7 +112,7 @@ const PricingPage = () => {
                                     }`}
                             >
                                 <span>{language === 'bn' ? 'বার্ষিক' : 'Yearly'}</span>
-                                <span className="bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14] text-[10px] px-1.5 py-0.5 rounded-full">-20%</span>
+                                <span className="bg-[#021E14]/10 dark:bg-[#021E14]/20 text-[#021E14] dark:text-emerald-400 text-[10px] px-1.5 py-0.5 rounded-full">-20%</span>
                             </button>
                         </div>
                     </div>
@@ -166,7 +166,7 @@ const PricingPage = () => {
                                 {plan.features.map((feature, fIdx) => (
                                     <div key={fIdx} className="flex items-center gap-3">
                                         <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${feature.included
-                                            ? "bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]"
+                                            ? "bg-[#021E14]/10 dark:bg-[#021E14]/20 text-[#021E14] dark:text-emerald-400"
                                             : "bg-slate-100 dark:bg-white/5 text-slate-400/50"
                                             }`}>
                                             {feature.included ? <LuCheck size={12} strokeWidth={3} /> : <LuX size={12} />}

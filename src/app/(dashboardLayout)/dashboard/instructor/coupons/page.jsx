@@ -112,7 +112,7 @@ const MentorCouponsPage = () => {
                             <div className={`absolute top-4 right-4 px-2.5 py-1 rounded-full text-xs font-bold ${!coupon.isActive
                                 ? 'bg-gray-100 text-gray-500'
                                 : isExpired(coupon.endDate)
-                                    ? 'bg-[#021E14] text-[#021E14]'
+                                    ? 'bg-[#021E14] text-white'
                                     : 'bg-green-100 text-green-600'
                                 }`}>
                                 {!coupon.isActive ? 'Inactive' : isExpired(coupon.endDate) ? 'Expired' : 'Active'}

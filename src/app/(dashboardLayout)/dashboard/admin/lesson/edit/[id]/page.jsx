@@ -250,7 +250,7 @@ export default function EditLessonPage() {
                 <div className="flex items-center gap-2">
                     <button
                         onClick={handleDelete}
-                        className="px-3 py-2 rounded-md border border-[#021E14] bg-[#021E14] text-[#021E14] hover:bg-[#021E14] text-sm font-medium transition-all flex items-center gap-1.5"
+                        className="px-3 py-2 rounded-md border border-[#021E14] bg-[#021E14] text-white hover:bg-[#01140D] text-sm font-medium transition-all flex items-center gap-1.5"
                     >
                         <FiTrash2 size={14} />
                         মুছুন
@@ -269,7 +269,7 @@ export default function EditLessonPage() {
             {/* Basic Info Section */}
             <div className="bg-white rounded-md border border-slate-200 p-5 space-y-5">
                 <div className="flex items-center gap-2 mb-1">
-                    <div className="w-7 h-7 rounded-md bg-[#021E14] text-[#021E14] flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-md bg-[#021E14] text-white flex items-center justify-center">
                         <FiLayers size={14} />
                     </div>
                     <h3 className="text-sm font-semibold text-slate-700">মৌলিক তথ্য</h3>
@@ -406,7 +406,7 @@ export default function EditLessonPage() {
                             <tab.icon size={15} />
                             {tab.label}
                             {tab.badge > 0 && (
-                                <span className="ml-1 px-1.5 py-0.5 rounded-full bg-[#021E14] text-[#021E14] text-[10px] font-bold">
+                                <span className="ml-1 px-1.5 py-0.5 rounded-full bg-[#021E14] text-white text-[10px] font-bold">
                                     {tab.badge}
                                 </span>
                             )}

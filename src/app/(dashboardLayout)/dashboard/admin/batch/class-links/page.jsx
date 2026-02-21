@@ -132,7 +132,7 @@ export default function BatchClassLinksPage() {
 
             {/* Notifications */}
             {error && (
-                <div className="p-4 bg-[#021E14] border border-[#021E14] text-[#01140D] rounded-md flex items-center gap-2">
+                <div className="p-4 bg-[#021E14] border border-[#021E14] text-emerald-700 rounded-md flex items-center gap-2">
                     <FiX size={18} />
                     {error}
                 </div>

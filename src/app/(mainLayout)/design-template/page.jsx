@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { API_URL } from '@/config/api';
 import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
@@ -245,7 +245,7 @@ const DesignTemplateContent = () => {
         if (selectedTemplate.accessType === 'free') {
             const fileUrl = selectedTemplate.downloadFile;
             if (!fileUrl) {
-                toast.error(language === 'bn' ? 'ডাউনলোড ফাইল পাওয়া যায়নি' : 'Download file not available');
+                toast.error(language === 'bn' ? '??????? ???? ?????? ??????' : 'Download file not available');
                 return;
             }
 
@@ -263,18 +263,18 @@ const DesignTemplateContent = () => {
 
             // Open download in new tab
             window.open(downloadUrl, '_blank');
-            toast.success(language === 'bn' ? 'ডাউনলোড শুরু হয়েছে!' : 'Download started!');
+            toast.success(language === 'bn' ? '??????? ???? ??????!' : 'Download started!');
             return;
         }
 
         // For paid templates - require login and use backend API
         if (!user) {
-            toast.error(language === 'bn' ? 'ডাউনলোড করতে আগে লগইন করুন' : 'Please login to download');
+            toast.error(language === 'bn' ? '??????? ???? ??? ???? ????' : 'Please login to download');
             return;
         }
 
         try {
-            toast.loading(language === 'bn' ? 'ফাইলটি তৈরি করা হচ্ছে...' : 'Preparing file...', { id: 'download-toast' });
+            toast.loading(language === 'bn' ? '?????? ???? ??? ?????...' : 'Preparing file...', { id: 'download-toast' });
             const token = localStorage.getItem('token');
 
             const response = await fetch(`${API_URL}/design-templates/${selectedTemplate._id}/download`, {
@@ -284,13 +284,13 @@ const DesignTemplateContent = () => {
 
             if (data.success && data.redirectUrl) {
                 window.open(data.redirectUrl, '_blank');
-                toast.success(language === 'bn' ? 'ডাউনলোড শুরু হয়েছে' : 'Download started!', { id: 'download-toast' });
+                toast.success(language === 'bn' ? '??????? ???? ??????' : 'Download started!', { id: 'download-toast' });
             } else {
-                toast.error(language === 'bn' ? 'ফাইল পাওয়া যায়নি' : 'File not found', { id: 'download-toast' });
+                toast.error(language === 'bn' ? '???? ?????? ??????' : 'File not found', { id: 'download-toast' });
             }
         } catch (error) {
             console.error('Download error:', error);
-            toast.error(language === 'bn' ? 'ডাউনলোড করতে সমস্যা হয়েছে' : 'Download failed', { id: 'download-toast' });
+            toast.error(language === 'bn' ? '??????? ???? ?????? ??????' : 'Download failed', { id: 'download-toast' });
         }
     };
 
@@ -415,7 +415,7 @@ const DesignTemplateContent = () => {
 
                                 {/* Price Dropdown */}
                                 <div className="relative">
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none text-[13px]">৳</span>
+                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none text-[13px]">?</span>
                                     <select
                                         value={selectedPrice}
                                         onChange={(e) => setSelectedPrice(e.target.value)}
@@ -657,7 +657,7 @@ const DesignTemplateContent = () => {
                                             <div className="py-6">
                                                 <div className="flex flex-wrap items-center gap-2 mb-3">
                                                     {selectedTemplate.category?.name && (
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20' : 'bg-[#021E14] text-[#021E14] border border-[#021E14]'}`}>
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20' : 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20'}`}>
                                                             {selectedTemplate.category.name}
                                                         </span>
                                                     )}
@@ -818,11 +818,11 @@ const DesignTemplateContent = () => {
                                         ) : (
                                             <>
                                                 <div className={`text-base font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                    à§³{currentPrice?.toLocaleString()}
+                                                    ৳{currentPrice?.toLocaleString()}
                                                 </div>
                                                 {hasDiscount && (
                                                     <div className="text-[10px] text-gray-400 line-through">
-                                                        à§³{selectedTemplate.price?.toLocaleString()}
+                                                        ৳{selectedTemplate.price?.toLocaleString()}
                                                     </div>
                                                 )}
                                             </>
@@ -854,8 +854,8 @@ const DesignTemplateContent = () => {
                                         <span className={`text-lg font-bold text-green-500 ${bengaliClass}`}>{t('designTemplatePage.free')}</span>
                                     ) : (
                                         <>
-                                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>à§³{currentPrice?.toLocaleString()}</span>
-                                            {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">à§³{selectedTemplate.price?.toLocaleString()}</span>}
+                                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>৳{currentPrice?.toLocaleString()}</span>
+                                            {hasDiscount && <span className="text-xs text-gray-400 line-through ml-2">৳{selectedTemplate.price?.toLocaleString()}</span>}
                                         </>
                                     )}
                                 </div>

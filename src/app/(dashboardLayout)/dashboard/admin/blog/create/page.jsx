@@ -390,13 +390,13 @@ export default function CreateBlogPage() {
                             {formData.tags.map((tag, idx) => (
                                 <span
                                     key={idx}
-                                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs ${isDark
-                                        ? 'bg-[#021E14]/20 text-[#021E14]'
-                                        : 'bg-[#021E14] text-[#021E14]'
+                                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${isDark
+                                        ? 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/20'
+                                        : 'bg-[#021E14]/10 text-[#021E14]'
                                         }`}
                                 >
                                     #{tag}
-                                    <button onClick={() => removeTag(tag)} className="hover:text-[#021E14] transition-colors">
+                                    <button onClick={() => removeTag(tag)} className={`${isDark ? 'hover:text-red-400' : 'hover:text-red-500'} transition-colors`}>
                                         <FiX size={12} />
                                     </button>
                                 </span>

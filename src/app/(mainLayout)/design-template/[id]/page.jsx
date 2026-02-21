@@ -347,7 +347,7 @@ const DesignTemplateDetails = () => {
                         <div className="py-6">
                             <div className="flex flex-wrap items-center gap-2 mb-3">
                                 {template.category?.name && (
-                                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20' : 'bg-[#021E14] text-[#021E14] border border-[#021E14]'}`}>
+                                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20' : 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20'}`}>
                                         {template.category.name}
                                     </span>
                                 )}

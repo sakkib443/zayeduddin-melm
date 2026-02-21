@@ -47,7 +47,7 @@ export default function CreateCoursePage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex-1 flex items-center justify-center gap-2.5 px-4 py-3.5 font-medium text-sm transition-all relative
                     ${isActive
-                      ? 'text-[#021E14] bg-[#021E14]/50'
+                      ? 'text-[#021E14] bg-[#021E14]/10'
                       : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
                     }`}
                 >
@@ -74,15 +74,15 @@ export default function CreateCoursePage() {
           {/* Step Indicator */}
           <div className="px-6 py-2.5 bg-slate-50 border-b border-slate-100">
             <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
-              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'course' ? 'bg-[#021E14] text-[#01140D]' : 'bg-slate-200 text-slate-500'}`}>
+              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'course' ? 'bg-[#021E14] text-white' : 'bg-slate-200 text-slate-500'}`}>
                 1. Course
               </span>
               <span className="text-slate-300">→</span>
-              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'module' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
+              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'module' ? 'bg-[#021E14] text-white' : 'bg-slate-200 text-slate-500'}`}>
                 2. Module
               </span>
               <span className="text-slate-300">→</span>
-              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'lesson' ? 'bg-[#021E14] text-[#021E14]' : 'bg-slate-200 text-slate-500'}`}>
+              <span className={`px-3 py-1 rounded-md font-medium ${activeTab === 'lesson' ? 'bg-[#021E14] text-white' : 'bg-slate-200 text-slate-500'}`}>
                 3. Lesson
               </span>
             </div>

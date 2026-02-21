@@ -20,16 +20,16 @@ export default function LessonDocuments({ documents = [] }) {
     }
 
     const fileTypeConfig = {
-        pdf: { icon: FiFileText, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
-        doc: { icon: FiFileText, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
-        docx: { icon: FiFileText, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
-        ppt: { icon: FiFile, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
-        pptx: { icon: FiFile, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
+        pdf: { icon: FiFileText, color: 'text-white bg-[#021E14] border-[#021E14]' },
+        doc: { icon: FiFileText, color: 'text-white bg-[#021E14] border-[#021E14]' },
+        docx: { icon: FiFileText, color: 'text-white bg-[#021E14] border-[#021E14]' },
+        ppt: { icon: FiFile, color: 'text-white bg-[#021E14] border-[#021E14]' },
+        pptx: { icon: FiFile, color: 'text-white bg-[#021E14] border-[#021E14]' },
         xls: { icon: FiFile, color: 'text-green-500 bg-green-50 border-green-100' },
         xlsx: { icon: FiFile, color: 'text-green-500 bg-green-50 border-green-100' },
         zip: { icon: FiArchive, color: 'text-[#D4AF37] bg-amber-50 border-amber-100' },
-        image: { icon: FiImage, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
-        video: { icon: FiVideo, color: 'text-[#021E14] bg-[#021E14] border-[#021E14]' },
+        image: { icon: FiImage, color: 'text-white bg-[#021E14] border-[#021E14]' },
+        video: { icon: FiVideo, color: 'text-white bg-[#021E14] border-[#021E14]' },
         other: { icon: FiFile, color: 'text-slate-500 bg-slate-50 border-slate-100' },
     };
 

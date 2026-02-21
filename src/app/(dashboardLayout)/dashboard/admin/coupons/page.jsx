@@ -219,7 +219,7 @@ const CouponsPage = () => {
                 </div>
                 <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                   !coupon.isActive ? 'bg-gray-100 text-gray-500' :
-                  isExpired(coupon.endDate) ? 'bg-[#021E14] text-[#021E14]' : 'bg-emerald-50 text-[#021E14]'
+                  isExpired(coupon.endDate) ? 'bg-[#021E14] text-white' : 'bg-emerald-50 text-[#021E14]'
                 }`}>
                   {!coupon.isActive ? 'Inactive' : isExpired(coupon.endDate) ? 'Expired' : 'Active'}
                 </span>

@@ -66,8 +66,8 @@ const StatsCard = ({ title, value, change, changeType, icon: Icon, gradient, loa
                         {subtitle && <p className="text-xs text-slate-400 mb-2">{subtitle}</p>}
                         {change && (
                             <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${changeType === 'up'
-                                ? (isDark ? 'bg-[#021E14]/20 text-emerald-400' : 'bg-emerald-50 text-[#021E14]')
-                                : (isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]')
+                                ? (isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-50 text-emerald-600')
+                                : (isDark ? 'bg-red-500/20 text-red-400' : 'bg-red-50 text-red-600')
                                 }`}>
                                 {changeType === 'up' ? <FiTrendingUp size={12} /> : <FiTrendingDown size={12} />}
                                 <span>{change}</span>

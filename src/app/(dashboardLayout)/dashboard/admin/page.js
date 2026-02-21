@@ -61,7 +61,7 @@ const StatsCard = ({ title, value, change, changeType, icon: Icon, color, loadin
           </p>
           {subtitle && <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>{subtitle}</p>}
           {change && (
-            <div className={`inline-flex items-center gap-1 mt-2 text-xs font-normal ${changeType === 'up' ? 'text-[#021E14]' : 'text-[#021E14]'}`}>
+            <div className={`inline-flex items-center gap-1 mt-2 text-xs font-normal ${changeType === 'up' ? 'text-emerald-600' : 'text-red-500'}`}>
               {changeType === 'up' ? <FiTrendingUp size={12} /> : <FiTrendingDown size={12} />}
               <span>{change}</span>
             </div>
@@ -79,7 +79,7 @@ const StatsCard = ({ title, value, change, changeType, icon: Icon, color, loadin
 const ActivityItem = ({ icon: Icon, title, description, time, color, isNew }) => {
   const { isDark } = useTheme();
   return (
-    <div className={`flex items-start gap-3 p-3 transition-all ${isNew ? (isDark ? 'bg-[#021E14]/10' : 'bg-[#021E14]') : ''}`}>
+    <div className={`flex items-start gap-3 p-3 transition-all ${isNew ? (isDark ? 'bg-blue-500/10' : 'bg-blue-50') : ''}`}>
       <div
         className="w-9 h-9 rounded-md flex items-center justify-center shrink-0"
         style={{ background: `${color}15` }}
@@ -280,7 +280,7 @@ export default function AdminDashboard() {
     switch (status) {
       case 'completed': return 'bg-emerald-100 text-emerald-700';
       case 'pending': return 'bg-amber-100 text-amber-700';
-      case 'processing': return 'bg-[#021E14] text-[#021E14]';
+      case 'processing': return 'bg-blue-100 text-blue-700';
       default: return 'bg-gray-100 text-gray-600';
     }
   };
@@ -405,7 +405,7 @@ export default function AdminDashboard() {
                 <p className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Best selling</p>
               </div>
             </div>
-            <Link href="/dashboard/admin/course" className="text-xs font-normal text-[#021E14] hover:text-[#01140D] flex items-center gap-1">
+            <Link href="/dashboard/admin/course" className="text-xs font-normal text-[#021E14] hover:text-emerald-800 flex items-center gap-1">
               View All <FiArrowRight size={12} />
             </Link>
           </div>
@@ -437,7 +437,7 @@ export default function AdminDashboard() {
         {/* Live Stats */}
         <div className={`p-5 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-9 h-9 bg-[#021E14] text-[#021E14] rounded-md flex items-center justify-center">
+            <div className="w-9 h-9 bg-indigo-100 text-indigo-600 rounded-md flex items-center justify-center">
               <FiActivity size={18} />
             </div>
             <div>
@@ -473,7 +473,7 @@ export default function AdminDashboard() {
         <div className={`lg:col-span-2 rounded-md border overflow-hidden ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
             <h2 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Recent Orders</h2>
-            <Link href="/dashboard/admin/orders" className="text-sm font-normal text-[#021E14] hover:text-[#01140D] flex items-center gap-1">
+            <Link href="/dashboard/admin/orders" className="text-sm font-normal text-[#021E14] hover:text-emerald-800 flex items-center gap-1">
               View All <FiArrowRight size={14} />
             </Link>
           </div>
@@ -526,7 +526,7 @@ export default function AdminDashboard() {
         <div className={`rounded-md border overflow-hidden ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
           <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
             <h2 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Recent Activity</h2>
-            <Link href="/dashboard/admin/notifications" className="text-sm font-normal text-[#021E14] hover:text-[#01140D] flex items-center gap-1">
+            <Link href="/dashboard/admin/notifications" className="text-sm font-normal text-[#021E14] hover:text-emerald-800 flex items-center gap-1">
               View All <FiArrowRight size={14} />
             </Link>
           </div>

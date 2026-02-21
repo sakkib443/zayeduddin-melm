@@ -85,7 +85,7 @@ export default function AllModulesPage() {
                     <p className="text-slate-500 text-sm mt-1">Manage course modules across your platform</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="px-4 py-2 bg-[#021E14] text-[#021E14] rounded-xl text-sm font-bold">
+                    <span className="px-4 py-2 bg-[#021E14] text-white rounded-xl text-sm font-bold">
                         {modules.length} Total Modules
                     </span>
                 </div>
@@ -192,7 +192,7 @@ export default function AllModulesPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/dashboard/instructor/module/edit/${mod._id}`}
-                                                    className="p-2 rounded-lg hover:bg-[#021E14] text-[#021E14] transition-colors"
+                                                    className="p-2 rounded-lg hover:bg-[#021E14]/10 text-[#021E14] transition-colors"
                                                     title="Edit Module"
                                                 >
                                                     <FiEdit2 size={16} />

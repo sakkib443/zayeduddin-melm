@@ -22,7 +22,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
     const [loading, setLoading] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(null);
 
-    
+
 
     // Timer for quiz
     useEffect(() => {
@@ -133,12 +133,12 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
             <div className="space-y-6">
                 {/* Result Card */}
                 <div className={`p-8 rounded-2xl text-center ${result.passed
-                    ? 'bg-gradient-to-br from-[#021E14]/10 to-[#021E14]/10 border border-[#021E14]/20'
-                    : 'bg-gradient-to-br from-[#021E14]/10 to-[#01140D] border border-[#021E14]/20'
+                    ? 'bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200'
+                    : 'bg-gradient-to-br from-red-50 to-orange-50 border border-red-200'
                     }`}>
                     <div className={`w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center ${result.passed
-                        ? 'bg-gradient-to-br from-[#021E14] to-[#021E14] shadow-lg shadow-[#021E14]/30'
-                        : 'bg-gradient-to-br from-[#021E14] to-[#01140D] shadow-lg shadow-[#021E14]/30'
+                        ? 'bg-gradient-to-br from-emerald-500 to-green-600 shadow-lg shadow-emerald-500/30'
+                        : 'bg-gradient-to-br from-red-500 to-orange-600 shadow-lg shadow-red-500/30'
                         }`}>
                         {result.passed ? (
                             <FiAward size={36} className="text-white" />
@@ -147,11 +147,11 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                         )}
                     </div>
 
-                    <h3 className={`text-2xl font-bold mb-2 ${result.passed ? 'text-[#021E14]' : 'text-[#021E14]'}`}>
+                    <h3 className={`text-2xl font-bold mb-2 ${result.passed ? 'text-emerald-700' : 'text-red-600'}`}>
                         {result.passed ? 'Congratulations!' : 'Keep Learning!'}
                     </h3>
 
-                    <p className={`text-sm mb-6 ${result.passed ? 'text-[#021E14]/80' : 'text-[#021E14]/80'}`}>
+                    <p className={`text-sm mb-6 ${result.passed ? 'text-emerald-600/80' : 'text-red-500/80'}`}>
                         {result.passed
                             ? 'You have successfully passed this quiz!'
                             : `You need ${quizSettings.passingScore || 70}% to pass. Try again!`}
@@ -192,12 +192,12 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                                 <div
                                     key={r.questionId}
                                     className={`p-4 rounded-xl border ${r.correct
-                                        ? 'bg-[#021E14]/5 border-[#021E14]/20'
-                                        : 'bg-[#021E14] border-[#021E14]'
+                                        ? 'bg-emerald-50 border-emerald-200'
+                                        : 'bg-red-50 border-red-200'
                                         }`}
                                 >
                                     <div className="flex items-start gap-3">
-                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${r.correct ? 'bg-[#021E14] text-white' : 'bg-[#021E14] text-white'}`}>
+                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${r.correct ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}`}>
                                             {r.correct ? <FiCheck size={16} /> : <FiX size={16} />}
                                         </div>
                                         <div className="flex-1">
@@ -208,7 +208,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
                                                 Your answer: <span className="font-medium">{r.userAnswer || 'Not answered'}</span>
                                             </p>
                                             {!r.correct && r.correctAnswer && (
-                                                <p className="text-xs text-[#021E14] mt-1">
+                                                <p className="text-xs text-emerald-600 mt-1">
                                                     Correct answer: <span className="font-medium">{r.correctAnswer}</span>
                                                 </p>
                                             )}
@@ -242,7 +242,7 @@ export default function LessonQuiz({ lessonId, questions = [], quizSettings = {}
 
                 <div className="flex items-center gap-4">
                     {timeRemaining !== null && (
-                        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-sm font-bold ${timeRemaining < 60 ? 'bg-[#021E14] text-[#021E14]' : 'bg-gray-100 text-gray-600'}`}>
+                        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-mono text-sm font-bold ${timeRemaining < 60 ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-600'}`}>
                             <FiClock size={14} />
                             {formatTime(timeRemaining)}
                         </div>

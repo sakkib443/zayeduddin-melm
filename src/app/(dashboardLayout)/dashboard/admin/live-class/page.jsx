@@ -103,8 +103,8 @@ export default function LiveClassPage() {
 
     const getStatusBadge = (status) => {
         const styles = {
-            scheduled: 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/30 dark:text-[#021E14]',
-            live: 'bg-[#021E14] text-[#01140D] dark:bg-[#021E14]/30 dark:text-[#021E14]',
+            scheduled: 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/30 dark:text-[#021E14]',
+            live: 'bg-[#021E14] text-white dark:bg-[#021E14]/30 dark:text-[#021E14]',
             completed: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
             cancelled: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
         };

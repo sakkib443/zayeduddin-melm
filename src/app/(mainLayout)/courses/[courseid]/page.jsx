@@ -330,7 +330,7 @@ const SingleCourse = () => {
                 onClick={handleToggleLike}
                 disabled={isLiking}
                 className={`flex items-center gap-2 px-3 py-2 rounded-md border transition-all ${currentCourse.isLiked
-                  ? 'bg-[#021E14] border-[#021E14] text-[#021E14]'
+                  ? 'bg-[#021E14] border-[#021E14] text-white'
                   : 'bg-white border-gray-200 text-gray-600 hover:border-[#021E14] hover:text-[#021E14]'
                   }`}
               >
@@ -834,7 +834,7 @@ const SingleCourse = () => {
                           {batch.schedule?.length > 0 && (
                             <div className="flex flex-wrap gap-1 mb-3">
                               {batch.schedule.slice(0, 3).map((sch, sIdx) => (
-                                <span key={sIdx} className="px-2 py-1 bg-[#021E14] text-[#01140D] text-[10px] font-medium rounded capitalize">
+                                <span key={sIdx} className="px-2 py-1 bg-[#021E14] text-white text-[10px] font-medium rounded capitalize">
                                   {sch.day} {sch.startTime}
                                 </span>
                               ))}

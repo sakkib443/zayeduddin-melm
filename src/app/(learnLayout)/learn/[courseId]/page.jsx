@@ -157,7 +157,7 @@ export default function CourseLearnPage() {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
                 <div className="max-w-md w-full bg-white p-8 rounded-2xl border border-gray-200 shadow-xl text-center">
-                    <div className="w-16 h-16 bg-[#021E14] text-[#021E14] rounded-2xl flex items-center justify-center mx-auto mb-5">
+                    <div className="w-16 h-16 bg-[#021E14] text-white rounded-2xl flex items-center justify-center mx-auto mb-5">
                         <FiX size={32} />
                     </div>
                     <h2 className="text-xl font-bold text-gray-800 mb-3">Oops! Something went wrong</h2>

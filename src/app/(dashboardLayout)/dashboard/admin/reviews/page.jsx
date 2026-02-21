@@ -30,7 +30,7 @@ const AdminReviewsPage = () => {
   const StatusBadge = ({ status }) => {
     const styles = {
       approved: "bg-emerald-50 text-[#021E14]",
-      rejected: "bg-[#021E14] text-[#021E14]",
+      rejected: "bg-[#021E14] text-white",
       pending: "bg-amber-50 text-amber-600",
     };
     return (

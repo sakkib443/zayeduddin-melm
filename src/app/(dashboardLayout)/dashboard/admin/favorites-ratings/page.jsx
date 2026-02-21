@@ -252,10 +252,10 @@ export default function FavoritesRatingsPage() {
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded text-xs font-medium ${
                           fav.productType === 'course' 
-                            ? 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
+                            ? 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
                             : fav.productType === 'website'
                             ? 'bg-emerald-50 text-[#021E14] dark:bg-[#021E14]/10 dark:text-emerald-400'
-                            : 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
+                            : 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]'
                         }`}>
                           {fav.productType}
                         </span>
@@ -348,7 +348,7 @@ export default function FavoritesRatingsPage() {
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <div className={`w-7 h-7 rounded-md flex items-center justify-center text-xs font-medium ${
-                            isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'
+                            isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-white'
                           }`}>
                             {review.user?.firstName?.[0]}
                           </div>
@@ -381,7 +381,7 @@ export default function FavoritesRatingsPage() {
                         <button
                           onClick={() => handleDeleteClick(review)}
                           disabled={deletingReviewId === review._id}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium bg-[#021E14] hover:bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:hover:bg-[#021E14]/20 dark:text-[#021E14] disabled:opacity-50"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium bg-[#021E14] hover:bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:hover:bg-[#021E14]/20 dark:text-[#021E14] disabled:opacity-50"
                         >
                           <FiTrash2 size={14} />
                           {deletingReviewId === review._id ? 'Deleting...' : 'Delete'}

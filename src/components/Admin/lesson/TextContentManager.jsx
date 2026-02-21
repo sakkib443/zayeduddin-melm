@@ -146,7 +146,7 @@ export default function TextContentManager({ textBlocks = [], mainContent = '', 
                                         <button
                                             type="button"
                                             onClick={(e) => { e.stopPropagation(); handleDelete(index); }}
-                                            className="p-1.5 hover:bg-[#021E14] rounded-lg text-slate-500 hover:text-[#021E14] transition-colors"
+                                            className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-emerald-600 transition-colors"
                                         >
                                             <FiTrash2 size={14} />
                                         </button>

@@ -79,7 +79,7 @@ export default function CertificationsPage() {
       case 'Expiring Soon':
         return 'bg-yellow-50 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-400';
       case 'Expired':
-        return 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]';
+        return 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]';
       default:
         return 'bg-gray-50 text-gray-600 dark:bg-gray-500/10 dark:text-gray-400';
     }

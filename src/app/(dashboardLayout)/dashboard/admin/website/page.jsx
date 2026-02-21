@@ -111,7 +111,7 @@ export default function WebsiteAdminPage() {
             approved: { bg: 'bg-emerald-100 text-emerald-700', icon: FiCheckCircle, label: 'Active' },
             pending: { bg: 'bg-amber-100 text-amber-700', icon: FiClock, label: 'Pending' },
             draft: { bg: 'bg-gray-100 text-gray-600', icon: null, label: 'Draft' },
-            rejected: { bg: 'bg-[#021E14] text-[#01140D]', icon: FiAlertCircle, label: 'Rejected' },
+            rejected: { bg: 'bg-[#021E14] text-white', icon: FiAlertCircle, label: 'Rejected' },
         };
         const style = styles[status] || styles.draft;
         return (
@@ -340,7 +340,7 @@ export default function WebsiteAdminPage() {
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(website._id)}
-                                        className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-[#021E14] text-[#021E14] hover:bg-[#021E14] transition-colors"
+                                        className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-[#021E14] text-white hover:bg-[#01140D] transition-colors"
                                     >
                                         <FiTrash2 size={12} />
                                         Delete

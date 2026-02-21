@@ -140,7 +140,7 @@ const CreateCategory = () => {
       {error && (
         <div className="bg-[#021E14] dark:bg-[#021E14]/20 border border-[#021E14] dark:border-[#021E14] rounded-md p-4 flex items-start gap-3">
           <FiAlertCircle className="text-[#021E14] shrink-0 mt-0.5" size={18} />
-          <p className="text-sm text-[#01140D] dark:text-[#021E14]">{error}</p>
+          <p className="text-sm text-emerald-700 dark:text-[#021E14]">{error}</p>
         </div>
       )}
 

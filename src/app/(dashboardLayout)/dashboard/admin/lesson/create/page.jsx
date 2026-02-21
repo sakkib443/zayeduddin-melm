@@ -544,7 +544,7 @@ export default function CreateLessonPage() {
                                 <tab.icon size={14} />
                                 {tab.label}
                                 {tab.badge > 0 && (
-                                    <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold bg-[#021E14] text-[#021E14]">
+                                    <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold bg-[#021E14] text-white">
                                         {tab.badge}
                                     </span>
                                 )}

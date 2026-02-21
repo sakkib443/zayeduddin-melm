@@ -27,7 +27,7 @@ const MentorSoftwarePage = () => {
     const router = useRouter();
 
     const fetchSoftware = async () => {
-        
+
         const token = localStorage.getItem('token');
         try {
             setLoading(true);
@@ -54,25 +54,25 @@ const MentorSoftwarePage = () => {
             case 'approved': return 'bg-emerald-100 text-[#021E14] border-emerald-200';
             case 'pending': return 'bg-amber-100 text-amber-600 border-amber-200';
             case 'draft': return 'bg-slate-100 text-slate-600 border-slate-200';
-            case 'rejected': return 'bg-[#021E14] text-[#021E14] border-[#021E14]';
+            case 'rejected': return 'bg-red-100 text-red-600 border-red-200';
             default: return 'bg-slate-100 text-slate-600';
         }
     };
 
     const getPlatformColor = (platform) => {
         const colors = {
-            'WordPress': 'bg-[#021E14] text-[#021E14]',
-            'PHP': 'bg-[#021E14] text-[#021E14]',
+            'WordPress': 'bg-blue-100 text-blue-700',
+            'PHP': 'bg-indigo-100 text-indigo-700',
             'JavaScript': 'bg-yellow-100 text-yellow-700',
             'React': 'bg-cyan-100 text-cyan-600',
             'Next.js': 'bg-slate-800 text-white',
-            'Vue.js': 'bg-emerald-100 text-[#021E14]',
+            'Vue.js': 'bg-emerald-100 text-emerald-600',
             'Node.js': 'bg-green-100 text-green-600',
-            'Laravel': 'bg-[#021E14] text-[#021E14]',
-            'Python': 'bg-[#021E14] text-[#021E14]',
+            'Laravel': 'bg-red-100 text-red-600',
+            'Python': 'bg-sky-100 text-sky-700',
             'Flutter': 'bg-sky-100 text-sky-600',
         };
-        return colors[platform] || 'bg-[#021E14] text-[#021E14]';
+        return colors[platform] || 'bg-gray-100 text-gray-600';
     };
 
     const stats = {
@@ -209,7 +209,7 @@ const MentorSoftwarePage = () => {
                                     <img src={sw.images[0]} alt={sw.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center">
-                                        <FiCode className="text-[#021E14]" size={48} />
+                                        <FiCode className="text-white/40" size={48} />
                                     </div>
                                 )}
                                 <div className="absolute top-3 left-3 flex gap-2">

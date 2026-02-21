@@ -105,7 +105,7 @@ const CategoryPage = () => {
   };
 
   const getTypeBadgeColor = (type) => {
-    const colors = { course: 'bg-[#021E14] text-[#021E14]', website: 'bg-emerald-50 text-[#021E14]', 'design-template': 'bg-[#021E14] text-[#021E14]' };
+    const colors = { course: 'bg-[#021E14] text-white', website: 'bg-emerald-50 text-[#021E14]', 'design-template': 'bg-[#021E14]/10 text-[#021E14]' };
     return colors[type] || 'bg-gray-100 text-gray-600';
   };
 

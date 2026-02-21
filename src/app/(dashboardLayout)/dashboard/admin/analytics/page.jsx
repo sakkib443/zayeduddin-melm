@@ -310,7 +310,7 @@ export default function AnalyticsPage() {
                 {/* Platform Status */}
                 <div className={`lg:col-span-4 rounded-md p-5 border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <div className="flex items-center gap-3 mb-5">
-                        <div className="w-9 h-9 rounded-md bg-[#021E14] text-[#021E14] flex items-center justify-center">
+                        <div className="w-9 h-9 rounded-md bg-[#021E14] text-white flex items-center justify-center">
                             <FiActivity size={18} />
                         </div>
                         <div>
@@ -384,7 +384,7 @@ export default function AnalyticsPage() {
                             <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Recent Purchases</h3>
                             <p className={`text-sm font-normal mt-0.5 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Latest transactions</p>
                         </div>
-                        <button className={`text-sm font-normal text-[#021E14] hover:text-[#01140D] mt-2 md:mt-0`}>View All</button>
+                        <button className={`text-sm font-normal text-[#021E14] hover:text-emerald-800 mt-2 md:mt-0`}>View All</button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">

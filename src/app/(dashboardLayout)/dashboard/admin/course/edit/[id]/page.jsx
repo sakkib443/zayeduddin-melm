@@ -199,7 +199,7 @@ export default function EditCoursePage() {
                 <div>
                   <label className={labelClass}>Course Title (English)</label>
                   <input {...register('title')} placeholder="e.g. Video Editing Masterclass" className={inputClass} />
-                  {errors.title && <p className="text-[#021E14] text-xs mt-1">{errors.title.message}</p>}
+                  {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
                 </div>
                 <div>
                   <label className={labelClass}>Course Title (বাংলা)</label>
@@ -229,7 +229,7 @@ export default function EditCoursePage() {
                     <option value="">Select category...</option>
                     {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
                   </select>
-                  {errors.category && <p className="text-[#021E14] text-xs mt-1">{errors.category.message}</p>}
+                  {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category.message}</p>}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -259,7 +259,7 @@ export default function EditCoursePage() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <label className={labelClass}>What You Will Learn</label>
-                  <button type="button" onClick={() => learningFields.append('')} className="text-xs font-medium text-[#021E14] hover:text-emerald-700">+ Add</button>
+                  <button type="button" onClick={() => learningFields.append('')} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {learningFields.fields.map((field, idx) => (
@@ -274,7 +274,7 @@ export default function EditCoursePage() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <label className={labelClass}>Key Features</label>
-                  <button type="button" onClick={() => featuresFields.append('')} className="text-xs font-medium text-[#021E14] hover:text-emerald-700">+ Add</button>
+                  <button type="button" onClick={() => featuresFields.append('')} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {featuresFields.fields.map((field, idx) => (
@@ -298,7 +298,7 @@ export default function EditCoursePage() {
                     <FiImage className="absolute left-3 top-3.5 text-slate-400" size={16} />
                     <input {...register('thumbnail')} className={`${inputClass} pl-10`} placeholder="https://..." />
                   </div>
-                  {errors.thumbnail && <p className="text-[#021E14] text-xs mt-1">{errors.thumbnail.message}</p>}
+                  {errors.thumbnail && <p className="text-red-500 text-xs mt-1">{errors.thumbnail.message}</p>}
                 </div>
                 <div>
                   <label className={labelClass}>Banner Image URL</label>
@@ -319,7 +319,7 @@ export default function EditCoursePage() {
                 <div>
                   <div className="flex justify-between items-center mb-1">
                     <label className={labelClass}>Search Tags</label>
-                    <button type="button" onClick={() => tagsFields.append('')} className="text-[10px] font-bold text-[#021E14]">+ Add Tag</button>
+                    <button type="button" onClick={() => tagsFields.append('')} className="text-[10px] font-bold text-emerald-600">+ Add Tag</button>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {tagsFields.fields.map((field, idx) => (
@@ -344,7 +344,7 @@ export default function EditCoursePage() {
               <div>
                 <label className={labelClass}>Full Description (English)</label>
                 <textarea {...register('description')} rows={5} className={`${inputClass} resize-none`} placeholder="Detailed course content..."></textarea>
-                {errors.description && <p className="text-[#021E14] text-xs mt-1">{errors.description.message}</p>}
+                {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
               </div>
             </div>
           </div>

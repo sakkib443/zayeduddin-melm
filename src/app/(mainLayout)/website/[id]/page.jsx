@@ -273,7 +273,7 @@ const WebsiteDetailsPage = () => {
                                 onClick={handleToggleLike}
                                 disabled={isLiking}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-md border transition-all ${website.isLiked
-                                    ? 'bg-[#021E14] border-[#021E14] text-[#021E14]'
+                                    ? 'bg-[#021E14] border-[#021E14] text-white'
                                     : 'bg-white border-gray-200 text-gray-600 hover:border-[#021E14] hover:text-[#021E14]'
                                     }`}
                             >

@@ -96,7 +96,7 @@ export default function AllModulesPage() {
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage course modules across your platform</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="px-3 py-1.5 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14] rounded-md text-sm font-medium">
+                    <span className="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 rounded-md text-sm font-medium">
                         {modules.length} Total
                     </span>
                     <button
@@ -167,20 +167,20 @@ export default function AllModulesPage() {
                                 paginatedModules.map((mod) => (
                                     <tr key={mod._id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
                                         <td className="px-4 py-3">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-md bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white text-sm font-semibold">
+                                            <Link href={`/dashboard/admin/module/lessons/${mod._id}`} className="flex items-center gap-3 group">
+                                                <div className="w-10 h-10 rounded-md bg-gradient-to-br from-emerald-600 to-emerald-700 flex items-center justify-center text-white text-sm font-semibold">
                                                     {mod.order}
                                                 </div>
                                                 <div>
-                                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">{mod.title}</h3>
+                                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-emerald-600 transition-colors">{mod.title}</h3>
                                                     <p className="text-xs text-gray-500">{mod.titleBn || 'No Bengali title'}</p>
                                                 </div>
-                                            </div>
+                                            </Link>
                                         </td>
                                         <td className="px-4 py-3">
                                             <Link
                                                 href={`/dashboard/admin/course/modules/${mod.courseId}`}
-                                                className="flex items-center gap-2 text-[#021E14] dark:text-[#021E14] hover:text-[#021E14] text-sm font-medium"
+                                                className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 text-sm font-medium"
                                             >
                                                 <FiBook size={14} />
                                                 {mod.courseName}
@@ -205,13 +205,13 @@ export default function AllModulesPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <Link
                                                     href={`/dashboard/admin/module/create?edit=${mod._id}`}
-                                                    className="p-2 rounded-md hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 text-gray-500 hover:text-[#021E14] transition-colors"
+                                                    className="p-2 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-900/10 text-gray-500 hover:text-emerald-600 transition-colors"
                                                 >
                                                     <FiEdit2 size={16} />
                                                 </Link>
                                                 <button
                                                     onClick={() => handleDelete(mod._id)}
-                                                    className="p-2 rounded-md hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 text-gray-500 hover:text-[#021E14] transition-colors"
+                                                    className="p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-900/10 text-gray-500 hover:text-red-500 transition-colors"
                                                 >
                                                     <FiTrash2 size={16} />
                                                 </button>
@@ -263,7 +263,7 @@ export default function AllModulesPage() {
             </div>
 
             {/* Info Card */}
-            <div className="bg-[#021E14] dark:bg-[#021E14]/10 rounded-md border border-[#021E14] dark:border-[#021E14]/20 p-4">
+            <div className="bg-emerald-50 dark:bg-emerald-900/10 rounded-md border border-emerald-200 dark:border-emerald-800/30 p-4">
                 <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center text-white shrink-0">
                         <FiLayers size={20} />
@@ -271,8 +271,8 @@ export default function AllModulesPage() {
                     <div>
                         <h3 className="font-medium text-gray-900 dark:text-white mb-1">Managing Modules</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Modules are sections within a course. To create or edit modules, go to the specific course's
-                            <strong className="text-[#021E14] dark:text-[#021E14]"> Modules </strong> page by clicking on the course name in the table above,
+                            Click on a <strong className="text-emerald-700 dark:text-emerald-400">module name</strong> to view its lessons.
+                            To create or edit modules, go to the specific course's Modules page by clicking on the course name,
                             or navigate to <strong>All Courses → Modules</strong> button.
                         </p>
                     </div>

@@ -219,8 +219,8 @@ const Login = () => {
 
                   {/* Error Message */}
                   {error && (
-                    <div className="p-3 bg-[#021E14] border border-[#021E14] rounded-xl">
-                      <p className="text-[#021E14] text-sm text-center">{error}</p>
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
+                      <p className="text-red-600 text-sm text-center font-medium">{error}</p>
                     </div>
                   )}
 

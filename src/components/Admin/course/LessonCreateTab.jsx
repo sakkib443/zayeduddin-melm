@@ -227,7 +227,7 @@ export default function LessonCreateTab() {
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-md bg-[#021E14] flex items-center justify-center text-[#021E14]">
+                            <div className="w-8 h-8 rounded-md bg-[#021E14] flex items-center justify-center text-white">
                                 <FiBook size={14} />
                             </div>
                             <div>
@@ -237,7 +237,7 @@ export default function LessonCreateTab() {
                         </div>
                         <FiArrowRight className="text-slate-300" size={14} />
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-md bg-[#021E14] flex items-center justify-center text-[#021E14]">
+                            <div className="w-8 h-8 rounded-md bg-[#021E14] flex items-center justify-center text-white">
                                 <FiLayers size={14} />
                             </div>
                             <div>
@@ -276,7 +276,7 @@ export default function LessonCreateTab() {
                         className="w-full flex items-center justify-between px-4 py-3 hover:bg-emerald-100/50 transition-colors"
                     >
                         <div className="flex items-center gap-2">
-                            <FiCheck className="text-[#021E14]" size={16} />
+                            <FiCheck className="text-emerald-600" size={16} />
                             <span className="font-medium text-emerald-700 text-sm">
                                 {createdLessons.length} Lesson{createdLessons.length > 1 ? 's' : ''} Created
                             </span>
@@ -304,7 +304,7 @@ export default function LessonCreateTab() {
                                         </span>
                                         <span className="text-sm text-slate-700">{lesson.title}</span>
                                         <span className="text-[10px] text-slate-400 capitalize">({lesson.lessonType})</span>
-                                        <FiCheck className="text-[#021E14]" size={12} />
+                                        <FiCheck className="text-emerald-600" size={12} />
                                     </div>
                                 ))}
                             </div>
@@ -317,7 +317,7 @@ export default function LessonCreateTab() {
             <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                 <div className="px-5 py-3 border-b border-slate-100 bg-slate-50">
                     <h2 className="font-semibold text-sm text-slate-800 flex items-center gap-2">
-                        <FiPlay size={16} className="text-[#021E14]" />
+                        <FiPlay size={16} className="text-emerald-600" />
                         Add New Lesson
                     </h2>
                     <p className="text-xs text-slate-500 mt-0.5">Add video, text, documents & quiz</p>
@@ -327,7 +327,7 @@ export default function LessonCreateTab() {
                     {/* Titles */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className={labelClass}>Lesson Title (English) <span className="text-[#021E14]">*</span></label>
+                            <label className={labelClass}>Lesson Title (English) <span className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 name="title"
@@ -354,7 +354,7 @@ export default function LessonCreateTab() {
                     {/* Course & Module Selection */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className={labelClass}>Select Course <span className="text-[#021E14]">*</span></label>
+                            <label className={labelClass}>Select Course <span className="text-red-500">*</span></label>
                             <select
                                 name="course"
                                 value={formData.course}
@@ -369,7 +369,7 @@ export default function LessonCreateTab() {
                             </select>
                         </div>
                         <div>
-                            <label className={labelClass}>Select Module <span className="text-[#021E14]">*</span></label>
+                            <label className={labelClass}>Select Module <span className="text-red-500">*</span></label>
                             <select
                                 name="module"
                                 value={formData.module}
@@ -477,14 +477,14 @@ export default function LessonCreateTab() {
                             type="button"
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-1.5 px-4 py-3 font-medium text-sm border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
-                                ? 'border-[#021E14] text-[#021E14] bg-[#021E14]/50'
+                                ? 'border-[#021E14] text-[#021E14] bg-[#021E14]/10'
                                 : 'border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50'
                                 }`}
                         >
                             <tab.icon size={14} />
                             {tab.label}
                             {tab.badge > 0 && (
-                                <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold bg-[#021E14] text-[#021E14]">
+                                <span className="ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold bg-[#021E14] text-white">
                                     {tab.badge}
                                 </span>
                             )}
@@ -582,7 +582,7 @@ export default function LessonCreateTab() {
                             {formData.questions?.length > 0 && (
                                 <div className="mt-4 p-4 bg-slate-50 rounded-md border border-slate-200 space-y-3">
                                     <h4 className="font-semibold text-slate-800 text-sm flex items-center gap-2">
-                                        <FiSettings className="text-[#021E14]" />
+                                        <FiSettings className="text-emerald-600" />
                                         Quiz Settings
                                     </h4>
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -623,7 +623,7 @@ export default function LessonCreateTab() {
                                                     type="checkbox"
                                                     checked={formData.quizSettings.showCorrectAnswers}
                                                     onChange={(e) => handleQuizSettingsChange('showCorrectAnswers', e.target.checked)}
-                                                    className="w-3.5 h-3.5 rounded border-slate-300 text-[#021E14]"
+                                                    className="w-3.5 h-3.5 rounded border-slate-300 text-emerald-600"
                                                 />
                                                 Show Answers
                                             </label>
@@ -632,7 +632,7 @@ export default function LessonCreateTab() {
                                                     type="checkbox"
                                                     checked={formData.quizSettings.shuffleQuestions}
                                                     onChange={(e) => handleQuizSettingsChange('shuffleQuestions', e.target.checked)}
-                                                    className="w-3.5 h-3.5 rounded border-slate-300 text-[#021E14]"
+                                                    className="w-3.5 h-3.5 rounded border-slate-300 text-emerald-600"
                                                 />
                                                 Shuffle
                                             </label>
@@ -680,15 +680,15 @@ export default function LessonCreateTab() {
                                 <h4 className="font-semibold text-slate-800 text-sm mb-3">Content Summary</h4>
                                 <div className="grid grid-cols-4 gap-3 text-center">
                                     <div className="p-2 bg-white rounded-md border border-slate-100">
-                                        <p className="text-xl font-bold text-[#021E14]">{formData.videoUrl ? '1' : '0'}</p>
+                                        <p className="text-xl font-bold text-emerald-600">{formData.videoUrl ? '1' : '0'}</p>
                                         <p className="text-xs text-slate-500">Video</p>
                                     </div>
                                     <div className="p-2 bg-white rounded-md border border-slate-100">
-                                        <p className="text-xl font-bold text-[#021E14]">{formData.documents?.length || 0}</p>
+                                        <p className="text-xl font-bold text-emerald-600">{formData.documents?.length || 0}</p>
                                         <p className="text-xs text-slate-500">Docs</p>
                                     </div>
                                     <div className="p-2 bg-white rounded-md border border-slate-100">
-                                        <p className="text-xl font-bold text-[#021E14]">{formData.questions?.length || 0}</p>
+                                        <p className="text-xl font-bold text-emerald-600">{formData.questions?.length || 0}</p>
                                         <p className="text-xs text-slate-500">Quiz</p>
                                     </div>
                                     <div className="p-2 bg-white rounded-md border border-slate-100">

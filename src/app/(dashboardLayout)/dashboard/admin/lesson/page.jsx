@@ -104,8 +104,8 @@ export default function LessonsPage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#021E14] dark:bg-[#021E14]/10 rounded-md flex items-center justify-center">
-                            <FiPlay className="text-[#021E14] dark:text-[#021E14]" size={18} />
+                        <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-900/20 rounded-md flex items-center justify-center">
+                            <FiPlay className="text-emerald-600 dark:text-emerald-400" size={18} />
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 dark:text-gray-400">Total Lessons</p>
@@ -117,7 +117,7 @@ export default function LessonsPage() {
                 <div className="bg-white dark:bg-slate-800 p-4 rounded-md border border-gray-200 dark:border-slate-700">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-emerald-50 dark:bg-[#021E14]/10 rounded-md flex items-center justify-center">
-                            <FiCheckCircle className="text-[#021E14] dark:text-emerald-400" size={18} />
+                            <FiCheckCircle className="text-emerald-600 dark:text-emerald-400" size={18} />
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 dark:text-gray-400">Published</p>
@@ -198,8 +198,8 @@ export default function LessonsPage() {
                                     <tr key={lesson._id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
                                         <td className="px-4 py-3">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-md bg-[#021E14] dark:bg-[#021E14]/10 flex items-center justify-center">
-                                                    <FiPlay size={16} className={lesson.isPublished ? 'text-[#021E14] dark:text-[#021E14]' : 'text-gray-400'} />
+                                                <div className="w-10 h-10 rounded-md bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center">
+                                                    <FiPlay size={16} className={lesson.isPublished ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-400'} />
                                                 </div>
                                                 <div>
                                                     <h3 className="text-sm font-medium text-gray-900 dark:text-white">{lesson.title}</h3>
@@ -210,7 +210,7 @@ export default function LessonsPage() {
                                         <td className="px-4 py-3">
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2">
-                                                    <FiBook className="text-[#021E14]" size={12} />
+                                                    <FiBook className="text-emerald-600" size={12} />
                                                     <span className="text-sm text-gray-700 dark:text-gray-300">{lesson.course?.title || 'No course'}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
@@ -244,7 +244,7 @@ export default function LessonsPage() {
                                                 </Link>
                                                 <button
                                                     onClick={() => setDeleteModal({ show: true, id: lesson._id, title: lesson.title })}
-                                                    className="p-2 rounded-md hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 text-gray-500 hover:text-[#021E14] transition-colors"
+                                                    className="p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-900/10 text-gray-500 hover:text-red-500 transition-colors"
                                                 >
                                                     <FiTrash2 size={16} />
                                                 </button>
@@ -300,8 +300,8 @@ export default function LessonsPage() {
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white dark:bg-slate-800 rounded-md p-6 w-full max-w-md border border-gray-200 dark:border-slate-700 shadow-lg">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-[#021E14] dark:bg-[#021E14]/10 rounded-md flex items-center justify-center">
-                                <FiTrash2 className="text-[#021E14]" size={20} />
+                            <div className="w-10 h-10 bg-red-50 dark:bg-red-900/20 rounded-md flex items-center justify-center">
+                                <FiTrash2 className="text-red-500" size={20} />
                             </div>
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Delete Lesson</h3>
                         </div>

@@ -229,7 +229,7 @@ export default function EditBatchPage() {
 
             {/* Error Message */}
             {error && (
-                <div className="mb-6 p-4 bg-[#021E14] border border-[#021E14] text-[#01140D] rounded-md">
+                <div className="mb-6 p-4 bg-[#021E14] border border-[#021E14] text-emerald-700 rounded-md">
                     {error}
                 </div>
             )}

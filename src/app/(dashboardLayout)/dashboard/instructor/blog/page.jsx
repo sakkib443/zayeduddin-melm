@@ -227,7 +227,7 @@ export default function MentorBlogPage() {
                                     {blog.tags?.length > 0 && (
                                         <div className="flex flex-wrap gap-1.5 mt-3">
                                             {blog.tags.slice(0, 4).map((tag, idx) => (
-                                                <span key={idx} className={`px-2 py-0.5 text-xs rounded-full ${isDark ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'}`}>
+                                                <span key={idx} className={`px-2 py-0.5 text-xs rounded-full ${isDark ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14] text-white'}`}>
                                                     #{tag}
                                                 </span>
                                             ))}
@@ -246,13 +246,13 @@ export default function MentorBlogPage() {
                                     </Link>
                                     <Link
                                         href={`/dashboard/instructor/blog/edit/${blog._id}`}
-                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
+                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14]/10 text-[#021E14]'}`}
                                     >
                                         <FiEdit size={18} />
                                     </Link>
                                     <button
                                         onClick={() => setDeleteModal({ show: true, blogId: blog._id, title: blog.title })}
-                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
+                                        className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14]/10 text-[#021E14]'}`}
                                     >
                                         <FiTrash2 size={18} />
                                     </button>

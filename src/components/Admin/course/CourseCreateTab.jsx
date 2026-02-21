@@ -23,11 +23,11 @@ const FormField = ({ label, icon: Icon, error, children, required, optional }) =
         <label className="flex items-center gap-1.5 text-sm font-medium text-slate-700">
             {Icon && <Icon size={14} className="text-slate-400" />}
             {label}
-            {required && <span className="text-[#021E14]">*</span>}
+            {required && <span className="text-red-500">*</span>}
             {optional && <span className="text-xs text-slate-400 font-normal">(Optional)</span>}
         </label>
         {children}
-        {error && <p className="text-[#021E14] text-xs">{error.message}</p>}
+        {error && <p className="text-red-500 text-xs">{error.message}</p>}
     </div>
 );
 
@@ -276,7 +276,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                 <label className="flex items-center gap-1.5 text-sm font-medium text-slate-700">
                                     <FiImage size={14} className="text-slate-400" />
                                     Thumbnail Image
-                                    <span className="text-[#021E14]">*</span>
+                                    <span className="text-red-500">*</span>
                                 </label>
 
                                 {/* Toggle between Upload and Link */}
@@ -285,7 +285,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                         type="button"
                                         onClick={() => setThumbnailMode('upload')}
                                         className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${thumbnailMode === 'upload'
-                                            ? 'bg-[#021E14] border-[#021E14] text-[#01140D]'
+                                            ? 'bg-[#021E14] border-[#021E14] text-white'
                                             : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
                                             }`}
                                     >
@@ -295,7 +295,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                         type="button"
                                         onClick={() => setThumbnailMode('link')}
                                         className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${thumbnailMode === 'link'
-                                            ? 'bg-[#021E14] border-[#021E14] text-[#01140D]'
+                                            ? 'bg-[#021E14] border-[#021E14] text-white'
                                             : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
                                             }`}
                                     >
@@ -366,7 +366,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                         )}
                                     </div>
                                 )}
-                                {errors.thumbnail && <p className="text-[#021E14] text-xs">{errors.thumbnail.message}</p>}
+                                {errors.thumbnail && <p className="text-red-500 text-xs">{errors.thumbnail.message}</p>}
                             </div>
 
                             <FormField label="Preview Video URL (YouTube/Vimeo)" icon={FiVideo} error={errors.previewVideo}>
@@ -387,7 +387,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                                 {featuresFields.fields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2">
                                         <input {...register(`features.${index}`)} className={`${inputBase} py-2`} placeholder="Feature..." />
-                                        <button type="button" onClick={() => featuresFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
+                                        <button type="button" onClick={() => featuresFields.remove(index)} className="text-red-400 hover:text-red-600"><FiTrash2 size={14} /></button>
                                     </div>
                                 ))}
                             </div>

@@ -72,7 +72,7 @@ const ReviewsSection = ({ productId, productType }) => {
                                     {review.user?.avatar ? (
                                         <img src={review.user.avatar} alt="User" className="w-10 h-10 rounded-full object-cover border border-gray-200" />
                                     ) : (
-                                        <div className="w-10 h-10 rounded-full bg-[#021E14] flex items-center justify-center text-[#021E14]">
+                                        <div className="w-10 h-10 rounded-full bg-[#021E14] flex items-center justify-center text-white">
                                             <FaUserCircle size={24} />
                                         </div>
                                     )}

@@ -249,14 +249,14 @@ export default function AdminBlogPage() {
                                     </Link>
                                     <Link
                                         href={`/dashboard/admin/blog/edit/${blog._id}`}
-                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
+                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14]/10 text-[#021E14]'}`}
                                         title="Edit"
                                     >
                                         <FiEdit size={16} />
                                     </Link>
                                     <button
                                         onClick={() => setDeleteModal({ show: true, blogId: blog._id, title: blog.title })}
-                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14] text-[#021E14]'}`}
+                                        className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-[#021E14]/20 text-[#021E14]' : 'hover:bg-[#021E14]/10 text-[#021E14]'}`}
                                         title="Delete"
                                     >
                                         <FiTrash2 size={16} />

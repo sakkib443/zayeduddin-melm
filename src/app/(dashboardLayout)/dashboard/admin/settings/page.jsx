@@ -112,7 +112,7 @@ function SettingsContent() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${activeTab === tab.id
-                    ? 'bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14]'
+                    ? 'bg-[#021E14]/10 dark:bg-[#021E14]/10 text-[#021E14] dark:text-emerald-400'
                     : 'text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700'
                     }`}
                 >
@@ -232,10 +232,10 @@ function SettingsContent() {
                 </div>
 
                 {passwordError && (
-                  <div className="mb-4 p-3 bg-[#021E14] text-[#021E14] rounded-md text-xs border border-[#021E14]">{passwordError}</div>
+                  <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-xs border border-red-200 font-medium">{passwordError}</div>
                 )}
                 {passwordSuccess && (
-                  <div className="mb-4 p-3 bg-emerald-50 text-[#021E14] rounded-md text-xs border border-emerald-200">{passwordSuccess}</div>
+                  <div className="mb-4 p-3 bg-emerald-50 text-emerald-600 rounded-md text-xs border border-emerald-200 font-medium">{passwordSuccess}</div>
                 )}
 
                 <div className="space-y-3 max-w-md">
@@ -280,7 +280,7 @@ function SettingsContent() {
                 </div>
               </form>
 
-              <div className="p-4 rounded-md bg-[#021E14] dark:bg-[#021E14]/10 border border-[#021E14] dark:border-[#021E14]/20 flex items-center justify-between gap-4">
+              <div className="p-4 rounded-md bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <FiGlobe className="text-[#021E14]" size={18} />
                   <div>

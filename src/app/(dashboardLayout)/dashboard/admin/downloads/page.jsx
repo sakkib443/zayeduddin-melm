@@ -125,7 +125,7 @@ export default function DownloadsPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        dl.productType === 'website' ? 'bg-emerald-50 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'
+                        dl.productType === 'website' ? 'bg-emerald-50 text-[#021E14]' : 'bg-[#021E14] text-white'
                       }`}>
                         {dl.productType || 'website'}
                       </span>

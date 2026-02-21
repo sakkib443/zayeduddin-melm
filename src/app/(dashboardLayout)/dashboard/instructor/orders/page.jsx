@@ -20,7 +20,7 @@ export default function MentorOrdersPage() {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [statusFilter, setStatusFilter] = useState('all');
 
-    
+
 
     const fetchOrders = async () => {
         try {
@@ -62,8 +62,8 @@ export default function MentorOrdersPage() {
         switch (status) {
             case 'completed': return 'bg-emerald-100 text-emerald-700';
             case 'pending': return 'bg-amber-100 text-amber-700';
-            case 'failed': return 'bg-[#021E14] text-[#01140D]';
-            case 'refunded': return 'bg-[#021E14] text-[#021E14]';
+            case 'failed': return 'bg-red-100 text-red-600';
+            case 'refunded': return 'bg-purple-100 text-purple-600';
             default: return 'bg-slate-100 text-slate-700';
         }
     };
@@ -72,7 +72,7 @@ export default function MentorOrdersPage() {
         switch (status) {
             case 'completed': return <FiCheck className="text-[#021E14]" />;
             case 'pending': return <FiClock className="text-[#D4AF37]" />;
-            case 'failed': return <FiX className="text-[#021E14]" />;
+            case 'failed': return <FiX className="text-red-500" />;
             default: return <FiAlertCircle className="text-slate-400" />;
         }
     };
@@ -269,7 +269,7 @@ export default function MentorOrdersPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
                                                     onClick={() => openOrderDetails(order)}
-                                                    className="p-2.5 rounded-lg bg-[#021E14] hover:bg-[#021E14] text-[#021E14] transition-colors"
+                                                    className="p-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
                                                     title="View Details"
                                                 >
                                                     <FiEye size={16} />
@@ -322,7 +322,7 @@ export default function MentorOrdersPage() {
                                         <h3 className="text-xl font-bold text-white">Order Details</h3>
                                         <span className="px-2 py-0.5 text-[10px] font-bold uppercase bg-white/20 text-white rounded-full">View Only</span>
                                     </div>
-                                    <p className="text-[#021E14] text-sm flex items-center gap-2 mt-1">
+                                    <p className="text-emerald-300 text-sm flex items-center gap-2 mt-1">
                                         <FiHash size={14} /> {selectedOrder.orderNumber || selectedOrder._id?.slice(-6).toUpperCase()}
                                     </p>
                                 </div>
@@ -408,7 +408,7 @@ export default function MentorOrdersPage() {
                                             <div className="flex-1 min-w-0">
                                                 <p className="font-bold text-slate-800">{item.title}</p>
                                                 <div className="flex items-center gap-3 mt-1">
-                                                    <span className="text-xs px-2 py-0.5 bg-[#021E14] text-[#021E14] rounded capitalize">{item.productType}</span>
+                                                    <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded capitalize">{item.productType}</span>
                                                 </div>
                                             </div>
                                             <span className="text-xl font-bold text-[#021E14]">?{item.price?.toLocaleString()}</span>
@@ -420,7 +420,7 @@ export default function MentorOrdersPage() {
                             {/* Order Summary */}
                             <div className="bg-gradient-to-r from-[#021E14] to-[#01140D] rounded-xl p-6 text-white">
                                 <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/20">
-                                    <span className="text-[#021E14]">Subtotal</span>
+                                    <span className="text-emerald-300">Subtotal</span>
                                     <span className="font-semibold">?{selectedOrder.totalAmount?.toLocaleString()}</span>
                                 </div>
                                 <div className="flex items-center justify-between">

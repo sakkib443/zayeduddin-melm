@@ -445,7 +445,7 @@ export default function EditBlogPage() {
                         </div>
                         <div className="flex flex-wrap gap-2 mt-3">
                             {formData.tags.map((tag, idx) => (
-                                <span key={idx} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs ${isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-[#021E14]'}`}>
+                                <span key={idx} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs ${isDark ? 'bg-[#021E14]/20 text-[#021E14]' : 'bg-[#021E14] text-white'}`}>
                                     #{tag}
                                     <button onClick={() => removeTag(tag)} className="hover:text-[#021E14] transition-colors">
                                         <FiX size={12} />

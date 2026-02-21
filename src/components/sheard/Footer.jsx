@@ -37,8 +37,8 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: FaFacebook, href: "https://www.facebook.com/Trainer.ZayedUddin", color: "#1877F2", label: "Facebook" },
-    { icon: FaLinkedin, href: "#", color: "#0A66C2", label: "LinkedIn" },
+    { icon: FaFacebook, href: "https://web.facebook.com/zayeduddin.official/", color: "#1877F2", label: "Facebook" },
+    { icon: FaLinkedin, href: "https://www.linkedin.com/in/zayeduddin/", color: "#0A66C2", label: "LinkedIn" },
     { icon: FaYoutube, href: "#", color: "#FF0000", label: "YouTube" },
     { icon: FaInstagram, href: "#", color: "#E4405F", label: "Instagram" },
   ];

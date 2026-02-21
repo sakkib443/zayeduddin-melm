@@ -26,16 +26,16 @@ export default function DocumentManager({ documents = [], onChange }) {
     });
 
     const fileTypeOptions = [
-        { value: 'pdf', label: 'PDF', icon: FiFileText, color: 'text-[#021E14] bg-[#021E14]' },
-        { value: 'doc', label: 'Word Doc', icon: FiFileText, color: 'text-[#021E14] bg-[#021E14]' },
-        { value: 'docx', label: 'Word Docx', icon: FiFileText, color: 'text-[#021E14] bg-[#021E14]' },
-        { value: 'ppt', label: 'PowerPoint', icon: FiFile, color: 'text-[#021E14] bg-[#021E14]' },
-        { value: 'pptx', label: 'PowerPoint', icon: FiFile, color: 'text-[#021E14] bg-[#021E14]' },
+        { value: 'pdf', label: 'PDF', icon: FiFileText, color: 'text-white bg-[#021E14]' },
+        { value: 'doc', label: 'Word Doc', icon: FiFileText, color: 'text-white bg-[#021E14]' },
+        { value: 'docx', label: 'Word Docx', icon: FiFileText, color: 'text-white bg-[#021E14]' },
+        { value: 'ppt', label: 'PowerPoint', icon: FiFile, color: 'text-white bg-[#021E14]' },
+        { value: 'pptx', label: 'PowerPoint', icon: FiFile, color: 'text-white bg-[#021E14]' },
         { value: 'xls', label: 'Excel', icon: FiFile, color: 'text-green-500 bg-green-50' },
         { value: 'xlsx', label: 'Excel', icon: FiFile, color: 'text-green-500 bg-green-50' },
         { value: 'zip', label: 'Archive', icon: FiArchive, color: 'text-[#D4AF37] bg-amber-50' },
-        { value: 'image', label: 'Image', icon: FiImage, color: 'text-[#021E14] bg-[#021E14]' },
-        { value: 'video', label: 'Video', icon: FiVideo, color: 'text-[#021E14] bg-[#021E14]' },
+        { value: 'image', label: 'Image', icon: FiImage, color: 'text-white bg-[#021E14]' },
+        { value: 'video', label: 'Video', icon: FiVideo, color: 'text-white bg-[#021E14]' },
         { value: 'other', label: 'Other', icon: FiFile, color: 'text-slate-500 bg-slate-50' },
     ];
 
@@ -145,7 +145,7 @@ export default function DocumentManager({ documents = [], onChange }) {
                                     <button
                                         type="button"
                                         onClick={() => handleDelete(index)}
-                                        className="p-2 hover:bg-[#021E14] rounded-lg text-slate-500 hover:text-[#021E14] transition-colors"
+                                        className="p-2 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-emerald-600 transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>

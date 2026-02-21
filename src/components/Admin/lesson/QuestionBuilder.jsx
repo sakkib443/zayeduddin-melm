@@ -210,7 +210,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                     <button
                                         type="button"
                                         onClick={(e) => { e.stopPropagation(); handleDelete(index); }}
-                                        className="p-2 hover:bg-[#021E14] rounded-lg text-gray-500 hover:text-[#021E14] transition-colors"
+                                        className="p-2 hover:bg-slate-100 rounded-lg text-gray-500 hover:text-emerald-600 transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>
@@ -242,7 +242,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                         ))}
                                     </div>
                                     {q.explanation && (
-                                        <div className="mt-3 p-3 bg-[#021E14] border border-[#021E14] rounded-lg text-[#021E14] text-sm">
+                                        <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 text-sm">
                                             <span className="font-semibold">Explanation:</span> {q.explanation}
                                         </div>
                                     )}
@@ -388,7 +388,7 @@ export default function QuestionBuilder({ questions = [], onChange }) {
                                             <button
                                                 type="button"
                                                 onClick={() => handleRemoveOption(index)}
-                                                className="p-2 hover:bg-[#021E14] rounded-lg text-gray-400 hover:text-[#021E14] transition-colors"
+                                                className="p-2 hover:bg-slate-100 rounded-lg text-gray-400 hover:text-emerald-600 transition-colors"
                                             >
                                                 <FiTrash2 size={16} />
                                             </button>

@@ -33,9 +33,9 @@ const ContactDesignPage = () => {
             officeHoursBn: '??? - ????????: ???? ???? - ??????? ???'
         },
         socialLinks: {
-            facebook: 'https://www.facebook.com/ejobsit',
+            facebook: 'https://web.facebook.com/zayeduddin.official/',
             youtube: 'https://www.youtube.com/@ejobsit',
-            linkedin: 'https://www.linkedin.com/company/ejobsit',
+            linkedin: 'https://www.linkedin.com/in/zayeduddin/',
             whatsapp: 'https://wa.me/8801714117701',
             instagram: 'https://www.instagram.com/ejobsit/'
         },

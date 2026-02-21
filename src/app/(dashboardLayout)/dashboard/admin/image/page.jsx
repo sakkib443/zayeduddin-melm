@@ -85,10 +85,10 @@ export default function ImagesPage() {
 
   const getCategoryStyle = (category) => {
     const styles = {
-      'Course Banner': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
-      'Mentor Profile': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
-      'Gallery': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
-      'Logo': 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Course Banner': 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Mentor Profile': 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Gallery': 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
+      'Logo': 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]',
       'Success Story': 'bg-emerald-50 text-[#021E14] dark:bg-[#021E14]/10 dark:text-emerald-400',
     };
     return styles[category] || 'bg-gray-50 text-gray-600 dark:bg-gray-500/10 dark:text-gray-400';

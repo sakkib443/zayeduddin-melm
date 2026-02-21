@@ -321,7 +321,7 @@ export default function MySoftwaresPage() {
                             <div className="flex-1 min-w-0">
                                 <h3 className={`text-sm font-bold truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{item.productTitle}</h3>
                                 <div className="flex items-center gap-3 mt-1">
-                                    <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded tracking-wider bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]">
+                                    <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded tracking-wider bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/10 dark:text-[#021E14]">
                                         {item.product?.version || 'v1.0.0'}
                                     </span>
                                     <span className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>

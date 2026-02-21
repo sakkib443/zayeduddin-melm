@@ -136,10 +136,10 @@ const NotificationDropdown = () => {
     const getBgColor = (type) => {
         switch (type) {
             case 'order': return 'bg-green-50';
-            case 'enrollment': return 'bg-[#021E14]';
-            case 'user': return 'bg-[#021E14]';
+            case 'enrollment': return 'bg-blue-50';
+            case 'user': return 'bg-purple-50';
             case 'review': return 'bg-yellow-50';
-            case 'like': return 'bg-[#021E14]';
+            case 'like': return 'bg-pink-50';
             default: return 'bg-gray-50';
         }
     };
@@ -190,7 +190,7 @@ const NotificationDropdown = () => {
                                 <FiBell className="text-[#021E14]" />
                                 <h3 className="font-bold text-slate-800 dark:text-white">Notifications</h3>
                                 {unreadCount > 0 && (
-                                    <span className="px-2 py-0.5 bg-[#021E14] text-[#021E14] text-xs font-bold rounded-full">
+                                    <span className="px-2 py-0.5 bg-[#021E14] text-white text-xs font-bold rounded-full">
                                         {unreadCount} new
                                     </span>
                                 )}

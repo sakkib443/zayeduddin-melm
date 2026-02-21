@@ -238,9 +238,9 @@ const MentorFavoritesRatingsPage = () => {
                                                 </div>
                                             </td>
                                             <td className="p-4">
-                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${fav.productType === 'course' ? 'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]' :
+                                                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${fav.productType === 'course' ? 'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]' :
                                                     fav.productType === 'website' ? 'bg-emerald-100 text-[#021E14] dark:bg-[#021E14]/20 dark:text-emerald-400' :
-                                                        'bg-[#021E14] text-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]'
+                                                        'bg-[#021E14]/10 text-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]'
                                                     }`}>
                                                     {fav.productType}
                                                 </span>
@@ -326,7 +326,7 @@ const MentorFavoritesRatingsPage = () => {
                                             </td>
                                             <td className="p-4">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-8 h-8 rounded-full bg-[#021E14] text-[#021E14] flex items-center justify-center font-bold text-xs">
+                                                    <div className="w-8 h-8 rounded-full bg-[#021E14] text-white flex items-center justify-center font-bold text-xs">
                                                         {review.user?.firstName?.[0]}
                                                     </div>
                                                     <div>
