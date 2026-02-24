@@ -44,6 +44,7 @@ const DashboardHeader = () => {
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
     router.push('/login');
   };

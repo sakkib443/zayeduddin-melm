@@ -1,19 +1,66 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { FiLoader } from "react-icons/fi";
+
+/**
+ * Decode JWT token and check if it's expired
+ * @param {string} token - JWT token
+ * @returns {{ valid: boolean, payload: object|null }}
+ */
+const verifyToken = (token) => {
+  try {
+    // JWT structure: header.payload.signature
+    const parts = token.split('.');
+    if (parts.length !== 3) return { valid: false, payload: null };
+
+    // Decode the payload (base64url -> JSON)
+    const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+
+    // Check if token has expired
+    if (payload.exp) {
+      const now = Math.floor(Date.now() / 1000);
+      if (now >= payload.exp) {
+        return { valid: false, payload };
+      }
+    }
+
+    return { valid: true, payload };
+  } catch {
+    return { valid: false, payload: null };
+  }
+};
+
+/**
+ * Clear all auth data and redirect to login
+ */
+const clearAuthAndRedirect = (router) => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("user");
+  router.replace("/login");
+};
 
 const ProtectedRoute = ({ children, role, allowedRoles = [] }) => {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  useEffect(() => {
+  // Check token validity
+  const checkAuth = useCallback(() => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
 
+    // No token or user data — redirect to login
     if (!token || !user) {
-      router.replace("/login");
+      clearAuthAndRedirect(router);
+      return;
+    }
+
+    // Verify token is valid and not expired
+    const { valid } = verifyToken(token);
+    if (!valid) {
+      clearAuthAndRedirect(router);
       return;
     }
 
@@ -45,16 +92,53 @@ const ProtectedRoute = ({ children, role, allowedRoles = [] }) => {
             router.replace("/dashboard/user");
             break;
           default:
-            router.replace("/login");
+            clearAuthAndRedirect(router);
         }
         return;
       }
 
       setTimeout(() => setIsAuthorized(true), 0);
     } catch (e) {
-      router.replace("/login");
+      clearAuthAndRedirect(router);
     }
   }, [router, role, allowedRoles]);
+
+  useEffect(() => {
+    checkAuth();
+
+    // Periodically check token validity (every 60 seconds)
+    const interval = setInterval(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        clearAuthAndRedirect(router);
+        return;
+      }
+      const { valid } = verifyToken(token);
+      if (!valid) {
+        clearAuthAndRedirect(router);
+      }
+    }, 60000);
+
+    // Listen for 401 responses from API calls (custom event)
+    const handleUnauthorized = () => {
+      clearAuthAndRedirect(router);
+    };
+    window.addEventListener('auth:unauthorized', handleUnauthorized);
+
+    // Listen for storage changes (e.g., another tab logs out)
+    const handleStorageChange = (e) => {
+      if (e.key === 'token' && !e.newValue) {
+        clearAuthAndRedirect(router);
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('auth:unauthorized', handleUnauthorized);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [checkAuth, router]);
 
   if (!isAuthorized) {
     return (
@@ -69,4 +153,3 @@ const ProtectedRoute = ({ children, role, allowedRoles = [] }) => {
 };
 
 export default ProtectedRoute;
-

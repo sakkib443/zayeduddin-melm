@@ -142,6 +142,12 @@ export default function AdminDashboard() {
   const fetchDashboardData = async () => {
     const token = localStorage.getItem('token');
 
+    if (!token) {
+      // No token, dispatch unauthorized event
+      window.dispatchEvent(new Event('auth:unauthorized'));
+      return;
+    }
+
     try {
       setRefreshing(true);
 
@@ -150,6 +156,15 @@ export default function AdminDashboard() {
         fetch(`${API_URL}/analytics/top-products?limit=5`, { headers: { 'Authorization': `Bearer ${token}` } }),
         fetch(`${API_URL}/analytics/recent-purchases?limit=5`, { headers: { 'Authorization': `Bearer ${token}` } }),
       ]);
+
+      // Check if any response is 401 (Unauthorized / Token expired)
+      if (summaryRes.status === 401 || topProductsRes.status === 401 || recentPurchasesRes.status === 401) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+        window.dispatchEvent(new Event('auth:unauthorized'));
+        return;
+      }
 
       const { data: summary } = await summaryRes.json();
       const { data: topProducts } = await topProductsRes.json();
