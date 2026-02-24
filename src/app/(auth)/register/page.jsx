@@ -10,6 +10,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import { API_BASE_URL } from "@/config/api";
 import Logo from "@/components/sheard/Logo";
 
+import { GoogleLogin } from "@react-oauth/google";
+
 const Register = () => {
   const router = useRouter();
   const { language } = useLanguage();
@@ -33,6 +35,58 @@ const Register = () => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [isRegistered, setIsRegistered] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState("");
+
+  const handleLoginSuccess = (data) => {
+    const token = data?.data?.token || data?.data?.tokens?.accessToken;
+    const user = data?.data?.user;
+
+    if (token && user) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      const userRole = user.role || "student";
+
+      switch (userRole) {
+        case "admin":
+          router.push("/dashboard/admin");
+          break;
+        case "mentor":
+          router.push("/dashboard/instructor");
+          break;
+        case "student":
+        case "user":
+        default:
+          router.push("/");
+      }
+    } else {
+      throw new Error("Invalid response from server");
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/google-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken: credentialResponse.credential }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Google Login failed");
+      }
+
+      handleLoginSuccess(data);
+    } catch (err) {
+      console.error("Google Login Error:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -442,6 +496,36 @@ const Register = () => {
                           language === "bn" ? "অ্যাকাউন্ট তৈরি করুন" : "Create Account"
                         )}
                       </button>
+
+                      {/* Divider */}
+                      <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-gray-100"></div>
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                          <span className="bg-white px-4 text-gray-400 font-medium">
+                            {language === "bn" ? "অথবা" : "Or continue with"}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Google Login Button */}
+                      <div className="flex justify-center">
+                        <div className="w-full">
+                          <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={() => {
+                              console.log("Login Failed");
+                              setError("Google Login Failed");
+                            }}
+                            theme="outline"
+                            size="large"
+                            width="100%"
+                            shape="pill"
+                            text="signup_with"
+                          />
+                        </div>
+                      </div>
 
                       {/* Login Link */}
                       <p className={`text-sm text-gray-500 text-center ${bengaliClass}`}>

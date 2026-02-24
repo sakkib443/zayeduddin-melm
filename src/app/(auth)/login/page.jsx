@@ -10,6 +10,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import { API_BASE_URL } from "@/config/api";
 import Logo from "@/components/sheard/Logo";
 
+import { GoogleLogin } from "@react-oauth/google";
+
 const Login = () => {
   const router = useRouter();
   const { language } = useLanguage();
@@ -22,13 +24,40 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const handleLoginSuccess = (data) => {
+    const token = data?.data?.token || data?.data?.tokens?.accessToken;
+    const user = data?.data?.user;
+
+    if (token && user) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      const userRole = user.role || "student";
+      console.log("Logged in user role:", userRole);
+
+      switch (userRole) {
+        case "admin":
+          router.push("/dashboard/admin");
+          break;
+        case "mentor":
+          router.push("/dashboard/instructor");
+          break;
+        case "student":
+        case "user":
+        default:
+          router.push("/");
+      }
+    } else {
+      throw new Error("Invalid response from server");
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-      // Use centralized API URL
       const res = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -41,33 +70,34 @@ const Login = () => {
         throw new Error(data.message || "Login failed");
       }
 
-      const token = data?.data?.token || data?.data?.tokens?.accessToken;
-      const user = data?.data?.user;
-
-      if (token && user) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-
-        const userRole = user.role || "student";
-        console.log("Logged in user role:", userRole);
-
-        switch (userRole) {
-          case "admin":
-            router.push("/dashboard/admin");
-            break;
-          case "mentor":
-            router.push("/dashboard/instructor");
-            break;
-          case "student":
-          case "user":
-          default:
-            router.push("/");
-        }
-      } else {
-        throw new Error("Invalid response from server");
-      }
+      handleLoginSuccess(data);
     } catch (err) {
       console.error("Login Error:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/google-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken: credentialResponse.credential }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Google Login failed");
+      }
+
+      handleLoginSuccess(data);
+    } catch (err) {
+      console.error("Google Login Error:", err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -243,6 +273,37 @@ const Login = () => {
                     )}
                   </button>
                 </form>
+
+                {/* Divider */}
+                <div className="relative my-8">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-100"></div>
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white px-4 text-gray-400 font-medium">
+                      {language === "bn" ? "অথবা" : "Or continue with"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Google Login Button */}
+                <div className="flex justify-center">
+                  <div className="w-full">
+                    <GoogleLogin
+                      onSuccess={handleGoogleSuccess}
+                      onError={() => {
+                        console.log("Login Failed");
+                        setError("Google Login Failed");
+                      }}
+                      useOneTap
+                      theme="outline"
+                      size="large"
+                      width="100%"
+                      shape="pill"
+                      text="continue_with"
+                    />
+                  </div>
+                </div>
 
                 {/* Help Text */}
                 <p className={`text-xs text-gray-400 text-center mt-6 ${bengaliClass}`}>
