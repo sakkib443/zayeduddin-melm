@@ -22,7 +22,7 @@ const Footer = () => {
     { to: "/website", label: t("navbar.websiteSelection") },
     { to: "/design-template", label: t("navbar.designTemplate") },
     { to: "/pricing", label: t("navbar.pricingPlan") },
-    { to: "/blog", label: t("navbar.blog") },
+    { to: "/resource-library", label: t("navbar.blog") },
     { to: "/about", label: t("navbar.about") },
     { to: "/contact", label: t("navbar.contact") },
   ];

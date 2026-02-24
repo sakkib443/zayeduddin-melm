@@ -240,7 +240,7 @@ export default function AdminBlogPage() {
                                 {/* Actions */}
                                 <div className="flex md:flex-col gap-2 justify-end">
                                     <Link
-                                        href={`/blog/${blog.slug}`}
+                                        href={`/resource-library/${blog.slug}`}
                                         target="_blank"
                                         className={`p-2 rounded-md transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-gray-100 text-gray-500'}`}
                                         title="Preview"

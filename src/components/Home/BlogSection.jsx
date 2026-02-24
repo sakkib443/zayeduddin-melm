@@ -50,7 +50,7 @@ const BlogSection = () => {
                         viewport={{ once: true }}
                     >
                         <Link
-                            href="/blog"
+                            href="/resource-library"
                             className="group inline-flex items-center gap-2 text-[#021E14] font-bold text-sm tracking-widest uppercase hover:gap-4 transition-all"
                         >
                             {t("blogSection.viewAll")}
@@ -78,7 +78,7 @@ const BlogSection = () => {
                             >
                                 {/* Image Wrapper */}
                                 <div className="relative h-64 w-full overflow-hidden shrink-0 p-4">
-                                    <Link href={`/blog/${blog.slug}`} className="block h-full w-full relative overflow-hidden rounded-[2rem]">
+                                    <Link href={blog.slug ? `/resource-library/${blog.slug}` : '#'} className="block h-full w-full relative overflow-hidden rounded-[2rem]">
                                         <Image
                                             src={blog.thumbnail || blog.image || "/images/placeholder.png"}
                                             alt={blog.title}
@@ -109,7 +109,7 @@ const BlogSection = () => {
                                         </span>
                                     </div>
 
-                                    <Link href={`/blog/${blog.slug}`} className="mb-3 block">
+                                    <Link href={blog.slug ? `/resource-library/${blog.slug}` : '#'} className="mb-3 block">
                                         <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
                                             {blog.title}
                                         </h3>
@@ -134,7 +134,7 @@ const BlogSection = () => {
                                             </span>
                                         </div>
                                         <Link
-                                            href={`/blog/${blog.slug}`}
+                                            href={blog.slug ? `/resource-library/${blog.slug}` : '#'}
                                             className="w-10 h-10 rounded-full bg-white dark:bg-white/10 flex items-center justify-center text-[#021E14] dark:text-white border border-slate-100 dark:border-white/10 hover:bg-[#021E14] hover:text-white transition-all duration-300"
                                         >
                                             <LuArrowRight size={18} />

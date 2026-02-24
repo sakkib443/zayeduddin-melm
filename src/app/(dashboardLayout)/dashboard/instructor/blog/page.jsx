@@ -238,7 +238,7 @@ export default function MentorBlogPage() {
                                 {/* Actions */}
                                 <div className="flex md:flex-col gap-2 justify-end">
                                     <Link
-                                        href={`/blog/${blog.slug}`}
+                                        href={`/resource-library/${blog.slug}`}
                                         target="_blank"
                                         className={`p-2.5 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-700 text-slate-400 hover:text-white' : 'hover:bg-slate-100 text-slate-500 hover:text-slate-700'}`}
                                     >

@@ -150,7 +150,9 @@ export default function BlogPage() {
                             </h1>
 
                             <p className={`text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed ${bengaliClass}`}>
-                                {text.heroSubtitle}
+                                {language === 'bn'
+                                    ? 'প্রযুক্তি, ডিজাইন এবং ক্যারিয়ার সম্পর্কিত আমাদের সেরা রিসোর্সগুলো পড়ুন এবং নিজেকে আপডেট রাখুন।'
+                                    : 'Dive into our premium collection of resources on technology, design, and professional growth.'}
                             </p>
 
                             {/* Modern Search Bar */}
@@ -183,7 +185,7 @@ export default function BlogPage() {
                                 transition={{ duration: 0.6 }}
                             >
                                 {featuredBlogs[0] || blogs[0] ? (
-                                    <Link href={`/blog/${(featuredBlogs[0] || blogs[0]).slug}`} className="group block">
+                                    <Link href={(featuredBlogs[0] || blogs[0])?.slug ? `/resource-library/${(featuredBlogs[0] || blogs[0]).slug}` : '#'} className="group block">
                                         <div className="relative h-[400px] md:h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl">
                                             {/* Main Image */}
                                             <Image
@@ -273,7 +275,7 @@ export default function BlogPage() {
                                                 className="space-y-6"
                                             >
                                                 {(activeTab === 'popular' ? popularBlogs : blogs).slice(0, 4).map((blog) => (
-                                                    <Link key={blog._id} href={`/blog/${blog.slug}`} className="group flex items-center gap-4">
+                                                    <Link key={blog._id} href={blog.slug ? `/resource-library/${blog.slug}` : '#'} className="group flex items-center gap-4">
                                                         <div className="w-24 h-24 relative rounded-2xl overflow-hidden shrink-0 shadow-lg">
                                                             <Image
                                                                 src={blog.thumbnail || "/images/blog-placeholder.jpg"}
@@ -348,7 +350,7 @@ export default function BlogPage() {
                                     visible: { opacity: 1, y: 0 }
                                 }}
                             >
-                                <Link href={`/blog/${blog.slug}`} className="group block h-full">
+                                <Link href={blog.slug ? `/resource-library/${blog.slug}` : '#'} className="group block h-full">
                                     <div className="bg-white dark:bg-[#0d0d0d] rounded-[2rem] h-full overflow-hidden border border-slate-100 dark:border-white/5 hover:border-[#021E14]/20 dark:hover:border-[#D4AF37]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-[#021E14]/5 hover:-translate-y-2 flex flex-col">
                                         {/* Card Image */}
                                         <div className="relative h-64 overflow-hidden shrink-0">

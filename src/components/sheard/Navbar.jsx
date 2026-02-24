@@ -64,7 +64,7 @@ const Navbar = () => {
 
   const rightMenu = [
     { href: "/about", label: t("navbar.about") },
-    { href: "/blog", label: t("navbar.blog") },
+    { href: "/resource-library", label: t("navbar.blog") },
     { href: "/contact", label: t("navbar.contact") },
   ];
 
