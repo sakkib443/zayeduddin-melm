@@ -168,12 +168,12 @@ const AdminSidebar = () => {
       gradient: 'from-[#D4AF37] to-[#01140D]'
     },
     {
-      title: 'Blog',
+      title: 'Resource Library',
       icon: FiEdit3,
       gradient: 'from-[#021E14] to-cyan-500',
       submenu: [
-        { title: 'All Blogs', href: '/dashboard/admin/blog', icon: FiEdit3 },
-        { title: 'Create Blog', href: '/dashboard/admin/blog/create', icon: FiFileText },
+        { title: 'All Resources', href: '/dashboard/admin/blog', icon: FiEdit3 },
+        { title: 'Create Resource', href: '/dashboard/admin/blog/create', icon: FiFileText },
       ],
     },
     {

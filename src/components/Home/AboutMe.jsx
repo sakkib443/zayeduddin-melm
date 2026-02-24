@@ -110,10 +110,10 @@ const AboutMe = () => {
 
                             {/* Experience Badge */}
                             <div className="absolute top-10 left-0 -translate-x-1/4 bg-[#021E14] text-[#D4AF37] p-2 md:p-3 rounded-full shadow-2xl z-40 flex flex-col items-center justify-center w-28 h-28 md:w-36 md:h-36 border-4 border-white dark:border-[#050505] animate-bounce-slow">
-                                <span className="text-2xl md:text-3xl font-bold leading-none" style={{ fontFamily: 'var(--font-poppins)' }}>20+</span>
-                                <span className={`text-[9px] md:text-[10px] uppercase tracking-wider mt-1 text-center text-white/80 leading-tight font-bold ${bengaliClass}`}>
-                                    {t("aboutMe.yearsExp")}
+                                <span className={`text-[9px] md:text-[10px] uppercase tracking-wider text-center text-white/80 leading-tight font-bold ${bengaliClass}`}>
+                                    {language === 'bn' ? 'শুরু থেকে' : 'Since'}
                                 </span>
+                                <span className="text-2xl md:text-3xl font-bold leading-none mt-1" style={{ fontFamily: 'var(--font-poppins)' }}>2003</span>
                             </div>
 
                             {/* Decorative elements */}

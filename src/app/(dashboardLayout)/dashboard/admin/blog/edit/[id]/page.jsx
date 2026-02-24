@@ -220,7 +220,7 @@ export default function EditBlogPage() {
 
             const data = await res.json();
             if (data.success) {
-                toast.success('Blog updated successfully!');
+                toast.success('Resource updated successfully!');
                 router.push('/dashboard/admin/blog');
             } else {
                 toast.error(data.message || 'Failed to update blog');
@@ -304,7 +304,7 @@ export default function EditBlogPage() {
                     {/* Title */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Blog Title <span className="text-[#021E14]">*</span>
+                            Resource Title <span className="text-[#021E14]">*</span>
                         </label>
                         <input
                             type="text"
@@ -355,7 +355,7 @@ export default function EditBlogPage() {
                     {/* Content Editor */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Blog Content <span className="text-[#021E14]">*</span>
+                            Resource Content <span className="text-[#021E14]">*</span>
                         </label>
                         <RichTextEditor
                             value={formData.content}

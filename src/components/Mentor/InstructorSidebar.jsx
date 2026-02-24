@@ -125,12 +125,12 @@ const InstructorSidebar = () => {
             gradient: 'from-[#D4AF37] to-[#01140D]'
         },
         {
-            title: 'Blog',
+            title: 'Resource Library',
             icon: FiEdit3,
             gradient: 'from-[#021E14] to-cyan-500',
             submenu: [
-                { title: 'My Blogs', href: '/dashboard/instructor/blog', icon: FiEdit3 },
-                { title: 'Write Blog', href: '/dashboard/instructor/blog/create', icon: FiFileText },
+                { title: 'My Resources', href: '/dashboard/instructor/blog', icon: FiEdit3 },
+                { title: 'Write Resource', href: '/dashboard/instructor/blog/create', icon: FiFileText },
             ],
         },
         {

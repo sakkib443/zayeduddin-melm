@@ -7,8 +7,8 @@
         "totalDownloads": "Total Downloads"
     },
     "blogSection": {
-        "badge": "OUR BLOGS",
-        "title": "Latest News & Articles",
+        "badge": "RESOURCE LIBRARY",
+        "title": "Resource Library",
         "viewAll": "VIEW ALL POSTS",
         "author": "Zayed Uddin",
         "category": "Article",
@@ -60,7 +60,7 @@
         "courses": "Training",
         "design": "Design",
         "pricing": "Price",
-        "blog": "Blog",
+        "blog": "Resource & Library",
         "events": "Events",
         "success": "Success",
         "successHistory": "Success Stories",
@@ -70,6 +70,7 @@
         "certification": "Certification",
         "software": "Software",
         "website": "Website",
+        "webTemplate": "Web Template",
         "websiteSelection": "Website Selection",
         "designTemplate": "Design Template",
         "pricingPlan": "Pricing Plan",

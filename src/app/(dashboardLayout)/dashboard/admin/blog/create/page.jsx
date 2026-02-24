@@ -171,7 +171,7 @@ export default function CreateBlogPage() {
 
             const data = await res.json();
             if (data.success) {
-                toast.success(publishStatus === 'published' ? 'Blog published successfully!' : 'Blog saved as draft!');
+                toast.success(publishStatus === 'published' ? 'Resource published successfully!' : 'Resource saved as draft!');
                 router.push('/dashboard/admin/blog');
             } else {
                 toast.error(data.message || 'Failed to create blog');
@@ -196,7 +196,7 @@ export default function CreateBlogPage() {
                     </Link>
                     <div>
                         <h1 className={`text-2xl md:text-3xl font-bold font-outfit ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                            Write New Blog
+                            Write New Resource
                         </h1>
                         <p className={`mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             Create engaging content for your readers
@@ -244,7 +244,7 @@ export default function CreateBlogPage() {
                     {/* Title */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Blog Title <span className="text-[#021E14]">*</span>
+                            Resource Title <span className="text-[#021E14]">*</span>
                         </label>
                         <input
                             type="text"
@@ -295,7 +295,7 @@ export default function CreateBlogPage() {
                     {/* Content Editor */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Blog Content <span className="text-[#021E14]">*</span>
+                            Resource Content <span className="text-[#021E14]">*</span>
                         </label>
                         <RichTextEditor
                             value={formData.content}

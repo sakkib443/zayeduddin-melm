@@ -176,7 +176,7 @@ export default function MentorEditBlogPage() {
 
             const data = await res.json();
             if (data.success) {
-                toast.success('Blog updated successfully!');
+                toast.success('Resource updated successfully!');
                 router.push('/dashboard/mentor/blog');
             } else {
                 toast.error(data.message || 'Failed to update blog');
@@ -232,7 +232,7 @@ export default function MentorEditBlogPage() {
                 <div className="lg:col-span-2 space-y-6">
                     {/* Title */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Title *</label>
+                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Resource Title *</label>
                         <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter your blog title..."
                             className={`w-full px-4 py-3 rounded-xl border text-lg font-medium ${isDark ? 'bg-slate-700/50 border-slate-600 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'} focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`} />
 
@@ -250,7 +250,7 @@ export default function MentorEditBlogPage() {
 
                     {/* Content Editor */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Blog Content *</label>
+                        <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Resource Content *</label>
                         {previewMode ? (
                             <div className={`p-4 min-h-[400px] prose max-w-none border rounded-xl ${isDark ? 'prose-invert bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`} dangerouslySetInnerHTML={{ __html: formData.content }} />
                         ) : (

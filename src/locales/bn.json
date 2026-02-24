@@ -7,8 +7,8 @@
         "totalDownloads": "মোট ডাউনলোড"
     },
     "blogSection": {
-        "badge": "আমাদের ব্লগ",
-        "title": "সর্বশেষ সংবাদ ও নিবন্ধ",
+        "badge": "রিসোর্স লাইব্রেরি",
+        "title": "রিসোর্স লাইব্রেরি",
         "viewAll": "সবগুলো দেখুন",
         "author": "জায়েদ উদ্দিন",
         "category": "নিবন্ধ",
@@ -30,7 +30,7 @@
         "courses": "প্রশিক্ষণ",
         "design": "ডিজাইন",
         "pricing": "প্রাইস",
-        "blog": "ব্লগ",
+        "blog": "রিসোর্স লাইব্রেরি",
         "events": "ইভেন্ট",
         "success": "সাফল্য",
         "successHistory": "সফলতার গল্প",
@@ -40,6 +40,7 @@
         "certification": "সার্টিফিকেশন",
         "software": "সফটওয়্যার",
         "website": "ওয়েবসাইট",
+        "webTemplate": "ওয়েব টেমপ্লেট",
         "websiteSelection": "ওয়েবসাইট সিলেকশন",
         "designTemplate": "ডিজাইন টেমপ্লেট",
         "pricingPlan": "প্রাইসিং প্ল্যান",

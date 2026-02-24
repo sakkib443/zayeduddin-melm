@@ -86,8 +86,8 @@ export default function AdminBlogPage() {
                         <FiEdit3 className="text-white" size={18} />
                     </div>
                     <div>
-                        <h1 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Blog Management</h1>
-                        <p className={`text-sm font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{totalBlogs} total blogs</p>
+                        <h1 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Resource Library</h1>
+                        <p className={`text-sm font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{totalBlogs} total resources</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -107,7 +107,7 @@ export default function AdminBlogPage() {
                         className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#01140D] text-white rounded-md text-sm font-normal transition-all"
                     >
                         <FiPlus size={14} />
-                        New Blog
+                        New Resource
                     </Link>
                 </div>
             </div>
@@ -119,7 +119,7 @@ export default function AdminBlogPage() {
                         <FiSearch className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-500' : 'text-gray-400'}`} size={16} />
                         <input
                             type="text"
-                            placeholder="Search blogs..."
+                            placeholder="Search resources..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className={`w-full pl-9 pr-4 py-2 rounded-md border text-sm font-normal transition-all ${isDark
@@ -153,14 +153,14 @@ export default function AdminBlogPage() {
                 ) : blogs.length === 0 ? (
                     <div className={`text-center py-16 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                         <FiEdit3 className={`mx-auto mb-3 ${isDark ? 'text-slate-600' : 'text-gray-300'}`} size={40} />
-                        <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>No blogs found</h3>
-                        <p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Start writing your first blog post!</p>
+                        <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>No resources found</h3>
+                        <p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Start writing your first resource post!</p>
                         <Link
                             href="/dashboard/admin/blog/create"
                             className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-md bg-[#021E14] text-white text-sm font-normal"
                         >
                             <FiPlus size={14} />
-                            Write New Blog
+                            Write New Resource
                         </Link>
                     </div>
                 ) : (
@@ -301,7 +301,7 @@ export default function AdminBlogPage() {
             {deleteModal.show && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
                     <div className={`w-full max-w-md p-5 rounded-md ${isDark ? 'bg-slate-800' : 'bg-white'}`}>
-                        <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Delete Blog?</h3>
+                        <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-800'}`}>Delete Resource?</h3>
                         <p className={`mt-2 text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
                             Are you sure you want to delete &quot;{deleteModal.title}&quot;? This cannot be undone.
                         </p>

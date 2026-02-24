@@ -100,10 +100,10 @@ export default function MentorBlogPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className={`text-2xl md:text-3xl font-bold font-outfit ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                        My Blogs
+                        My Resources
                     </h1>
                     <p className={`mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Manage your blog posts � {totalBlogs} blogs written
+                        Manage your resource posts · {totalBlogs} resources written
                     </p>
                 </div>
                 <Link
@@ -111,7 +111,7 @@ export default function MentorBlogPage() {
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white font-semibold shadow-lg shadow-red-500/30 hover:shadow-xl hover:scale-[1.02] transition-all"
                 >
                     <FiPlus size={18} />
-                    Write New Blog
+                    Write New Resource
                 </Link>
             </div>
 
@@ -122,7 +122,7 @@ export default function MentorBlogPage() {
                         <FiSearch className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} size={18} />
                         <input
                             type="text"
-                            placeholder="Search your blogs..."
+                            placeholder="Search your resources..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className={`w-full pl-10 pr-4 py-2.5 rounded-xl border transition-all ${isDark
@@ -156,14 +156,14 @@ export default function MentorBlogPage() {
                 ) : blogs.length === 0 ? (
                     <div className={`text-center py-20 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <FiEdit3 className={`mx-auto mb-4 ${isDark ? 'text-slate-600' : 'text-slate-300'}`} size={48} />
-                        <h3 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>No blogs yet</h3>
-                        <p className={`mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Start writing your first blog post!</p>
+                        <h3 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>No resources yet</h3>
+                        <p className={`mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Start writing your first resource post!</p>
                         <Link
                             href="/dashboard/instructor/blog/create"
                             className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#021E14] to-cyan-500 text-white font-semibold"
                         >
                             <FiPlus size={18} />
-                            Write New Blog
+                            Write New Resource
                         </Link>
                     </div>
                 ) : (
@@ -290,7 +290,7 @@ export default function MentorBlogPage() {
             {deleteModal.show && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
                     <div className={`w-full max-w-md p-6 rounded-2xl ${isDark ? 'bg-slate-800' : 'bg-white'}`}>
-                        <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Delete Blog?</h3>
+                        <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Delete Resource?</h3>
                         <p className={`mt-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             Are you sure you want to delete &quot;{deleteModal.title}&quot;?
                         </p>
