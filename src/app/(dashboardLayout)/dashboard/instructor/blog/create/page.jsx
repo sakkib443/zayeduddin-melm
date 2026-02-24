@@ -54,6 +54,7 @@ export default function MentorCreateBlogPage() {
         allowComments: true,
         metaTitle: '',
         metaDescription: '',
+        slug: '',
     });
 
     const [tagInput, setTagInput] = useState('');
@@ -292,6 +293,12 @@ export default function MentorCreateBlogPage() {
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
                         <h3 className={`text-sm font-medium mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>SEO Settings</h3>
                         <div className="space-y-3">
+                            <div>
+                                <label className={`block text-[10px] uppercase tracking-wider font-bold mb-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Custom URL Slug (English)</label>
+                                <input type="text" name="slug" value={formData.slug} onChange={handleChange} placeholder="e.g. typography-guide"
+                                    className={`w-full px-3 py-2 rounded-lg border text-sm ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'}`} />
+                                <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Use only English letters, numbers and dashes for a nice link.</p>
+                            </div>
                             <input type="text" name="metaTitle" value={formData.metaTitle} onChange={handleChange} placeholder="Meta Title (max 70 chars)" maxLength={70}
                                 className={`w-full px-3 py-2 rounded-lg border text-sm ${isDark ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500' : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400'}`} />
                             <textarea name="metaDescription" value={formData.metaDescription} onChange={handleChange} placeholder="Meta Description (max 160 chars)" maxLength={160} rows={2}
