@@ -20,7 +20,7 @@ export default function CreateCoursePage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto p-6 pb-20">
+      <div className="w-full p-2 md:p-6 pb-20">
 
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">

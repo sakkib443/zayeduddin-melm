@@ -58,19 +58,19 @@ const UserManagement = () => {
 
   const getRoleBadge = (role) => {
     switch (role) {
-      case 'admin': return 'bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]';
-      case 'mentor': return 'bg-amber-100 dark:bg-[#D4AF37]/20 text-amber-600 dark:text-[#D4AF37]';
-      case 'student': return 'bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]';
-      default: return 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+      case 'admin': return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400';
+      case 'mentor': return 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400';
+      case 'student': return 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400';
+      default: return 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300';
     }
   };
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'active': return 'bg-emerald-100 dark:bg-[#021E14]/20 text-[#021E14] dark:text-emerald-400';
-      case 'blocked': return 'bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]';
-      case 'pending': return 'bg-amber-100 dark:bg-[#D4AF37]/20 text-amber-600 dark:text-[#D4AF37]';
-      default: return 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+      case 'active': return 'bg-emerald-500 text-white shadow-sm';
+      case 'blocked': return 'bg-rose-100 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400';
+      case 'pending': return 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400';
+      default: return 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300';
     }
   };
 
@@ -86,8 +86,8 @@ const UserManagement = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-[#021E14] flex items-center justify-center">
-            <FiUsers className="text-white" size={18} />
+          <div className="w-10 h-10 rounded-md bg-emerald-500 flex items-center justify-center shadow-sm">
+            <FiUsers className="text-white" size={20} />
           </div>
           <div>
             <h1 className="text-lg font-semibold text-slate-800 dark:text-white">Users</h1>
@@ -116,7 +116,7 @@ const UserManagement = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-emerald-500 rounded-md flex items-center justify-center shadow-sm">
               <FiUsers className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.total}</span>
@@ -125,7 +125,7 @@ const UserManagement = () => {
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-emerald-500 rounded-md flex items-center justify-center shadow-sm">
               <FiCheck className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.active}</span>
@@ -134,7 +134,7 @@ const UserManagement = () => {
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-emerald-500 rounded-md flex items-center justify-center shadow-sm">
               <FiUsers className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.students}</span>
@@ -143,7 +143,7 @@ const UserManagement = () => {
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
+            <div className="w-8 h-8 bg-slate-400 dark:bg-slate-600 rounded-md flex items-center justify-center shadow-sm">
               <FiX className="text-white" size={14} />
             </div>
             <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.total - stats.active}</span>
@@ -192,7 +192,7 @@ const UserManagement = () => {
                   <tr key={user._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-[#021E14] flex items-center justify-center text-white text-xs font-medium">
+                        <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                           {user.firstName?.[0]}{user.lastName?.[0]}
                         </div>
                         <div>
@@ -221,17 +221,17 @@ const UserManagement = () => {
                       </div>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <div className="flex items-center justify-center gap-1">
+                      <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={() => handleEdit(user._id)}
-                          className="p-1.5 bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14] rounded-md hover:bg-[#021E14] hover:text-white transition-all shadow-sm"
+                          className="p-1.5 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition-all shadow-sm"
                           title="Edit User"
                         >
                           <FiEdit3 size={14} />
                         </button>
                         <button
                           onClick={() => handleDelete(user._id)}
-                          className="p-1.5 text-[#021E14] hover:text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 rounded-md transition-colors"
+                          className="p-1.5 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white dark:bg-rose-500/10 rounded-md transition-all shadow-sm"
                           title="Delete User"
                         >
                           <FiTrash2 size={14} />

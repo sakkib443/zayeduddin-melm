@@ -120,7 +120,7 @@ export default function ModuleCreateTab({ onSuccess }) {
     const lastCourseTitle = typeof window !== 'undefined' ? localStorage.getItem('lastCreatedCourseTitle') : null;
 
     return (
-        <div className="max-w-4xl mx-auto space-y-5">
+        <div className="w-full space-y-5">
 
             {/* Header with Course Info & Actions */}
             <div className="bg-white border border-slate-200 rounded-md p-4 shadow-sm">

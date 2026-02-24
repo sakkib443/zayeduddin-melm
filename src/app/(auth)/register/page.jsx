@@ -22,6 +22,7 @@ const Register = () => {
     lastName: "",
     email: "",
     phoneNumber: "",
+    countryCode: "+880",
     password: "",
     confirmPassword: "",
   });
@@ -159,6 +160,7 @@ const Register = () => {
           lastName: formData.lastName,
           email: formData.email,
           phone: formData.phoneNumber,
+          countryCode: formData.countryCode,
           password: formData.password,
           role: "student",
         }),
@@ -369,15 +371,42 @@ const Register = () => {
 
                       {/* Phone */}
                       <div>
-                        <div className="relative">
-                          <FiPhone className="absolute left-4 top-3.5 text-gray-400" size={18} />
-                          <input
-                            name="phoneNumber"
-                            placeholder={language === "bn" ? "ফোন নম্বর (ঐচ্ছিক)" : "Phone number (optional)"}
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.phoneNumber ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
-                          />
+                        <div className="flex gap-2">
+                          <div className="relative w-32 shrink-0">
+                            <select
+                              name="countryCode"
+                              value={formData.countryCode}
+                              onChange={handleChange}
+                              className={`w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none appearance-none transition ${bengaliClass} text-sm font-medium`}
+                            >
+                              <option value="+880">🇧🇩 +880</option>
+                              <option value="+91">🇮🇳 +91</option>
+                              <option value="+1">🇺🇸 +1</option>
+                              <option value="+44">🇬🇧 +44</option>
+                              <option value="+971">🇦🇪 +971</option>
+                              <option value="+966">🇸এ +966</option>
+                              <option value="+92">🇵🇰 +92</option>
+                              <option value="+60">🇲🇾 +60</option>
+                              <option value="+65">🇸🇬 +65</option>
+                              <option value="+61">🇦🇺 +61</option>
+                              <option value="+1">🇨🇦 +1</option>
+                            </select>
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                              <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="relative flex-1">
+                            <FiPhone className="absolute left-4 top-3.5 text-gray-400" size={18} />
+                            <input
+                              name="phoneNumber"
+                              placeholder={language === "bn" ? "ফোন নম্বর (ঐচ্ছিক)" : "Phone number (optional)"}
+                              value={formData.phoneNumber}
+                              onChange={handleChange}
+                              className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.phoneNumber ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            />
+                          </div>
                         </div>
                         {fieldErrors.phoneNumber && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.phoneNumber}</p>}
                       </div>
