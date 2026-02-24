@@ -13,7 +13,8 @@ const ReactQuill = dynamic(
 
 // Custom toolbar configuration
 const toolbarOptions = [
-  // Font and size
+  // Font, header and size
+  [{ 'font': [] }],
   [{ 'header': [1, 2, 3, false] }],
   [{ 'size': ['small', false, 'large', 'huge'] }],
 
@@ -38,7 +39,7 @@ const toolbarOptions = [
 ];
 
 const formats = [
-  'header', 'size',
+  'font', 'header', 'size',
   'bold', 'italic', 'underline', 'strike',
   'color', 'background',
   'list', 'bullet',

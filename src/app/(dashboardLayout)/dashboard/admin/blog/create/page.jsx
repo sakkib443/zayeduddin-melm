@@ -129,22 +129,6 @@ export default function CreateBlogPage() {
         }
     };
 
-    // Format text in content
-    const formatText = (command, value = null) => {
-        document.execCommand(command, false, value);
-        if (contentRef.current) {
-            setFormData(prev => ({ ...prev, content: contentRef.current.innerHTML }));
-        }
-    };
-
-    // Insert heading
-    const insertHeading = (level) => {
-        document.execCommand('formatBlock', false, `h${level}`);
-        if (contentRef.current) {
-            setFormData(prev => ({ ...prev, content: contentRef.current.innerHTML }));
-        }
-    };
-
     // Submit form
     const handleSubmit = async (publishStatus) => {
         if (!formData.title || !formData.excerpt || !formData.content || !formData.category || !formData.thumbnail) {

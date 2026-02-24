@@ -60,6 +60,12 @@ export default function SingleBlogPage() {
 
     const bengaliClass = language === 'bn' ? 'hind-siliguri' : '';
 
+    // Sanitize Quill content: replace &nbsp; with normal spaces so text wraps properly
+    const sanitizeContent = (html) => {
+        if (!html) return '';
+        return html.replace(/&nbsp;/g, ' ');
+    };
+
     // Translations
     const text = {
         bn: {
@@ -599,16 +605,131 @@ export default function SingleBlogPage() {
                                 </div>
 
                                 {/* Main Rich Text Content */}
+                                <style jsx global>{`
+                                    /* Quill alignment classes */
+                                    .blog-content .ql-align-center { text-align: center; }
+                                    .blog-content .ql-align-right { text-align: right; }
+                                    .blog-content .ql-align-justify { text-align: justify; }
+                                    .blog-content .ql-align-left { text-align: left; }
+
+                                    /* Quill size classes */
+                                    .blog-content .ql-size-small { font-size: 0.75em; }
+                                    .blog-content .ql-size-large { font-size: 1.5em; }
+                                    .blog-content .ql-size-huge { font-size: 2.5em; }
+
+                                    /* Quill font classes */
+                                    .blog-content .ql-font-serif { font-family: Georgia, 'Times New Roman', serif; }
+                                    .blog-content .ql-font-monospace { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+
+                                    /* Quill indent classes */
+                                    .blog-content .ql-indent-1 { padding-left: 3em; }
+                                    .blog-content .ql-indent-2 { padding-left: 6em; }
+                                    .blog-content .ql-indent-3 { padding-left: 9em; }
+                                    .blog-content .ql-indent-4 { padding-left: 12em; }
+                                    .blog-content .ql-indent-5 { padding-left: 15em; }
+
+                                    /* Proper paragraph spacing */
+                                    .blog-content p {
+                                        margin-bottom: 1.25em;
+                                        line-height: 1.8;
+                                    }
+
+                                    /* Ensure proper word wrapping for all blog content */
+                                    .blog-content {
+                                        word-break: normal;
+                                        overflow-wrap: anywhere;
+                                        white-space: normal;
+                                    }
+
+                                    /* Heading spacing */
+                                    .blog-content h1 { font-size: 2em; margin-top: 1.5em; margin-bottom: 0.75em; line-height: 1.3; }
+                                    .blog-content h2 { font-size: 1.5em; margin-top: 1.5em; margin-bottom: 0.6em; line-height: 1.35; }
+                                    .blog-content h3 { font-size: 1.25em; margin-top: 1.25em; margin-bottom: 0.5em; line-height: 1.4; }
+
+                                    /* List styling */
+                                    .blog-content ul, .blog-content ol {
+                                        padding-left: 1.625em;
+                                        margin-bottom: 1.25em;
+                                    }
+                                    .blog-content li {
+                                        margin-bottom: 0.5em;
+                                        line-height: 1.75;
+                                    }
+                                    .blog-content ul li { list-style-type: disc; }
+                                    .blog-content ol li { list-style-type: decimal; }
+
+                                    /* Blockquote */
+                                    .blog-content blockquote {
+                                        padding: 1em 1.5em;
+                                        margin: 1.5em 0;
+                                        border-left: 4px solid;
+                                        font-style: italic;
+                                    }
+
+                                    /* Images */
+                                    .blog-content img {
+                                        max-width: 100%;
+                                        height: auto;
+                                        margin: 1.5em 0;
+                                        border-radius: 1rem;
+                                    }
+
+                                    /* Video iframes */
+                                    .blog-content iframe {
+                                        max-width: 100%;
+                                        margin: 1.5em 0;
+                                        border-radius: 1rem;
+                                    }
+
+                                    /* Strong and emphasis */
+                                    .blog-content strong { font-weight: 700; }
+                                    .blog-content em { font-style: italic; }
+                                    .blog-content u { text-decoration: underline; }
+                                    .blog-content s { text-decoration: line-through; }
+
+                                    /* Links inside blog */
+                                    .blog-content a {
+                                        color: #021E14;
+                                        font-weight: 600;
+                                        text-decoration: none;
+                                        transition: all 0.2s;
+                                    }
+                                    .blog-content a:hover { text-decoration: underline; }
+                                    .dark .blog-content a { color: #D4AF37; }
+
+                                    /* Color support from Quill */
+                                    .blog-content span[style*="color"] { /* Quill inline color - preserved via style attr */ }
+                                    .blog-content span[style*="background-color"] { padding: 0.1em 0.25em; border-radius: 0.2em; }
+
+                                    /* Pre / Code */
+                                    .blog-content pre {
+                                        background: #1e293b;
+                                        color: #e2e8f0;
+                                        padding: 1em 1.25em;
+                                        border-radius: 0.75rem;
+                                        overflow-x: auto;
+                                        margin: 1.5em 0;
+                                        font-size: 0.875em;
+                                        line-height: 1.7;
+                                    }
+                                    .blog-content code {
+                                        background: rgba(0,0,0,0.05);
+                                        padding: 0.2em 0.4em;
+                                        border-radius: 0.25em;
+                                        font-size: 0.875em;
+                                    }
+                                    .dark .blog-content code { background: rgba(255,255,255,0.1); }
+                                `}</style>
                                 <div
-                                    className={`prose prose-lg md:prose-xl dark:prose-invert max-w-none mb-20 break-words overflow-hidden
+                                    className={`blog-content prose prose-lg md:prose-xl dark:prose-invert max-w-none mb-20 overflow-hidden
                                         prose-headings:font-bold prose-headings:text-[#021E14] dark:prose-headings:text-white
-                                        prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed
+                                        prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-[1.8]
                                         prose-a:text-[#021E14] dark:prose-a:text-[#D4AF37] prose-a:font-bold prose-a:no-underline hover:prose-a:underline
                                         prose-blockquote:border-[#021E14] dark:prose-blockquote:border-[#D4AF37] prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-white/5 prose-blockquote:rounded-r-3xl prose-blockquote:py-4 prose-blockquote:px-8
                                         prose-img:rounded-[2.5rem] prose-img:shadow-2xl
-                                        prose-li:text-slate-600 dark:prose-li:text-slate-400
+                                        prose-li:text-slate-600 dark:prose-li:text-slate-400 prose-li:leading-[1.75]
                                         ${bengaliClass}`}
-                                    dangerouslySetInnerHTML={{ __html: blog.content }}
+                                    dangerouslySetInnerHTML={{ __html: sanitizeContent(blog.content) }}
                                 />
 
                                 {/* Tags */}
