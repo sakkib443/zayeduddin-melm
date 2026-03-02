@@ -272,7 +272,20 @@
         "giftCourse": "কোর্স গিফট করুন",
         "recommendedCourses": "রেকমেন্ডেড কোর্স",
         "viewAllCourses": "সব কোর্স দেখুন",
-        "loading": "লোড হচ্ছে..."
+        "loading": "লোড হচ্ছে...",
+        "fullLifetimeAccess": "লাইফটাইম এক্সেস",
+        "alreadyPurchased": "ইতিমধ্যে কেনা হয়েছে",
+        "goToDashboard": "ড্যাশবোর্ডে যান",
+        "courseIncludes": "কোর্সের ভেতরে যা আছে",
+        "lifetimeUpdates": "লাইফটাইম আপডেট",
+        "availableBatches": "উপলব্ধ ব্যাচসমূহ",
+        "recommended": "সুপারিশকৃত",
+        "seats": "আসন",
+        "startDate": "শুরু তারিখ",
+        "lastDate": "শেষ তারিখ",
+        "enrollmentProgress": "এনরোলমেন্ট অগ্রগতি",
+        "enrollIn": "এনরোল করুন",
+        "popularCourses": "জনপ্রিয় কোর্স"
     },
     "aboutPage": {
         "badge": "স্বপ্নকে সত্যি করার শুরু",

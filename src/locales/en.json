@@ -261,7 +261,20 @@
         "giftCourse": "Gift Course",
         "recommendedCourses": "Recommended Courses",
         "viewAllCourses": "View All Courses",
-        "loading": "Loading..."
+        "loading": "Loading...",
+        "fullLifetimeAccess": "Full Lifetime Access",
+        "alreadyPurchased": "Already Purchased",
+        "goToDashboard": "Go to Dashboard",
+        "courseIncludes": "Course Includes",
+        "lifetimeUpdates": "Lifetime Updates",
+        "availableBatches": "Available Batches",
+        "recommended": "Recommended",
+        "seats": "Seats",
+        "startDate": "Start Date",
+        "lastDate": "Last Date",
+        "enrollmentProgress": "Enrollment Progress",
+        "enrollIn": "Enroll In",
+        "popularCourses": "Popular Courses"
     },
     "aboutPage": {
         "badge": "About Us",

@@ -467,19 +467,19 @@ const SingleCourse = () => {
                         className="space-y-6"
                       >
                         <div className="flex items-center justify-between">
-                          <h2 className="text-lg font-bold outfit text-gray-900 dark:text-white flex items-center gap-2">
+                          <h2 className={`text-lg font-bold outfit text-gray-900 dark:text-white flex items-center gap-2 ${bengaliClass}`}>
                             <span className="w-1 h-5 bg-[#021E14] rounded-full"></span>
-                            Course Curriculum
+                            {t("courseDetails.curriculum")}
                           </h2>
                           {currentCourse.curriculum?.length > 0 && (
-                            <div className="flex items-center gap-3 text-xs text-gray-500 poppins">
+                            <div className={`flex items-center gap-3 text-xs text-gray-500 poppins ${bengaliClass}`}>
                               <span className="flex items-center gap-1.5">
                                 <LuLayoutGrid size={13} />
-                                {currentCourse.curriculum.length} Modules
+                                {currentCourse.curriculum.length} {language === 'bn' ? 'মডিউল' : 'Modules'}
                               </span>
                               <span className="flex items-center gap-1.5">
                                 <MdPlayCircleOutline size={14} />
-                                {currentCourse.curriculum.reduce((sum, m) => sum + (m.totalLessons || 0), 0)} Lessons
+                                {currentCourse.curriculum.reduce((sum, m) => sum + (m.totalLessons || 0), 0)} {language === 'bn' ? 'লেসন' : 'Lessons'}
                               </span>
                             </div>
                           )}
@@ -513,9 +513,9 @@ const SingleCourse = () => {
                                       {String(idx + 1).padStart(2, '0')}
                                     </span>
                                     <div className="min-w-0">
-                                      <h3 className="font-semibold text-gray-900 dark:text-white outfit text-sm truncate">{module.moduleTitle}</h3>
+                                      <h3 className="font-semibold text-gray-900 dark:text-white outfit text-sm truncate">{language === 'bn' && module.moduleTitleBn ? module.moduleTitleBn : module.moduleTitle}</h3>
                                       <p className="text-[11px] text-gray-400 poppins mt-0.5">
-                                        {module.totalLessons || 0} Lessons {durationMinutes > 0 && `• ${durationText}`}
+                                        {module.totalLessons || 0} {language === 'bn' ? 'লেসন' : 'Lessons'} {durationMinutes > 0 && `• ${durationText}`}
                                       </p>
                                     </div>
                                   </div>
@@ -540,11 +540,11 @@ const SingleCourse = () => {
                                           <div className="flex items-center gap-3 min-w-0 flex-1">
                                             <MdPlayCircleOutline className="text-gray-300 dark:text-slate-600 group-hover:text-[#021E14] transition-colors shrink-0" size={18} />
                                             <span className="text-sm text-gray-600 dark:text-gray-400 poppins group-hover:text-gray-900 dark:group-hover:text-white transition-colors truncate">
-                                              {lesson.title}
+                                              {language === 'bn' && lesson.titleBn ? lesson.titleBn : lesson.title}
                                             </span>
                                             {lesson.isFree && (
-                                              <span className="text-[10px] font-semibold text-[#021E14] bg-emerald-50 dark:bg-[#021E14]/10 px-2 py-0.5 rounded border border-emerald-100 dark:border-[#021E14]/20 shrink-0">
-                                                FREE
+                                              <span className={`text-[10px] font-semibold text-[#021E14] bg-emerald-50 dark:bg-[#021E14]/10 px-2 py-0.5 rounded border border-emerald-100 dark:border-[#021E14]/20 shrink-0 ${bengaliClass}`}>
+                                                {language === 'bn' ? 'ফ্রি' : 'FREE'}
                                               </span>
                                             )}
                                           </div>
@@ -562,7 +562,7 @@ const SingleCourse = () => {
                                 {/* Empty module */}
                                 {isExpanded && (!module.lessons || module.lessons.length === 0) && (
                                   <div className="border-t border-gray-100 dark:border-slate-800 px-4 py-6 text-center">
-                                    <p className="text-xs text-gray-400 poppins">No lessons available in this module yet.</p>
+                                    <p className={`text-xs text-gray-400 poppins ${bengaliClass}`}>{language === 'bn' ? 'এই মডিউলে কোনো লেসন নেই।' : 'No lessons available in this module yet.'}</p>
                                   </div>
                                 )}
                               </div>
@@ -573,7 +573,7 @@ const SingleCourse = () => {
                           {!currentCourse.curriculum?.length && (
                             <div className="text-center py-12 border border-dashed border-gray-200 dark:border-slate-700 rounded-md">
                               <MdOutlineMenuBook className="mx-auto text-3xl text-gray-300 dark:text-slate-600 mb-3" />
-                              <p className="text-gray-400 text-sm poppins">Curriculum details coming soon.</p>
+                              <p className={`text-gray-400 text-sm poppins ${bengaliClass}`}>{language === 'bn' ? 'কারিকুলাম শীঘ্রই আসছে।' : 'Curriculum details coming soon.'}</p>
                             </div>
                           )}
                         </div>
@@ -759,7 +759,7 @@ const SingleCourse = () => {
                           </span>
                         )}
                       </div>
-                      <p className="text-[#021E14] text-xs font-semibold uppercase tracking-wide mt-1 poppins">Full Lifetime Access</p>
+                      <p className={`text-[#021E14] text-xs font-semibold uppercase tracking-wide mt-1 poppins ${bengaliClass}`}>{t("courseDetails.fullLifetimeAccess")}</p>
                     </div>
 
                     {/* Buttons */}
@@ -768,24 +768,24 @@ const SingleCourse = () => {
                         <div className="space-y-3">
                           <button
                             disabled
-                            className="w-full py-3 bg-gray-100 dark:bg-slate-800 text-gray-500 font-semibold rounded-md flex items-center justify-center gap-2 poppins cursor-not-allowed"
+                            className={`w-full py-3 bg-gray-100 dark:bg-slate-800 text-gray-500 font-semibold rounded-md flex items-center justify-center gap-2 poppins cursor-not-allowed ${bengaliClass}`}
                           >
-                            <LuCheck size={16} /> Already Purchased
+                            <LuCheck size={16} /> {t("courseDetails.alreadyPurchased")}
                           </button>
                           <Link
                             href="/dashboard/user"
-                            className="w-full py-2.5 bg-white border border-[#021E14] text-[#021E14] font-semibold rounded-md hover:bg-[#021E14] hover:text-white transition-all text-center flex items-center justify-center gap-2 poppins"
+                            className={`w-full py-2.5 bg-white border border-[#021E14] text-[#021E14] font-semibold rounded-md hover:bg-[#021E14] hover:text-white transition-all text-center flex items-center justify-center gap-2 poppins ${bengaliClass}`}
                           >
-                            Go to Dashboard
+                            {t("courseDetails.goToDashboard")}
                           </Link>
                         </div>
                       ) : (
                         <>
                           <button
                             onClick={handleBuyNow}
-                            className="w-full py-3 bg-[#021E14] hover:bg-[#021E14]/90 text-white font-semibold rounded-md transition-colors flex items-center justify-center gap-2 poppins"
+                            className={`w-full py-3 bg-[#021E14] hover:bg-[#021E14]/90 text-white font-semibold rounded-md transition-colors flex items-center justify-center gap-2 poppins ${bengaliClass}`}
                           >
-                            Enroll Now <FaArrowRight size={12} />
+                            {t("courseDetails.enrollNow")} <FaArrowRight size={12} />
                           </button>
                         </>
                       )}
@@ -793,13 +793,13 @@ const SingleCourse = () => {
 
                     {/* What's Included mirroring Website style */}
                     <div className="pt-4 border-t border-gray-100">
-                      <h5 className="text-sm font-bold text-gray-900 mb-3 outfit">Course Includes</h5>
+                      <h5 className={`text-sm font-bold text-gray-900 mb-3 outfit ${bengaliClass}`}>{t("courseDetails.courseIncludes")}</h5>
                       <ul className="space-y-2.5">
                         {[
-                          { icon: LuMonitor, text: `${currentCourse.totalLessons || 0}+ Video Lessons` },
-                          { icon: LuClock, text: `${currentCourse.totalDuration || '12 Hours'} Duration` },
-                          { icon: LuTrophy, text: 'Completion Certificate' },
-                          { icon: LuShieldCheck, text: 'Lifetime Updates' },
+                          { icon: LuMonitor, text: `${currentCourse.totalLessons || 0}+ ${t("courseDetails.videoLessons")}` },
+                          { icon: LuClock, text: `${currentCourse.totalDuration || (language === 'bn' ? '১২ ঘণ্টা' : '12 Hours')} ${language === 'bn' ? 'সময়কাল' : 'Duration'}` },
+                          { icon: LuTrophy, text: t("courseDetails.certificate") },
+                          { icon: LuShieldCheck, text: t("courseDetails.lifetimeUpdates") },
                         ].map((item, i) => (
                           <li key={i} className="flex items-center gap-2.5 text-gray-600 text-sm poppins">
                             <item.icon className="text-[#021E14]" size={15} />
@@ -815,9 +815,9 @@ const SingleCourse = () => {
                 {batches.length > 0 && (
                   <div className="bg-gradient-to-br from-[#021E14] via-white to-[#01140D] rounded-md border border-[#021E14] shadow-sm overflow-hidden">
                     <div className="bg-gradient-to-r from-[#021E14] to-[#01140D] px-5 py-3">
-                      <h3 className="text-white font-bold outfit flex items-center gap-2">
+                      <h3 className={`text-white font-bold outfit flex items-center gap-2 ${bengaliClass}`}>
                         <LuGraduationCap size={18} />
-                        Available Batches
+                        {t("courseDetails.availableBatches")}
                       </h3>
                     </div>
                     <div className="p-4 space-y-3">
@@ -838,22 +838,29 @@ const SingleCourse = () => {
                                   ? 'bg-green-100 text-green-700'
                                   : 'bg-gray-100 text-gray-600'
                                 }`}>
-                                {batch.status?.toUpperCase()}
+                                {batch.status === 'upcoming'
+                                  ? (language === 'bn' ? 'আসন্ন' : 'UPCOMING')
+                                  : batch.status === 'ongoing'
+                                    ? (language === 'bn' ? 'চলমান' : 'ONGOING')
+                                    : (language === 'bn' ? 'শেষ' : 'COMPLETED')
+                                }
                               </span>
                               {idx === 0 && (
-                                <span className="px-2 py-0.5 bg-gradient-to-r from-[#021E14] to-[#01140D] text-white text-[10px] font-bold rounded">
-                                  RECOMMENDED
+                                <span className={`px-2 py-0.5 bg-gradient-to-r from-[#021E14] to-[#01140D] text-white text-[10px] font-bold rounded ${bengaliClass}`}>
+                                  {t("courseDetails.recommended")}
                                 </span>
                               )}
                             </div>
-                            <span className="text-xs font-medium text-gray-400 poppins">
-                              {batch.enrolledStudents?.length || 0}/{batch.maxStudents} Seats
+                            <span className={`text-xs font-medium text-gray-400 poppins ${bengaliClass}`}>
+                              {batch.enrolledStudents?.length || 0}/{batch.maxStudents} {t("courseDetails.seats")}
                             </span>
                           </div>
 
                           {/* Batch Name & Code */}
-                          <h4 className="font-bold text-gray-900 outfit text-base mb-1">{batch.batchName}</h4>
-                          <p className="text-xs text-[#021E14] font-semibold poppins mb-3">Code: {batch.batchCode}</p>
+                          <h4 className={`font-bold text-gray-900 outfit text-base mb-1 ${bengaliClass}`}>{language === 'bn' && batch.batchNameBn ? batch.batchNameBn : batch.batchName}</h4>
+                          <p className={`text-xs text-[#021E14] font-semibold poppins mb-3 ${bengaliClass}`}>
+                            {language === 'bn' ? 'কোড' : 'Code'}: {batch.batchCode}
+                          </p>
 
                           {/* Batch Details Grid */}
                           <div className="grid grid-cols-2 gap-2 mb-3">
@@ -862,9 +869,9 @@ const SingleCourse = () => {
                                 <LuCalendar className="text-green-600" size={14} />
                               </div>
                               <div>
-                                <p className="text-[10px] text-gray-400 uppercase tracking-wider">Start Date</p>
-                                <p className="text-xs font-semibold text-gray-800">
-                                  {new Date(batch.startDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                <p className={`text-[10px] text-gray-400 uppercase tracking-wider ${bengaliClass}`}>{t("courseDetails.startDate")}</p>
+                                <p className={`text-xs font-semibold text-gray-800 ${bengaliClass}`}>
+                                  {new Date(batch.startDate).toLocaleDateString(language === 'bn' ? 'bn-BD' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                                 </p>
                               </div>
                             </div>
@@ -873,11 +880,11 @@ const SingleCourse = () => {
                                 <LuTimer className="text-[#021E14]" size={14} />
                               </div>
                               <div>
-                                <p className="text-[10px] text-gray-400 uppercase tracking-wider">Last Date</p>
-                                <p className="text-xs font-semibold text-gray-800">
+                                <p className={`text-[10px] text-gray-400 uppercase tracking-wider ${bengaliClass}`}>{t("courseDetails.lastDate")}</p>
+                                <p className={`text-xs font-semibold text-gray-800 ${bengaliClass}`}>
                                   {batch.enrollmentDeadline
-                                    ? new Date(batch.enrollmentDeadline).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
-                                    : new Date(batch.startDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
+                                    ? new Date(batch.enrollmentDeadline).toLocaleDateString(language === 'bn' ? 'bn-BD' : 'en-US', { day: 'numeric', month: 'short' })
+                                    : new Date(batch.startDate).toLocaleDateString(language === 'bn' ? 'bn-BD' : 'en-US', { day: 'numeric', month: 'short' })
                                   }
                                 </p>
                               </div>
@@ -897,8 +904,8 @@ const SingleCourse = () => {
 
                           {/* Progress Bar for Seats */}
                           <div className="mb-3">
-                            <div className="flex justify-between text-[10px] text-gray-500 mb-1">
-                              <span>Enrollment Progress</span>
+                            <div className={`flex justify-between text-[10px] text-gray-500 mb-1 ${bengaliClass}`}>
+                              <span>{t("courseDetails.enrollmentProgress")}</span>
                               <span>{Math.round(((batch.enrolledStudents?.length || 0) / batch.maxStudents) * 100)}%</span>
                             </div>
                             <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
@@ -915,19 +922,19 @@ const SingleCourse = () => {
                               handleAddToCart();
                               router.push('/cart');
                             }}
-                            className={`w-full py-2.5 rounded-md font-semibold text-sm transition-all poppins ${idx === 0
+                            className={`w-full py-2.5 rounded-md font-semibold text-sm transition-all poppins ${bengaliClass} ${idx === 0
                               ? 'bg-gradient-to-r from-[#021E14] to-[#01140D] text-white hover:shadow-lg hover:shadow-indigo-200'
                               : 'bg-white border border-[#021E14] text-[#021E14] hover:bg-[#021E14]'
                               }`}
                           >
-                            Enroll in {batch.batchName}
+                            {t("courseDetails.enrollIn")} {language === 'bn' && batch.batchNameBn ? batch.batchNameBn : batch.batchName}
                           </button>
                         </div>
                       ))}
 
                       {batches.length > 3 && (
-                        <button className="w-full py-2 text-[#021E14] font-medium text-sm border border-dashed border-[#021E14] rounded-md hover:bg-[#021E14] transition-colors poppins">
-                          View All {batches.length} Batches
+                        <button className={`w-full py-2 text-[#021E14] font-medium text-sm border border-dashed border-[#021E14] rounded-md hover:bg-[#021E14] transition-colors poppins ${bengaliClass}`}>
+                          {language === 'bn' ? 'সব ব্যাচ দেখুন' : `View All ${batches.length} Batches`}
                         </button>
                       )}
                     </div>
@@ -936,7 +943,7 @@ const SingleCourse = () => {
 
                 {/* Recommended Courses Widget mirroring Website Popular Websites */}
                 <div className="bg-white rounded-md p-5 border border-gray-200 shadow-sm">
-                  <h3 className="text-sm font-bold text-gray-900 mb-4 outfit">Popular Courses</h3>
+                  <h3 className={`text-sm font-bold text-gray-900 mb-4 outfit ${bengaliClass}`}>{t("courseDetails.popularCourses")}</h3>
                   <div className="space-y-4">
                     {popularCourses.map(item => (
                       <Link href={`/courses/${item._id}`} key={item._id} className="flex gap-3 group">
@@ -960,9 +967,9 @@ const SingleCourse = () => {
                   </div>
                   <Link
                     href="/courses"
-                    className="flex items-center justify-center w-full py-2.5 mt-4 text-[#021E14] font-semibold text-sm border border-dashed border-[#021E14]/20 rounded-md hover:bg-[#021E14]/5 transition-colors poppins"
+                    className={`flex items-center justify-center w-full py-2.5 mt-4 text-[#021E14] font-semibold text-sm border border-dashed border-[#021E14]/20 rounded-md hover:bg-[#021E14]/5 transition-colors poppins ${bengaliClass}`}
                   >
-                    View All Courses
+                    {t("courseDetails.viewAllCourses")}
                   </Link>
                 </div>
               </div>
