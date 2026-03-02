@@ -254,7 +254,7 @@ const SingleCourse = () => {
                 {currentCourse.level || 'Beginner'}
               </span>
               {currentCourse.isFeatured && (
-                <span className="px-3 py-1 bg-gradient-to-r from-[#D4AF37] to-[#01140D] rounded text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
+                <span className="px-3 py-1 bg-emerald-600 rounded text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
                   <LuSparkles size={10} /> Featured
                 </span>
               )}
