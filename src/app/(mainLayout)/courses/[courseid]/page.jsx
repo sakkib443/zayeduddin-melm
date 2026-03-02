@@ -66,6 +66,8 @@ const SingleCourse = () => {
   const [loadingBatches, setLoadingBatches] = useState(false);
   const [expandedModules, setExpandedModules] = useState([0]); // First module expanded by default
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [initialId, setInitialId] = useState(id);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
@@ -120,12 +122,16 @@ const SingleCourse = () => {
   useEffect(() => {
     if (reduxCourse) {
       setCurrentCourse(reduxCourse);
+      setIsInitialLoad(false);
       // Set instructor from course data if available
       if (reduxCourse.instructor) {
         setInstructor(reduxCourse.instructor);
       }
+    } else if (!loading && !isInitialLoad) {
+      // if loading is finished but we still don't have reduxCourse
+      // this could be the case where course actually not found
     }
-  }, [reduxCourse]);
+  }, [reduxCourse, loading, isInitialLoad]);
 
   useEffect(() => {
     if (courses && courses.length > 0) {
@@ -170,7 +176,7 @@ const SingleCourse = () => {
   };
 
   // Loading State
-  if (loading && !currentCourse) {
+  if (loading || isInitialLoad) {
     return (
       <div className="flex items-center justify-center min-h-[60vh] bg-gradient-to-br from-gray-50 to-white dark:from-slate-950 dark:to-slate-900">
         <div className="text-center">
@@ -182,7 +188,7 @@ const SingleCourse = () => {
   }
 
   // Error State
-  if (!currentCourse && !loading) {
+  if (!currentCourse && !loading && !isInitialLoad) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-slate-950 dark:to-slate-900 px-4">
         <div className="w-20 h-20 bg-gray-100 dark:bg-slate-800 rounded-md flex items-center justify-center mb-6">
