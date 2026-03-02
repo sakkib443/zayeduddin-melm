@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import {
   FiShoppingBag, FiSearch, FiRefreshCw, FiEye,
   FiChevronLeft, FiChevronRight, FiDollarSign, FiPackage, FiCheck, FiClock, FiX,
-  FiMail, FiEdit3, FiSave, FiCreditCard, FiHash, FiAlertCircle, FiCalendar, FiPhone
+  FiMail, FiEdit3, FiSave, FiCreditCard, FiHash, FiAlertCircle, FiCalendar, FiPhone, FiTrash2
 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
@@ -19,6 +19,8 @@ export default function OrdersPage() {
   const [editMode, setEditMode] = useState(false);
   const [editStatus, setEditStatus] = useState('');
   const [saving, setSaving] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const fetchOrders = async () => {
     try {
@@ -103,6 +105,31 @@ export default function OrdersPage() {
     setSelectedOrder(order);
     setEditStatus(order.paymentStatus);
     setEditMode(false);
+  };
+
+  const handleDeleteOrder = async () => {
+    if (!deleteTarget) return;
+    try {
+      setDeleting(true);
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API_URL}/orders/admin/${deleteTarget._id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        toast.success('Order deleted successfully!');
+        setDeleteTarget(null);
+        if (selectedOrder?._id === deleteTarget._id) setSelectedOrder(null);
+        fetchOrders();
+      } else {
+        const errData = await res.json();
+        toast.error(errData.message || 'Failed to delete order');
+      }
+    } catch (err) {
+      toast.error('Delete failed. Please try again.');
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -282,8 +309,16 @@ export default function OrdersPage() {
                         <button
                           onClick={() => openOrderDetails(order)}
                           className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-md transition-colors"
+                          title="View Details"
                         >
                           <FiEye size={14} />
+                        </button>
+                        <button
+                          onClick={() => setDeleteTarget(order)}
+                          className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+                          title="Delete Order"
+                        >
+                          <FiTrash2 size={14} />
                         </button>
                       </div>
                     </td>
@@ -487,6 +522,59 @@ export default function OrdersPage() {
                   <p className="text-xs text-red-600">This transaction was marked as failed. Please audit manually if necessary.</p>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteTarget && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-xl w-full max-w-md shadow-2xl overflow-hidden animate-in">
+            {/* Warning Header */}
+            <div className="px-6 pt-8 pb-4 text-center">
+              <div className="w-16 h-16 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
+                <FiTrash2 className="text-red-500" size={28} />
+              </div>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Delete Order?</h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                Are you sure you want to permanently delete this order? This action cannot be undone.
+              </p>
+            </div>
+
+            {/* Order Info */}
+            <div className="mx-6 mb-4 p-3 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-red-500 font-medium">Order #{deleteTarget.orderNumber || deleteTarget._id?.slice(-6).toUpperCase()}</p>
+                  <p className="text-sm text-slate-700 dark:text-slate-300 mt-0.5">
+                    {deleteTarget.user?.firstName} {deleteTarget.user?.lastName} — {deleteTarget.items?.length || 0} item(s)
+                  </p>
+                </div>
+                <span className="text-base font-bold text-red-600">৳{deleteTarget.totalAmount?.toLocaleString()}</span>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="px-6 pb-6 flex items-center gap-3">
+              <button
+                onClick={() => setDeleteTarget(null)}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 font-medium text-sm transition-all disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteOrder}
+                disabled={deleting}
+                className="flex-1 px-4 py-2.5 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-red-500/20"
+              >
+                {deleting ? (
+                  <><FiRefreshCw size={14} className="animate-spin" /> Deleting...</>
+                ) : (
+                  <><FiTrash2 size={14} /> Yes, Delete</>
+                )}
+              </button>
             </div>
           </div>
         </div>

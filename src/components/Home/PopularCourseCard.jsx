@@ -133,7 +133,7 @@ const PopularCourseCard = () => {
               </svg>
             </div>
             <p className={`text-gray-600 text-lg font-medium ${bengaliClass}`}>
-              {language === 'bn' ? '????? ??? ???? ??????' : 'Failed to load courses'}
+              {language === 'bn' ? 'কোর্স লোড করতে সমস্যা হয়েছে' : 'Failed to load courses'}
             </p>
             <p className="text-gray-400 text-sm mt-1">{error}</p>
           </div>
@@ -158,10 +158,10 @@ const PopularCourseCard = () => {
                   <LuSparkles className="w-10 h-10 text-gray-300" />
                 </div>
                 <p className={`text-gray-500 text-lg ${bengaliClass}`}>
-                  {language === 'bn' ? '?? ??????????? ??? ????? ???' : 'No courses found in this category'}
+                  {language === 'bn' ? 'এই ক্যাটাগরিতে কোনো কোর্স নেই' : 'No courses found in this category'}
                 </p>
                 <p className={`text-gray-400 text-sm mt-1 ${bengaliClass}`}>
-                  {language === 'bn' ? '???? ????????? ???????? ????' : 'Try selecting a different category'}
+                  {language === 'bn' ? 'অন্য ক্যাটাগরি নির্বাচন করুন' : 'Try selecting a different category'}
                 </p>
               </div>
             )}

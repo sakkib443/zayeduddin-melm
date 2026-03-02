@@ -11,7 +11,7 @@ const translations = { en, bn };
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguageState] = useState("en");
+  const [language, setLanguageState] = useState("bn");
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Load language preference from localStorage on mount
@@ -22,10 +22,15 @@ export const LanguageProvider = ({ children }) => {
         const savedLanguage = localStorage.getItem("language");
         if (savedLanguage && (savedLanguage === "en" || savedLanguage === "bn")) {
           setLanguageState(savedLanguage);
-          // Apply Bengali font on initial load if Bengali was saved
           if (savedLanguage === "bn") {
             document.body.classList.add("font-bengali");
+          } else {
+            document.body.classList.remove("font-bengali");
           }
+        } else {
+          // No saved preference — default to Bengali
+          document.body.classList.add("font-bengali");
+          document.documentElement.lang = "bn";
         }
       }
     } catch (error) {

@@ -7,11 +7,10 @@ import { fetchMyDownloads } from '@/redux/downloadSlice';
 import { fetchMyEnrollments, fetchMyStats } from '@/redux/enrollmentSlice';
 import { fetchMyBatches } from '@/redux/batchSlice';
 import {
-    FiBook, FiAward, FiClock, FiTrendingUp, FiArrowRight,
-    FiUser, FiMail, FiPhone, FiCalendar, FiLoader,
-    FiShield, FiPlay, FiStar, FiRefreshCw, FiGrid, FiExternalLink,
-    FiCheck, FiChevronRight, FiDownload, FiCode, FiGlobe, FiZap, FiTarget,
-    FiUsers, FiVideo
+    FiBook, FiAward, FiClock, FiArrowRight,
+    FiLoader, FiPlay, FiRefreshCw, FiGrid,
+    FiCheck, FiChevronRight, FiDownload, FiZap,
+    FiUsers, FiVideo, FiCalendar, FiExternalLink
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -30,11 +29,8 @@ export default function UserDashboard() {
         setHasMounted(true);
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            try {
-                setUser(JSON.parse(storedUser));
-            } catch (e) { }
+            try { setUser(JSON.parse(storedUser)); } catch (e) { }
         }
-
         dispatch(fetchMyEnrollments());
         dispatch(fetchMyStats());
         dispatch(fetchMyDownloads());
@@ -50,16 +46,23 @@ export default function UserDashboard() {
         setTimeout(() => setIsSyncing(false), 1000);
     };
 
+    // Find batch for a course (for online courses)
+    const getBatchForCourse = (courseId) => {
+        if (!myBatches || !courseId) return null;
+        return myBatches.find(b =>
+            (b.course?._id === courseId || b.course === courseId) &&
+            (b.status === 'ongoing' || b.status === 'upcoming')
+        );
+    };
 
-    const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
+    const cardClass = `rounded-xl border transition-all duration-300 ${isDark
         ? 'bg-slate-800/50 border-white/5 hover:border-[#021E14]/20'
         : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
         }`;
 
     if (enrollLoading || downloadLoading) {
         return (
-            <div className="space-y-6">
-                {/* Loading Header */}
+            <div className="space-y-5">
                 <div className={`p-5 ${cardClass}`}>
                     <div className="flex items-center gap-4">
                         <div className={`w-12 h-12 rounded-xl ${isDark ? 'bg-slate-700' : 'bg-slate-100'} animate-pulse`}></div>
@@ -69,9 +72,8 @@ export default function UserDashboard() {
                         </div>
                     </div>
                 </div>
-                {/* Loading Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {[1, 2, 3, 4].map((i) => (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {[1, 2, 3].map((i) => (
                         <div key={i} className={`${cardClass} p-5`}>
                             <div className={`h-20 rounded-xl ${isDark ? 'bg-slate-700' : 'bg-slate-100'} animate-pulse`}></div>
                         </div>
@@ -81,166 +83,71 @@ export default function UserDashboard() {
         );
     }
 
-    const softwareCount = downloads.filter(d => d.productType === 'software').length;
-    const websiteCount = downloads.filter(d => d.productType === 'website').length;
-
     return (
-        <div className="space-y-6">
-            {/* Professional Compact Header */}
-            <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 ${cardClass}`}>
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md shadow-[#021E14]/10">
-                        <FiGrid size={24} />
+        <div className="space-y-5">
+            {/* Header Bar */}
+            <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 ${cardClass}`}>
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[#021E14] flex items-center justify-center text-white shadow-sm">
+                        <FiGrid size={20} />
                     </div>
                     <div>
-                        <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Dashboard Overview
+                        <h1 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                            Dashboard
                         </h1>
-                        <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            {hasMounted ? new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }) : 'Loading...'}
+                        <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                            {hasMounted ? new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }) : '...'}
                         </p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
                     <button
                         onClick={handleSync}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${isDark
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${isDark
                             ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
                             : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                             }`}
                     >
-                        <FiRefreshCw size={16} className={isSyncing ? 'animate-spin' : ''} />
+                        <FiRefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} />
                         Sync
                     </button>
                     <Link
                         href="/courses"
-                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl text-sm font-bold shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
+                        className="flex items-center gap-2 px-3 py-2 bg-[#021E14] text-white rounded-lg text-xs font-semibold shadow-sm hover:bg-[#021E14]/90 transition-all"
                     >
-                        <FiBook size={16} />
-                        Browse
+                        <FiBook size={14} />
+                        Browse Courses
                     </Link>
                 </div>
             </div>
 
-            {/* Welcome Banner */}
-            <div className={`relative overflow-hidden rounded-2xl p-6 ${isDark
-                ? 'bg-gradient-to-r from-slate-800 to-slate-800/50 border border-white/5'
+            {/* Welcome */}
+            <div className={`relative overflow-hidden rounded-xl p-5 ${isDark
+                ? 'bg-slate-800/50 border border-white/5'
                 : 'bg-gradient-to-r from-slate-50 to-white border border-slate-100'
                 }`}>
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#021E14]/10 blur-[60px] rounded-full" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#021E14]/10 blur-[50px] rounded-full" />
-
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div>
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${isDark
-                                ? 'bg-[#021E14]/10 text-[#021E14]'
-                                : 'bg-[#021E14]/10 text-[#021E14]'
-                                }`}>
-                                <FiZap size={10} className="inline mr-1" />
-                                Active Learner
-                            </span>
-                        </div>
-                        <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Welcome back, <span className="text-[#021E14]">{user?.firstName || 'Learner'}</span>! ??
+                        <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                            Welcome, <span className="text-[#021E14]">{user?.firstName || 'Learner'}</span>! 👋
                         </h2>
                         <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             {enrollments.length > 0
-                                ? `Continue your learning journey. You have ${enrollments.length} active course${enrollments.length > 1 ? 's' : ''}.`
-                                : 'Start your learning journey today. Explore our courses and digital assets.'
+                                ? `You have ${enrollments.length} active course${enrollments.length > 1 ? 's' : ''}.`
+                                : 'Start your learning journey today.'
                             }
                         </p>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <Link
-                            href="/dashboard/user/courses"
-                            className="px-4 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
-                        >
+                    <div className="flex items-center gap-2">
+                        <Link href="/dashboard/user/courses" className="px-4 py-2 bg-[#021E14] text-white rounded-lg font-semibold text-sm hover:bg-[#021E14]/90 transition-all">
                             My Courses
-                        </Link>
-                        <Link
-                            href="/dashboard/user/downloads"
-                            className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-all ${isDark
-                                ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
-                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                }`}
-                        >
-                            My Assets
                         </Link>
                     </div>
                 </div>
             </div>
 
-            {/* Upcoming Live Classes Notification */}
-            {myBatches && myBatches.length > 0 && myBatches.some(b => b.status === 'ongoing' || b.status === 'upcoming') && (
-                <div className={`relative overflow-hidden rounded-2xl border ${isDark
-                    ? 'bg-gradient-to-r from-emerald-900/20 to-emerald-800/10 border-[#021E14]/20'
-                    : 'bg-gradient-to-r from-emerald-50 to-emerald-100/50 border-emerald-200'
-                    }`}>
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#021E14]/10 blur-[50px] rounded-full" />
-                    <div className="relative z-10 p-5">
-                        <div className="flex items-center gap-2 mb-3">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md">
-                                <FiVideo size={20} />
-                            </div>
-                            <div>
-                                <h3 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                    Upcoming Live Classes
-                                </h3>
-                                <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                    Your scheduled classes from enrolled batches
-                                </p>
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap gap-3">
-                            {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').slice(0, 3).map((batch) => (
-                                <div key={batch._id} className={`flex-1 min-w-[250px] p-4 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-white'} border ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-                                    <div className="flex items-start justify-between gap-3">
-                                        <div className="flex-1 min-w-0">
-                                            <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase mb-2 ${batch.status === 'ongoing' ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14]/10 text-[#021E14]'
-                                                }`}>
-                                                {batch.status === 'ongoing' ? '🟢 Live Now' : '🔵 Upcoming'}
-                                            </span>
-                                            <h4 className={`font-bold text-sm truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                                {batch.batchName}
-                                            </h4>
-                                            <p className={`text-xs truncate ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                {batch.course?.title || 'Course'}
-                                            </p>
-                                            {batch.schedule && batch.schedule.length > 0 && (
-                                                <p className={`text-xs mt-1 flex items-center gap-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                                    <FiClock size={10} />
-                                                    {batch.schedule[0]?.startTime} - {batch.schedule[0]?.endTime}
-                                                </p>
-                                            )}
-                                        </div>
-                                        {batch.meetingLink && batch.status === 'ongoing' && (
-                                            <a
-                                                href={batch.meetingLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="shrink-0 px-3 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-lg text-xs font-bold shadow-md hover:scale-105 transition-all flex items-center gap-1"
-                                            >
-                                                <FiVideo size={12} />
-                                                Join
-                                            </a>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').length > 3 && (
-                            <Link href="/dashboard/user/batches" className="inline-flex items-center gap-1 mt-3 text-xs font-bold text-[#021E14] hover:text-emerald-400">
-                                View all batches <FiArrowRight size={12} />
-                            </Link>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {/* Stats Cards */}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Stats Cards - 3 columns */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {/* Enrolled Courses */}
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
                     <div className="relative z-10 flex items-start justify-between">
@@ -255,11 +162,11 @@ export default function UserDashboard() {
                                 {enrollmentStats?.completedCourses || 0} completed
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiBook size={20} />
+                        <div className="w-11 h-11 rounded-xl bg-[#021E14] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
+                            <FiBook size={18} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-0.5 bg-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Digital Assets */}
@@ -273,14 +180,14 @@ export default function UserDashboard() {
                                 {downloads.length.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                {softwareCount} software, {websiteCount} web
+                                Templates & websites
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiDownload size={20} />
+                        <div className="w-11 h-11 rounded-xl bg-[#021E14] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
+                            <FiDownload size={18} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-0.5 bg-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Certificates */}
@@ -297,289 +204,218 @@ export default function UserDashboard() {
                                 Earned achievements
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiAward size={20} />
+                        <div className="w-11 h-11 rounded-xl bg-[#021E14] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
+                            <FiAward size={18} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#01140D] transition-all duration-300 group-hover:w-full w-0`} />
-                </div>
-
-                {/* Reward Points */}
-                <div className={`${cardClass} p-5 relative group overflow-hidden`}>
-                    <div className="relative z-10 flex items-start justify-between">
-                        <div>
-                            <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Reward Points
-                            </p>
-                            <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                1,250
-                            </h3>
-                            <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Top 10% learner
-                            </p>
-                        </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiStar size={20} />
-                        </div>
-                    </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#021E14] to-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-0.5 bg-[#021E14] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
             </div>
 
-            {/* My Batches Section */}
-            {myBatches && myBatches.length > 0 && (
-                <div className={`${cardClass} overflow-hidden`}>
-                    <div className={`flex items-center justify-between p-5 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
-                        <h2 className={`font-bold flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            <FiUsers size={18} className="text-[#021E14]" />
-                            My Batches
-                        </h2>
-                        <span className={`text-xs px-2 py-1 rounded-full ${isDark ? 'bg-[#021E14]/10 text-[#021E14]' : 'bg-[#021E14]/10 text-[#021E14]'}`}>
-                            {myBatches.length} Batch
-                        </span>
-                    </div>
-                    <div className="divide-y divide-slate-100 dark:divide-white/5">
-                        {myBatches.map((batch) => (
-                            <div key={batch._id} className={`p-5 transition-colors ${isDark ? 'hover:bg-slate-800/30' : 'hover:bg-slate-50'}`}>
-                                <div className="flex flex-col md:flex-row md:items-start gap-4">
-                                    {/* Batch Info */}
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${batch.status === 'ongoing' ? 'bg-[#021E14]/10 text-[#021E14]' :
-                                                batch.status === 'upcoming' ? 'bg-[#021E14]/10 text-[#021E14]' :
-                                                    batch.status === 'completed' ? 'bg-slate-500/10 text-slate-500' :
-                                                        'bg-[#021E14]/10 text-[#021E14]'
-                                                }`}>
-                                                {batch.status === 'ongoing' ? '🟢 Ongoing' :
-                                                    batch.status === 'upcoming' ? '🔵 Upcoming' :
-                                                        batch.status === 'completed' ? '⚫ Completed' : '🔴 Cancelled'}
+            {/* Upcoming Live Classes Alert */}
+            {myBatches && myBatches.length > 0 && myBatches.some(b => b.status === 'ongoing' || b.status === 'upcoming') && (
+                <div className={`rounded-xl border overflow-hidden ${isDark
+                    ? 'bg-emerald-900/10 border-[#021E14]/20'
+                    : 'bg-emerald-50/50 border-emerald-200'
+                    }`}>
+                    <div className="p-4">
+                        <div className="flex items-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-lg bg-[#021E14] flex items-center justify-center text-white">
+                                <FiVideo size={16} />
+                            </div>
+                            <div>
+                                <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Upcoming Classes</h3>
+                                <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Your scheduled live classes</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').slice(0, 3).map((batch) => (
+                                <div key={batch._id} className={`flex-1 min-w-[220px] p-3 rounded-lg ${isDark ? 'bg-slate-800/50' : 'bg-white'} border ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
+                                    <div className="flex items-start justify-between gap-2">
+                                        <div className="flex-1 min-w-0">
+                                            <span className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-bold uppercase mb-1 ${batch.status === 'ongoing' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
+                                                {batch.status === 'ongoing' ? '🟢 Live' : '🔵 Upcoming'}
                                             </span>
-                                        </div>
-                                        <h3 className={`font-bold text-lg mb-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                            {batch.batchName}
-                                        </h3>
-                                        <p className={`text-sm mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                            <span className="font-semibold">Course:</span> {batch.course?.title || 'N/A'}
-                                        </p>
-
-                                        {/* Schedule */}
-                                        {batch.schedule && batch.schedule.length > 0 && (
-                                            <div className={`mb-3 p-3 rounded-xl ${isDark ? 'bg-slate-800/50' : 'bg-slate-50'}`}>
-                                                <p className={`text-xs font-bold uppercase mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                    <FiCalendar size={12} className="inline mr-1" /> Class Schedule
+                                            <h4 className={`font-bold text-xs truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>{batch.batchName}</h4>
+                                            <p className={`text-[10px] truncate ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{batch.course?.title}</p>
+                                            {batch.schedule?.[0] && (
+                                                <p className={`text-[10px] mt-1 flex items-center gap-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                                    <FiClock size={9} /> {batch.schedule[0].startTime} - {batch.schedule[0].endTime}
                                                 </p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {batch.schedule.map((sch, idx) => (
-                                                        <span key={idx} className={`text-xs px-2 py-1 rounded-md ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-white text-slate-600 border border-slate-200'}`}>
-                                                            {sch.day === 'saturday' && 'Saturday'}
-                                                            {sch.day === 'sunday' && 'Sunday'}
-                                                            {sch.day === 'monday' && 'Monday'}
-                                                            {sch.day === 'tuesday' && 'Tuesday'}
-                                                            {sch.day === 'wednesday' && 'Wednesday'}
-                                                            {sch.day === 'thursday' && 'Thursday'}
-                                                            {sch.day === 'friday' && 'Friday'}
-                                                            {' '}{sch.startTime} - {sch.endTime}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {/* Date Range */}
-                                        <div className="flex flex-wrap gap-4 text-xs">
-                                            <span className={`flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                <FiClock size={12} /> Starts: {batch.startDate ? new Date(batch.startDate).toLocaleDateString() : 'N/A'}
-                                            </span>
-                                            <span className={`flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                <FiClock size={12} /> Ends: {batch.endDate ? new Date(batch.endDate).toLocaleDateString() : 'N/A'}
-                                            </span>
+                                            )}
                                         </div>
-                                    </div>
-
-                                    {/* Actions */}
-                                    <div className="flex flex-col gap-2 shrink-0">
                                         {batch.meetingLink && batch.status === 'ongoing' && (
-                                            <a
-                                                href={batch.meetingLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
-                                            >
-                                                <FiVideo size={16} />
-                                                Join Live Class
+                                            <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
+                                                className="shrink-0 px-2.5 py-1.5 bg-[#021E14] text-white rounded-md text-[10px] font-bold hover:bg-[#021E14]/90 transition-all flex items-center gap-1">
+                                                <FiVideo size={10} /> Join
                                             </a>
                                         )}
-                                        <Link
-                                            href={`/learn/${batch.course?._id}`}
-                                            className={`flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${isDark
-                                                ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
-                                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                                }`}
-                                        >
-                                            <FiPlay size={14} />
-                                            View Course
-                                        </Link>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                        <Link href="/dashboard/user/live-classes" className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-[#021E14] hover:underline">
+                            View all classes <FiArrowRight size={11} />
+                        </Link>
                     </div>
                 </div>
             )}
 
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Continue Learning Section */}
-                <div className={`lg:col-span-2 ${cardClass} overflow-hidden`}>
-                    <div className={`flex items-center justify-between p-5 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
-                        <h2 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Continue Learning
-                        </h2>
-                        <Link href="/dashboard/user/courses" className="text-xs font-bold text-[#021E14] hover:underline flex items-center gap-1">
-                            View All <FiArrowRight size={12} />
-                        </Link>
-                    </div>
-
-                    {enrollments.length === 0 ? (
-                        <div className="p-10 text-center">
-                            <div className={`w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4 ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
-                                <FiBook size={28} className={isDark ? 'text-slate-500' : 'text-slate-300'} />
-                            </div>
-                            <h3 className={`font-bold mb-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                No courses yet
-                            </h3>
-                            <p className={`text-sm mb-5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
-                                Start your learning journey today.
-                            </p>
-                            <Link
-                                href="/courses"
-                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
-                            >
-                                Browse Courses <FiArrowRight size={14} />
-                            </Link>
-                        </div>
-                    ) : (
-                        <div className="divide-y divide-slate-100 dark:divide-white/5">
-                            {enrollments.slice(0, 4).map((enroll) => (
-                                <div key={enroll._id} className={`flex items-center gap-4 p-4 transition-colors ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                    <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0">
-                                        <img src={enroll.course?.thumbnail || '/placeholder-course.jpg'} alt="" className="w-full h-full object-cover" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <h4 className={`font-bold text-sm truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
-                                            {enroll.course?.title}
-                                        </h4>
-                                        <div className="flex items-center gap-3 mt-2">
-                                            <div className={`flex-1 h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}>
-                                                <div className="h-full bg-gradient-to-r from-[#021E14] to-[#021E14] rounded-full" style={{ width: `${enroll.progress || 0}%` }}></div>
-                                            </div>
-                                            <span className="text-[10px] font-bold text-[#021E14] whitespace-nowrap">{enroll.progress || 0}%</span>
-                                        </div>
-                                    </div>
-                                    <Link href={`/learn/${enroll.course?._id}`} className={`p-2.5 rounded-xl transition-all ${isDark
-                                        ? 'bg-slate-700 text-slate-300 hover:bg-[#021E14] hover:text-white'
-                                        : 'bg-slate-100 text-slate-500 hover:bg-[#021E14] hover:text-white'
-                                        }`}>
-                                        <FiPlay size={16} />
-                                    </Link>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+            {/* My Courses - with course type badges */}
+            <div className={`${cardClass} overflow-hidden`}>
+                <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
+                    <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                        My Courses
+                    </h2>
+                    <Link href="/dashboard/user/courses" className="text-[10px] font-bold text-[#021E14] hover:underline flex items-center gap-1">
+                        View All <FiArrowRight size={10} />
+                    </Link>
                 </div>
 
-                {/* Right Column */}
-                <div className="space-y-6">
-                    {/* Profile Card */}
-                    <div className={`${cardClass} overflow-hidden`}>
-                        <div className={`p-5 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
-                            <h2 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                My Profile
-                            </h2>
+                {enrollments.length === 0 ? (
+                    <div className="p-10 text-center">
+                        <div className={`w-14 h-14 mx-auto rounded-xl flex items-center justify-center mb-3 ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
+                            <FiBook size={24} className={isDark ? 'text-slate-500' : 'text-slate-300'} />
                         </div>
-                        <div className="p-5">
-                            <div className="flex items-center gap-4 mb-5">
-                                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white text-xl font-bold shadow-md">
-                                    {user?.firstName?.[0] || 'S'}
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                    <h4 className={`font-bold truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                        {user?.firstName} {user?.lastName}
-                                    </h4>
-                                    <p className={`text-xs truncate ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                        {user?.email}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="space-y-2">
-                                <div className={`flex items-center justify-between p-3 rounded-xl text-xs ${isDark ? 'bg-slate-800/50' : 'bg-slate-50'}`}>
-                                    <span className={`flex items-center gap-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                        <FiShield size={12} className="text-[#021E14]" /> Status
-                                    </span>
-                                    <span className="font-bold text-[#021E14]">Verified</span>
-                                </div>
-                                <div className={`flex items-center justify-between p-3 rounded-xl text-xs ${isDark ? 'bg-slate-800/50' : 'bg-slate-50'}`}>
-                                    <span className={`flex items-center gap-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                        <FiCalendar size={12} className="text-[#021E14]" /> Joined
-                                    </span>
-                                    <span className={`font-bold ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Jan 2025</span>
-                                </div>
-                            </div>
-
-                            <Link
-                                href="/dashboard/user/profile"
-                                className={`mt-4 w-full flex items-center justify-center gap-2 p-3 rounded-xl text-xs font-bold transition-all ${isDark
-                                    ? 'bg-slate-700 text-slate-200 hover:bg-[#021E14] hover:text-white'
-                                    : 'bg-slate-100 text-slate-600 hover:bg-[#021E14] hover:text-white'
-                                    }`}
-                            >
-                                Edit Profile <FiChevronRight size={12} />
-                            </Link>
-                        </div>
+                        <h3 className={`font-bold mb-1 text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>No courses yet</h3>
+                        <p className={`text-xs mb-4 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Start your learning journey today.</p>
+                        <Link href="/courses" className="inline-flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white rounded-lg font-semibold text-xs hover:bg-[#021E14]/90 transition-all">
+                            Browse Courses <FiArrowRight size={12} />
+                        </Link>
                     </div>
+                ) : (
+                    <div className="divide-y divide-slate-100 dark:divide-white/5">
+                        {enrollments.slice(0, 5).map((enroll) => {
+                            const courseType = enroll.course?.courseType || 'recorded';
+                            const isOnline = courseType.toLowerCase() === 'online' || courseType.toLowerCase() === 'live';
+                            const batch = isOnline ? getBatchForCourse(enroll.course?._id) : null;
 
-                    {/* Quick Actions */}
-                    <div className={`${cardClass} overflow-hidden`}>
-                        <div className={`p-5 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
-                            <h2 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                Quick Actions
-                            </h2>
+                            return (
+                                <div key={enroll._id} className={`p-4 transition-colors ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
+                                    <div className="flex items-center gap-3">
+                                        {/* Thumbnail */}
+                                        <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+                                            <img src={enroll.course?.thumbnail || '/placeholder-course.jpg'} alt="" className="w-full h-full object-cover" />
+                                        </div>
+
+                                        {/* Info */}
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <h4 className={`font-bold text-sm truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                                                    {enroll.course?.title}
+                                                </h4>
+                                                <span className={`shrink-0 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${isOnline
+                                                    ? 'bg-blue-100 text-blue-700'
+                                                    : 'bg-emerald-100 text-emerald-700'
+                                                    }`}>
+                                                    {isOnline ? 'Online' : 'Recorded'}
+                                                </span>
+                                            </div>
+                                            {/* Progress */}
+                                            <div className="flex items-center gap-2">
+                                                <div className={`flex-1 h-1 rounded-full overflow-hidden ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}>
+                                                    <div className="h-full bg-[#021E14] rounded-full" style={{ width: `${enroll.progress || 0}%` }}></div>
+                                                </div>
+                                                <span className="text-[9px] font-bold text-[#021E14] whitespace-nowrap">{enroll.progress || 0}%</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Actions */}
+                                        <div className="flex items-center gap-1.5 shrink-0">
+                                            {/* Continue Learning - always */}
+                                            <Link href={`/learn/${enroll.course?._id}`}
+                                                className={`p-2 rounded-lg transition-all ${isDark
+                                                    ? 'bg-slate-700 text-slate-300 hover:bg-[#021E14] hover:text-white'
+                                                    : 'bg-slate-100 text-slate-500 hover:bg-[#021E14] hover:text-white'
+                                                    }`}
+                                                title="Continue Learning"
+                                            >
+                                                <FiPlay size={14} />
+                                            </Link>
+
+                                            {/* Schedule - online only */}
+                                            {isOnline && (
+                                                <Link href="/dashboard/user/schedule"
+                                                    className={`p-2 rounded-lg transition-all ${isDark
+                                                        ? 'bg-slate-700 text-slate-300 hover:bg-blue-600 hover:text-white'
+                                                        : 'bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white'
+                                                        }`}
+                                                    title="Class Schedule"
+                                                >
+                                                    <FiCalendar size={14} />
+                                                </Link>
+                                            )}
+
+                                            {/* Live Class Link - online only */}
+                                            {isOnline && batch?.meetingLink && (
+                                                <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
+                                                    className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-600 hover:text-white transition-all"
+                                                    title="Join Live Class"
+                                                >
+                                                    <FiVideo size={14} />
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
+
+            {/* Bottom Grid: Profile + Quick Actions */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                {/* Profile Card */}
+                <div className={`${cardClass} overflow-hidden`}>
+                    <div className={`p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
+                        <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>My Profile</h2>
+                    </div>
+                    <div className="p-4">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 rounded-xl bg-[#021E14] flex items-center justify-center text-white text-lg font-bold shadow-sm">
+                                {user?.firstName?.[0] || 'S'}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <h4 className={`font-bold truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>{user?.firstName} {user?.lastName}</h4>
+                                <p className={`text-xs truncate ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{user?.email}</p>
+                            </div>
                         </div>
-                        <div className="p-3 space-y-2">
-                            <Link href="/dashboard/user/downloads" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#021E14]/10 to-[#021E14]/5 flex items-center justify-center">
-                                    <FiDownload size={16} className="text-[#021E14]" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>My Downloads</p>
-                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Access digital assets</p>
-                                </div>
-                                <FiChevronRight size={14} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
-                            </Link>
+                        <Link href="/dashboard/user/profile"
+                            className={`w-full flex items-center justify-center gap-2 p-2.5 rounded-lg text-xs font-semibold transition-all ${isDark
+                                ? 'bg-slate-700 text-slate-200 hover:bg-[#021E14] hover:text-white'
+                                : 'bg-slate-100 text-slate-600 hover:bg-[#021E14] hover:text-white'
+                                }`}
+                        >
+                            Edit Profile <FiChevronRight size={12} />
+                        </Link>
+                    </div>
+                </div>
 
-                            <Link href="/dashboard/user/certificates" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#021E14]/10 to-[#021E14]/5 flex items-center justify-center">
-                                    <FiAward size={16} className="text-[#021E14]" />
+                {/* Quick Links */}
+                <div className={`${cardClass} overflow-hidden`}>
+                    <div className={`p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
+                        <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Quick Links</h2>
+                    </div>
+                    <div className="p-3 space-y-1">
+                        {[
+                            { href: '/dashboard/user/schedule', icon: FiCalendar, title: 'Class Schedule', desc: 'View your weekly schedule' },
+                            { href: '/dashboard/user/live-classes', icon: FiVideo, title: 'Live Classes', desc: 'Join or view live classes' },
+                            { href: '/dashboard/user/downloads', icon: FiDownload, title: 'Downloads', desc: 'Access digital assets' },
+                            { href: '/dashboard/user/purchases', icon: FiClock, title: 'Purchase History', desc: 'View transactions' },
+                        ].map((item) => (
+                            <Link key={item.href} href={item.href}
+                                className={`flex items-center gap-3 p-3 rounded-lg transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
+                                <div className="w-8 h-8 rounded-lg bg-[#021E14]/10 flex items-center justify-center">
+                                    <item.icon size={14} className="text-[#021E14]" />
                                 </div>
-                                <div className="flex-1">
-                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>Certificates</p>
-                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>View achievements</p>
+                                <div className="flex-1 min-w-0">
+                                    <p className={`text-xs font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>{item.title}</p>
+                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{item.desc}</p>
                                 </div>
-                                <FiChevronRight size={14} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
+                                <FiChevronRight size={12} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
                             </Link>
-
-                            <Link href="/dashboard/user/purchases" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#021E14]/10 to-[#021E14]/5 flex items-center justify-center">
-                                    <FiClock size={16} className="text-[#021E14]" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>Purchase History</p>
-                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>View transactions</p>
-                                </div>
-                                <FiChevronRight size={14} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
-                            </Link>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -9,7 +9,6 @@ import {
   LuMapPin,
   LuSend,
   LuClock,
-  LuChevronRight,
   LuMessageCircle,
   LuHeadphones,
   LuSparkles,
@@ -20,37 +19,21 @@ import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp, FaInstagram } from "r
 import { useLanguage } from "@/context/LanguageContext";
 import { API_BASE_URL as API_URL } from "@/config/api";
 
-const ContactInfoCard = ({ icon: Icon, title, value, link, color, idx }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: idx * 0.1 }}
-    className="group relative p-8 bg-white dark:bg-white/5 rounded-[32px] border border-slate-100 dark:border-white/10 shadow-xl shadow-black/5 hover:-translate-y-2 transition-all duration-500 overflow-hidden"
-  >
-    <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#021E14]/5 dark:bg-[#D4AF37]/5 rounded-full blur-2xl group-hover:bg-[#021E14]/10 dark:group-hover:bg-[#D4AF37]/10 transition-colors" />
-    <div className="relative z-10">
-      <div className="w-14 h-14 mb-6 rounded-2xl bg-[#021E14]/5 dark:bg-[#D4AF37]/10 flex items-center justify-center group-hover:bg-[#021E14] dark:group-hover:bg-[#D4AF37] transition-colors duration-500">
-        <Icon className="w-6 h-6 text-[#021E14] dark:text-[#D4AF37] group-hover:text-white dark:group-hover:text-[#021E14] transition-colors duration-500" />
-      </div>
-      <h3 className="text-xs font-bold text-slate-400 dark:text-white/50 uppercase tracking-widest mb-3">{title}</h3>
-      {link ? (
-        <a href={link} className="text-lg font-bold text-slate-800 dark:text-white hover:text-[#021E14] dark:hover:text-[#D4AF37] transition-colors break-words">
-          {value}
-        </a>
-      ) : (
-        <p className="text-lg font-bold text-slate-800 dark:text-white">{value}</p>
-      )}
-    </div>
-  </motion.div>
-);
-
 const ContactPage = () => {
   const { language } = useLanguage();
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
   const [messageSent, setMessageSent] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [content, setContent] = useState({
+    hero: {
+      badge: 'Get In Touch',
+      badgeBn: 'যোগাযোগ করুন',
+      title1: "Let's ",
+      title1Bn: 'আমাদের সাথে ',
+      title2: 'Connect',
+      title2Bn: 'যোগাযোগ করুন',
+      subtitle: "Have questions or need support? We'd love to hear from you. Reach out and our team will get back to you shortly.",
+      subtitleBn: 'আপনার যেকোনো প্রশ্ন বা সহযোগিতার জন্য আমরা সর্বদা প্রস্তুত। আমাদের মেসেজ পাঠান বা সরাসরি কল করুন।'
+    },
     contactInfo: {
       email: 'info@zayeduddin.com',
       phone: '+880 1829-818616',
@@ -58,7 +41,23 @@ const ContactPage = () => {
       addressBn: 'ঢাকা, বাংলাদেশ',
       officeHours: 'Sat - Thu: 10:00 AM - 6:00 PM',
       officeHoursBn: 'শনি - বৃহঃ: সকাল ১০টা - সন্ধ্যা ৬টা'
-    }
+    },
+    socialLinks: {
+      facebook: 'https://web.facebook.com/zayeduddin.official/',
+      youtube: '#',
+      linkedin: 'https://www.linkedin.com/in/zayeduddin/',
+      instagram: '#',
+      whatsapp: '#'
+    },
+    whatsappSection: {
+      title: 'Quick Chat?',
+      titleBn: 'দ্রুত চ্যাট?',
+      description: 'Need instant support? Chat with our experts directly on WhatsApp for immediate assistance.',
+      descriptionBn: 'তাৎক্ষণিক সাপোর্ট দরকার? হোয়াটসঅ্যাপে আমাদের সাথে চ্যাট করুন।',
+      buttonText: 'Message Us Now',
+      buttonTextBn: 'এখনই মেসেজ করুন'
+    },
+    mapEmbedUrl: ''
   });
 
   useEffect(() => {
@@ -67,7 +66,14 @@ const ContactPage = () => {
         const res = await fetch(`${API_URL}/design/contact`);
         const data = await res.json();
         if (data.success && data.data?.contactContent) {
-          setContent(prev => ({ ...prev, ...data.data.contactContent }));
+          const cc = data.data.contactContent;
+          setContent(prev => ({
+            hero: { ...prev.hero, ...(cc.hero || {}) },
+            contactInfo: { ...prev.contactInfo, ...(cc.contactInfo || {}) },
+            socialLinks: { ...prev.socialLinks, ...(cc.socialLinks || {}) },
+            whatsappSection: { ...prev.whatsappSection, ...(cc.whatsappSection || {}) },
+            mapEmbedUrl: cc.mapEmbedUrl || prev.mapEmbedUrl
+          }));
         }
       } catch (error) {
         console.error('Error fetching contact content:', error);
@@ -82,137 +88,137 @@ const ContactPage = () => {
     setTimeout(() => setMessageSent(false), 5000);
   };
 
+  const t = (en, bn) => language === 'bn' ? (bn || en) : en;
+
   const contactCards = [
-    { icon: LuMail, title: language === "bn" ? "ইমেইল করুন" : "Email Us", value: content.contactInfo.email, link: `mailto:${content.contactInfo.email}` },
-    { icon: LuPhone, title: language === "bn" ? "কল করুন" : "Call Us", value: content.contactInfo.phone, link: `tel:${content.contactInfo.phone.replace(/\s/g, '')}` },
-    { icon: LuMapPin, title: language === "bn" ? "আমাদের অফিস" : "Visit Us", value: language === "bn" ? content.contactInfo.addressBn : content.contactInfo.address, link: "https://maps.google.com" },
-    { icon: LuClock, title: language === "bn" ? "অফিস সময়" : "Office Hours", value: language === "bn" ? content.contactInfo.officeHoursBn : content.contactInfo.officeHours }
+    { icon: LuMail, title: t("Email Us", "ইমেইল করুন"), value: content.contactInfo.email, link: `mailto:${content.contactInfo.email}`, accent: 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400' },
+    { icon: LuPhone, title: t("Call Us", "কল করুন"), value: content.contactInfo.phone, link: `tel:${content.contactInfo.phone.replace(/\s/g, '')}`, accent: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' },
+    { icon: LuMapPin, title: t("Visit Us", "আমাদের অফিস"), value: t(content.contactInfo.address, content.contactInfo.addressBn), link: "https://maps.google.com", accent: 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400' },
+    { icon: LuClock, title: t("Office Hours", "অফিস সময়"), value: t(content.contactInfo.officeHours, content.contactInfo.officeHoursBn), accent: 'bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400' }
   ];
 
   const socialLinks = [
-    { icon: FaFacebookF, href: "https://web.facebook.com/zayeduddin.official/", color: "hover:bg-[#1877F2]" },
-    { icon: FaYoutube, href: "#", color: "hover:bg-[#FF0000]" },
-    { icon: FaLinkedinIn, href: "https://www.linkedin.com/in/zayeduddin/", color: "hover:bg-[#0A66C2]" },
-    { icon: FaInstagram, href: "#", color: "hover:bg-[#E4405F]" },
-    { icon: FaWhatsapp, href: "#", color: "hover:bg-[#25D366]" },
-  ];
+    { icon: FaFacebookF, href: content.socialLinks.facebook, label: 'Facebook', color: 'hover:bg-blue-600 hover:text-white' },
+    { icon: FaYoutube, href: content.socialLinks.youtube, label: 'YouTube', color: 'hover:bg-red-600 hover:text-white' },
+    { icon: FaLinkedinIn, href: content.socialLinks.linkedin, label: 'LinkedIn', color: 'hover:bg-sky-600 hover:text-white' },
+    { icon: FaInstagram, href: content.socialLinks.instagram, label: 'Instagram', color: 'hover:bg-pink-600 hover:text-white' },
+    { icon: FaWhatsapp, href: content.socialLinks.whatsapp, label: 'WhatsApp', color: 'hover:bg-green-600 hover:text-white' },
+  ].filter(s => s.href && s.href !== '#');
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#020202]">
-      {/* Header Section */}
-      <header className="relative pt-24 pb-20 items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#021E1408,transparent_50%)]" />
-        <div className="container mx-auto px-4 lg:px-16 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#021E14]/5 dark:bg-[#D4AF37]/10 border border-[#021E14]/10 dark:border-[#D4AF37]/20 rounded-full mb-8">
-              <LuSparkles className="text-[#021E14] dark:text-[#D4AF37]" size={14} />
-              <span className="text-[10px] font-bold text-[#021E14] dark:text-[#D4AF37] tracking-widest uppercase">
-                {language === 'bn' ? 'যোগাযোগ করুন' : 'Get In Touch'}
-              </span>
-            </div>
-            <h1 className={`text-4xl md:text-7xl font-bold text-[#021E14] dark:text-[#D4AF37] mb-6 leading-tight ${bengaliClass}`}>
-              {language === 'bn' ? 'আমাদের সাথে যোগাযোগ করুন' : "Let's Start a Conversation"}
-            </h1>
-            <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0a0a0a]">
+      {/* Hero */}
+      <header className="bg-white dark:bg-[#111] border-b border-gray-100 dark:border-white/5">
+        <div className="container mx-auto px-4 lg:px-16 pt-28 pb-16 text-center">
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <span className={`inline-block text-xs font-semibold tracking-widest uppercase text-[#021E14] dark:text-[#D4AF37] mb-4 ${bengaliClass}`}>
+              {t(content.hero.badge, content.hero.badgeBn)}
+            </span>
+            <h1 className={`text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-5 leading-tight ${bengaliClass}`}>
               {language === 'bn'
-                ? 'আপনার যেকোনো প্রশ্ন বা সহযোগিতার জন্য আমরা সর্বদা প্রস্তুত। আমাদের মেসেজ পাঠান বা সরাসরি কল করুন।'
-                : "Have questions or need support? We'd love to hear from you. Reach out and our team will get back to you shortly."}
+                ? `${content.hero.title1Bn || ''}${content.hero.title2Bn || ''}`
+                : <>{content.hero.title1}<span className="text-[#D4AF37]">{content.hero.title2}</span></>
+              }
+            </h1>
+            <p className={`text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto leading-relaxed ${bengaliClass}`}>
+              {t(content.hero.subtitle, content.hero.subtitleBn)}
             </p>
           </motion.div>
         </div>
       </header>
 
-      {/* Contact Cards Grid */}
-      <section className="pb-24 container mx-auto px-4 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* Contact Cards */}
+      <section className="container mx-auto px-4 lg:px-16 -mt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-10">
           {contactCards.map((card, idx) => (
-            <ContactInfoCard key={idx} {...card} idx={idx} />
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.08 }}
+              className="group"
+            >
+              {card.link ? (
+                <a href={card.link} className="block p-5 bg-white dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                  <div className={`w-10 h-10 rounded-lg ${card.accent} flex items-center justify-center mb-3`}>
+                    <card.icon size={18} />
+                  </div>
+                  <p className={`text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1 ${bengaliClass}`}>{card.title}</p>
+                  <p className={`text-sm font-semibold text-gray-800 dark:text-white ${bengaliClass}`}>{card.value}</p>
+                </a>
+              ) : (
+                <div className="p-5 bg-white dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10">
+                  <div className={`w-10 h-10 rounded-lg ${card.accent} flex items-center justify-center mb-3`}>
+                    <card.icon size={18} />
+                  </div>
+                  <p className={`text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1 ${bengaliClass}`}>{card.title}</p>
+                  <p className={`text-sm font-semibold text-gray-800 dark:text-white ${bengaliClass}`}>{card.value}</p>
+                </div>
+              )}
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Main Contact Section */}
-      <section className="pb-32 container mx-auto px-4 lg:px-16">
-        <div className="flex flex-col lg:flex-row gap-16">
-          {/* Form Side */}
+      {/* Main Content */}
+      <section className="container mx-auto px-4 lg:px-16 pb-20">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Form */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="w-full lg:w-[60%]"
           >
-            <div className="p-8 md:p-12 bg-white dark:bg-white/5 rounded-[48px] border border-slate-100 dark:border-white/10 shadow-2xl shadow-black/5">
-              <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-10 flex items-center gap-4">
-                <span className="w-12 h-1 bg-[#021E14] dark:bg-[#D4AF37] rounded-full" />
-                {language === 'bn' ? 'মেসেজ পাঠান' : 'Send us a Message'}
+            <div className="bg-white dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 p-6 md:p-10">
+              <h2 className={`text-xl font-bold text-gray-900 dark:text-white mb-1 ${bengaliClass}`}>
+                {t('Send us a Message', 'মেসেজ পাঠান')}
               </h2>
+              <p className={`text-sm text-gray-400 mb-8 ${bengaliClass}`}>
+                {t("Fill in the form and we'll respond within 24 hours.", 'ফর্ম পূরণ করুন, আমরা ২৪ ঘণ্টার মধ্যে উত্তর দেব।')}
+              </p>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-4">Full Name</label>
-                    <input
-                      required
-                      type="text"
-                      placeholder="John Doe"
-                      className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 block">{t('Full Name', 'পুরো নাম')}</label>
+                    <input required type="text" placeholder={t('John Doe', 'আপনার নাম')}
+                      className="w-full px-4 py-3 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg outline-none focus:border-[#021E14] dark:focus:border-[#D4AF37] transition-colors dark:text-white"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-4">Email Address</label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="john@example.com"
-                      className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
+                  <div>
+                    <label className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 block">{t('Email', 'ইমেইল')}</label>
+                    <input required type="email" placeholder="you@example.com"
+                      className="w-full px-4 py-3 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg outline-none focus:border-[#021E14] dark:focus:border-[#D4AF37] transition-colors dark:text-white"
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-4">Subject</label>
-                  <input
-                    required
-                    type="text"
-                    placeholder="How can we help?"
-                    className="w-full px-8 py-4 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-full outline-none transition-all dark:text-white"
+                <div>
+                  <label className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 block">{t('Subject', 'বিষয়')}</label>
+                  <input required type="text" placeholder={t('How can we help?', 'আমরা কিভাবে সাহায্য করতে পারি?')}
+                    className="w-full px-4 py-3 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg outline-none focus:border-[#021E14] dark:focus:border-[#D4AF37] transition-colors dark:text-white"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-4">Message</label>
-                  <textarea
-                    required
-                    rows="6"
-                    placeholder="Write your message here..."
-                    className="w-full px-8 py-6 bg-slate-50 dark:bg-white/5 border border-transparent focus:border-[#021E14]/20 dark:focus:border-[#D4AF37]/20 rounded-[32px] outline-none transition-all dark:text-white resize-none"
-                  ></textarea>
+                <div>
+                  <label className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 block">{t('Message', 'মেসেজ')}</label>
+                  <textarea required rows="5" placeholder={t('Write your message here...', 'আপনার মেসেজ লিখুন...')}
+                    className="w-full px-4 py-3 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg outline-none focus:border-[#021E14] dark:focus:border-[#D4AF37] transition-colors dark:text-white resize-none"
+                  />
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full py-5 bg-[#021E14] text-white rounded-full font-bold shadow-2xl shadow-[#021E14]/20 hover:bg-[#021E14] transition-all flex items-center justify-center gap-3 group overflow-hidden relative"
+                <button type="submit"
+                  className={`w-full py-3.5 bg-[#021E14] dark:bg-[#D4AF37] text-white dark:text-[#021E14] rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 ${bengaliClass}`}
                 >
                   <AnimatePresence mode="wait">
                     {messageSent ? (
-                      <motion.span
-                        key="sent"
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="flex items-center gap-2"
-                      >
-                        <LuCheck size={20} /> Sent Successfully!
+                      <motion.span key="sent" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="flex items-center gap-2">
+                        <LuCheck size={16} /> {t('Sent Successfully!', 'সফলভাবে পাঠানো হয়েছে!')}
                       </motion.span>
                     ) : (
-                      <motion.span
-                        key="send"
-                        initial={{ y: -20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="flex items-center gap-2"
-                      >
-                        {language === 'bn' ? 'মেসেজ পাঠান' : 'Send Message'}
-                        <LuSend className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      <motion.span key="send" initial={{ y: -10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="flex items-center gap-2">
+                        {t('Send Message', 'মেসেজ পাঠান')}
+                        <LuSend size={14} />
                       </motion.span>
                     )}
                   </AnimatePresence>
@@ -221,78 +227,96 @@ const ContactPage = () => {
             </div>
           </motion.div>
 
-          {/* Contact Info & Socials Side */}
+          {/* Sidebar */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="w-full lg:w-[40%] space-y-8"
+            className="w-full lg:w-[40%] space-y-5"
           >
-            {/* WhatsApp Card */}
-            <div className="p-10 bg-[#25D366] rounded-[48px] text-white shadow-2xl shadow-[#25D366]/20 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-8 opacity-20 transform translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500">
-                <FaWhatsapp size={120} />
+            {/* WhatsApp */}
+            <div className="bg-[#25D366] rounded-xl p-6 text-white relative overflow-hidden">
+              <div className="absolute top-3 right-3 opacity-10">
+                <FaWhatsapp size={80} />
               </div>
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                  <LuMessageCircle size={32} />
-                  Quick Chat?
+                <h3 className={`text-lg font-bold mb-2 flex items-center gap-2 ${bengaliClass}`}>
+                  <LuMessageCircle size={20} />
+                  {t(content.whatsappSection.title, content.whatsappSection.titleBn)}
                 </h3>
-                <p className="text-white/80 mb-8 leading-relaxed">
-                  Need instant support? Chat with our experts directly on WhatsApp for immediate assistance.
+                <p className={`text-white/80 text-sm mb-5 leading-relaxed ${bengaliClass}`}>
+                  {t(content.whatsappSection.description, content.whatsappSection.descriptionBn)}
                 </p>
                 <a
-                  href={`https://wa.me/${content.contactInfo.phone.replace(/[^0-9]/g, '')}`}
-                  className="inline-flex items-center gap-3 px-8 py-3 bg-white text-[#25D366] rounded-full font-bold hover:scale-105 transition-transform"
+                  href={content.socialLinks.whatsapp && content.socialLinks.whatsapp !== '#'
+                    ? content.socialLinks.whatsapp
+                    : `https://wa.me/${content.contactInfo.phone.replace(/[^0-9]/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#25D366] rounded-lg font-semibold text-sm hover:shadow-lg transition-shadow ${bengaliClass}`}
                 >
-                  Message Us Now <LuArrowRight size={18} />
+                  {t(content.whatsappSection.buttonText, content.whatsappSection.buttonTextBn)} <LuArrowRight size={14} />
                 </a>
               </div>
             </div>
 
-            {/* Social Links Card */}
-            <div className="p-10 bg-slate-50 dark:bg-white/5 rounded-[48px] border border-slate-100 dark:border-white/10 shadow-xl shadow-black/5">
-              <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-8 border-b border-[#021E14]/10 dark:border-white/10 pb-4 uppercase tracking-widest text-xs">Stay Connected</h3>
-              <div className="flex flex-wrap gap-4">
-                {socialLinks.map((social, i) => (
-                  <Link
-                    key={i}
-                    href={social.href}
-                    className={`w-14 h-14 rounded-2xl bg-white dark:bg-[#020202] shadow-sm flex items-center justify-center text-slate-400 hover:text-white ${social.color} transition-all duration-300 hover:-translate-y-1`}
-                  >
-                    <social.icon size={24} />
-                  </Link>
-                ))}
+            {/* Social Links */}
+            {socialLinks.length > 0 && (
+              <div className="bg-white dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 p-6">
+                <h3 className={`text-sm font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wider ${bengaliClass}`}>
+                  {t('Follow Us', 'আমাদের ফলো করুন')}
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {socialLinks.map((social, i) => (
+                    <Link
+                      key={i}
+                      href={social.href}
+                      target="_blank"
+                      title={social.label}
+                      className={`w-11 h-11 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300`}
+                    >
+                      <social.icon size={18} />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Support Hours */}
+            <div className="bg-[#021E14] rounded-xl p-6 text-white">
+              <h3 className={`text-sm font-bold flex items-center gap-2 text-[#D4AF37] mb-5 uppercase tracking-wider ${bengaliClass}`}>
+                <LuHeadphones size={16} />
+                {t('Support Hours', 'সাপোর্ট সময়')}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                  <span className={`text-white/50 text-sm ${bengaliClass}`}>{t('Saturday - Thursday', 'শনিবার - বৃহস্পতিবার')}</span>
+                  <span className={`font-semibold text-sm ${bengaliClass}`}>
+                    {t('10 AM - 6 PM', 'সকাল ১০টা - সন্ধ্যা ৬টা')}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className={`text-white/50 text-sm ${bengaliClass}`}>{t('Friday', 'শুক্রবার')}</span>
+                  <span className={`text-[#D4AF37] font-semibold text-xs uppercase tracking-wider ${bengaliClass}`}>{t('Holiday', 'ছুটি')}</span>
+                </div>
               </div>
             </div>
 
-            {/* Support Hours Card */}
-            <div className="p-10 bg-[#021E14] rounded-[48px] text-white shadow-2xl shadow-[#021E14]/20">
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-[#D4AF37]">
-                <LuHeadphones />
-                Support Hours
-              </h3>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                  <span className="text-white/50 text-sm">Saturday - Thursday</span>
-                  <span className="font-bold">10 AM - 6 PM</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/50 text-sm">Friday</span>
-                  <span className="text-[#021E14] font-bold uppercase tracking-widest text-xs">Holiday</span>
-                </div>
+            {/* Map */}
+            {content.mapEmbedUrl && (
+              <div className="rounded-xl overflow-hidden border border-gray-100 dark:border-white/10">
+                <iframe
+                  src={content.mapEmbedUrl}
+                  width="100%"
+                  height="200"
+                  className="border-0"
+                  loading="lazy"
+                />
               </div>
-            </div>
+            )}
           </motion.div>
         </div>
       </section>
-
-
-      <style jsx global>{`
-                .font-script {
-                    font-family: var(--font-poppins);
-                }
-            `}</style>
     </div>
   );
 };

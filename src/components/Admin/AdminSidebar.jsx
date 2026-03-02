@@ -197,6 +197,9 @@ const AdminSidebar = () => {
         { title: 'About Page', href: '/dashboard/admin/design/about', icon: FiGrid },
         { title: 'Contact Page', href: '/dashboard/admin/design/contact', icon: FiMessageSquare },
         { title: 'Top Header', href: '/dashboard/admin/design/topheader', icon: FiLayers },
+        { title: 'Terms & Conditions', href: '/dashboard/admin/legal/terms', icon: FiFileText },
+        { title: 'Privacy Policy', href: '/dashboard/admin/legal/privacy', icon: FiLock },
+        { title: 'Return Policy', href: '/dashboard/admin/legal/return-policy', icon: FiClipboard },
       ],
     },
     {

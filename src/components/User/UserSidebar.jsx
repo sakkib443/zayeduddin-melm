@@ -97,36 +97,30 @@ const UserSidebar = () => {
             gradient: 'from-[#021E14] to-[#01140D]'
         },
         {
-            title: 'Learning Area',
+            title: 'My Courses',
+            href: '/dashboard/user/courses',
             icon: FiBook,
             gradient: 'from-[#021E14] to-[#021E14]',
-            submenu: [
-                { title: 'My Courses', href: '/dashboard/user/courses', icon: FiBook, count: stats?.totalEnrolled },
-                { title: 'My Batches', href: '/dashboard/user/batches', icon: FiUsers },
-                { title: 'Live Classes', href: '/dashboard/user/live-classes', icon: FiCalendar },
-                { title: 'My Schedule', href: '/dashboard/user/schedule', icon: FiClock },
-                { title: 'Assignments', href: '/dashboard/user/assignments', icon: FiLayout },
-            ],
-
+            count: stats?.totalEnrolled
         },
         {
-            title: 'Achievements',
-            icon: FiAward,
-            gradient: 'from-[#021E14] to-[#021E14]',
-            submenu: [
-                { title: 'Certificates', href: '/dashboard/user/certificates', icon: FiAward, count: stats?.certificatesEarned },
-                { title: 'Points & Badges', href: '/dashboard/user/points', icon: FiStar },
-            ],
+            title: 'Schedule',
+            href: '/dashboard/user/schedule',
+            icon: FiCalendar,
+            gradient: 'from-[#021E14] to-[#021E14]'
         },
         {
-            title: 'Digital Assets',
+            title: 'Live Classes',
+            href: '/dashboard/user/live-classes',
+            icon: FiLayers,
+            gradient: 'from-[#021E14] to-[#021E14]'
+        },
+        {
+            title: 'My Downloads',
+            href: '/dashboard/user/downloads',
             icon: FiDownload,
             gradient: 'from-[#021E14] to-[#021E14]',
-            submenu: [
-                { title: 'All Assets', href: '/dashboard/user/downloads', icon: FiDownload, count: downloads?.length },
-                { title: 'Softwares', href: '/dashboard/user/assets/softwares', icon: FiCode },
-                { title: 'Websites', href: '/dashboard/user/assets/websites', icon: FiGlobe },
-            ],
+            count: downloads?.length
         },
         {
             title: 'Purchase History',
@@ -140,12 +134,6 @@ const UserSidebar = () => {
             href: '/dashboard/user/favorites',
             icon: FiHeart,
             gradient: 'from-[#021E14] to-[#01140D]'
-        },
-        {
-            title: 'My Reviews',
-            href: '/dashboard/user/reviews',
-            icon: FiStar,
-            gradient: 'from-yellow-400 to-[#D4AF37]'
         },
         {
             title: 'Profile Settings',

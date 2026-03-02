@@ -259,9 +259,9 @@ const SingleCourse = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 }}
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold outfit leading-[1.2] tracking-tight text-gray-900 dark:text-white mb-4"
+              className={`text-2xl sm:text-3xl lg:text-4xl font-bold outfit leading-[1.2] tracking-tight text-gray-900 dark:text-white mb-4 ${bengaliClass}`}
             >
-              {currentCourse.title}
+              {language === 'bn' && currentCourse.titleBn ? currentCourse.titleBn : currentCourse.title}
             </motion.h1>
 
             {/* Description */}
@@ -269,9 +269,11 @@ const SingleCourse = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-[15px] lg:text-base text-gray-600 dark:text-gray-400 poppins leading-relaxed mb-6 max-w-2xl"
+              className={`text-[15px] lg:text-base text-gray-600 dark:text-gray-400 poppins leading-relaxed mb-6 max-w-2xl ${bengaliClass}`}
             >
-              {currentCourse.shortDescription || currentCourse.description?.substring(0, 160)}...
+              {language === 'bn' && currentCourse.shortDescriptionBn
+                ? currentCourse.shortDescriptionBn
+                : (currentCourse.shortDescription || currentCourse.description?.substring(0, 160))}...
             </motion.p>
 
             {/* Stats Row */}
@@ -303,7 +305,7 @@ const SingleCourse = () => {
 
               {/* Lessons */}
               <div className="flex items-center gap-3 bg-white px-8 py-2.5 rounded-md border border-gray-200">
-                <div className="w-7 h-7 rounded bg-[#021E14] flex items-center justify-center">
+                <div className="w-7 h-7 rounded bg-emerald-50 flex items-center justify-center">
                   <LuMonitor className="text-[#021E14]" size={14} />
                 </div>
                 <span className="text-gray-700 font-medium text-sm poppins">
@@ -415,27 +417,32 @@ const SingleCourse = () => {
                       >
                         {/* About */}
                         <div>
-                          <h2 className="text-lg font-bold outfit text-gray-900 mb-4 flex items-center gap-2">
+                          <h2 className={`text-lg font-bold outfit text-gray-900 mb-4 flex items-center gap-2 ${bengaliClass}`}>
                             <span className="w-1 h-5 bg-[#021E14] rounded-full"></span>
-                            Course Description
+                            {language === 'bn' ? 'কোর্স বিবরণ' : 'Course Description'}
                           </h2>
-                          <div className="text-gray-600 poppins text-[15px] leading-7 whitespace-pre-line">
-                            {currentCourse.description || currentCourse.details}
+                          <div className={`text-gray-600 poppins text-[15px] leading-7 whitespace-pre-line ${bengaliClass}`}>
+                            {language === 'bn' && currentCourse.descriptionBn
+                              ? currentCourse.descriptionBn
+                              : (currentCourse.description || currentCourse.details)}
                           </div>
                         </div>
 
                         {/* Course Features mirroring Tech Stack */}
                         {currentCourse.features?.length > 0 && (
                           <div>
-                            <h3 className="text-base font-bold outfit text-gray-900 mb-4 flex items-center gap-2">
+                            <h3 className={`text-base font-bold outfit text-gray-900 mb-4 flex items-center gap-2 ${bengaliClass}`}>
                               <span className="w-1 h-5 bg-[#D4AF37] rounded-full"></span>
-                              Key Features
+                              {language === 'bn' ? 'বিশেষ ফিচারসমূহ' : 'Key Features'}
                             </h3>
                             <div className="flex flex-wrap gap-2">
-                              {currentCourse.features.map((feature, idx) => (
+                              {(language === 'bn' && currentCourse.featuresBn?.length > 0
+                                ? currentCourse.featuresBn
+                                : currentCourse.features
+                              ).map((feature, idx) => (
                                 <span
                                   key={idx}
-                                  className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded text-gray-700 font-medium text-sm hover:border-[#021E14]/30 hover:bg-[#021E14]/5 transition-colors cursor-default poppins"
+                                  className={`px-3 py-1.5 bg-gray-50 border border-gray-200 rounded text-gray-700 font-medium text-sm hover:border-[#021E14]/30 hover:bg-[#021E14]/5 transition-colors cursor-default poppins ${bengaliClass}`}
                                 >
                                   {feature}
                                 </span>
@@ -577,14 +584,17 @@ const SingleCourse = () => {
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
+                        <h2 className={`text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2 ${bengaliClass}`}>
                           <span className="w-1 h-5 bg-[#021E14] rounded-full"></span>
-                          What You Will Learn
+                          {language === 'bn' ? 'যা যা শিখবেন' : 'What You Will Learn'}
                         </h2>
 
                         {currentCourse.whatYouWillLearn?.length > 0 ? (
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            {currentCourse.whatYouWillLearn.map((topic, idx) => (
+                            {(language === 'bn' && currentCourse.whatYouWillLearnBn?.length > 0
+                              ? currentCourse.whatYouWillLearnBn
+                              : currentCourse.whatYouWillLearn
+                            ).map((topic, idx) => (
                               <div
                                 key={idx}
                                 className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-100 rounded-md hover:border-[#021E14]/30 hover:bg-[#021E14]/5 transition-colors"
@@ -592,14 +602,14 @@ const SingleCourse = () => {
                                 <div className="w-8 h-8 rounded bg-[#021E14]/10 flex items-center justify-center flex-shrink-0">
                                   <LuCheck className="text-[#021E14]" size={16} strokeWidth={3} />
                                 </div>
-                                <span className="text-gray-700 font-medium text-sm leading-relaxed pt-1 poppins">{topic}</span>
+                                <span className={`text-gray-700 font-medium text-sm leading-relaxed pt-1 poppins ${bengaliClass}`}>{topic}</span>
                               </div>
                             ))}
                           </div>
                         ) : (
                           <div className="text-center py-12 bg-gray-50 rounded-md border border-dashed border-gray-200">
                             <LuZap className="mx-auto text-2xl text-gray-300 mb-2" />
-                            <p className="text-gray-400 text-sm poppins">Learning topics not listed yet</p>
+                            <p className="text-gray-400 text-sm poppins">{language === 'bn' ? 'শেখার বিষয়বস্তু শীঘ্রই আসছে' : 'Learning topics not listed yet'}</p>
                           </div>
                         )}
                       </motion.div>
@@ -619,29 +629,69 @@ const SingleCourse = () => {
                           Meet Your Instructor
                         </h2>
 
-                        {instructor ? (
-                          <div className="flex flex-col md:flex-row gap-8 items-start">
-                            <div className="relative group">
-                              <div className="absolute -inset-1 bg-gradient-to-tr from-[#021E14] to-[#D4AF37] rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                              <div className="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-white shadow-lg">
-                                <img src={instructor.image} alt={instructor.name} className="w-full h-full object-cover transform transition-transform group-hover:scale-105 duration-500" />
+                        {instructor ? (() => {
+                          const instructorName = instructor.userId
+                            ? `${instructor.userId.firstName || ''} ${instructor.userId.lastName || ''}`.trim()
+                            : instructor.name || 'Instructor';
+                          const instructorImage = instructor.avatar || instructor.userId?.avatar || instructor.image || '/images/placeholder.png';
+                          const instructorTitle = instructor.title || instructor.designation || '';
+                          const instructorBio = instructor.bio || instructor.longBio || instructor.details || '';
+                          return (
+                            <div className="flex flex-col md:flex-row gap-8 items-start">
+                              <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-tr from-[#021E14] to-[#D4AF37] rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                                <div className="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-white shadow-lg">
+                                  <img src={instructorImage} alt={instructorName} className="w-full h-full object-cover transform transition-transform group-hover:scale-105 duration-500" />
+                                </div>
+                              </div>
+                              <div className="flex-1 space-y-4">
+                                <div className="flex items-center gap-3">
+                                  <h3 className="text-2xl font-bold outfit text-gray-900">{instructorName}</h3>
+                                  <MdVerified className="text-[#021E14] text-xl" />
+                                </div>
+                                {instructorTitle && (
+                                  <p className="text-[#021E14] font-semibold poppins text-base">{instructorTitle}</p>
+                                )}
+                                {instructorBio && (
+                                  <p className="text-gray-600 poppins text-sm leading-relaxed">
+                                    {instructorBio.substring(0, 400)}{instructorBio.length > 400 ? '...' : ''}
+                                  </p>
+                                )}
+                                {/* Stats */}
+                                <div className="flex flex-wrap gap-4 pt-2">
+                                  {instructor.experience > 0 && (
+                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-md border border-gray-100">
+                                      <LuClock size={14} className="text-[#021E14]" />
+                                      <span className="text-xs font-medium text-gray-700">{instructor.experience}+ Years</span>
+                                    </div>
+                                  )}
+                                  {instructor.totalStudents > 0 && (
+                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-md border border-gray-100">
+                                      <LuUsers size={14} className="text-[#021E14]" />
+                                      <span className="text-xs font-medium text-gray-700">{instructor.totalStudents.toLocaleString()} Students</span>
+                                    </div>
+                                  )}
+                                  {instructor.totalCourses > 0 && (
+                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-md border border-gray-100">
+                                      <LuBookOpen size={14} className="text-[#021E14]" />
+                                      <span className="text-xs font-medium text-gray-700">{instructor.totalCourses} Courses</span>
+                                    </div>
+                                  )}
+                                </div>
+                                {/* Expertise Tags */}
+                                {instructor.expertise?.length > 0 && (
+                                  <div className="flex flex-wrap gap-2 pt-1">
+                                    {instructor.expertise.map((skill, idx) => (
+                                      <span key={idx} className="px-2.5 py-1 bg-[#021E14]/5 text-[#021E14] text-xs font-medium rounded-md border border-[#021E14]/10">
+                                        {skill}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
                               </div>
                             </div>
-                            <div className="flex-1 space-y-4">
-                              <div className="flex items-center gap-3">
-                                <h3 className="text-2xl font-bold outfit text-gray-900">{instructor.name}</h3>
-                                <MdVerified className="text-[#021E14] text-xl" />
-                              </div>
-                              <p className="text-[#021E14] font-semibold poppins text-base">{instructor.designation} • {instructor.subject}</p>
-                              <p className="text-gray-600 poppins text-sm leading-relaxed">
-                                {instructor.details?.substring(0, 300)}...
-                              </p>
-                              <div className="flex gap-3 pt-2">
-                                <button className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-md hover:bg-[#021E14]/5 hover:border-[#021E14]/30 transition-colors text-gray-700 text-xs font-bold poppins">VIEW PROFILE</button>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
+                          );
+                        })() : (
                           <div className="text-center py-10 bg-gray-50 rounded-md border border-dashed border-gray-200">
                             <LuUsers className="mx-auto text-2xl text-gray-300 mb-2" />
                             <p className="text-gray-400 text-sm poppins">Instructor details coming soon</p>
@@ -894,7 +944,7 @@ const SingleCourse = () => {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-semibold text-gray-900 group-hover:text-[#021E14] transition-colors line-clamp-1 outfit">{item.title}</h4>
+                          <h4 className={`text-sm font-semibold text-gray-900 group-hover:text-[#021E14] transition-colors line-clamp-1 outfit ${bengaliClass}`}>{language === 'bn' && item.titleBn ? item.titleBn : item.title}</h4>
                           <div className="flex items-center gap-1 text-[#D4AF37] mt-0.5">
                             <FaStar size={10} />
                             <span className="text-gray-600 text-xs font-medium poppins">{item.averageRating || '5.0'}</span>

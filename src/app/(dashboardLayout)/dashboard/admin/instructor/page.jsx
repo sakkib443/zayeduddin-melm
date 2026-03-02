@@ -70,8 +70,8 @@ const InstructorManagement = () => {
 
     const getStatusBadge = (status) => {
         switch (status) {
-            case 'active': return 'bg-emerald-100 dark:bg-[#021E14]/20 text-[#021E14] dark:text-emerald-400';
-            case 'inactive': return 'bg-[#021E14] dark:bg-[#021E14]/20 text-[#021E14] dark:text-[#021E14]';
+            case 'active': return 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400';
+            case 'inactive': return 'bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400';
             default: return 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
         }
     };
@@ -117,8 +117,8 @@ const InstructorManagement = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                        <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
-                            <FiUsers className="text-white" size={14} />
+                        <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-md flex items-center justify-center">
+                            <FiUsers className="text-emerald-600 dark:text-emerald-400" size={14} />
                         </div>
                         <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.total}</span>
                     </div>
@@ -126,8 +126,8 @@ const InstructorManagement = () => {
                 </div>
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-4 shadow-sm">
                     <div className="flex items-center justify-between mb-2">
-                        <div className="w-8 h-8 bg-[#021E14] rounded-md flex items-center justify-center">
-                            <FiCheck className="text-white" size={14} />
+                        <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-md flex items-center justify-center">
+                            <FiCheck className="text-emerald-600 dark:text-emerald-400" size={14} />
                         </div>
                         <span className="text-xl font-bold text-slate-800 dark:text-white">{stats.active}</span>
                     </div>
@@ -219,9 +219,9 @@ const InstructorManagement = () => {
                                         <td className="px-4 py-3 text-center">
                                             <div className="flex justify-center">
                                                 {ins.isPublished ? (
-                                                    <span className="w-2 h-2 rounded-full bg-[#021E14] shadow-[0_0_8px_rgba(16,185,129,0.5)]" title="Published"></span>
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" title="Published"></span>
                                                 ) : (
-                                                    <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600" title="Draft"></span>
+                                                    <span className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600" title="Draft"></span>
                                                 )}
                                             </div>
                                         </td>
@@ -229,14 +229,14 @@ const InstructorManagement = () => {
                                             <div className="flex items-center justify-center gap-1.5">
                                                 <button
                                                     onClick={() => handleEdit(ins._id)}
-                                                    className="p-1.5 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] dark:text-[#021E14] rounded-md hover:bg-[#021E14] hover:text-white transition-all shadow-sm"
+                                                    className="p-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-md hover:bg-emerald-600 hover:text-white transition-all border border-emerald-200 dark:border-emerald-800"
                                                     title="Edit Profile"
                                                 >
                                                     <FiEdit3 size={14} />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(ins._id)}
-                                                    className="p-1.5 bg-[#021E14] dark:bg-[#021E14]/10 text-[#021E14] hover:bg-[#021E14] hover:text-white rounded-md transition-all"
+                                                    className="p-1.5 bg-red-50 dark:bg-red-900/20 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white rounded-md transition-all border border-red-200 dark:border-red-800"
                                                     title="Delete Instructor"
                                                 >
                                                     <FiTrash2 size={14} />

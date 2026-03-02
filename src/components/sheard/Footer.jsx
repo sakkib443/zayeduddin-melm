@@ -222,6 +222,20 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="relative border-t border-white/10 bg-black/20">
         <div className="container mx-auto px-4 lg:px-16 py-6">
+          {/* Legal Links Row */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-4 pb-4 border-b border-white/10">
+            <Link href="/terms" className={`text-gray-400 hover:text-[#D4AF37] text-sm work transition-colors ${bengaliClass}`}>
+              {language === 'bn' ? 'শর্তাবলী' : 'Terms & Conditions'}
+            </Link>
+            <span className="text-gray-600 text-xs">|</span>
+            <Link href="/privacy" className={`text-gray-400 hover:text-[#D4AF37] text-sm work transition-colors ${bengaliClass}`}>
+              {language === 'bn' ? 'গোপনীয়তা নীতি' : 'Privacy Policy'}
+            </Link>
+            <span className="text-gray-600 text-xs">|</span>
+            <Link href="/return-policy" className={`text-gray-400 hover:text-[#D4AF37] text-sm work transition-colors ${bengaliClass}`}>
+              {language === 'bn' ? 'রিটার্ন নীতি' : 'Return Policy'}
+            </Link>
+          </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className={`text-gray-400 text-sm work text-center md:text-left ${bengaliClass}`}>
               {t("footer.copyright")}

@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
   FiArrowLeft, FiSave, FiLoader, FiImage, FiBookOpen,
-  FiPlus, FiTrash2, FiDollarSign, FiVideo, FiTag
+  FiPlus, FiTrash2, FiDollarSign, FiVideo, FiTag, FiUser
 } from 'react-icons/fi';
 import Link from 'next/link';
 import { useTheme } from '@/providers/ThemeProvider';
@@ -31,9 +31,13 @@ const courseValidationSchema = z.object({
   language: z.enum(['bangla', 'english', 'both']),
   tags: z.array(z.string()).optional(),
   features: z.array(z.string()).optional(),
+  featuresBn: z.array(z.string()).optional(),
   requirements: z.array(z.string()).optional(),
+  requirementsBn: z.array(z.string()).optional(),
   whatYouWillLearn: z.array(z.string()).optional(),
+  whatYouWillLearnBn: z.array(z.string()).optional(),
   targetAudience: z.array(z.string()).optional(),
+  targetAudienceBn: z.array(z.string()).optional(),
   previewVideo: z.string().url().optional().or(z.literal('')),
   totalDuration: z.coerce.number().min(0).optional(),
   totalLessons: z.coerce.number().min(0).optional(),
@@ -43,6 +47,7 @@ const courseValidationSchema = z.object({
   status: z.enum(['draft', 'published', 'archived']),
   isFeatured: z.boolean().optional(),
   isPopular: z.boolean().optional(),
+  instructor: z.string().optional().or(z.literal('')),
 });
 
 export default function EditCoursePage() {
@@ -50,6 +55,7 @@ export default function EditCoursePage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [categories, setCategories] = useState([]);
+  const [instructors, setInstructors] = useState([]);
   const [courseData, setCourseData] = useState(null);
   const router = useRouter();
   const { id } = useParams();
@@ -62,9 +68,13 @@ export default function EditCoursePage() {
       language: 'bangla',
       status: 'draft',
       features: [''],
+      featuresBn: [''],
       requirements: [''],
+      requirementsBn: [''],
       whatYouWillLearn: [''],
+      whatYouWillLearnBn: [''],
       targetAudience: [''],
+      targetAudienceBn: [''],
       tags: [''],
       isFeatured: false,
       isPopular: false,
@@ -72,9 +82,13 @@ export default function EditCoursePage() {
   });
 
   const featuresFields = useFieldArray({ control, name: 'features' });
+  const featuresBnFields = useFieldArray({ control, name: 'featuresBn' });
   const requirementsFields = useFieldArray({ control, name: 'requirements' });
+  const requirementsBnFields = useFieldArray({ control, name: 'requirementsBn' });
   const learningFields = useFieldArray({ control, name: 'whatYouWillLearn' });
+  const learningBnFields = useFieldArray({ control, name: 'whatYouWillLearnBn' });
   const audienceFields = useFieldArray({ control, name: 'targetAudience' });
+  const audienceBnFields = useFieldArray({ control, name: 'targetAudienceBn' });
   const tagsFields = useFieldArray({ control, name: 'tags' });
 
   const fetchData = useCallback(async () => {
@@ -82,16 +96,21 @@ export default function EditCoursePage() {
     const token = localStorage.getItem('token');
     try {
       setFetching(true);
-      const [catRes, courseRes] = await Promise.all([
+      const [catRes, courseRes, insRes] = await Promise.all([
         fetch(`${BASE_URL}/categories`),
         fetch(`${BASE_URL}/courses/${id}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch(`${BASE_URL}/instructors?limit=100`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       ]);
       const catData = await catRes.json();
       const courseResult = await courseRes.json();
+      const insData = await insRes.json();
 
       setCategories(catData.data || []);
+      setInstructors(insData.data || []);
       const course = courseResult.data;
 
       if (course) {
@@ -100,9 +119,13 @@ export default function EditCoursePage() {
           ...course,
           category: course.category?._id || course.category,
           features: course.features?.length ? course.features : [''],
+          featuresBn: course.featuresBn?.length ? course.featuresBn : (course.features?.length ? course.features.map(() => '') : ['']),
           requirements: course.requirements?.length ? course.requirements : [''],
+          requirementsBn: course.requirementsBn?.length ? course.requirementsBn : (course.requirements?.length ? course.requirements.map(() => '') : ['']),
           whatYouWillLearn: course.whatYouWillLearn?.length ? course.whatYouWillLearn : [''],
+          whatYouWillLearnBn: course.whatYouWillLearnBn?.length ? course.whatYouWillLearnBn : (course.whatYouWillLearn?.length ? course.whatYouWillLearn.map(() => '') : ['']),
           targetAudience: course.targetAudience?.length ? course.targetAudience : [''],
+          targetAudienceBn: course.targetAudienceBn?.length ? course.targetAudienceBn : (course.targetAudience?.length ? course.targetAudience.map(() => '') : ['']),
           tags: course.tags?.length ? course.tags : [''],
           previewVideo: course.previewVideo || '',
           bannerImage: course.bannerImage || '',
@@ -110,6 +133,7 @@ export default function EditCoursePage() {
           shortDescriptionBn: course.shortDescriptionBn || '',
           metaTitle: course.metaTitle || '',
           metaDescription: course.metaDescription || '',
+          instructor: course.instructor?._id || course.instructor || '',
         });
       }
     } catch (err) { console.error(err); }
@@ -132,7 +156,8 @@ export default function EditCoursePage() {
         },
         body: JSON.stringify({
           ...values,
-          category: values.category?._id || values.category
+          category: values.category?._id || values.category,
+          instructor: values.instructor || undefined,
         }),
       });
 
@@ -231,6 +256,17 @@ export default function EditCoursePage() {
                   </select>
                   {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category.message}</p>}
                 </div>
+                <div>
+                  <label className={labelClass}>Instructor</label>
+                  <select {...register('instructor')} className={inputClass}>
+                    <option value="">Select Instructor</option>
+                    {instructors.map(ins => (
+                      <option key={ins._id} value={ins._id}>
+                        {ins.userId?.firstName} {ins.userId?.lastName} — {ins.title || 'Instructor'}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -259,13 +295,14 @@ export default function EditCoursePage() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <label className={labelClass}>What You Will Learn</label>
-                  <button type="button" onClick={() => learningFields.append('')} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
+                  <button type="button" onClick={() => { learningFields.append(''); learningBnFields.append(''); }} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="space-y-2">
                   {learningFields.fields.map((field, idx) => (
-                    <div key={field.id} className="group relative">
-                      <input {...register(`whatYouWillLearn.${idx}`)} className={inputClass} placeholder="Topic name" />
-                      <button type="button" onClick={() => learningFields.remove(idx)} className="absolute -top-1 -right-1 bg-[#021E14] text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
+                    <div key={field.id} className="group flex gap-2 items-center">
+                      <input {...register(`whatYouWillLearn.${idx}`)} className={inputClass} placeholder="Topic (English)" />
+                      <input {...register(`whatYouWillLearnBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="টপিক (বাংলা)" />
+                      <button type="button" onClick={() => { learningFields.remove(idx); learningBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
                     </div>
                   ))}
                 </div>
@@ -274,13 +311,46 @@ export default function EditCoursePage() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <label className={labelClass}>Key Features</label>
-                  <button type="button" onClick={() => featuresFields.append('')} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
+                  <button type="button" onClick={() => { featuresFields.append(''); featuresBnFields.append(''); }} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="space-y-2">
                   {featuresFields.fields.map((field, idx) => (
-                    <div key={field.id} className="group relative">
-                      <input {...register(`features.${idx}`)} className={inputClass} placeholder="Feature name" />
-                      <button type="button" onClick={() => featuresFields.remove(idx)} className="absolute -top-1 -right-1 bg-[#021E14] text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-all"><FiTrash2 size={10} /></button>
+                    <div key={field.id} className="group flex gap-2 items-center">
+                      <input {...register(`features.${idx}`)} className={inputClass} placeholder="Feature (English)" />
+                      <input {...register(`featuresBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="ফিচার (বাংলা)" />
+                      <button type="button" onClick={() => { featuresFields.remove(idx); featuresBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <label className={labelClass}>Requirements / Roadmap</label>
+                  <button type="button" onClick={() => { requirementsFields.append(''); requirementsBnFields.append(''); }} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
+                </div>
+                <div className="space-y-2">
+                  {requirementsFields.fields.map((field, idx) => (
+                    <div key={field.id} className="group flex gap-2 items-center">
+                      <input {...register(`requirements.${idx}`)} className={inputClass} placeholder="Requirement (English)" />
+                      <input {...register(`requirementsBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="প্রয়োজনীয়তা (বাংলা)" />
+                      <button type="button" onClick={() => { requirementsFields.remove(idx); requirementsBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <label className={labelClass}>Target Audience</label>
+                  <button type="button" onClick={() => { audienceFields.append(''); audienceBnFields.append(''); }} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">+ Add</button>
+                </div>
+                <div className="space-y-2">
+                  {audienceFields.fields.map((field, idx) => (
+                    <div key={field.id} className="group flex gap-2 items-center">
+                      <input {...register(`targetAudience.${idx}`)} className={inputClass} placeholder="Audience (English)" />
+                      <input {...register(`targetAudienceBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="টার্গেট অডিয়েন্স (বাংলা)" />
+                      <button type="button" onClick={() => { audienceFields.remove(idx); audienceBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
                     </div>
                   ))}
                 </div>
@@ -337,14 +407,26 @@ export default function EditCoursePage() {
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold border-b pb-3 mb-4 ${isDark ? 'text-slate-300 border-slate-800' : 'text-slate-700 border-slate-100'}`}>Description</h2>
             <div className="space-y-4">
-              <div>
-                <label className={labelClass}>Short Description (English)</label>
-                <textarea {...register('shortDescription')} rows={2} className={`${inputClass} resize-none`} placeholder="Brief wrap-up..."></textarea>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Short Description (English)</label>
+                  <textarea {...register('shortDescription')} rows={2} className={`${inputClass} resize-none`} placeholder="Brief wrap-up..."></textarea>
+                </div>
+                <div>
+                  <label className={labelClass}>Short Description (বাংলা)</label>
+                  <textarea {...register('shortDescriptionBn')} rows={2} className={`${inputClass} resize-none hind-siliguri`} placeholder="সংক্ষিপ্ত বিবরণ..."></textarea>
+                </div>
               </div>
-              <div>
-                <label className={labelClass}>Full Description (English)</label>
-                <textarea {...register('description')} rows={5} className={`${inputClass} resize-none`} placeholder="Detailed course content..."></textarea>
-                {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className={labelClass}>Full Description (English)</label>
+                  <textarea {...register('description')} rows={5} className={`${inputClass} resize-none`} placeholder="Detailed course content..."></textarea>
+                  {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
+                </div>
+                <div>
+                  <label className={labelClass}>Full Description (বাংলা)</label>
+                  <textarea {...register('descriptionBn')} rows={5} className={`${inputClass} resize-none hind-siliguri`} placeholder="বিস্তারিত বিবরণ..."></textarea>
+                </div>
               </div>
             </div>
           </div>

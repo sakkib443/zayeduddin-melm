@@ -1,17 +1,59 @@
 'use client';
 
-import React, { useState } from 'react';
-import { FiCalendar, FiClock, FiVideo, FiMapPin, FiLoader, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMyBatches } from '@/redux/batchSlice';
+import { FiCalendar, FiClock, FiVideo, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { useTheme } from '@/providers/ThemeProvider';
+
+const DAY_MAP = {
+    saturday: { short: 'Sat', index: 5 },
+    sunday: { short: 'Sun', index: 6 },
+    monday: { short: 'Mon', index: 0 },
+    tuesday: { short: 'Tue', index: 1 },
+    wednesday: { short: 'Wed', index: 2 },
+    thursday: { short: 'Thu', index: 3 },
+    friday: { short: 'Fri', index: 4 },
+};
+
+const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export default function UserSchedulePage() {
+    const { isDark } = useTheme();
+    const dispatch = useDispatch();
+    const { myBatches = [], loading } = useSelector((state) => state.batch);
     const [currentWeek, setCurrentWeek] = useState(0);
 
-    // Get current week dates
+    useEffect(() => {
+        dispatch(fetchMyBatches());
+    }, [dispatch]);
+
+    // Build schedule from batches
+    const scheduleByDay = {};
+    DAY_NAMES.forEach(d => { scheduleByDay[d] = []; });
+
+    myBatches.forEach(batch => {
+        if (batch.status !== 'ongoing' && batch.status !== 'upcoming') return;
+        batch.schedule?.forEach(sch => {
+            const dayInfo = DAY_MAP[sch.day];
+            if (dayInfo) {
+                scheduleByDay[dayInfo.short].push({
+                    batchName: batch.batchName,
+                    courseName: batch.course?.title || 'Course',
+                    startTime: sch.startTime,
+                    endTime: sch.endTime,
+                    meetingLink: batch.meetingLink,
+                    status: batch.status,
+                });
+            }
+        });
+    });
+
+    // Week dates for calendar
     const getWeekDates = (weekOffset = 0) => {
         const today = new Date();
         const startOfWeek = new Date(today);
         startOfWeek.setDate(today.getDate() - today.getDay() + 1 + weekOffset * 7);
-
         return Array.from({ length: 7 }, (_, i) => {
             const date = new Date(startOfWeek);
             date.setDate(startOfWeek.getDate() + i);
@@ -20,175 +62,174 @@ export default function UserSchedulePage() {
     };
 
     const weekDates = getWeekDates(currentWeek);
-    const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const totalClasses = Object.values(scheduleByDay).reduce((sum, arr) => sum + arr.length, 0);
+    const todayName = DAY_NAMES[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1];
+    const todayClasses = scheduleByDay[todayName]?.length || 0;
 
-    // Empty schedule - no classes enrolled yet
-    const scheduledClasses = [];
+    const cardClass = `rounded-xl border transition-all ${isDark
+        ? 'bg-slate-800/50 border-white/5' : 'bg-white border-slate-200 shadow-sm'
+        }`;
 
-    // Sample upcoming events (placeholder)
-    const upcomingEvents = [
-        { id: 1, title: 'Web Development Live Session', time: '10:00 AM', type: 'online', instructor: 'John Doe' },
-        { id: 2, title: 'UI/UX Workshop', time: '2:00 PM', type: 'online', instructor: 'Jane Smith' },
-        { id: 3, title: 'Marketing Masterclass', time: '4:00 PM', type: 'online', instructor: 'Mike Johnson' },
-    ];
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="w-8 h-8 border-2 border-slate-200 border-t-[#021E14] rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
-        <div className="p-6 lg:p-8 min-h-screen bg-slate-50">
+        <div className="space-y-5">
             {/* Header */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900 outfit">My Schedule</h1>
-                <p className="text-slate-500 mt-1">View your class schedule and upcoming sessions</p>
+            <div>
+                <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Class Schedule</h1>
+                <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Your weekly class schedule from enrolled batches</p>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="bg-white rounded-xl border border-slate-200 p-5">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-[#021E14]/10 flex items-center justify-center">
-                            <FiCalendar className="text-[#021E14] text-xl" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className={`${cardClass} p-4`}>
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-[#021E14]/10 flex items-center justify-center">
+                            <FiCalendar className="text-[#021E14]" size={18} />
                         </div>
                         <div>
-                            <p className="text-2xl font-bold text-slate-900">0</p>
-                            <p className="text-sm text-slate-500">Classes Today</p>
+                            <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{todayClasses}</p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Classes Today</p>
                         </div>
                     </div>
                 </div>
-                <div className="bg-white rounded-xl border border-slate-200 p-5">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-[#021E14] flex items-center justify-center">
-                            <FiClock className="text-[#021E14] text-xl" />
+                <div className={`${cardClass} p-4`}>
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+                            <FiClock className="text-blue-600" size={18} />
                         </div>
                         <div>
-                            <p className="text-2xl font-bold text-slate-900">0</p>
-                            <p className="text-sm text-slate-500">This Week</p>
+                            <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{totalClasses}</p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Weekly Classes</p>
                         </div>
                     </div>
                 </div>
-                <div className="bg-white rounded-xl border border-slate-200 p-5">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
-                            <FiVideo className="text-amber-600 text-xl" />
+                <div className={`${cardClass} p-4`}>
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center">
+                            <FiVideo className="text-emerald-600" size={18} />
                         </div>
                         <div>
-                            <p className="text-2xl font-bold text-slate-900">0</p>
-                            <p className="text-sm text-slate-500">Live Sessions</p>
+                            <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                                {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').length}
+                            </p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Active Batches</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Weekly Calendar */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 mb-8 shadow-sm">
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-bold text-slate-800">Weekly View</h2>
+            <div className={`${cardClass} p-5`}>
+                <div className="flex items-center justify-between mb-4">
+                    <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Weekly View</h2>
                     <div className="flex items-center gap-2">
-                        <button
-                            onClick={() => setCurrentWeek(currentWeek - 1)}
-                            className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition"
-                        >
-                            <FiChevronLeft size={18} />
+                        <button onClick={() => setCurrentWeek(currentWeek - 1)} className={`p-1.5 rounded-md border ${isDark ? 'border-white/10 hover:bg-white/5' : 'border-slate-200 hover:bg-slate-50'}`}>
+                            <FiChevronLeft size={14} />
                         </button>
-                        <span className="px-4 text-sm font-medium text-slate-600">
-                            {weekDates[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {weekDates[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        <span className={`px-3 text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                            {weekDates[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {weekDates[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </span>
-                        <button
-                            onClick={() => setCurrentWeek(currentWeek + 1)}
-                            className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition"
-                        >
-                            <FiChevronRight size={18} />
+                        <button onClick={() => setCurrentWeek(currentWeek + 1)} className={`p-1.5 rounded-md border ${isDark ? 'border-white/10 hover:bg-white/5' : 'border-slate-200 hover:bg-slate-50'}`}>
+                            <FiChevronRight size={14} />
                         </button>
-                        <button
-                            onClick={() => setCurrentWeek(0)}
-                            className="ml-2 px-3 py-2 text-sm font-medium text-[#021E14] hover:bg-[#021E14]/10 rounded-lg transition"
-                        >
+                        <button onClick={() => setCurrentWeek(0)} className="px-2 py-1 text-[10px] font-bold text-[#021E14] hover:bg-[#021E14]/10 rounded-md transition">
                             Today
                         </button>
                     </div>
                 </div>
 
-                {/* Calendar Grid */}
                 <div className="grid grid-cols-7 gap-2">
                     {weekDates.map((date, index) => {
                         const isToday = new Date().toDateString() === date.toDateString();
+                        const dayName = DAY_NAMES[index];
+                        const dayClasses = scheduleByDay[dayName] || [];
+
                         return (
-                            <div
-                                key={index}
-                                className={`min-h-[120px] p-3 rounded-xl border ${isToday ? 'border-[#021E14] bg-[#021E14]/5' : 'border-slate-200 bg-slate-50'
+                            <div key={index}
+                                className={`min-h-[140px] p-2.5 rounded-lg border ${isToday
+                                    ? (isDark ? 'border-[#021E14] bg-[#021E14]/10' : 'border-[#021E14] bg-[#021E14]/5')
+                                    : (isDark ? 'border-white/5 bg-slate-800/30' : 'border-slate-200 bg-slate-50')
                                     }`}
                             >
                                 <div className="text-center mb-2">
-                                    <p className="text-xs text-slate-500">{dayNames[index]}</p>
-                                    <p className={`text-lg font-bold ${isToday ? 'text-[#021E14]' : 'text-slate-700'}`}>
+                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{dayName}</p>
+                                    <p className={`text-sm font-bold ${isToday ? 'text-[#021E14]' : isDark ? 'text-white' : 'text-slate-700'}`}>
                                         {date.getDate()}
                                     </p>
                                 </div>
-                                {/* No classes scheduled */}
-                                <div className="text-center py-4">
-                                    <p className="text-xs text-slate-400">No classes</p>
-                                </div>
+                                {dayClasses.length > 0 ? (
+                                    <div className="space-y-1">
+                                        {dayClasses.map((cls, idx) => (
+                                            <div key={idx} className={`p-1.5 rounded-md text-[9px] ${isDark ? 'bg-[#021E14]/20 text-[#4ade80]' : 'bg-[#021E14]/10 text-[#021E14]'}`}>
+                                                <p className="font-bold truncate">{cls.courseName}</p>
+                                                <p className="opacity-70">{cls.startTime}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-3">
+                                        <p className={`text-[10px] ${isDark ? 'text-slate-600' : 'text-slate-300'}`}>—</p>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}
                 </div>
             </div>
 
-            {/* Upcoming Events (Preview) */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                    <FiVideo className="text-[#021E14]" />
-                    Upcoming Events
-                </h2>
+            {/* All Batch Schedules List */}
+            <div className={`${cardClass} overflow-hidden`}>
+                <div className={`p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
+                    <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Batch Schedule Details</h2>
+                </div>
+                {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').length === 0 ? (
+                    <div className="p-8 text-center">
+                        <FiCalendar className={`mx-auto text-2xl mb-2 ${isDark ? 'text-slate-600' : 'text-slate-300'}`} />
+                        <p className={`text-sm ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>No active batches. Enroll in an online course to see your schedule.</p>
+                    </div>
+                ) : (
+                    <div className="divide-y divide-slate-100 dark:divide-white/5">
+                        {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').map(batch => (
+                            <div key={batch._id} className={`p-4 ${isDark ? 'hover:bg-slate-800/30' : 'hover:bg-slate-50'} transition-colors`}>
+                                <div className="flex items-start justify-between gap-3">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${batch.status === 'ongoing' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
+                                                {batch.status}
+                                            </span>
+                                        </div>
+                                        <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{batch.batchName}</h3>
+                                        <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{batch.course?.title}</p>
 
-                <div className="space-y-4">
-                    {upcomingEvents.map((event) => (
-                        <div
-                            key={event.id}
-                            className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200"
-                        >
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#38a89d] flex items-center justify-center text-white">
-                                    <FiVideo size={20} />
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-slate-800">{event.title}</h3>
-                                    <div className="flex items-center gap-3 mt-1 text-sm text-slate-500">
-                                        <span className="flex items-center gap-1">
-                                            <FiClock size={12} />
-                                            {event.time}
-                                        </span>
-                                        <span className="flex items-center gap-1">
-                                            <FiMapPin size={12} />
-                                            {event.type}
-                                        </span>
+                                        {/* Schedule days */}
+                                        {batch.schedule?.length > 0 && (
+                                            <div className="flex flex-wrap gap-1.5 mt-2">
+                                                {batch.schedule.map((sch, idx) => (
+                                                    <span key={idx} className={`px-2 py-1 rounded-md text-[10px] font-medium ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-slate-100 text-slate-600'}`}>
+                                                        {DAY_MAP[sch.day]?.short || sch.day} {sch.startTime} - {sch.endTime}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
+                                    {batch.meetingLink && (
+                                        <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
+                                            className="shrink-0 px-3 py-1.5 bg-[#021E14] text-white rounded-md text-[10px] font-bold hover:bg-[#021E14]/90 transition-all flex items-center gap-1">
+                                            <FiVideo size={10} /> Join Class
+                                        </a>
+                                    )}
                                 </div>
                             </div>
-                            <button
-                                onClick={() => alert('?? Class enrollment is processing. This feature will be available soon!')}
-                                className="px-4 py-2 bg-slate-200 text-slate-600 text-sm font-medium rounded-lg hover:bg-[#021E14] hover:text-white transition flex items-center gap-2"
-                            >
-                                <FiLoader size={14} className="animate-spin" />
-                                Processing
-                            </button>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Processing Notice */}
-                <div className="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100">
-                    <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
-                            <FiLoader className="text-amber-600 animate-spin" />
-                        </div>
-                        <div>
-                            <h4 className="font-semibold text-amber-900">Schedule Syncing</h4>
-                            <p className="text-sm text-amber-700 mt-1">
-                                Once you enroll in courses, your class schedule will automatically sync here.
-                                Live sessions and recordings will be accessible from this page.
-                            </p>
-                        </div>
+                        ))}
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );

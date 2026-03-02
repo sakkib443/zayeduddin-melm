@@ -10,7 +10,7 @@ import {
     FiPlus, FiTrash2, FiSave, FiImage, FiVideo,
     FiBookOpen, FiDollarSign, FiLayers, FiCheck,
     FiTarget, FiList, FiTag, FiSearch, FiArrowRight,
-    FiUpload, FiLink, FiLoader, FiX
+    FiUpload, FiLink, FiLoader, FiX, FiUser
 } from 'react-icons/fi';
 
 // Style constants
@@ -59,9 +59,13 @@ const courseValidationSchema = z.object({
     language: z.enum(['bangla', 'english', 'both']),
     tags: z.array(z.string()).optional(),
     features: z.array(z.string()).optional(),
+    featuresBn: z.array(z.string()).optional(),
     requirements: z.array(z.string()).optional(),
+    requirementsBn: z.array(z.string()).optional(),
     whatYouWillLearn: z.array(z.string()).optional(),
+    whatYouWillLearnBn: z.array(z.string()).optional(),
     targetAudience: z.array(z.string()).optional(),
+    targetAudienceBn: z.array(z.string()).optional(),
     previewVideo: z.string().url().optional().or(z.literal('')),
     totalDuration: z.coerce.number().min(0).optional(),
     totalLessons: z.coerce.number().min(0).optional(),
@@ -71,11 +75,13 @@ const courseValidationSchema = z.object({
     status: z.enum(['draft', 'published', 'archived']),
     isFeatured: z.boolean().optional(),
     isPopular: z.boolean().optional(),
+    instructor: z.string().optional().or(z.literal('')),
 });
 
 const CourseCreateTab = ({ onSuccess }) => {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [instructors, setInstructors] = useState([]);
     const [thumbnailMode, setThumbnailMode] = useState('link'); // 'link' or 'upload'
     const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
     const [thumbnailPreview, setThumbnailPreview] = useState('');
@@ -90,9 +96,13 @@ const CourseCreateTab = ({ onSuccess }) => {
             language: 'bangla',
             status: 'draft',
             features: [''],
+            featuresBn: [''],
             requirements: [''],
+            requirementsBn: [''],
             whatYouWillLearn: [''],
+            whatYouWillLearnBn: [''],
             targetAudience: [''],
+            targetAudienceBn: [''],
             tags: [''],
             price: 0,
             currency: 'BDT',
@@ -105,9 +115,13 @@ const CourseCreateTab = ({ onSuccess }) => {
     });
 
     const featuresFields = useFieldArray({ control, name: 'features' });
+    const featuresBnFields = useFieldArray({ control, name: 'featuresBn' });
     const requirementsFields = useFieldArray({ control, name: 'requirements' });
+    const requirementsBnFields = useFieldArray({ control, name: 'requirementsBn' });
     const learningFields = useFieldArray({ control, name: 'whatYouWillLearn' });
+    const learningBnFields = useFieldArray({ control, name: 'whatYouWillLearnBn' });
     const audienceFields = useFieldArray({ control, name: 'targetAudience' });
+    const audienceBnFields = useFieldArray({ control, name: 'targetAudienceBn' });
     const tagsFields = useFieldArray({ control, name: 'tags' });
 
     useEffect(() => {
@@ -119,6 +133,18 @@ const CourseCreateTab = ({ onSuccess }) => {
             } catch (err) { console.error(err); }
         };
         fetchCategories();
+
+        const fetchInstructors = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(`${API_BASE_URL}/instructors?limit=100`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                setInstructors(data.data || []);
+            } catch (err) { console.error(err); }
+        };
+        fetchInstructors();
     }, []);
 
     const title = watch('title');
@@ -375,54 +401,55 @@ const CourseCreateTab = ({ onSuccess }) => {
                         </div>
                     </div>
 
-                    {/* Dynamic Content Lists */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                        {/* Features */}
-                        <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
-                            <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiCheck className="text-[#021E14]" size={14} /> Features</h3>
-                                <button type="button" onClick={() => featuresFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-emerald-700"><FiPlus size={14} /></button>
-                            </div>
-                            <div className="p-4 space-y-2">
-                                {featuresFields.fields.map((field, index) => (
-                                    <div key={field.id} className="flex gap-2">
-                                        <input {...register(`features.${index}`)} className={`${inputBase} py-2`} placeholder="Feature..." />
-                                        <button type="button" onClick={() => featuresFields.remove(index)} className="text-red-400 hover:text-red-600"><FiTrash2 size={14} /></button>
-                                    </div>
-                                ))}
-                            </div>
+                    {/* Dynamic Content Lists - EN & BN */}
+                    {/* Features */}
+                    <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+                        <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
+                            <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiCheck className="text-[#021E14]" size={14} /> Features</h3>
+                            <button type="button" onClick={() => { featuresFields.append(''); featuresBnFields.append(''); }} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-emerald-700"><FiPlus size={14} /></button>
                         </div>
-
-                        {/* What You'll Learn */}
-                        <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
-                            <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTarget className="text-[#021E14]" size={14} /> What You Will Learn</h3>
-                                <button type="button" onClick={() => learningFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#01140D]"><FiPlus size={14} /></button>
-                            </div>
-                            <div className="p-4 space-y-2">
-                                {learningFields.fields.map((field, index) => (
-                                    <div key={field.id} className="flex gap-2">
-                                        <input {...register(`whatYouWillLearn.${index}`)} className={`${inputBase} py-2`} placeholder="Outcome..." />
-                                        <button type="button" onClick={() => learningFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
-                                    </div>
-                                ))}
-                            </div>
+                        <div className="p-4 space-y-2">
+                            {featuresFields.fields.map((field, index) => (
+                                <div key={field.id} className="flex gap-2">
+                                    <input {...register(`features.${index}`)} className={`${inputBase} py-2`} placeholder="Feature (English)" />
+                                    <input {...register(`featuresBn.${index}`)} className={`${inputBase} py-2 hind-siliguri`} placeholder="ফিচার (বাংলা)" />
+                                    <button type="button" onClick={() => { featuresFields.remove(index); featuresBnFields.remove(index); }} className="text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
+                                </div>
+                            ))}
                         </div>
+                    </div>
 
-                        {/* Requirements / Roadmap */}
-                        <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
-                            <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiList className="text-[#021E14]" size={14} /> Roadmap</h3>
-                                <button type="button" onClick={() => requirementsFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#021E14]"><FiPlus size={14} /></button>
-                            </div>
-                            <div className="p-4 space-y-2">
-                                {requirementsFields.fields.map((field, index) => (
-                                    <div key={field.id} className="flex gap-2">
-                                        <input {...register(`requirements.${index}`)} className={`${inputBase} py-2`} placeholder="Requirement..." />
-                                        <button type="button" onClick={() => requirementsFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
-                                    </div>
-                                ))}
-                            </div>
+                    {/* What You'll Learn */}
+                    <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+                        <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
+                            <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTarget className="text-[#021E14]" size={14} /> What You Will Learn</h3>
+                            <button type="button" onClick={() => { learningFields.append(''); learningBnFields.append(''); }} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#01140D]"><FiPlus size={14} /></button>
+                        </div>
+                        <div className="p-4 space-y-2">
+                            {learningFields.fields.map((field, index) => (
+                                <div key={field.id} className="flex gap-2">
+                                    <input {...register(`whatYouWillLearn.${index}`)} className={`${inputBase} py-2`} placeholder="Outcome (English)" />
+                                    <input {...register(`whatYouWillLearnBn.${index}`)} className={`${inputBase} py-2 hind-siliguri`} placeholder="ফলাফল (বাংলা)" />
+                                    <button type="button" onClick={() => { learningFields.remove(index); learningBnFields.remove(index); }} className="text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Roadmap / Requirements */}
+                    <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
+                        <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
+                            <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiList className="text-[#021E14]" size={14} /> Roadmap</h3>
+                            <button type="button" onClick={() => { requirementsFields.append(''); requirementsBnFields.append(''); }} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#021E14]"><FiPlus size={14} /></button>
+                        </div>
+                        <div className="p-4 space-y-2">
+                            {requirementsFields.fields.map((field, index) => (
+                                <div key={field.id} className="flex gap-2">
+                                    <input {...register(`requirements.${index}`)} className={`${inputBase} py-2`} placeholder="Requirement (English)" />
+                                    <input {...register(`requirementsBn.${index}`)} className={`${inputBase} py-2 hind-siliguri`} placeholder="প্রয়োজনীয়তা (বাংলা)" />
+                                    <button type="button" onClick={() => { requirementsFields.remove(index); requirementsBnFields.remove(index); }} className="text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
@@ -448,13 +475,14 @@ const CourseCreateTab = ({ onSuccess }) => {
                         <div className="bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
                                 <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-1.5"><FiTarget className="text-[#021E14]" size={14} /> Target Audience</h3>
-                                <button type="button" onClick={() => audienceFields.append('')} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#021E14]"><FiPlus size={14} /></button>
+                                <button type="button" onClick={() => { audienceFields.append(''); audienceBnFields.append(''); }} className="p-1 bg-[#021E14] text-white rounded-md hover:bg-[#021E14]"><FiPlus size={14} /></button>
                             </div>
                             <div className="p-4 space-y-2">
                                 {audienceFields.fields.map((field, index) => (
                                     <div key={field.id} className="flex gap-2">
-                                        <input {...register(`targetAudience.${index}`)} className={`${inputBase} py-2`} placeholder="Audience..." />
-                                        <button type="button" onClick={() => audienceFields.remove(index)} className="text-[#021E14] hover:text-[#021E14]"><FiTrash2 size={14} /></button>
+                                        <input {...register(`targetAudience.${index}`)} className={`${inputBase} py-2`} placeholder="Audience (English)" />
+                                        <input {...register(`targetAudienceBn.${index}`)} className={`${inputBase} py-2 hind-siliguri`} placeholder="টার্গেট অডিয়েন্স (বাংলা)" />
+                                        <button type="button" onClick={() => { audienceFields.remove(index); audienceBnFields.remove(index); }} className="text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
                                     </div>
                                 ))}
                             </div>
@@ -492,6 +520,16 @@ const CourseCreateTab = ({ onSuccess }) => {
                                 <select {...register('category')} className={selectBase}>
                                     <option value="">Select Category</option>
                                     {categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name}</option>)}
+                                </select>
+                            </FormField>
+                            <FormField label="Instructor" icon={FiUser}>
+                                <select {...register('instructor')} className={selectBase}>
+                                    <option value="">Select Instructor</option>
+                                    {instructors.map(ins => (
+                                        <option key={ins._id} value={ins._id}>
+                                            {ins.userId?.firstName} {ins.userId?.lastName} — {ins.title || 'Instructor'}
+                                        </option>
+                                    ))}
                                 </select>
                             </FormField>
                             <FormField label="Total Lessons (Auto)">

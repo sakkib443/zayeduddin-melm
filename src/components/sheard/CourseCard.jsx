@@ -30,15 +30,17 @@ const CourseCard = ({ course, view = "grid" }) => {
     return category?.name || categoryData || "General";
   };
 
-  // Field mapping
-  const title = course.title || "Untitled Course";
+  // Field mapping - bilingual
+  const title = language === 'bn' && course.titleBn ? course.titleBn : (course.title || "Untitled Course");
   const thumbnail = course.thumbnail || course.image || "/placeholder-course.jpg";
   const price = course.price !== undefined ? course.price : (parseInt(course.fee?.replace(/[^\d]/g, '') || 0));
   const discountPrice = course.discountPrice || course.offerPrice;
   const type = course.courseType || course.type || "Recorded";
   const totalLessons = course.totalLessons || course.totalVideos || 10;
-  const lessons = `${totalLessons} Lessons`;
-  const students = course.totalEnrollments !== undefined ? `${course.totalEnrollments}+ Enrolled` : "50+ Enrolled";
+  const lessons = language === 'bn' ? `${totalLessons} লেসন` : `${totalLessons} Lessons`;
+  const students = course.totalEnrollments !== undefined
+    ? (language === 'bn' ? `${course.totalEnrollments}+ শিক্ষার্থী` : `${course.totalEnrollments}+ Enrolled`)
+    : (language === 'bn' ? '৫০+ শিক্ষার্থী' : '50+ Enrolled');
   const rating = course.averageRating || course.rating || 5;
   const lastUpdated = course.updatedAt ? new Date(course.updatedAt).toLocaleDateString() : "Recently Updated";
   const duration = course.duration || course.totalDuration || "3 Months";

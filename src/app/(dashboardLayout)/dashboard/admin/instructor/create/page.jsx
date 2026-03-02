@@ -1,9 +1,9 @@
 'use client';
 import { API_URL, API_BASE_URL } from '@/config/api';
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
-    FiUser, FiArrowLeft, FiSave, FiMail, FiPhone, FiLock, FiAward, FiGlobe, FiFacebook, FiLinkedin, FiTwitter, FiYoutube, FiInstagram, FiGithub, FiPlus, FiX, FiCheck, FiBookOpen, FiBriefcase, FiMessageCircle
+    FiUser, FiArrowLeft, FiSave, FiMail, FiPhone, FiLock, FiAward, FiGlobe, FiFacebook, FiLinkedin, FiTwitter, FiYoutube, FiInstagram, FiGithub, FiPlus, FiX, FiCheck, FiBookOpen, FiBriefcase, FiMessageCircle, FiLoader, FiAlertCircle, FiUpload, FiImage, FiLink
 } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 
@@ -18,6 +18,14 @@ const InstructorForm = () => {
     const [expertiseInput, setExpertiseInput] = useState('');
     const [educationInput, setEducationInput] = useState('');
     const [workExpInput, setWorkExpInput] = useState('');
+    const [formErrors, setFormErrors] = useState({});
+    const [submitError, setSubmitError] = useState('');
+    const [avatarMode, setAvatarMode] = useState('upload');
+    const [coverMode, setCoverMode] = useState('upload');
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const [uploadingCover, setUploadingCover] = useState(false);
+    const avatarInputRef = useRef(null);
+    const coverInputRef = useRef(null);
 
     const initialFormData = {
         // User account fields
@@ -175,10 +183,32 @@ const InstructorForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setFormErrors({});
+        setSubmitError('');
+
+        // Client-side validation
+        const errors = {};
+        if (!formData.firstName.trim()) errors.firstName = 'First name is required';
+        if (!formData.lastName.trim()) errors.lastName = 'Last name is required';
+        if (!formData.email.trim()) errors.email = 'Email is required';
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = 'Please enter a valid email';
 
         if (!isEditMode) {
-            if (!formData.password) return alert('Password is required for new accounts');
-            if (formData.password !== formData.confirmPassword) return alert('Passwords do not match');
+            if (!formData.password) errors.password = 'Password is required';
+            else if (formData.password.length < 6) errors.password = 'Password must be at least 6 characters';
+            if (formData.password && formData.password !== formData.confirmPassword) errors.confirmPassword = 'Passwords do not match';
+        }
+
+        if (formData.phone && formData.phone.length > 0 && formData.phone.length < 11) {
+            errors.phone = 'Phone number must be at least 11 digits';
+        }
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors);
+            setSubmitError('Please fix the highlighted fields below');
+            // Scroll to top to see error
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
         }
 
         setLoading(true);
@@ -189,9 +219,9 @@ const InstructorForm = () => {
             const method = isEditMode ? 'PATCH' : 'POST';
 
             const payload = { ...formData };
+            delete payload.confirmPassword;
             if (isEditMode && !payload.password) {
                 delete payload.password;
-                delete payload.confirmPassword;
             }
 
             const res = await fetch(url, {
@@ -207,10 +237,22 @@ const InstructorForm = () => {
             if (data.success) {
                 router.push('/dashboard/admin/instructor');
             } else {
-                alert(data.message || 'Something went wrong');
+                // Parse backend validation errors
+                if (data.errorMessages && Array.isArray(data.errorMessages)) {
+                    const backendErrors = {};
+                    data.errorMessages.forEach(err => {
+                        const field = err.path?.split('.')?.pop() || 'unknown';
+                        backendErrors[field] = err.message;
+                    });
+                    setFormErrors(backendErrors);
+                    setSubmitError(data.message || 'Validation failed. Please check the highlighted fields.');
+                } else {
+                    setSubmitError(data.message || 'Something went wrong');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         } catch (err) {
-            alert('Error submitting form');
+            setSubmitError('Network error. Please check your connection and try again.');
         } finally {
             setLoading(false);
         }
@@ -239,6 +281,17 @@ const InstructorForm = () => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Error Banner */}
+                {submitError && (
+                    <div className="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md animate-in">
+                        <FiAlertCircle className="text-red-500 flex-shrink-0" size={20} />
+                        <p className="text-sm text-red-700 dark:text-red-400 font-medium">{submitError}</p>
+                        <button type="button" onClick={() => setSubmitError('')} className="ml-auto text-red-400 hover:text-red-600">
+                            <FiX size={16} />
+                        </button>
+                    </div>
+                )}
+
                 {/* Account Info Section */}
                 <div className="bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-700">
@@ -250,16 +303,18 @@ const InstructorForm = () => {
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">First Name *</label>
                             <input
-                                type="text" name="firstName" value={formData.firstName} onChange={handleChange} required
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
+                                type="text" name="firstName" value={formData.firstName} onChange={handleChange}
+                                className={`w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border outline-none focus:border-[#021E14] transition-all text-sm ${formErrors.firstName ? 'border-red-400 bg-red-50/50' : 'border-slate-200 dark:border-slate-700'}`}
                             />
+                            {formErrors.firstName && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><FiAlertCircle size={12} />{formErrors.firstName}</p>}
                         </div>
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Last Name *</label>
                             <input
-                                type="text" name="lastName" value={formData.lastName} onChange={handleChange} required
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
+                                type="text" name="lastName" value={formData.lastName} onChange={handleChange}
+                                className={`w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border outline-none focus:border-[#021E14] transition-all text-sm ${formErrors.lastName ? 'border-red-400 bg-red-50/50' : 'border-slate-200 dark:border-slate-700'}`}
                             />
+                            {formErrors.lastName && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><FiAlertCircle size={12} />{formErrors.lastName}</p>}
                         </div>
                     </div>
 
@@ -267,17 +322,19 @@ const InstructorForm = () => {
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Email Address *</label>
                             <input
-                                type="email" name="email" value={formData.email} onChange={handleChange} required
+                                type="email" name="email" value={formData.email} onChange={handleChange}
                                 disabled={isEditMode}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm disabled:opacity-50"
+                                className={`w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border outline-none focus:border-[#021E14] transition-all text-sm disabled:opacity-50 ${formErrors.email ? 'border-red-400 bg-red-50/50' : 'border-slate-200 dark:border-slate-700'}`}
                             />
+                            {formErrors.email && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><FiAlertCircle size={12} />{formErrors.email}</p>}
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Phone Number *</label>
+                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Phone Number</label>
                             <input
-                                type="text" name="phone" value={formData.phone} onChange={handleChange} required
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
+                                type="text" name="phone" value={formData.phone} onChange={handleChange}
+                                className={`w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border outline-none focus:border-[#021E14] transition-all text-sm ${formErrors.phone ? 'border-red-400 bg-red-50/50' : 'border-slate-200 dark:border-slate-700'}`}
                             />
+                            {formErrors.phone && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><FiAlertCircle size={12} />{formErrors.phone}</p>}
                         </div>
                     </div>
 
@@ -285,18 +342,20 @@ const InstructorForm = () => {
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Password {isEditMode ? '(Optional)' : '*'}</label>
                             <input
-                                type="password" name="password" value={formData.password} onChange={handleChange} required={!isEditMode}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
+                                type="password" name="password" value={formData.password} onChange={handleChange}
+                                className={`w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border outline-none focus:border-[#021E14] transition-all text-sm ${formErrors.password ? 'border-red-400 bg-red-50/50' : 'border-slate-200 dark:border-slate-700'}`}
                                 placeholder={isEditMode ? '••••••••' : 'Enter strong password'}
                             />
+                            {formErrors.password && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><FiAlertCircle size={12} />{formErrors.password}</p>}
                         </div>
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Confirm Password {isEditMode ? '' : '*'}</label>
                             <input
-                                type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required={!isEditMode}
-                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
+                                type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange}
+                                className={`w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border outline-none focus:border-[#021E14] transition-all text-sm ${formErrors.confirmPassword ? 'border-red-400 bg-red-50/50' : 'border-slate-200 dark:border-slate-700'}`}
                                 placeholder={isEditMode ? '••••••••' : 'Confirm password'}
                             />
+                            {formErrors.confirmPassword && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><FiAlertCircle size={12} />{formErrors.confirmPassword}</p>}
                         </div>
                     </div>
                 </div>
@@ -308,19 +367,127 @@ const InstructorForm = () => {
                         <h3 className="font-semibold text-slate-800 dark:text-white">Professional Profile</h3>
                     </div>
 
+                    {/* Avatar Image */}
+                    <div className="space-y-2">
+                        <label className="flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 uppercase italic">
+                            <FiImage size={12} className="text-slate-400" />
+                            Profile Photo (Avatar)
+                        </label>
+                        <p className="text-[10px] text-slate-400">Recommended: 400×400px, Square, JPG/PNG/WEBP</p>
+                        <div className="flex gap-2 mb-2">
+                            <button type="button" onClick={() => setAvatarMode('upload')}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${avatarMode === 'upload' ? 'bg-[#021E14] border-[#021E14] text-white' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-slate-300'}`}>
+                                <FiUpload size={11} /> Upload Image
+                            </button>
+                            <button type="button" onClick={() => setAvatarMode('link')}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${avatarMode === 'link' ? 'bg-[#021E14] border-[#021E14] text-white' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-slate-300'}`}>
+                                <FiLink size={11} /> Paste URL
+                            </button>
+                        </div>
+                        {avatarMode === 'upload' ? (
+                            <div>
+                                {formData.avatar ? (
+                                    <div className="relative inline-block">
+                                        <img src={formData.avatar} alt="Avatar" className="w-28 h-28 object-cover rounded-lg border-2 border-slate-200" />
+                                        <button type="button" onClick={() => setFormData(prev => ({ ...prev, avatar: '' }))} className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full shadow hover:bg-red-600"><FiX size={12} /></button>
+                                    </div>
+                                ) : (
+                                    <div onClick={() => avatarInputRef.current?.click()} className="w-28 h-28 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[#021E14] transition-all">
+                                        {uploadingAvatar ? (
+                                            <><FiLoader className="animate-spin text-[#021E14]" size={20} /><span className="text-[10px] text-slate-400 mt-1">Uploading...</span></>
+                                        ) : (
+                                            <><FiUpload className="text-slate-400" size={20} /><span className="text-[10px] text-slate-400 mt-1">400×400</span></>
+                                        )}
+                                    </div>
+                                )}
+                                <input ref={avatarInputRef} type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                                    const file = e.target.files?.[0]; if (!file) return;
+                                    const token = localStorage.getItem('token');
+                                    const fd = new FormData(); fd.append('image', file);
+                                    try {
+                                        setUploadingAvatar(true);
+                                        const res = await fetch(`${API_BASE_URL}/upload/single`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` }, body: fd });
+                                        const result = await res.json();
+                                        if (res.ok && result.data?.url) setFormData(prev => ({ ...prev, avatar: result.data.url }));
+                                        else alert('Upload failed: ' + (result.message || 'Error'));
+                                    } catch { alert('Upload failed'); } finally { setUploadingAvatar(false); }
+                                }} />
+                            </div>
+                        ) : (
+                            <input type="text" name="avatar" value={formData.avatar} onChange={handleChange}
+                                placeholder="https://res.cloudinary.com/..."
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
+                            />
+                        )}
+                    </div>
+
+                    {/* Cover Image */}
+                    <div className="space-y-2">
+                        <label className="flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400 uppercase italic">
+                            <FiImage size={12} className="text-slate-400" />
+                            Cover Image (Banner)
+                        </label>
+                        <p className="text-[10px] text-slate-400">Recommended: 1200×400px, Landscape, JPG/PNG/WEBP</p>
+                        <div className="flex gap-2 mb-2">
+                            <button type="button" onClick={() => setCoverMode('upload')}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${coverMode === 'upload' ? 'bg-[#021E14] border-[#021E14] text-white' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-slate-300'}`}>
+                                <FiUpload size={11} /> Upload Image
+                            </button>
+                            <button type="button" onClick={() => setCoverMode('link')}
+                                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${coverMode === 'link' ? 'bg-[#021E14] border-[#021E14] text-white' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-slate-300'}`}>
+                                <FiLink size={11} /> Paste URL
+                            </button>
+                        </div>
+                        {coverMode === 'upload' ? (
+                            <div>
+                                {formData.coverImage ? (
+                                    <div className="relative inline-block">
+                                        <img src={formData.coverImage} alt="Cover" className="w-60 h-20 object-cover rounded-lg border-2 border-slate-200" />
+                                        <button type="button" onClick={() => setFormData(prev => ({ ...prev, coverImage: '' }))} className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full shadow hover:bg-red-600"><FiX size={12} /></button>
+                                    </div>
+                                ) : (
+                                    <div onClick={() => coverInputRef.current?.click()} className="w-60 h-20 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[#021E14] transition-all">
+                                        {uploadingCover ? (
+                                            <><FiLoader className="animate-spin text-[#021E14]" size={20} /><span className="text-[10px] text-slate-400 mt-1">Uploading...</span></>
+                                        ) : (
+                                            <><FiUpload className="text-slate-400" size={18} /><span className="text-[10px] text-slate-400 mt-1">1200×400</span></>
+                                        )}
+                                    </div>
+                                )}
+                                <input ref={coverInputRef} type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                                    const file = e.target.files?.[0]; if (!file) return;
+                                    const token = localStorage.getItem('token');
+                                    const fd = new FormData(); fd.append('image', file);
+                                    try {
+                                        setUploadingCover(true);
+                                        const res = await fetch(`${API_BASE_URL}/upload/single`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` }, body: fd });
+                                        const result = await res.json();
+                                        if (res.ok && result.data?.url) setFormData(prev => ({ ...prev, coverImage: result.data.url }));
+                                        else alert('Upload failed: ' + (result.message || 'Error'));
+                                    } catch { alert('Upload failed'); } finally { setUploadingCover(false); }
+                                }} />
+                            </div>
+                        ) : (
+                            <input type="text" name="coverImage" value={formData.coverImage} onChange={handleChange}
+                                placeholder="https://res.cloudinary.com/..."
+                                className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
+                            />
+                        )}
+                    </div>
+
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Professional Title *</label>
+                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Professional Title</label>
                         <input
-                            type="text" name="title" value={formData.title} onChange={handleChange} required
+                            type="text" name="title" value={formData.title} onChange={handleChange}
                             placeholder="e.g. Senior Software Engineer"
                             className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Short Biography *</label>
+                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 uppercase italic">Short Biography</label>
                         <textarea
-                            name="bio" value={formData.bio} onChange={handleChange} required rows={3}
+                            name="bio" value={formData.bio} onChange={handleChange} rows={3}
                             placeholder="Brief description for the instructor card..."
                             className="w-full px-4 py-2.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-[#021E14] transition-all text-sm resize-none"
                         />

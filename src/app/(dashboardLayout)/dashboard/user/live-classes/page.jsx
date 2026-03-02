@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
     FiVideo, FiCalendar, FiClock, FiExternalLink,
-    FiPlay, FiBook, FiUsers, FiCheckCircle, FiRefreshCw
+    FiPlay, FiBook, FiRefreshCw
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { API_URL } from '@/config/api';
@@ -12,26 +12,28 @@ import { API_URL } from '@/config/api';
 export default function MyLiveClassesPage() {
     const { isDark } = useTheme();
     const [myBatches, setMyBatches] = useState([]);
+    const [liveClasses, setLiveClasses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isSyncing, setIsSyncing] = useState(false);
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    useEffect(() => { fetchData(); }, []);
 
     const fetchData = async () => {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
+            const headers = { Authorization: `Bearer ${token}` };
 
-            const res = await fetch(`${API_URL}/batches/my-batches`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const [batchRes, classRes] = await Promise.all([
+                fetch(`${API_URL}/batches/my-batches`, { headers }),
+                fetch(`${API_URL}/live-classes/my-classes`, { headers }),
+            ]);
 
-            const data = await res.json();
-            if (data.success) {
-                setMyBatches(data.data || []);
-            }
+            const batchData = await batchRes.json();
+            const classData = await classRes.json();
+
+            if (batchData.success) setMyBatches(batchData.data || []);
+            if (classData.success) setLiveClasses(classData.data || []);
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -46,177 +48,130 @@ export default function MyLiveClassesPage() {
     };
 
     const getDayName = (day) => {
-        const days = {
-            saturday: 'Saturday', sunday: 'Sunday', monday: 'Monday',
-            tuesday: 'Tuesday', wednesday: 'Wednesday', thursday: 'Thursday', friday: 'Friday'
-        };
+        const days = { saturday: 'Sat', sunday: 'Sun', monday: 'Mon', tuesday: 'Tue', wednesday: 'Wed', thursday: 'Thu', friday: 'Fri' };
         return days[day?.toLowerCase()] || day;
     };
 
-    const getCurrentDayIndex = () => {
-        const dayMap = {
-            0: 'sunday', 1: 'monday', 2: 'tuesday', 3: 'wednesday',
-            4: 'thursday', 5: 'friday', 6: 'saturday'
-        };
-        return dayMap[new Date().getDay()];
+    const getCurrentDayKey = () => {
+        const map = { 0: 'sunday', 1: 'monday', 2: 'tuesday', 3: 'wednesday', 4: 'thursday', 5: 'friday', 6: 'saturday' };
+        return map[new Date().getDay()];
     };
 
     const isTodayClass = (schedule) => {
         if (!schedule || schedule.length === 0) return false;
-        const today = getCurrentDayIndex();
-        return schedule.some(s => s.day?.toLowerCase() === today);
+        return schedule.some(s => s.day?.toLowerCase() === getCurrentDayKey());
     };
 
     const getTodaySchedule = (schedule) => {
         if (!schedule || schedule.length === 0) return null;
-        const today = getCurrentDayIndex();
-        return schedule.find(s => s.day?.toLowerCase() === today);
+        return schedule.find(s => s.day?.toLowerCase() === getCurrentDayKey());
     };
 
-    const isClassLiveNow = (schedule) => {
-        const todaySchedule = getTodaySchedule(schedule);
-        if (!todaySchedule) return false;
+    const cardClass = `rounded-xl border transition-all ${isDark
+        ? 'bg-slate-800/50 border-white/5' : 'bg-white border-slate-200 shadow-sm'}`;
 
-        const now = new Date();
-        const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-
-        return todaySchedule.startTime <= currentTime && currentTime <= todaySchedule.endTime;
-    };
-
-    const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
-        ? 'bg-slate-800/50 border-white/5 hover:border-[#021E14]/20'
-        : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
-        }`;
-
-    // Filter batches that have meeting links
-    const batchesWithLinks = myBatches.filter(b => b.meetingLink && (b.status === 'ongoing' || b.status === 'upcoming'));
-
-    // Separate today's classes and upcoming classes
-    const todayClasses = batchesWithLinks.filter(b => isTodayClass(b.schedule));
-    const upcomingClasses = batchesWithLinks.filter(b => !isTodayClass(b.schedule));
+    const activeBatches = myBatches.filter(b => b.meetingLink && (b.status === 'ongoing' || b.status === 'upcoming'));
+    const todayBatches = activeBatches.filter(b => isTodayClass(b.schedule));
+    const otherBatches = activeBatches.filter(b => !isTodayClass(b.schedule));
 
     if (loading) {
         return (
-            <div className="space-y-6">
-                <div className={`p-5 ${cardClass}`}>
-                    <div className="flex items-center gap-4">
-                        <div className={`w-12 h-12 rounded-xl ${isDark ? 'bg-slate-700' : 'bg-slate-100'} animate-pulse`}></div>
-                        <div className="space-y-2">
-                            <div className={`h-4 w-32 rounded ${isDark ? 'bg-slate-700' : 'bg-slate-100'} animate-pulse`}></div>
-                            <div className={`h-3 w-48 rounded ${isDark ? 'bg-slate-700' : 'bg-slate-100'} animate-pulse`}></div>
-                        </div>
-                    </div>
-                </div>
-                {[1, 2, 3].map((i) => (
-                    <div key={i} className={`${cardClass} p-6`}>
-                        <div className={`h-24 rounded-xl ${isDark ? 'bg-slate-700' : 'bg-slate-100'} animate-pulse`}></div>
-                    </div>
-                ))}
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="w-8 h-8 border-2 border-slate-200 border-t-[#021E14] rounded-full animate-spin"></div>
             </div>
         );
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             {/* Header */}
-            <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 ${cardClass}`}>
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md shadow-[#021E14]/10">
-                        <FiVideo size={24} />
+            <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 ${cardClass}`}>
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[#021E14] flex items-center justify-center text-white">
+                        <FiVideo size={20} />
                     </div>
                     <div>
-                        <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            My Live Classes
-                        </h1>
-                        <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            View and join your scheduled live classes
-                        </p>
+                        <h1 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Live Classes</h1>
+                        <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>View and join your live classes</p>
                     </div>
                 </div>
-                <button
-                    onClick={handleSync}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${isDark
-                        ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                        }`}
-                >
-                    <FiRefreshCw size={16} className={isSyncing ? 'animate-spin' : ''} />
-                    Sync
+                <button onClick={handleSync}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${isDark
+                        ? 'bg-slate-700 text-slate-200 hover:bg-slate-600' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    <FiRefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} /> Sync
                 </button>
             </div>
 
-            {/* Today's Classes */}
-            {todayClasses.length > 0 && (
+            {/* Upcoming Live Classes from API */}
+            {liveClasses.length > 0 && (
                 <div>
-                    <h2 className={`text-lg font-bold mb-4 flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        <span className="w-2 h-2 bg-[#021E14] rounded-full animate-pulse"></span>
-                        Today's Classes
+                    <h2 className={`text-sm font-bold mb-3 flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                        <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                        Upcoming Live Classes
                     </h2>
-                    <div className="space-y-4">
-                        {todayClasses.map((batch) => {
-                            const todaySchedule = getTodaySchedule(batch.schedule);
-                            const isLive = isClassLiveNow(batch.schedule);
-
-                            return (
-                                <div
-                                    key={batch._id}
-                                    className={`${cardClass} p-6 ${isLive ? 'ring-2 ring-[#021E14]' : ''}`}
-                                >
-                                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                {isLive ? (
-                                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#021E14]/10 text-[#021E14] animate-pulse">
-                                                        🔴 Live Now
-                                                    </span>
-                                                ) : (
-                                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-yellow-500/10 text-yellow-600">
-                                                        📅 Scheduled Today
-                                                    </span>
-                                                )}
-                                                <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                                    {batch.batchCode}
-                                                </span>
-                                            </div>
-
-                                            <h3 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                                {batch.batchName}
-                                            </h3>
-                                            <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                <FiBook size={14} className="inline mr-2" />
-                                                {batch.course?.title || 'Course'}
-                                            </p>
-
-                                            {todaySchedule && (
-                                                <div className={`mt-3 flex items-center gap-4 text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                                    <span className="flex items-center gap-1">
-                                                        <FiClock size={14} />
-                                                        {todaySchedule.startTime} - {todaySchedule.endTime}
-                                                    </span>
-                                                    {batch.instructor && (
-                                                        <span className="flex items-center gap-1">
-                                                            <FiUsers size={14} />
-                                                            {batch.instructor.name}
-                                                        </span>
-                                                    )}
-                                                </div>
+                    <div className="space-y-3">
+                        {liveClasses.map((cls) => (
+                            <div key={cls._id} className={`${cardClass} p-4 ${cls.status === 'live' ? 'ring-1 ring-red-400' : ''}`}>
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${cls.status === 'live'
+                                                ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'}`}>
+                                                {cls.status === 'live' ? '🔴 Live' : '📅 Scheduled'}
+                                            </span>
+                                            {cls.classNumber && (
+                                                <span className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Class #{cls.classNumber}</span>
                                             )}
                                         </div>
-
-                                        <div className="flex items-center gap-3">
-                                            <a
-                                                href={batch.meetingLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm shadow-lg transition-all hover:scale-105 ${isLive
-                                                        ? 'bg-gradient-to-r from-[#021E14] to-[#01140D] text-white shadow-red-500/30'
-                                                        : 'bg-gradient-to-r from-[#021E14] to-[#021E14] text-white shadow-[#021E14]/20'
-                                                    }`}
-                                            >
-                                                <FiPlay size={16} />
-                                                {isLive ? 'Join Now' : 'Join Class'}
-                                            </a>
+                                        <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{cls.title}</h3>
+                                        <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                                            {cls.batch?.course?.title || cls.batch?.batchName}
+                                        </p>
+                                        <div className={`mt-1.5 flex items-center gap-3 text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                            <span className="flex items-center gap-1">
+                                                <FiCalendar size={10} />
+                                                {new Date(cls.classDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <FiClock size={10} /> {cls.startTime} - {cls.endTime}
+                                            </span>
                                         </div>
+                                    </div>
+                                    <a href={cls.meetingLink} target="_blank" rel="noopener noreferrer"
+                                        className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all hover:scale-105 ${cls.status === 'live'
+                                            ? 'bg-red-500 text-white shadow-sm' : 'bg-[#021E14] text-white shadow-sm'}`}>
+                                        <FiPlay size={12} /> {cls.status === 'live' ? 'Join Now' : 'Join Class'}
+                                    </a>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Today's Batch Classes */}
+            {todayBatches.length > 0 && (
+                <div>
+                    <h2 className={`text-sm font-bold mb-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>Today&apos;s Batch Classes</h2>
+                    <div className="space-y-3">
+                        {todayBatches.map((batch) => {
+                            const todaySchedule = getTodaySchedule(batch.schedule);
+                            return (
+                                <div key={batch._id} className={`${cardClass} p-4`}>
+                                    <div className="flex items-center justify-between gap-3">
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{batch.batchName}</h3>
+                                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{batch.course?.title}</p>
+                                            {todaySchedule && (
+                                                <p className={`text-[10px] mt-1 flex items-center gap-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                                                    <FiClock size={10} /> {todaySchedule.startTime} - {todaySchedule.endTime}
+                                                </p>
+                                            )}
+                                        </div>
+                                        <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
+                                            className="px-3 py-2 bg-[#021E14] text-white rounded-lg text-xs font-bold hover:bg-[#021E14]/90 transition-all flex items-center gap-1.5">
+                                            <FiVideo size={12} /> Join
+                                        </a>
                                     </div>
                                 </div>
                             );
@@ -225,65 +180,36 @@ export default function MyLiveClassesPage() {
                 </div>
             )}
 
-            {/* Upcoming Classes / Other Batches */}
-            {upcomingClasses.length > 0 && (
+            {/* Other Active Batches */}
+            {otherBatches.length > 0 && (
                 <div>
-                    <h2 className={`text-lg font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        Upcoming Classes
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {upcomingClasses.map((batch) => (
-                            <div key={batch._id} className={`${cardClass} p-5`}>
-                                <div className="flex items-start justify-between mb-3">
+                    <h2 className={`text-sm font-bold mb-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>Other Active Batches</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {otherBatches.map((batch) => (
+                            <div key={batch._id} className={`${cardClass} p-4`}>
+                                <div className="flex items-start justify-between gap-2 mb-2">
                                     <div>
-                                        <h3 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                            {batch.batchName}
-                                        </h3>
-                                        <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                            {batch.batchCode}
-                                        </p>
+                                        <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{batch.batchName}</h3>
+                                        <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{batch.batchCode}</p>
                                     </div>
-                                    <span className={`px-2.5 py-1 text-xs font-medium rounded-full capitalize ${batch.status === 'ongoing'
-                                            ? 'bg-[#021E14]/10 text-[#021E14]'
-                                            : 'bg-[#021E14]/10 text-[#021E14]'
-                                        }`}>
+                                    <span className={`px-1.5 py-0.5 text-[9px] font-bold uppercase rounded ${batch.status === 'ongoing' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
                                         {batch.status}
                                     </span>
                                 </div>
-
-                                <p className={`text-sm mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                    {batch.course?.title}
-                                </p>
-
-                                {batch.schedule && batch.schedule.length > 0 && (
-                                    <div className={`mb-4 p-3 rounded-lg ${isDark ? 'bg-slate-800/70' : 'bg-slate-50'}`}>
-                                        <p className={`text-xs font-bold uppercase mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                            Weekly Schedule
-                                        </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {batch.schedule.map((s, i) => (
-                                                <span
-                                                    key={i}
-                                                    className={`text-xs px-2 py-1 rounded ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-white text-slate-600 border border-slate-200'}`}
-                                                >
-                                                    {getDayName(s.day)} {s.startTime}
-                                                </span>
-                                            ))}
-                                        </div>
+                                <p className={`text-xs mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{batch.course?.title}</p>
+                                {batch.schedule?.length > 0 && (
+                                    <div className="flex flex-wrap gap-1 mb-3">
+                                        {batch.schedule.map((s, i) => (
+                                            <span key={i} className={`text-[9px] px-1.5 py-0.5 rounded ${isDark ? 'bg-slate-700 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
+                                                {getDayName(s.day)} {s.startTime}
+                                            </span>
+                                        ))}
                                     </div>
                                 )}
-
-                                <a
-                                    href={batch.meetingLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition-all ${isDark
-                                        ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
-                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                        }`}
-                                >
-                                    <FiExternalLink size={16} />
-                                    View Meeting Link
+                                <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
+                                    className={`w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${isDark
+                                        ? 'bg-slate-700 text-slate-200 hover:bg-slate-600' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                    <FiExternalLink size={12} /> Meeting Link
                                 </a>
                             </div>
                         ))}
@@ -291,30 +217,21 @@ export default function MyLiveClassesPage() {
                 </div>
             )}
 
-            {/* No Classes */}
-            {batchesWithLinks.length === 0 && (
-                <div className={`${cardClass} p-12 text-center`}>
-                    <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-4 ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
-                        <FiVideo size={36} className={isDark ? 'text-slate-500' : 'text-slate-300'} />
+            {/* Empty State */}
+            {activeBatches.length === 0 && liveClasses.length === 0 && (
+                <div className={`${cardClass} p-10 text-center`}>
+                    <div className={`w-14 h-14 mx-auto rounded-xl flex items-center justify-center mb-3 ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
+                        <FiVideo size={24} className={isDark ? 'text-slate-500' : 'text-slate-300'} />
                     </div>
-                    <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        No Live Classes Available
-                    </h3>
-                    <p className={`text-sm mb-5 max-w-md mx-auto ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
-                        {myBatches.length === 0
-                            ? "You haven't enrolled in any batch yet. Purchase an online course to join live classes."
-                            : "Your enrolled batches don't have live class links set up yet. Check back later."
-                        }
+                    <h3 className={`font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>No Live Classes</h3>
+                    <p className={`text-xs mb-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                        {myBatches.length === 0 ? "Enroll in an online course to access live classes." : "No live class links set up yet."}
                     </p>
-                    <Link
-                        href="/courses"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
-                    >
-                        Browse Courses <FiExternalLink size={16} />
+                    <Link href="/courses" className="inline-flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white rounded-lg font-semibold text-xs hover:bg-[#021E14]/90 transition-all">
+                        Browse Courses <FiExternalLink size={12} />
                     </Link>
                 </div>
             )}
         </div>
     );
 }
-
