@@ -407,7 +407,9 @@ const DesignTemplateContent = () => {
                                     >
                                         <option value="all">{t('designTemplatePage.allCategories')}</option>
                                         {categories.map((cat) => (
-                                            <option key={cat._id} value={cat._id}>{cat.name} ({getCategoryCount(cat._id)})</option>
+                                            <option key={cat._id} value={cat._id}>
+                                                {language === 'bn' ? (cat.nameBn || cat.name) : cat.name} ({getCategoryCount(cat._id)})
+                                            </option>
                                         ))}
                                     </select>
                                     <LuChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-current opacity-50 pointer-events-none" size={12} />
@@ -658,7 +660,7 @@ const DesignTemplateContent = () => {
                                                 <div className="flex flex-wrap items-center gap-2 mb-3">
                                                     {selectedTemplate.category?.name && (
                                                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20' : 'bg-[#021E14]/10 text-[#021E14] border border-[#021E14]/20'}`}>
-                                                            {selectedTemplate.category.name}
+                                                            {language === 'bn' ? (selectedTemplate.category.nameBn || selectedTemplate.category.name) : selectedTemplate.category.name}
                                                         </span>
                                                     )}
                                                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-white/5 text-gray-400 border border-white/10' : 'bg-gray-100 text-gray-600 border border-gray-200'}`}>

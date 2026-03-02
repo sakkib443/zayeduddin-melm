@@ -98,6 +98,7 @@ const courseSlice = createSlice({
       .addCase(fetchSingleCourse.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.currentCourse = null;
       })
       .addCase(fetchSingleCourse.fulfilled, (state, action) => {
         state.loading = false;

@@ -48,7 +48,7 @@ const FilterDropdown = ({ label, options, value, onChange, icon: Icon, language,
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-3 px-6 py-2.5 rounded-md text-xs font-normal transition-all duration-300 border ${isOpen || (value && value !== 'All' && value !== 'default' && (Array.isArray(value) ? value.length !== 0 : true))
+        className={`flex items-center gap-3 px-6 py-2.5 rounded-md text-[15px] font-normal transition-all duration-300 border ${isOpen || (value && value !== 'All' && value !== 'default' && (Array.isArray(value) ? value.length !== 0 : true))
           ? "bg-[#021E14] text-white border-[#021E14] shadow-lg shadow-[#021E14]/20"
           : "bg-white dark:bg-white/5 text-gray-800 dark:text-gray-300 border-slate-100 dark:border-white/10 hover:border-slate-300"
           }`}
@@ -73,14 +73,14 @@ const FilterDropdown = ({ label, options, value, onChange, icon: Icon, language,
                   onChange(opt.value);
                   setIsOpen(false);
                 }}
-                className={`w-full text-left px-5 py-3 text-xs font-normal transition-colors flex items-center justify-between ${(Array.isArray(value) ? value.includes(opt.value) : value === opt.value)
+                className={`w-full text-left px-5 py-3 text-[15px] font-normal transition-colors flex items-center justify-between ${(Array.isArray(value) ? value.includes(opt.value) : value === opt.value)
                   ? "text-[#021E14] bg-slate-50 dark:bg-white/5"
                   : "text-gray-800 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5"
                   }`}
               >
                 <span>{opt.label.toUpperCase()}</span>
                 {opt.count !== undefined && (
-                  <span className="text-[10px] opacity-50 bg-slate-100 dark:bg-white/10 px-2 py-0.5 rounded-md">{opt.count}</span>
+                  <span className="text-[12px] opacity-50 bg-slate-100 dark:bg-white/10 px-2 py-0.5 rounded-md">{opt.count}</span>
                 )}
               </button>
             ))}
@@ -166,7 +166,7 @@ const CourseContent = () => {
     { value: 'All', label: language === 'bn' ? 'সব ক্যাটাগরি' : 'All Categories', count: courses.length },
     ...categories.filter(c => c.name !== 'All').map(c => ({
       value: c.name,
-      label: c.name,
+      label: language === 'bn' ? (c.nameBn || c.name) : c.name,
       count: getCategoryCount(c.name)
     }))
   ];
@@ -181,10 +181,10 @@ const CourseContent = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className={`text-3xl md:text-4xl font-bold text-[#021E14] mb-2 ${bengaliClass}`}>
+            <h1 className={`text-3xl md:text-5xl font-bold text-[#021E14] mb-2 ${bengaliClass}`}>
               {language === 'bn' ? 'ট্রেনিং কোর্স' : 'Training Courses'}
             </h1>
-            <p className={`text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto leading-relaxed mb-6 ${bengaliClass}`}>
+            <p className={`text-slate-500 dark:text-slate-400 text-[15px] max-w-xl mx-auto leading-relaxed mb-6 ${bengaliClass}`}>
               {language === 'bn'
                 ? 'আপনার দক্ষতা বাড়িয়ে পেশাদার ক্যারিয়ার গড়তে আমাদের প্রিমিয়াম কোর্সগুলো বেছে নিন।'
                 : 'Choose our premium courses to enhance your skills and build a professional career with industry experts.'}
@@ -199,7 +199,7 @@ const CourseContent = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={language === 'bn' ? 'কোর্স বা টেকনোলজি খুঁজুন...' : 'Search courses or technology...'}
-                  className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#021E14]/5 transition-all text-slate-800 dark:text-white dark:placeholder-slate-500 text-sm"
+                  className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-md shadow-md shadow-black/5 outline-none focus:ring-4 focus:ring-[#021E14]/5 transition-all text-slate-800 dark:text-white dark:placeholder-slate-500 text-[15px]"
                 />
                 {searchQuery && (
                   <button onClick={() => setSearchQuery("")} className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#021E14] transition-colors">
@@ -219,7 +219,7 @@ const CourseContent = () => {
                     <button
                       key={type.value}
                       onClick={() => setSelectedType(type.value)}
-                      className={`px-5 py-2 rounded-md text-[10px] font-normal transition-all duration-300 ${selectedType === type.value
+                      className={`px-5 py-2 rounded-md text-[15px] font-normal transition-all duration-300 ${selectedType === type.value
                         ? "bg-[#021E14] text-white shadow-md shadow-[#021E14]/20"
                         : "text-gray-800 dark:text-gray-300 hover:text-[#021E14]"
                         }`}
@@ -256,7 +256,7 @@ const CourseContent = () => {
                       setSortBy('default');
                       setSearchQuery("");
                     }}
-                    className="flex items-center gap-2 px-4 py-2 text-[10px] font-normal text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 rounded-md transition-all"
+                    className="flex items-center gap-2 px-4 py-2 text-[15px] font-normal text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/10 rounded-md transition-all"
                   >
                     <LuX size={12} />
                     <span>{language === 'bn' ? 'সব মুছুন' : 'CLEAR'}</span>
@@ -310,7 +310,7 @@ const CourseContent = () => {
             <div className="text-center py-24">
               <LuBookOpen className="mx-auto text-slate-200 mb-6" size={64} />
               <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">No Courses found</h3>
-              <p className="text-slate-500">Try adjusting your search or filters to find what you're looking for.</p>
+              <p className="text-slate-500 text-[15px]">Try adjusting your search or filters to find what you're looking for.</p>
             </div>
           ) : (
             <div className={`grid gap-8 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}>

@@ -99,27 +99,27 @@ const CourseCard = ({ course, view = "grid" }) => {
         {/* Middle: Content (40%) */}
         <div className="flex-1 p-6 border-r border-slate-50 dark:border-white/5 flex flex-col justify-center">
           <Link href={`/courses/${courseId}`}>
-            <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-tight mb-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
+            <h3 className={`text-[22px] font-bold text-slate-800 dark:text-white leading-tight mb-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
               {title}
             </h3>
           </Link>
-          <div className="flex items-center gap-2 mb-4 text-sm text-slate-500">
+          <div className="flex items-center gap-2 mb-4 text-[15px] text-slate-500">
             <span className="italic">in</span>
-            <span className="font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-white/10 px-2 py-0.5 rounded text-xs uppercase tracking-wide">
+            <span className="font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-white/10 px-2 py-0.5 rounded text-[15px] uppercase tracking-wide">
               {getCategoryName(course.category)}
             </span>
           </div>
 
           <ul className="space-y-2 mb-4">
-            <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+            <li className="flex items-start gap-2 text-[15px] text-slate-600 dark:text-slate-400">
               <LuClock className="text-[#D4AF37] mt-0.5 shrink-0" size={16} />
               <span>Duration: {duration}</span>
             </li>
-            <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+            <li className="flex items-start gap-2 text-[15px] text-slate-600 dark:text-slate-400">
               <LuUsers className="text-[#D4AF37] mt-0.5 shrink-0" size={16} />
               <span>{students}</span>
             </li>
-            <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+            <li className="flex items-start gap-2 text-[15px] text-slate-600 dark:text-slate-400">
               <LuCheck className="text-[#D4AF37] mt-0.5 shrink-0" size={16} />
               <span>Lifetime Access</span>
             </li>
@@ -141,11 +141,11 @@ const CourseCard = ({ course, view = "grid" }) => {
             {[...Array(5)].map((_, i) => (
               <FaStar key={i} className={i < Math.round(rating) ? "fill-current" : "text-slate-200 dark:text-slate-600"} />
             ))}
-            <span className="text-slate-400 ml-1">({course.reviews?.length || 0})</span>
+            <span className="text-slate-400 ml-1 font-medium text-[15px]">({course.reviews?.length || 0})</span>
           </div>
 
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{students}</p>
-          <p className="text-[10px] text-slate-400 mb-4">Last updated: {lastUpdated}</p>
+          <p className="text-[15px] text-slate-500 dark:text-slate-400 mb-1">{students}</p>
+          <p className="text-[15px] text-slate-400 mb-4">Last updated: {lastUpdated}</p>
 
           <div className="flex items-center gap-3 w-full">
             <button
@@ -157,7 +157,7 @@ const CourseCard = ({ course, view = "grid" }) => {
             </button>
             <Link
               href={`/courses/${courseId}`}
-              className="flex-1 py-2.5 bg-white dark:bg-white/10 border border-[#021E14] text-[#021E14] rounded-md text-sm font-medium hover:bg-[#021E14] hover:text-white transition-all shadow-sm flex items-center justify-center gap-2"
+              className="flex-1 py-2.5 bg-white dark:bg-white/10 border border-[#021E14] text-[#021E14] rounded-md text-[15px] font-medium hover:bg-[#021E14] hover:text-white transition-all shadow-sm flex items-center justify-center gap-2"
             >
               Details
             </Link>
@@ -192,7 +192,7 @@ const CourseCard = ({ course, view = "grid" }) => {
 
           {/* Type Badge (Top Left) */}
           <div className="absolute top-4 left-4">
-            <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold text-white shadow-lg backdrop-blur-md bg-[#021E14]/80`}>
+            <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[15px] font-bold text-white shadow-lg backdrop-blur-md bg-[#021E14]/80`}>
               <LuSparkles size={10} />
               {type.toUpperCase()}
             </span>
@@ -214,21 +214,21 @@ const CourseCard = ({ course, view = "grid" }) => {
         <div className="px-5 py-4 flex flex-col flex-1 relative">
           {/* Category */}
           <div className="mb-1.5">
-            <span className={`text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest ${bengaliClass}`}>
+            <span className={`text-[15px] font-bold text-[#D4AF37] uppercase tracking-widest ${bengaliClass}`}>
               {getCategoryName(course.category)}
             </span>
           </div>
 
           {/* Title */}
           <Link href={`/courses/${courseId}`} className="mb-2 block">
-            <h3 className={`md:text-lg font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
+            <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-snug line-clamp-2 hover:text-[#021E14] transition-colors ${bengaliClass}`}>
               {title}
             </h3>
           </Link>
 
           {/* Stats Bar */}
           <div className="flex items-center justify-between mb-3 pb-3 border-b border-slate-50 dark:border-white/5">
-            <div className="flex items-center gap-3 text-[10px] font-medium text-slate-500">
+            <div className="flex items-center gap-3 text-[15px] font-medium text-slate-500">
               <div className="flex items-center gap-1">
                 <LuBookOpenCheck className="text-[#021E14]" size={12} />
                 <span>{lessons}</span>
@@ -240,20 +240,20 @@ const CourseCard = ({ course, view = "grid" }) => {
             </div>
             <div className="flex items-center gap-1">
               <FaStar className="text-[#D4AF37]" size={12} />
-              <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300">{rating.toFixed(1)}</span>
+              <span className="text-[15px] font-bold text-slate-700 dark:text-slate-300">{rating.toFixed(1)}</span>
             </div>
           </div>
 
           {/* Price & Action */}
           <div className="flex items-center justify-between mt-auto gap-4">
             <div className="flex flex-col">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">PRICE</span>
+              <span className="text-[15px] text-slate-400 font-bold uppercase tracking-tighter">PRICE</span>
               <div className="flex items-center gap-2">
                 <span className="text-xl font-serif italic font-bold text-[#021E14]">
                   ৳{(discountPrice || price).toLocaleString()}
                 </span>
                 {discountPrice && (
-                  <span className="text-xs text-slate-300 line-through">৳{price.toLocaleString()}</span>
+                  <span className="text-[15px] text-slate-300 line-through">৳{price.toLocaleString()}</span>
                 )}
               </div>
             </div>

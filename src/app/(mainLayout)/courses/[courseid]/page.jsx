@@ -53,11 +53,10 @@ const SingleCourse = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { t, language } = useLanguage();
-  const { courses = [], currentCourse: reduxCourse, loading } = useSelector((state) => state.courses || {});
+  const { courses = [], currentCourse, loading } = useSelector((state) => state.courses || {});
   const { enrollments = [] } = useSelector((state) => state.enrollment || {});
 
   const [activeTab, setActiveTab] = useState("overview");
-  const [currentCourse, setCurrentCourse] = useState(null);
   const [instructor, setInstructor] = useState(null);
   const [popularCourses, setPopularCourses] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -120,18 +119,17 @@ const SingleCourse = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (reduxCourse) {
-      setCurrentCourse(reduxCourse);
+    if (currentCourse) {
       setIsInitialLoad(false);
       // Set instructor from course data if available
-      if (reduxCourse.instructor) {
-        setInstructor(reduxCourse.instructor);
+      if (currentCourse.instructor) {
+        setInstructor(currentCourse.instructor);
       }
     } else if (!loading && !isInitialLoad) {
-      // if loading is finished but we still don't have reduxCourse
+      // if loading is finished but we still don't have currentCourse
       // this could be the case where course actually not found
     }
-  }, [reduxCourse, loading, isInitialLoad]);
+  }, [currentCourse, loading, isInitialLoad]);
 
   useEffect(() => {
     if (courses && courses.length > 0) {
@@ -176,7 +174,7 @@ const SingleCourse = () => {
   };
 
   // Loading State
-  if (loading || isInitialLoad) {
+  if (loading || (isInitialLoad && !currentCourse)) {
     return (
       <div className="flex items-center justify-center min-h-[60vh] bg-gradient-to-br from-gray-50 to-white dark:from-slate-950 dark:to-slate-900">
         <div className="text-center">
@@ -187,7 +185,7 @@ const SingleCourse = () => {
     );
   }
 
-  // Error State
+  // Error State - use Redux state directly
   if (!currentCourse && !loading && !isInitialLoad) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-slate-950 dark:to-slate-900 px-4">
@@ -212,8 +210,8 @@ const SingleCourse = () => {
 
   return (
     <div className="min-h-screen bg-[#FAFBFC] dark:bg-slate-950">
-      {/* Hero Section - with Dark Mode Support */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#f0fffe] via-[#e8f9f8] to-[#f5f5ff] dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pt-12 pb-28 lg:pt-16 lg:pb-36">
+      {/* Hero Section - Clean Green Background */}
+      <section className="relative overflow-hidden bg-emerald-50/70 dark:bg-slate-900/40 pt-12 pb-28 lg:pt-16 lg:pb-36">
         {/* Background Effects */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#021E14]/10 dark:from-[#021E14]/5 to-transparent blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#D4AF37]/8 dark:bg-[#D4AF37]/5 rounded-full blur-3xl pointer-events-none"></div>

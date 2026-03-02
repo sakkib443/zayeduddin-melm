@@ -318,7 +318,7 @@ const DigitalAssets = () => {
                                     : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                                     }`}
                             >
-                                {language === 'bn' ? cat.nameBn : cat.name}
+                                {language === 'bn' ? (cat.nameBn || cat.name) : cat.name}
                             </button>
                         ))}
                 </div>

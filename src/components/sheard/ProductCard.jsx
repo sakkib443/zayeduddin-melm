@@ -63,7 +63,9 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
 
     // Fields
     const title = product.title || product.name || "Untitled Product";
-    const categoryName = product.category?.name || product.templateType || (type === 'website' ? 'Website' : 'Design');
+    const categoryName = language === 'bn'
+        ? (product.category?.nameBn || product.category?.name || product.templateType || (type === 'website' ? t('navbar.website') : t('digitalAssets.title')))
+        : (product.category?.name || product.templateType || (type === 'website' ? 'Website' : 'Design'));
     const version = product.version || 'v1.0';
     const sales = product.salesCount || product.totalSales || 0;
     const rating = product.rating || 5;
