@@ -108,6 +108,16 @@ const InstructorForm = () => {
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
 
+        // Clear field-level error when user starts typing
+        if (formErrors[name] || formErrors[name?.split('.')?.pop()]) {
+            setFormErrors(prev => {
+                const updated = { ...prev };
+                delete updated[name];
+                delete updated[name?.split('.')?.pop()];
+                return updated;
+            });
+        }
+
         if (name.includes('.')) {
             const [parent, child] = name.split('.');
             setFormData(prev => ({
@@ -224,6 +234,15 @@ const InstructorForm = () => {
                 delete payload.password;
             }
 
+            // Convert numeric fields from string to number
+            payload.experience = Number(payload.experience) || 0;
+            payload.specializations = Number(payload.specializations) || 0;
+            payload.totalStudents = Number(payload.totalStudents) || 0;
+            payload.order = Number(payload.order) || 0;
+
+            // Remove fields that shouldn't be sent
+            delete payload.status;
+
             const res = await fetch(url, {
                 method,
                 headers: {
@@ -241,11 +260,20 @@ const InstructorForm = () => {
                 if (data.errorMessages && Array.isArray(data.errorMessages)) {
                     const backendErrors = {};
                     data.errorMessages.forEach(err => {
-                        const field = err.path?.split('.')?.pop() || 'unknown';
+                        // Handle paths like 'body.email', 'body.firstName', 'email', etc.
+                        let field = err.path || 'unknown';
+                        // Extract the last part of the dotted path
+                        if (field.includes('.')) {
+                            const parts = field.split('.');
+                            field = parts[parts.length - 1];
+                        }
                         backendErrors[field] = err.message;
                     });
                     setFormErrors(backendErrors);
-                    setSubmitError(data.message || 'Validation failed. Please check the highlighted fields.');
+
+                    // Build a readable summary of errors
+                    const errorCount = Object.keys(backendErrors).length;
+                    setSubmitError(`Validation failed — ${errorCount} error${errorCount > 1 ? 's' : ''} found. Please check the highlighted fields.`);
                 } else {
                     setSubmitError(data.message || 'Something went wrong');
                 }
@@ -283,10 +311,22 @@ const InstructorForm = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Error Banner */}
                 {submitError && (
-                    <div className="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md animate-in">
-                        <FiAlertCircle className="text-red-500 flex-shrink-0" size={20} />
-                        <p className="text-sm text-red-700 dark:text-red-400 font-medium">{submitError}</p>
-                        <button type="button" onClick={() => setSubmitError('')} className="ml-auto text-red-400 hover:text-red-600">
+                    <div className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+                        <FiAlertCircle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
+                        <div className="flex-1">
+                            <p className="text-sm text-red-700 dark:text-red-400 font-semibold">{submitError}</p>
+                            {Object.keys(formErrors).length > 0 && (
+                                <ul className="mt-2 space-y-1">
+                                    {Object.entries(formErrors).map(([field, msg]) => (
+                                        <li key={field} className="text-xs text-red-600 dark:text-red-400 flex items-center gap-1.5">
+                                            <span className="w-1 h-1 bg-red-400 rounded-full flex-shrink-0"></span>
+                                            <span className="font-medium capitalize">{field.replace(/([A-Z])/g, ' $1').trim()}:</span> {msg}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                        <button type="button" onClick={() => { setSubmitError(''); setFormErrors({}); }} className="ml-auto text-red-400 hover:text-red-600 flex-shrink-0">
                             <FiX size={16} />
                         </button>
                     </div>
