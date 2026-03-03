@@ -626,83 +626,217 @@ const SingleCourse = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ duration: 0.2 }}
-                        className="space-y-8"
+                        className="space-y-0"
                       >
-                        <h2 className="text-lg font-bold outfit text-gray-900 mb-6 flex items-center gap-2">
-                          <span className="w-1 h-5 bg-[#021E14] rounded-full"></span>
-                          Meet Your Instructor
-                        </h2>
-
                         {instructor ? (() => {
                           const instructorName = instructor.userId
                             ? `${instructor.userId.firstName || ''} ${instructor.userId.lastName || ''}`.trim()
                             : instructor.name || 'Instructor';
                           const instructorImage = instructor.avatar || instructor.userId?.avatar || instructor.image || '/images/placeholder.png';
-                          const instructorTitle = instructor.title || instructor.designation || '';
-                          const instructorBio = instructor.bio || instructor.longBio || instructor.details || '';
+                          const instructorCover = instructor.coverImage || '';
+                          const instructorTitle = (language === 'bn' && instructor.titleBn) ? instructor.titleBn : (instructor.title || instructor.designation || '');
+                          const instructorBio = (language === 'bn' && instructor.bioBn) ? instructor.bioBn : (instructor.bio || '');
+                          const instructorLongBio = (language === 'bn' && instructor.longBioBn) ? instructor.longBioBn : (instructor.longBio || '');
+                          const instructorEmail = instructor.userId?.email || '';
+                          const social = instructor.socialLinks || {};
+
                           return (
-                            <div className="flex flex-col md:flex-row gap-8 items-start">
-                              <div className="relative group">
-                                <div className="absolute -inset-1 bg-gradient-to-tr from-[#021E14] to-[#D4AF37] rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                                <div className="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-white shadow-lg">
-                                  <img src={instructorImage} alt={instructorName} className="w-full h-full object-cover transform transition-transform group-hover:scale-105 duration-500" />
+                            <div className="space-y-6">
+                              {/* Hero Banner */}
+                              <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 shadow-lg">
+                                {instructorCover ? (
+                                  <div className="absolute inset-0">
+                                    <img src={instructorCover} alt="Cover" className="w-full h-full object-cover opacity-30" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-900/80 to-transparent" />
+                                  </div>
+                                ) : (
+                                  <div className="absolute inset-0 opacity-10">
+                                    <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
+                                    <div className="absolute bottom-0 left-0 w-72 h-72 bg-emerald-400/20 rounded-full translate-y-1/3 -translate-x-1/4 blur-2xl" />
+                                  </div>
+                                )}
+                                <div className="relative p-6 md:p-8">
+                                  <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                                    <div className="relative group flex-shrink-0">
+                                      <div className="absolute -inset-1.5 bg-gradient-to-tr from-emerald-400 to-yellow-400 rounded-2xl blur opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+                                      <div className="relative w-32 h-32 md:w-36 md:h-36 rounded-xl overflow-hidden border-3 border-white/20 shadow-2xl">
+                                        <img src={instructorImage} alt={instructorName} className="w-full h-full object-cover" />
+                                      </div>
+                                      {instructor.rating > 0 && (
+                                        <div className="absolute -bottom-2 -right-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded-lg shadow-lg flex items-center gap-1">
+                                          <FaStar size={10} /> {instructor.rating.toFixed(1)}
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="flex-1 text-center md:text-left">
+                                      <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
+                                        <h3 className={`text-2xl md:text-3xl font-bold text-white outfit ${bengaliClass}`}>{instructorName}</h3>
+                                        <MdVerified className="text-emerald-400 text-xl" />
+                                      </div>
+                                      {instructorTitle && (
+                                        <p className={`text-emerald-200 font-medium text-base poppins mb-3 ${bengaliClass}`}>{instructorTitle}</p>
+                                      )}
+                                      {instructorBio && (
+                                        <p className={`text-emerald-100/80 text-sm leading-relaxed poppins max-w-2xl ${bengaliClass}`}>{instructorBio}</p>
+                                      )}
+                                      {Object.values(social).some(v => v) && (
+                                        <div className="flex items-center justify-center md:justify-start gap-2 mt-4">
+                                          {social.facebook && (<a href={social.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 hover:bg-blue-500 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" /></svg></a>)}
+                                          {social.linkedin && (<a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 hover:bg-blue-600 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" /></svg></a>)}
+                                          {social.youtube && (<a href={social.youtube} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 hover:bg-red-600 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z" /><polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="#fff" /></svg></a>)}
+                                          {social.github && (<a href={social.github} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 hover:bg-gray-800 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg></a>)}
+                                          {social.website && (<a href={social.website} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 hover:bg-emerald-600 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300"><LuGlobe size={16} /></a>)}
+                                          {instructor.whatsAppNumber && (<a href={`https://wa.me/${instructor.whatsAppNumber.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 hover:bg-green-600 flex items-center justify-center text-white/70 hover:text-white transition-all duration-300"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg></a>)}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="flex-1 space-y-4">
-                                <div className="flex items-center gap-3">
-                                  <h3 className="text-2xl font-bold outfit text-gray-900">{instructorName}</h3>
-                                  <MdVerified className="text-[#021E14] text-xl" />
-                                </div>
-                                {instructorTitle && (
-                                  <p className="text-[#021E14] font-semibold poppins text-base">{instructorTitle}</p>
-                                )}
-                                {instructorBio && (
-                                  <p className="text-gray-600 poppins text-sm leading-relaxed">
-                                    {instructorBio.substring(0, 400)}{instructorBio.length > 400 ? '...' : ''}
-                                  </p>
-                                )}
-                                {/* Stats */}
-                                <div className="flex flex-wrap gap-4 pt-2">
-                                  {instructor.experience > 0 && (
-                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-md border border-gray-100">
-                                      <LuClock size={14} className="text-[#021E14]" />
-                                      <span className="text-xs font-medium text-gray-700">{instructor.experience}+ Years</span>
+
+                              {/* Stats Cards */}
+                              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                                {[
+                                  { icon: LuClock, label: language === 'bn' ? 'অভিজ্ঞতা' : 'Experience', value: instructor.experience ? `${instructor.experience}+` : null, suffix: language === 'bn' ? 'বছর' : 'Years', color: 'from-emerald-500 to-emerald-600' },
+                                  { icon: LuUsers, label: language === 'bn' ? 'শিক্ষার্থী' : 'Students', value: instructor.totalStudents ? instructor.totalStudents.toLocaleString() : null, suffix: '', color: 'from-blue-500 to-blue-600' },
+                                  { icon: LuBookOpen, label: language === 'bn' ? 'কোর্স' : 'Courses', value: instructor.totalCourses || null, suffix: '', color: 'from-purple-500 to-purple-600' },
+                                  { icon: LuGraduationCap, label: language === 'bn' ? 'বিশেষত্ব' : 'Specializations', value: instructor.specializations || null, suffix: '', color: 'from-amber-500 to-amber-600' },
+                                  { icon: FaStar, label: language === 'bn' ? 'রেটিং' : 'Rating', value: instructor.rating ? instructor.rating.toFixed(1) : null, suffix: `(${instructor.reviewCount || 0})`, color: 'from-yellow-500 to-orange-500' },
+                                ].filter(s => s.value).map((stat, idx) => (
+                                  <div key={idx} className="bg-white border border-gray-100 rounded-xl p-4 text-center hover:shadow-md transition-shadow">
+                                    <div className={`w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-sm`}>
+                                      <stat.icon size={18} className="text-white" />
                                     </div>
-                                  )}
-                                  {instructor.totalStudents > 0 && (
-                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-md border border-gray-100">
-                                      <LuUsers size={14} className="text-[#021E14]" />
-                                      <span className="text-xs font-medium text-gray-700">{instructor.totalStudents.toLocaleString()} Students</span>
-                                    </div>
-                                  )}
-                                  {instructor.totalCourses > 0 && (
-                                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-md border border-gray-100">
-                                      <LuBookOpen size={14} className="text-[#021E14]" />
-                                      <span className="text-xs font-medium text-gray-700">{instructor.totalCourses} Courses</span>
-                                    </div>
-                                  )}
-                                </div>
-                                {/* Expertise Tags */}
-                                {instructor.expertise?.length > 0 && (
-                                  <div className="flex flex-wrap gap-2 pt-1">
+                                    <p className={`text-xl font-bold text-gray-900 outfit ${bengaliClass}`}>{stat.value}</p>
+                                    {stat.suffix && <p className={`text-[11px] text-gray-500 font-medium ${bengaliClass}`}>{stat.suffix}</p>}
+                                    <p className={`text-[10px] text-gray-400 uppercase tracking-wider mt-0.5 ${bengaliClass}`}>{stat.label}</p>
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* Expertise */}
+                              {instructor.expertise?.length > 0 && (
+                                <div className="bg-white border border-gray-100 rounded-xl p-5">
+                                  <h4 className={`text-sm font-bold text-gray-900 outfit mb-3 flex items-center gap-2 ${bengaliClass}`}>
+                                    <span className="w-1 h-4 bg-emerald-500 rounded-full"></span>
+                                    {language === 'bn' ? 'দক্ষতার ক্ষেত্র' : 'Areas of Expertise'}
+                                  </h4>
+                                  <div className="flex flex-wrap gap-2">
                                     {instructor.expertise.map((skill, idx) => (
-                                      <span key={idx} className="px-2.5 py-1 bg-[#021E14]/5 text-[#021E14] text-xs font-medium rounded-md border border-[#021E14]/10">
-                                        {skill}
-                                      </span>
+                                      <span key={idx} className={`px-3 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-lg border border-emerald-100 ${bengaliClass}`}>{skill}</span>
                                     ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Long Bio */}
+                              {instructorLongBio && (
+                                <div className="bg-white border border-gray-100 rounded-xl p-5">
+                                  <h4 className={`text-sm font-bold text-gray-900 outfit mb-3 flex items-center gap-2 ${bengaliClass}`}>
+                                    <span className="w-1 h-4 bg-amber-500 rounded-full"></span>
+                                    {language === 'bn' ? 'জীবন যাত্রা' : 'Life Journey'}
+                                  </h4>
+                                  <p className={`text-gray-600 text-sm leading-7 poppins whitespace-pre-line ${bengaliClass}`}>{instructorLongBio}</p>
+                                </div>
+                              )}
+
+                              {/* Education & Work Experience */}
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {instructor.education?.length > 0 && (
+                                  <div className="bg-white border border-gray-100 rounded-xl p-5">
+                                    <h4 className={`text-sm font-bold text-gray-900 outfit mb-3 flex items-center gap-2 ${bengaliClass}`}>
+                                      <span className="w-1 h-4 bg-blue-500 rounded-full"></span>
+                                      {language === 'bn' ? 'শিক্ষাগত যোগ্যতা' : 'Education'}
+                                    </h4>
+                                    <div className="space-y-2.5">
+                                      {instructor.education.map((edu, idx) => (
+                                        <div key={idx} className="flex items-start gap-3">
+                                          <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <LuGraduationCap size={14} className="text-blue-600" />
+                                          </div>
+                                          <p className={`text-sm text-gray-700 font-medium leading-relaxed poppins pt-1 ${bengaliClass}`}>{edu}</p>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                                {instructor.workExperience?.length > 0 && (
+                                  <div className="bg-white border border-gray-100 rounded-xl p-5">
+                                    <h4 className={`text-sm font-bold text-gray-900 outfit mb-3 flex items-center gap-2 ${bengaliClass}`}>
+                                      <span className="w-1 h-4 bg-purple-500 rounded-full"></span>
+                                      {language === 'bn' ? 'কর্ম অভিজ্ঞতা' : 'Work Experience'}
+                                    </h4>
+                                    <div className="space-y-2.5">
+                                      {instructor.workExperience.map((work, idx) => (
+                                        <div key={idx} className="flex items-start gap-3">
+                                          <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <LuSettings size={14} className="text-purple-600" />
+                                          </div>
+                                          <p className={`text-sm text-gray-700 font-medium leading-relaxed poppins pt-1 ${bengaliClass}`}>{work}</p>
+                                        </div>
+                                      ))}
+                                    </div>
                                   </div>
                                 )}
                               </div>
+
+                              {/* Certifications */}
+                              {instructor.certifications?.length > 0 && (
+                                <div className="bg-white border border-gray-100 rounded-xl p-5">
+                                  <h4 className={`text-sm font-bold text-gray-900 outfit mb-3 flex items-center gap-2 ${bengaliClass}`}>
+                                    <span className="w-1 h-4 bg-yellow-500 rounded-full"></span>
+                                    {language === 'bn' ? 'সার্টিফিকেট ও পুরস্কার' : 'Certifications & Awards'}
+                                  </h4>
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                    {instructor.certifications.map((cert, idx) => (
+                                      <div key={idx} className="flex items-center gap-3 px-3 py-2.5 bg-yellow-50/50 rounded-lg border border-yellow-100/50">
+                                        <LuTrophy size={14} className="text-yellow-600 flex-shrink-0" />
+                                        <span className={`text-sm text-gray-700 font-medium poppins ${bengaliClass}`}>{cert}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Contact */}
+                              {(instructorEmail || instructor.whatsAppNumber) && (
+                                <div className="bg-gradient-to-r from-emerald-50 to-emerald-50/50 border border-emerald-100 rounded-xl p-5">
+                                  <h4 className={`text-sm font-bold text-gray-900 outfit mb-3 flex items-center gap-2 ${bengaliClass}`}>
+                                    <span className="w-1 h-4 bg-emerald-500 rounded-full"></span>
+                                    {language === 'bn' ? 'যোগাযোগ' : 'Get in Touch'}
+                                  </h4>
+                                  <div className="flex flex-wrap gap-3">
+                                    {instructor.whatsAppNumber && (
+                                      <a href={`https://wa.me/${instructor.whatsAppNumber.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-semibold transition-colors shadow-sm">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /></svg>
+                                        WhatsApp
+                                      </a>
+                                    )}
+                                    {instructorEmail && (
+                                      <a href={`mailto:${instructorEmail}`}
+                                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-gray-50 text-gray-700 rounded-lg text-sm font-semibold transition-colors shadow-sm border border-gray-200">
+                                        <LuExternalLink size={14} />
+                                        {instructorEmail}
+                                      </a>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           );
                         })() : (
-                          <div className="text-center py-10 bg-gray-50 rounded-md border border-dashed border-gray-200">
-                            <LuUsers className="mx-auto text-2xl text-gray-300 mb-2" />
-                            <p className="text-gray-400 text-sm poppins">Instructor details coming soon</p>
+                          <div className="text-center py-16 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                            <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                              <LuUsers className="text-gray-300 text-2xl" />
+                            </div>
+                            <p className={`text-gray-400 text-sm poppins ${bengaliClass}`}>{language === 'bn' ? 'ইন্সট্রাক্টরের তথ্য শীঘ্রই আসছে' : 'Instructor details coming soon'}</p>
                           </div>
                         )}
                       </motion.div>
                     )}
+
+
 
                     {activeTab === "reviews" && (
                       <motion.div
@@ -979,7 +1113,7 @@ const SingleCourse = () => {
       </section >
 
       {/* Video Preview Modal */}
-      <AnimatePresence>
+      < AnimatePresence >
         {showVideoModal && courseVideoUrl && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -1022,7 +1156,7 @@ const SingleCourse = () => {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence >
     </div >
   );
 };
