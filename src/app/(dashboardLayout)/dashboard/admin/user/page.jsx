@@ -4,13 +4,16 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
-  FiSearch, FiUsers, FiTrash2, FiPlus, FiCalendar, FiLoader, FiCheck, FiRefreshCw, FiEdit3, FiX
+  FiSearch, FiUsers, FiTrash2, FiPlus, FiCalendar, FiLoader, FiCheck, FiRefreshCw, FiEdit3, FiX, FiAlertTriangle
 } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [deleteModal, setDeleteModal] = useState({ open: false, user: null });
+  const [deleting, setDeleting] = useState(false);
   const router = useRouter();
 
   const fetchUsers = async () => {
@@ -37,17 +40,34 @@ const UserManagement = () => {
     router.push(`/dashboard/admin/user/create?edit=${id}`);
   };
 
-  const handleDelete = async (userId) => {
-    if (!confirm('Are you sure you want to delete this user?')) return;
+  const openDeleteModal = (user) => {
+    setDeleteModal({ open: true, user });
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal({ open: false, user: null });
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteModal.user) return;
     const token = localStorage.getItem('token');
+    setDeleting(true);
     try {
-      const res = await fetch(`${API_URL}/users/admin/${userId}`, {
+      const res = await fetch(`${API_URL}/users/admin/${deleteModal.user._id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      if (res.ok) fetchUsers();
+      if (res.ok) {
+        closeDeleteModal();
+        fetchUsers();
+      } else {
+        const data = await res.json();
+        alert(data.message || 'Failed to delete user');
+      }
     } catch (err) {
-      alert('Error deleting');
+      alert('Error deleting user');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -104,7 +124,7 @@ const UserManagement = () => {
             Refresh
           </button>
           <Link href="/dashboard/admin/user/create">
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#021E14] text-white rounded-md text-sm font-medium transition-all">
+            <button className="flex items-center gap-2 px-4 py-2 bg-[#021E14] hover:bg-[#021E14]/90 text-white rounded-md text-sm font-medium transition-all">
               <FiPlus size={14} />
               Add User
             </button>
@@ -230,7 +250,7 @@ const UserManagement = () => {
                           <FiEdit3 size={14} />
                         </button>
                         <button
-                          onClick={() => handleDelete(user._id)}
+                          onClick={() => openDeleteModal(user)}
                           className="p-1.5 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white dark:bg-rose-500/10 rounded-md transition-all shadow-sm"
                           title="Delete User"
                         >
@@ -245,6 +265,91 @@ const UserManagement = () => {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {deleteModal.open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={closeDeleteModal}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 w-full max-w-md overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center gap-4 p-6 pb-4">
+                <div className="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-500/10 flex items-center justify-center shrink-0">
+                  <FiAlertTriangle className="text-rose-500" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-white">Delete User?</h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">This action cannot be undone.</p>
+                </div>
+              </div>
+
+              {/* User Info */}
+              {deleteModal.user && (
+                <div className="mx-6 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-100 dark:border-slate-600">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-rose-500 flex items-center justify-center text-white text-sm font-bold shadow-sm">
+                      {deleteModal.user.firstName?.[0]}{deleteModal.user.lastName?.[0]}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                        {deleteModal.user.firstName} {deleteModal.user.lastName}
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{deleteModal.user.email}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Warning */}
+              <div className="px-6 pt-4">
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  This will <span className="font-bold text-rose-500">permanently delete</span> this user and all associated data. The email address will be freed and can be used for a new account.
+                </p>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-3 p-6 pt-5">
+                <button
+                  onClick={closeDeleteModal}
+                  disabled={deleting}
+                  className="flex-1 py-2.5 px-4 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-600 transition-all disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeleteConfirm}
+                  disabled={deleting}
+                  className="flex-1 py-2.5 px-4 bg-rose-500 hover:bg-rose-600 text-white rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-70 shadow-sm shadow-rose-200 dark:shadow-none"
+                >
+                  {deleting ? (
+                    <>
+                      <FiLoader className="animate-spin" size={14} />
+                      Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <FiTrash2 size={14} />
+                      Yes, Delete
+                    </>
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
