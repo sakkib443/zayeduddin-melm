@@ -189,7 +189,7 @@ export default function EditCoursePage() {
   );
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 pb-20">
+    <div className="w-full space-y-6 pb-20">
       {/* Header - Identical to Website Edit */}
       <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 rounded-2xl border ${isDark ? 'bg-black/40 border-slate-800 shadow-none' : 'bg-white border-slate-200/60 shadow-sm'}`}>
         <div className="flex items-center gap-4">
