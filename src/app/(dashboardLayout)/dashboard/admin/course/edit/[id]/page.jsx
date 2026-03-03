@@ -222,13 +222,13 @@ export default function EditCoursePage() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
+                  <label className={labelClass}>Course Title (বাংলা)</label>
+                  <input {...register('titleBn')} placeholder="যেমনঃ ভিডিও এডিটিং কোর্স" className={`${inputClass} hind-siliguri`} />
+                </div>
+                <div>
                   <label className={labelClass}>Course Title (English)</label>
                   <input {...register('title')} placeholder="e.g. Video Editing Masterclass" className={inputClass} />
                   {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
-                </div>
-                <div>
-                  <label className={labelClass}>Course Title (বাংলা)</label>
-                  <input {...register('titleBn')} placeholder="যেমনঃ ভিডিও এডিটিং কোর্স" className={inputClass} />
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-4">
@@ -300,8 +300,8 @@ export default function EditCoursePage() {
                 <div className="space-y-2">
                   {learningFields.fields.map((field, idx) => (
                     <div key={field.id} className="group flex gap-2 items-center">
-                      <input {...register(`whatYouWillLearn.${idx}`)} className={inputClass} placeholder="Topic (English)" />
                       <input {...register(`whatYouWillLearnBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="টপিক (বাংলা)" />
+                      <input {...register(`whatYouWillLearn.${idx}`)} className={inputClass} placeholder="Topic (English)" />
                       <button type="button" onClick={() => { learningFields.remove(idx); learningBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
                     </div>
                   ))}
@@ -316,8 +316,8 @@ export default function EditCoursePage() {
                 <div className="space-y-2">
                   {featuresFields.fields.map((field, idx) => (
                     <div key={field.id} className="group flex gap-2 items-center">
-                      <input {...register(`features.${idx}`)} className={inputClass} placeholder="Feature (English)" />
                       <input {...register(`featuresBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="ফিচার (বাংলা)" />
+                      <input {...register(`features.${idx}`)} className={inputClass} placeholder="Feature (English)" />
                       <button type="button" onClick={() => { featuresFields.remove(idx); featuresBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
                     </div>
                   ))}
@@ -332,8 +332,8 @@ export default function EditCoursePage() {
                 <div className="space-y-2">
                   {requirementsFields.fields.map((field, idx) => (
                     <div key={field.id} className="group flex gap-2 items-center">
-                      <input {...register(`requirements.${idx}`)} className={inputClass} placeholder="Requirement (English)" />
                       <input {...register(`requirementsBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="প্রয়োজনীয়তা (বাংলা)" />
+                      <input {...register(`requirements.${idx}`)} className={inputClass} placeholder="Requirement (English)" />
                       <button type="button" onClick={() => { requirementsFields.remove(idx); requirementsBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
                     </div>
                   ))}
@@ -348,8 +348,8 @@ export default function EditCoursePage() {
                 <div className="space-y-2">
                   {audienceFields.fields.map((field, idx) => (
                     <div key={field.id} className="group flex gap-2 items-center">
-                      <input {...register(`targetAudience.${idx}`)} className={inputClass} placeholder="Audience (English)" />
                       <input {...register(`targetAudienceBn.${idx}`)} className={`${inputClass} hind-siliguri`} placeholder="টার্গেট অডিয়েন্স (বাংলা)" />
+                      <input {...register(`targetAudience.${idx}`)} className={inputClass} placeholder="Audience (English)" />
                       <button type="button" onClick={() => { audienceFields.remove(idx); audienceBnFields.remove(idx); }} className="p-1 text-red-400 hover:text-red-600 shrink-0"><FiTrash2 size={14} /></button>
                     </div>
                   ))}
@@ -409,23 +409,23 @@ export default function EditCoursePage() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelClass}>Short Description (English)</label>
-                  <textarea {...register('shortDescription')} rows={2} className={`${inputClass} resize-none`} placeholder="Brief wrap-up..."></textarea>
+                  <label className={labelClass}>Short Description (বাংলা)</label>
+                  <textarea {...register('shortDescriptionBn')} rows={2} className={`${inputClass} resize-y hind-siliguri`} placeholder="সংক্ষিপ্ত বিবরণ..."></textarea>
                 </div>
                 <div>
-                  <label className={labelClass}>Short Description (বাংলা)</label>
-                  <textarea {...register('shortDescriptionBn')} rows={2} className={`${inputClass} resize-none hind-siliguri`} placeholder="সংক্ষিপ্ত বিবরণ..."></textarea>
+                  <label className={labelClass}>Short Description (English)</label>
+                  <textarea {...register('shortDescription')} rows={2} className={`${inputClass} resize-y`} placeholder="Brief wrap-up..."></textarea>
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelClass}>Full Description (English)</label>
-                  <textarea {...register('description')} rows={5} className={`${inputClass} resize-none`} placeholder="Detailed course content..."></textarea>
-                  {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
+                  <label className={labelClass}>Full Description (বাংলা)</label>
+                  <textarea {...register('descriptionBn')} rows={5} className={`${inputClass} resize-y hind-siliguri`} placeholder="বিস্তারিত বিবরণ..."></textarea>
                 </div>
                 <div>
-                  <label className={labelClass}>Full Description (বাংলা)</label>
-                  <textarea {...register('descriptionBn')} rows={5} className={`${inputClass} resize-none hind-siliguri`} placeholder="বিস্তারিত বিবরণ..."></textarea>
+                  <label className={labelClass}>Full Description (English)</label>
+                  <textarea {...register('description')} rows={5} className={`${inputClass} resize-y`} placeholder="Detailed course content..."></textarea>
+                  {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
                 </div>
               </div>
             </div>
@@ -434,32 +434,32 @@ export default function EditCoursePage() {
 
         {/* Right: Pricing */}
         <div className="space-y-6">
-          <div className={`p-6 rounded-2xl text-white shadow-lg space-y-6 relative overflow-hidden ${isDark ? 'bg-slate-900 border border-slate-800' : 'bg-slate-800'}`}>
-            <div className="absolute top-0 right-0 p-3 opacity-10"><FiDollarSign size={60} /></div>
-            <h2 className="text-sm font-semibold text-slate-300 border-b border-slate-700 pb-3 relative z-10">Pricing</h2>
+          <div className={`p-6 rounded-2xl shadow-sm space-y-6 relative overflow-hidden border ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-gradient-to-br from-emerald-50 to-white border-emerald-200/60'}`}>
+            <div className="absolute top-0 right-0 p-3 opacity-5"><FiDollarSign size={60} /></div>
+            <h2 className={`text-sm font-semibold border-b pb-3 relative z-10 ${isDark ? 'text-slate-300 border-slate-700' : 'text-emerald-800 border-emerald-200'}`}>Pricing</h2>
             <div className="space-y-4 relative z-10">
               <div>
-                <label className="text-xs font-medium text-slate-400 block mb-2">Regular Price (৳)</label>
+                <label className={`text-xs font-medium block mb-2 ${isDark ? 'text-slate-400' : 'text-emerald-700'}`}>Regular Price (৳)</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-3 font-semibold text-slate-500">৳</span>
-                  <input type="number" {...register('price')} placeholder="0" className={`w-full border border-slate-600 rounded-xl py-3 pl-10 px-4 text-white text-lg font-bold focus:ring-2 focus:ring-[#021E14] focus:border-[#021E14] transition-all ${isDark ? 'bg-black/40' : 'bg-slate-700/50'}`} />
+                  <span className={`absolute left-4 top-3 font-semibold ${isDark ? 'text-slate-500' : 'text-emerald-500'}`}>৳</span>
+                  <input type="number" {...register('price')} placeholder="0" className={`w-full border rounded-xl py-3 pl-10 px-4 text-lg font-bold focus:ring-2 focus:ring-emerald-200 focus:border-emerald-400 transition-all ${isDark ? 'bg-black/40 border-slate-700 text-white' : 'bg-white border-emerald-200 text-emerald-900'}`} />
                 </div>
               </div>
               <div>
-                <label className="text-xs font-medium text-slate-400 block mb-2">Offer Price (৳)</label>
+                <label className={`text-xs font-medium block mb-2 ${isDark ? 'text-slate-400' : 'text-emerald-700'}`}>Offer Price (৳)</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-3 font-semibold text-slate-500">৳</span>
-                  <input type="number" {...register('discountPrice')} placeholder="0" className={`w-full border border-slate-600 rounded-xl py-3 pl-10 px-4 text-white text-lg font-bold focus:ring-2 focus:ring-[#021E14] focus:border-[#021E14] transition-all ${isDark ? 'bg-black/40' : 'bg-slate-700/50'}`} />
+                  <span className={`absolute left-4 top-3 font-semibold ${isDark ? 'text-slate-500' : 'text-emerald-500'}`}>৳</span>
+                  <input type="number" {...register('discountPrice')} placeholder="0" className={`w-full border rounded-xl py-3 pl-10 px-4 text-lg font-bold focus:ring-2 focus:ring-emerald-200 focus:border-emerald-400 transition-all ${isDark ? 'bg-black/40 border-slate-700 text-white' : 'bg-white border-emerald-200 text-emerald-900'}`} />
                 </div>
               </div>
               <div className="space-y-3 pt-2">
-                <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors ${isDark ? 'bg-black/40 hover:bg-black/60' : 'bg-slate-700/50 hover:bg-slate-700'}`}>
-                  <input type="checkbox" {...register('isFeatured')} className="w-5 h-5 rounded accent-[#021E14]" />
-                  <span className="text-sm text-slate-300">Mark as Featured</span>
+                <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors ${isDark ? 'bg-black/40 hover:bg-black/60' : 'bg-emerald-100/50 hover:bg-emerald-100 border border-emerald-200/50'}`}>
+                  <input type="checkbox" {...register('isFeatured')} className="w-5 h-5 rounded accent-emerald-600" />
+                  <span className={`text-sm ${isDark ? 'text-slate-300' : 'text-emerald-800'}`}>Mark as Featured</span>
                 </label>
-                <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors ${isDark ? 'bg-black/40 hover:bg-black/60' : 'bg-slate-700/50 hover:bg-slate-700'}`}>
-                  <input type="checkbox" {...register('isPopular')} className="w-5 h-5 rounded accent-[#021E14]" />
-                  <span className="text-sm text-slate-300">Popular Course</span>
+                <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors ${isDark ? 'bg-black/40 hover:bg-black/60' : 'bg-emerald-100/50 hover:bg-emerald-100 border border-emerald-200/50'}`}>
+                  <input type="checkbox" {...register('isPopular')} className="w-5 h-5 rounded accent-emerald-600" />
+                  <span className={`text-sm ${isDark ? 'text-slate-300' : 'text-emerald-800'}`}>Popular Course</span>
                 </label>
               </div>
             </div>
