@@ -1,14 +1,38 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { API_URL } from "@/config/api";
 
-const Hero = () => {
+const Hero = ({ data }) => {
     const { language, t } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+
+    const [heroData, setHeroData] = useState(data || null);
+
+    // Fetch hero design data from API if no data prop is provided
+    useEffect(() => {
+        if (data) {
+            setHeroData(data);
+            return;
+        }
+
+        const fetchHero = async () => {
+            try {
+                const res = await fetch(`${API_URL}/design/hero`);
+                const data = await res.json();
+                if (data.success && data.data?.heroContent) {
+                    setHeroData(data.data.heroContent);
+                }
+            } catch (error) {
+                console.error('Error fetching hero data:', error);
+            }
+        };
+        fetchHero();
+    }, [data]);
 
     const colors = {
         bg: "#fafafa",
@@ -30,23 +54,53 @@ const Hero = () => {
         },
     ];
 
-    return (
-        <section className="relative min-h-[70vh] md:min-h-[75vh] flex flex-col items-center justify-center px-4 py-12 md:py-16 overflow-hidden" style={{ backgroundColor: colors.bg }}>
+    // Determine background image: API data > fallback
+    const backgroundImage = heroData?.backgroundImage || "/images/zayed uddin.png";
 
-            {/* Background Image - Blended & Faded */}
-            <div className="absolute right-0 bottom-0 top-0 w-full md:w-[70%] lg:w-[30%] h-full z-0 pointer-events-none select-none overflow-hidden">
-                <div className="relative w-full h-full opacity-[0.12] blur-[0.5px] grayscale contrast-125 mix-blend-multiply dark:mix-blend-overlay">
+    // Dynamic text from API (with fallback to translation keys)
+    const heroName = heroData?.heading
+        ? (language === 'bn' ? heroData.heading.line1Bn : heroData.heading.line1) || t("hero.name")
+        : t("hero.name");
+
+    const heroSubTitle = heroData?.heading
+        ? (language === 'bn' ? heroData.heading.line2Bn : heroData.heading.line2) || t("hero.subTitle")
+        : t("hero.subTitle");
+
+    const heroBio = heroData?.description
+        ? (language === 'bn' ? heroData.description.textBn : heroData.description.text) || t("hero.bio")
+        : t("hero.bio");
+
+    return (
+        <section className="relative h-[550px] md:h-[650px] flex flex-col items-center justify-center px-4 overflow-hidden" style={{ backgroundColor: colors.bg }}>
+
+            {/* Background Image - Dynamic Effects (Centered Full Cover) */}
+            <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+                <div
+                    className="relative w-full h-full"
+                    style={{
+                        filter: `blur(${heroData?.backgroundBlur || 0}px) grayscale(${heroData?.backgroundGrayscale ? 1 : 0})`,
+                    }}
+                >
                     <Image
-                        src="/images/zayed uddin.png"
+                        src={backgroundImage}
                         alt="Background"
                         fill
-                        className="object-contain object-right-bottom scale-110 translate-y-10 md:translate-y-0"
+                        className="object-cover object-center"
                         priority
+                        unoptimized={backgroundImage.startsWith('http')}
                     />
                 </div>
-                {/* Gradient Masks for "Mise Ase" (Blending) effect */}
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#fafafa]" style={{ background: `linear-gradient(to left, transparent 0%, ${colors.bg} 100%)` }} />
-                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-[#fafafa] opacity-50" style={{ background: `linear-gradient(to top, transparent 0%, ${colors.bg} 100%)` }} />
+
+                {/* Dynamic Overlay Color Mask (Only visible if opacity > 0) */}
+                {heroData?.backgroundOverlayOpacity > 0 && (
+                    <div
+                        className="absolute inset-0 z-10"
+                        style={{
+                            backgroundColor: heroData?.backgroundOverlayColor || 'transparent',
+                            opacity: heroData?.backgroundOverlayOpacity
+                        }}
+                    />
+                )}
             </div>
 
             {/* Main Content Container */}
@@ -60,15 +114,15 @@ const Hero = () => {
                     className="mb-10"
                 >
                     <h1 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: colors.dark, fontFamily: 'var(--font-poppins)' }}>
-                        {t("hero.name")}
+                        {heroName}
                     </h1>
                     <h2 className="text-lg md:text-xl font-bold tracking-[0.2em] uppercase mb-6" style={{ color: colors.dark }}>
-                        {t("hero.subTitle")}
+                        {heroSubTitle}
                     </h2>
 
                     {/* Bio Description */}
                     <p className={`max-w-3xl mx-auto text-xs md:text-sm leading-relaxed opacity-80 whitespace-pre-line ${bengaliClass}`} style={{ color: colors.dark }}>
-                        {t("hero.bio")}
+                        {heroBio}
                         <Link href="/about" className="inline-block ml-2 text-[#D4AF37] font-bold hover:underline transition-all">
                             {t("hero.seeMore")}
                         </Link>
@@ -116,5 +170,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
-

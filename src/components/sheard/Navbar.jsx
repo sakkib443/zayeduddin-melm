@@ -94,7 +94,7 @@ const Navbar = () => {
     <>
       {/* ═══════════════════════════ TOP BAR ═══════════════════════════ */}
       <div
-        className="w-full border-b transition-all duration-300"
+        className="w-full border-b transition-all duration-300 relative z-[70]"
         style={{ backgroundColor: "rgba(2, 30, 20, 0.95)", borderColor: "rgba(212, 175, 55, 0.08)" }}
       >
         <div className="container mx-auto px-4 lg:px-16">
@@ -181,7 +181,7 @@ const Navbar = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full right-0 mt-3 w-48 shadow-2xl border bg-[#021E14] rounded-sm overflow-hidden z-50"
+                        className="absolute top-full right-0 mt-3 w-48 shadow-2xl border bg-[#021E14] rounded-sm overflow-hidden z-[100]"
                         style={{ borderColor: colors.border }}
                       >
                         <div className="p-4 border-b border-white/10 bg-white/5">

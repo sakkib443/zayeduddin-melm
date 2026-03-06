@@ -189,8 +189,8 @@ const AdminSidebar = () => {
       gradient: 'from-cyan-500 to-[#021E14]'
     },
     {
-      title: 'Design',
-      icon: FiImage,
+      title: 'Application Setting',
+      icon: FiSettings,
       gradient: 'from-[#021E14] to-[#01140D]',
       submenu: [
         { title: 'Home Page', href: '/dashboard/admin/design/home', icon: FiHome },

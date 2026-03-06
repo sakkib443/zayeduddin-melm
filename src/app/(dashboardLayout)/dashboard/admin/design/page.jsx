@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { API_URL } from '@/config/api';
-import { 
-    FiLayout, 
-    FiHome, 
-    FiInfo, 
-    FiMail, 
-    FiSearch, 
+import {
+    FiLayout,
+    FiHome,
+    FiInfo,
+    FiMail,
+    FiSearch,
     FiArrowRight,
     FiImage,
     FiFileText,
@@ -77,9 +77,9 @@ const DesignCard = ({ page }) => (
                     <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                         {page.title}
                     </h3>
-                    <FiArrowRight 
-                        size={16} 
-                        className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-1 transition-all" 
+                    <FiArrowRight
+                        size={16}
+                        className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-1 transition-all"
                     />
                 </div>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
@@ -87,7 +87,7 @@ const DesignCard = ({ page }) => (
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                     {page.sections.map((section, idx) => (
-                        <span 
+                        <span
                             key={idx}
                             className="text-xs px-2 py-0.5 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-md font-medium"
                         >
@@ -121,7 +121,7 @@ const DesignManagementPage = () => {
                 credentials: 'include'
             });
             const data = await response.json();
-            
+
             if (data.success && data.data) {
                 setDesigns(data.data);
                 setStats({
@@ -163,10 +163,10 @@ const DesignManagementPage = () => {
                     </div>
                     <div>
                         <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
-                            Design Management
+                            Application Setting
                         </h1>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Customize website sections and content
+                            Manage application settings and website content
                         </p>
                     </div>
                 </div>
@@ -174,27 +174,27 @@ const DesignManagementPage = () => {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <StatCard 
-                    icon={FiLayers} 
-                    label="Total Pages" 
+                <StatCard
+                    icon={FiLayers}
+                    label="Total Pages"
                     value={designPages.length}
                     color="text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]"
                 />
-                <StatCard 
-                    icon={FiFileText} 
-                    label="Total Sections" 
+                <StatCard
+                    icon={FiFileText}
+                    label="Total Sections"
                     value={designPages.reduce((acc, p) => acc + p.sections.length, 0)}
                     color="text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400"
                 />
-                <StatCard 
-                    icon={FiImage} 
-                    label="Design Configs" 
+                <StatCard
+                    icon={FiImage}
+                    label="Design Configs"
                     value={loading ? '...' : stats.totalSections}
                     color="text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]"
                 />
-                <StatCard 
-                    icon={FiRefreshCw} 
-                    label="Last Updated" 
+                <StatCard
+                    icon={FiRefreshCw}
+                    label="Last Updated"
                     value={loading ? '...' : formatDate(stats.lastUpdated)}
                     color="text-[#021E14] bg-[#021E14] dark:bg-[#021E14]/20 dark:text-[#021E14]"
                 />
@@ -234,7 +234,7 @@ const DesignManagementPage = () => {
                         <DesignCard key={page.id} page={page} />
                     ))}
                 </div>
-                
+
                 {filteredPages.length === 0 && (
                     <div className="text-center py-12 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-md">
                         <FiSearch className="mx-auto text-gray-400 mb-2" size={24} />
