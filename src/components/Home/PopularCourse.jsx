@@ -89,7 +89,7 @@ const PopularCourse = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
               onClick={() => setActiveCategory(filter.id)}
-              className={`px-6 py-2.5 md:px-8 md:py-3 rounded-md text-[10px] md:text-xs font-bold tracking-widest border transition-all duration-300 shadow-sm
+              className={`px-6 py-2.5 md:px-8 md:py-3 rounded-2xl text-[10px] md:text-xs font-bold tracking-widest border transition-all duration-300 shadow-sm
                 ${activeCategory === filter.id
                   ? 'text-white border-transparent'
                   : 'bg-white text-gray-500 border-gray-100 hover:border-gray-200 hover:bg-gray-50'}`}

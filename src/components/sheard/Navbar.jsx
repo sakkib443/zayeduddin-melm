@@ -181,7 +181,7 @@ const Navbar = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full right-0 mt-3 w-48 shadow-2xl border bg-[#021E14] rounded-sm overflow-hidden z-[100]"
+                        className="absolute top-full right-0 mt-3 w-48 shadow-2xl border bg-[#021E14] rounded-xl overflow-hidden z-[100]"
                         style={{ borderColor: colors.border }}
                       >
                         <div className="p-4 border-b border-white/10 bg-white/5">
@@ -221,7 +221,7 @@ const Navbar = () => {
                   </AnimatePresence>
                 </div>
               ) : (
-                <Link href="/login" className="text-[10px] font-bold tracking-widest border px-3 py-1 rounded-sm transition-all hover:bg-white/5" style={{ color: colors.text, borderColor: colors.text }}>
+                <Link href="/login" className="text-[10px] font-bold tracking-widest border px-3 py-1 rounded-xl transition-all hover:bg-white/5" style={{ color: colors.text, borderColor: colors.text }}>
                   {t("navbar.signIn").toUpperCase()}
                 </Link>
               )}

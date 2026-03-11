@@ -35,8 +35,8 @@ const ContactPage = () => {
       subtitleBn: 'আপনার যেকোনো প্রশ্ন বা সহযোগিতার জন্য আমরা সর্বদা প্রস্তুত। আমাদের মেসেজ পাঠান বা সরাসরি কল করুন।'
     },
     contactInfo: {
-      email: 'info@zayeduddin.com',
-      phone: '+880 1829-818616',
+      email: 'support@zayeduddin.com',
+      phone: '+880 1714117701',
       address: 'Dhaka, Bangladesh',
       addressBn: 'ঢাকা, বাংলাদেশ',
       officeHours: 'Sat - Thu: 10:00 AM - 6:00 PM',

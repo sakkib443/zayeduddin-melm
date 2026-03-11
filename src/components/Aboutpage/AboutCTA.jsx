@@ -71,15 +71,15 @@ const AboutCTA = () => {
                             {[
                                 {
                                     icon: LuMail,
-                                    text: 'info@zayeduddin.com',
+                                    text: 'support@zayeduddin.com',
                                     label: 'SUPPORT EMAIL',
-                                    action: 'mailto:info@zayeduddin.com'
+                                    action: 'mailto:support@zayeduddin.com'
                                 },
                                 {
                                     icon: LuPhone,
-                                    text: '+880 1829-818616',
+                                    text: '+880 17141-117701',
                                     label: 'HELPLINE',
-                                    action: 'tel:+8801829818616'
+                                    action: 'tel:+8801714117701'
                                 },
                                 {
                                     icon: LuMapPin,

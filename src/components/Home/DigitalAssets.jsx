@@ -265,7 +265,7 @@ const DigitalAssets = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-[#021E14]/5 border border-[#021E14]/10 mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#021E14]/5 border border-[#021E14]/10 mb-6"
                     >
                         <LuSparkles className="text-[#021E14]" size={16} />
                         <span className="text-[10px] font-bold text-[#021E14] uppercase tracking-[0.2em]">
@@ -299,7 +299,7 @@ const DigitalAssets = () => {
                 <div className="flex flex-wrap justify-center gap-3 mb-10">
                     <button
                         onClick={() => handleCategoryChange("all")}
-                        className={`px-8 py-3.5 rounded-md text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === "all"
+                        className={`px-8 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === "all"
                             ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                             : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                             }`}
@@ -313,7 +313,7 @@ const DigitalAssets = () => {
                             <button
                                 key={cat._id}
                                 onClick={() => handleCategoryChange(cat._id)}
-                                className={`px-8 py-3.5 rounded-md text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === cat._id
+                                className={`px-8 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === cat._id
                                     ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                                     : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                                     }`}
@@ -380,7 +380,7 @@ const DigitalAssets = () => {
                             {/* Modal Container */}
                             <div className="relative min-h-screen flex justify-center items-start gap-4 py-4 px-4">
                                 <motion.div
-                                    className={`relative w-full max-w-7xl rounded-md overflow-hidden shadow-2xl ${isDark ? 'bg-[#0f0f0f]' : 'bg-gray-50'}`}
+                                    className={`relative w-full max-w-7xl rounded-2xl overflow-hidden shadow-2xl ${isDark ? 'bg-[#0f0f0f]' : 'bg-gray-50'}`}
                                     initial={{ opacity: 0, y: 100 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: 100 }}
@@ -431,7 +431,7 @@ const DigitalAssets = () => {
                                                     </div>
 
                                                     {/* Download Button Group */}
-                                                    <div className="flex items-stretch rounded-lg overflow-hidden border-0">
+                                                    <div className="flex items-stretch rounded-2xl overflow-hidden border-0">
                                                         <button
                                                             onClick={handleBuyNow}
                                                             className={`flex items-center gap-2 px-6 py-2.5 font-bold text-sm transition-all shadow-none ${selectedTemplate.accessType === 'free' ? 'bg-[#00C853] hover:bg-[#00B24A] text-white' : 'bg-[#021E14] hover:bg-[#021E14] text-white'}`}
@@ -458,7 +458,7 @@ const DigitalAssets = () => {
                                             {/* Main Content Column */}
                                             <div className="flex-1 min-w-0">
                                                 {/* Cover Image */}
-                                                <div className={`w-full rounded-md overflow-hidden border shadow-lg ${isDark ? 'bg-[#1a1a1a] border-white/10' : 'bg-white border-gray-200'}`}>
+                                                <div className={`w-full rounded-xl overflow-hidden border shadow-lg ${isDark ? 'bg-[#1a1a1a] border-white/10' : 'bg-white border-gray-200'}`}>
                                                     <div className="relative aspect-video w-full">
                                                         {activeImage ? (
                                                             <img
@@ -582,7 +582,7 @@ const DigitalAssets = () => {
                                 </motion.div>
 
                                 {/* Right Sidebar - Outside the Box */}
-                                <aside className={`hidden xl:flex flex-col items-center gap-4 p-4 sticky top-4 h-fit rounded-md backdrop-blur-xl border ${isDark ? 'bg-[#0f0f0f]/90 border-white/10' : 'bg-white/90 border-gray-200 shadow-xl'}`}>
+                                <aside className={`hidden xl:flex flex-col items-center gap-4 p-4 sticky top-4 h-fit rounded-xl backdrop-blur-xl border ${isDark ? 'bg-[#0f0f0f]/90 border-white/10' : 'bg-white/90 border-gray-200 shadow-xl'}`}>
                                     {/* Close Button */}
                                     <button
                                         onClick={closeModal}
@@ -671,7 +671,7 @@ const DigitalAssets = () => {
 
                                     <button
                                         onClick={handleBuyNow}
-                                        className={`w-full py-2.5 px-3 rounded-md text-xs font-bold transition-all ${selectedTemplate.accessType === 'free'
+                                        className={`w-full py-2.5 px-3 rounded-2xl text-xs font-bold transition-all ${selectedTemplate.accessType === 'free'
                                             ? 'bg-green-600 hover:bg-green-700 text-white'
                                             : isAdded ? 'bg-green-500 text-white' : 'bg-[#021E14] hover:bg-[#400000] text-white'
                                             }`}
@@ -700,7 +700,7 @@ const DigitalAssets = () => {
                                     </div>
                                     <button
                                         onClick={handleBuyNow}
-                                        className={`px-6 py-3 rounded-md font-bold text-sm shadow-lg flex items-center gap-2 ${selectedTemplate.accessType === 'free' ? 'bg-green-600 text-white shadow-green-600/20' : 'bg-[#021E14] text-white shadow-[#021E14]/20'}`}
+                                        className={`px-6 py-3 rounded-2xl font-bold text-sm shadow-lg flex items-center gap-2 ${selectedTemplate.accessType === 'free' ? 'bg-green-600 text-white shadow-green-600/20' : 'bg-[#021E14] text-white shadow-[#021E14]/20'}`}
                                     >
                                         <LuDownload size={16} />
                                         {selectedTemplate.accessType === 'free' ? 'Free Download' : 'Buy Now'}

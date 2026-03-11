@@ -140,7 +140,7 @@ const Hero = ({ data }) => {
                         >
                             <Link href={card.href} className="group block h-full">
                                 <div
-                                    className="h-full p-10 md:p-14 rounded-[30px] shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-black/20 flex flex-col items-center justify-center text-center"
+                                    className="h-full p-10 md:p-14 rounded-3xl shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-black/20 flex flex-col items-center justify-center text-center"
                                     style={{ backgroundColor: colors.dark }}
                                 >
                                     <h3

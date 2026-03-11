@@ -169,19 +169,19 @@ const Footer = () => {
               </h4>
               <ul className="space-y-3">
                 <li>
-                  <a href="tel:+8801741117701" className="group flex items-center gap-3">
+                  <a href="tel:+8801714117701" className="group flex items-center gap-3">
                     <div className="w-8 h-8 rounded-md bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#D4AF37] transition-colors">
                       <IoCallOutline className="text-[#D4AF37] text-sm" />
                     </div>
-                    <span className="text-gray-300 text-sm work group-hover:text-[#D4AF37] transition-colors">+88 01741 117701</span>
+                    <span className="text-gray-300 text-sm work group-hover:text-[#D4AF37] transition-colors">+880 17141 117701</span>
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:info@zayeduddin.com" className="group flex items-center gap-3">
+                  <a href="mailto:support@zayeduddin.com" className="group flex items-center gap-3">
                     <div className="w-8 h-8 rounded-md bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#D4AF37] transition-colors">
                       <IoMailOutline className="text-[#D4AF37] text-sm" />
                     </div>
-                    <span className="text-gray-300 text-sm work group-hover:text-[#D4AF37] transition-colors">info@zayeduddin.com</span>
+                    <span className="text-gray-300 text-sm work group-hover:text-[#D4AF37] transition-colors">support@zayeduddin.com</span>
                   </a>
                 </li>
                 <li>
