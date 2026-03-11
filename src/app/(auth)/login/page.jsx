@@ -196,7 +196,7 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder={language === "bn" ? "আপনার ইমেইল" : "you@example.com"}
-                        className={`w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                        className={`w-full pl-11 pr-4 py-3 rounded-full border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                       />
                     </div>
                   </div>
@@ -214,7 +214,7 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         placeholder={language === "bn" ? "পাসওয়ার্ড দিন" : "Enter password"}
-                        className={`w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                        className={`w-full pl-11 pr-12 py-3 rounded-full border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                       />
                       <button
                         type="button"
@@ -258,7 +258,7 @@ const Login = () => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full py-3.5 rounded-xl text-white font-semibold shadow-lg transition text-base ${loading
+                    className={`w-full py-3.5 rounded-full text-white font-semibold shadow-lg transition text-base ${loading
                       ? "bg-gray-300 cursor-not-allowed"
                       : "bg-gradient-to-r from-[#021E14] to-[#38a89d] hover:shadow-xl hover:-translate-y-0.5"
                       } ${bengaliClass}`}
@@ -288,7 +288,7 @@ const Login = () => {
 
                 {/* Google Login Button */}
                 <div className="flex justify-center">
-                  <div className="w-full">
+                  <div className="w-full py-2">
                     <GoogleLogin
                       onSuccess={handleGoogleSuccess}
                       onError={() => {

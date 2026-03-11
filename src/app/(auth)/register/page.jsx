@@ -334,7 +334,7 @@ const Register = () => {
                             value={formData.firstName}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.firstName ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-full border ${fieldErrors.firstName ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
                           {fieldErrors.firstName && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.firstName}</p>}
                         </div>
@@ -346,7 +346,7 @@ const Register = () => {
                             value={formData.lastName}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.lastName ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-full border ${fieldErrors.lastName ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
                           {fieldErrors.lastName && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.lastName}</p>}
                         </div>
@@ -363,7 +363,7 @@ const Register = () => {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.email ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                            className={`w-full pl-11 pr-4 py-3 rounded-full border ${fieldErrors.email ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                           />
                         </div>
                         {fieldErrors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{fieldErrors.email}</p>}
@@ -377,7 +377,7 @@ const Register = () => {
                               name="countryCode"
                               value={formData.countryCode}
                               onChange={handleChange}
-                              className={`w-full pl-4 pr-10 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none appearance-none transition ${bengaliClass} text-sm font-medium`}
+                              className={`w-full pl-4 pr-10 py-3 rounded-full border border-gray-200 bg-gray-50 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none appearance-none transition ${bengaliClass} text-sm font-medium`}
                             >
                               <option value="+880">🇧🇩 +880</option>
                               <option value="+91">🇮🇳 +91</option>
@@ -404,7 +404,7 @@ const Register = () => {
                               placeholder={language === "bn" ? "ফোন নম্বর (ঐচ্ছিক)" : "Phone number (optional)"}
                               value={formData.phoneNumber}
                               onChange={handleChange}
-                              className={`w-full pl-11 pr-4 py-3 rounded-xl border ${fieldErrors.phoneNumber ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                              className={`w-full pl-11 pr-4 py-3 rounded-full border ${fieldErrors.phoneNumber ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                             />
                           </div>
                         </div>
@@ -423,7 +423,7 @@ const Register = () => {
                               value={formData.password}
                               onChange={handleChange}
                               required
-                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.password ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                              className={`w-full pl-11 pr-10 py-3 rounded-full border ${fieldErrors.password ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                             />
                             <button
                               type="button"
@@ -462,7 +462,7 @@ const Register = () => {
                               value={formData.confirmPassword}
                               onChange={handleChange}
                               required
-                              className={`w-full pl-11 pr-10 py-3 rounded-xl border ${fieldErrors.confirmPassword ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
+                              className={`w-full pl-11 pr-10 py-3 rounded-full border ${fieldErrors.confirmPassword ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-gray-50'} focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 outline-none transition ${bengaliClass}`}
                             />
                             <button
                               type="button"
@@ -511,7 +511,7 @@ const Register = () => {
                       <button
                         type="submit"
                         disabled={loading || !termsAccepted}
-                        className={`w-full py-3.5 rounded-xl text-white font-semibold shadow-lg transition text-base ${loading || !termsAccepted
+                        className={`w-full py-3.5 rounded-full text-white font-semibold shadow-lg transition text-base ${loading || !termsAccepted
                           ? "bg-gray-300 cursor-not-allowed"
                           : "bg-gradient-to-r from-[#021E14] to-[#38a89d] hover:shadow-xl hover:-translate-y-0.5"
                           } ${bengaliClass}`}
@@ -540,7 +540,7 @@ const Register = () => {
 
                       {/* Google Login Button */}
                       <div className="flex justify-center">
-                        <div className="w-full">
+                        <div className="w-full py-2">
                           <GoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={() => {
