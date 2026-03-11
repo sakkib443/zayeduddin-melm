@@ -190,7 +190,7 @@ const Footer = () => {
                       <IoLocationOutline className="text-[#D4AF37] text-sm" />
                     </div>
                     <span className={`text-gray-300 text-sm work ${bengaliClass}`}>
-                      {language === 'bn' ? 'ঢাকা, বাংলাদেশ' : 'Dhaka, Bangladesh'}
+                      {language === 'bn' ? 'বাড়ি নং ৫৯/১/বি, টি.বি. হাজারীবাগ, ঢাকা ১২০৯ বাংলাদেশ।' : 'House No. 59/1/B, T.B. Hazaribagh, Dhaka 1209 Bangladesh.'}
                     </span>
                   </div>
                 </li>

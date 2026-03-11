@@ -83,7 +83,7 @@ const AboutCTA = () => {
                                 },
                                 {
                                     icon: LuMapPin,
-                                    text: 'Dhaka, Bangladesh',
+                                    text: 'House No. 59/1/B, T.B. Hazaribagh, Dhaka 1209 Bangladesh.',
                                     label: 'HEADQUARTERS',
                                     action: '#'
                                 }

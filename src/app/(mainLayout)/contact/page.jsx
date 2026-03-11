@@ -37,8 +37,8 @@ const ContactPage = () => {
     contactInfo: {
       email: 'support@zayeduddin.com',
       phone: '+880 1714117701',
-      address: 'Dhaka, Bangladesh',
-      addressBn: 'ঢাকা, বাংলাদেশ',
+      address: 'House No. 59/1/B, T.B. Hazaribagh, Dhaka 1209 Bangladesh.',
+      addressBn: 'বাড়ি নং ৫৯/১/বি, টি.বি. হাজারীবাগ, ঢাকা ১২০৯ বাংলাদেশ।',
       officeHours: 'Sat - Thu: 10:00 AM - 6:00 PM',
       officeHoursBn: 'শনি - বৃহঃ: সকাল ১০টা - সন্ধ্যা ৬টা'
     },

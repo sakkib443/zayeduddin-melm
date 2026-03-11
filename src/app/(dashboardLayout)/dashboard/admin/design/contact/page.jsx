@@ -28,8 +28,8 @@ const ContactDesignPage = () => {
         contactInfo: {
             email: 'info@ejobsit.com',
             phone: '+88 01714117701',
-            address: 'Daisy Garden, House 14 (Level-5), Block A, Banasree, Dhaka',
-            addressBn: 'ডেইজি গার্ডেন, বাড়ি ১৪ (লেভেল-৫), ব্লক এ, বনশ্রী, ঢাকা',
+            address: 'House No. 59/1/B, T.B. Hazaribagh, Dhaka 1209 Bangladesh.',
+            addressBn: 'বাড়ি নং ৫৯/১/বি, টি.বি. হাজারীবাগ, ঢাকা ১২০৯ বাংলাদেশ।',
             officeHours: 'Sat - Thu: 10:00 AM - 6:00 PM',
             officeHoursBn: 'শনি - বৃহস্পতি: সকাল ১০টা - সন্ধ্যা ৬টা'
         },
