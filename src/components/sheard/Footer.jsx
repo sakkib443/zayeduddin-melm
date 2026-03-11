@@ -11,6 +11,17 @@ import { useLanguage } from "@/context/LanguageContext";
 import Logo from "./Logo";
 import { API_BASE_URL } from "@/config/api";
 
+// Static icon map — defined outside component to avoid stale closure in production
+const SOCIAL_ICON_MAP = {
+  facebook:  { icon: FaFacebook,  color: "#1877F2", label: "Facebook"  },
+  linkedin:  { icon: FaLinkedin,  color: "#0A66C2", label: "LinkedIn"  },
+  youtube:   { icon: FaYoutube,   color: "#FF0000", label: "YouTube"   },
+  instagram: { icon: FaInstagram, color: "#E1306C", label: "Instagram" },
+  whatsapp:  { icon: FaWhatsapp,  color: "#25D366", label: "WhatsApp"  },
+  twitter:   { icon: FaXTwitter,  color: "#000000", label: "X"         },
+};
+
+
 const Footer = () => {
   const [email, setEmail] = useState("");
   const { t, language } = useLanguage();
@@ -18,38 +29,27 @@ const Footer = () => {
 
   const [socialLinks, setSocialLinks] = useState([]);
 
-  // Icon map for social platforms
-  const iconMap = {
-    facebook: { icon: FaFacebook, color: "#1877F2", label: "Facebook" },
-    linkedin: { icon: FaLinkedin, color: "#0A66C2", label: "LinkedIn" },
-    youtube: { icon: FaYoutube, color: "#FF0000", label: "YouTube" },
-    instagram: { icon: FaInstagram, color: "#E1306C", label: "Instagram" },
-    whatsapp: { icon: FaWhatsapp, color: "#25D366", label: "WhatsApp" },
-    twitter: { icon: FaXTwitter, color: "#000000", label: "X" },
-  };
-
   useEffect(() => {
     const fetchSocialLinks = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/design/contact`);
         const data = await res.json();
-        if (data.success && data.data?.contactContent?.socialLinks) {
+        if (data?.success && data?.data?.contactContent?.socialLinks) {
           const sl = data.data.contactContent.socialLinks;
           const links = Object.entries(sl)
-            .filter(([, href]) => href && href !== '#')
+            .filter(([, href]) => href && href !== '#' && href.startsWith('http'))
             .map(([platform, href]) => ({
               href,
-              ...(iconMap[platform] || { icon: FaFacebook, color: "#1877F2", label: platform })
+              ...(SOCIAL_ICON_MAP[platform] || { icon: FaFacebook, color: "#1877F2", label: platform })
             }));
           setSocialLinks(links);
         }
       } catch (err) {
-        console.error('Footer: failed to fetch social links', err);
+        // silently fail — footer still renders without social icons
       }
     };
     fetchSocialLinks();
-  }, []);
-
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const digitalProducts = [
     { href: "/design-template", label: language === 'bn' ? 'গ্রাফিক ডিজাইন' : 'Graphic Design' },
