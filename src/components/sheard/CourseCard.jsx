@@ -75,7 +75,7 @@ const CourseCard = ({ course, view = "grid" }) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ y: -2 }}
-        className="group w-full flex flex-col md:flex-row bg-white dark:bg-[#0d0d0d] rounded-xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl transition-all duration-300"
+        className="group w-full flex flex-col md:flex-row bg-white dark:bg-[#0d0d0d] rounded-[2rem] border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl transition-all duration-300"
       >
         {/* Left: Image (35%) */}
         <div className="relative w-full md:w-[35%] h-56 md:h-auto shrink-0 overflow-hidden p-3">
@@ -85,7 +85,7 @@ const CourseCard = ({ course, view = "grid" }) => {
               height={300}
               src={thumbnail}
               alt={title}
-              className="h-full w-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-105"
+              className="h-full w-full object-cover rounded-[1.5rem] transition-transform duration-700 group-hover:scale-105"
             />
           </Link>
           {/* Play Overlay */}
@@ -176,7 +176,7 @@ const CourseCard = ({ course, view = "grid" }) => {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="group w-full h-full flex flex-col pt-4"
     >
-      <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#021E14]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
+      <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-[2rem] border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#021E14]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
 
         {/* Image Section */}
         <div className="relative h-64 w-full overflow-hidden shrink-0">

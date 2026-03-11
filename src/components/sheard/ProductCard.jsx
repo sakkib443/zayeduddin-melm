@@ -85,7 +85,7 @@ const ProductCard = ({ product, type, view = "grid", disableLink = false }) => {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="group w-full h-full flex flex-col pt-4"
         >
-            <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#021E14]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
+            <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-[2rem] border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:border-[#021E14]/20 transition-all duration-500 flex flex-col shadow-lg shadow-black/5`}>
 
                 {/* Image Section */}
                 <div className="relative h-64 w-full overflow-hidden shrink-0">

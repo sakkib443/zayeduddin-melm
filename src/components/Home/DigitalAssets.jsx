@@ -299,7 +299,7 @@ const DigitalAssets = () => {
                 <div className="flex flex-wrap justify-center gap-3 mb-10">
                     <button
                         onClick={() => handleCategoryChange("all")}
-                        className={`px-8 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === "all"
+                        className={`px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === "all"
                             ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                             : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                             }`}
@@ -313,7 +313,7 @@ const DigitalAssets = () => {
                             <button
                                 key={cat._id}
                                 onClick={() => handleCategoryChange(cat._id)}
-                                className={`px-8 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === cat._id
+                                className={`px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 shadow-sm ${activeCategory === cat._id
                                     ? "bg-[#021E14] text-white shadow-lg shadow-[#021E14]/20"
                                     : "bg-white dark:bg-white/5 text-slate-500 hover:bg-slate-50 dark:hover:bg-white/10"
                                     }`}
