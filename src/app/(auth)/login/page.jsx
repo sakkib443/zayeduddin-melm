@@ -10,7 +10,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { API_BASE_URL } from "@/config/api";
 import Logo from "@/components/sheard/Logo";
 
-import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const router = useRouter();
@@ -79,27 +79,24 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      setLoading(true);
-      setError("");
-      try {
-        const res = await fetch(`${API_BASE_URL}/auth/google-login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ accessToken: tokenResponse.access_token }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "Google Login failed");
-        handleLoginSuccess(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    },
-    onError: () => setError("Google Login Failed"),
-  });
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/google-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken: credentialResponse.credential }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Google Login failed");
+      handleLoginSuccess(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const features = [
     { icon: FiShield, text: language === "bn" ? "নিরাপদ লগইন" : "Secure Login" },
@@ -285,20 +282,18 @@ const Login = () => {
 
                 {/* Google Login Button */}
                 <div className="flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => handleGoogleLogin()}
-                    disabled={loading}
-                    className={`w-full py-3.5 rounded-full flex items-center justify-center gap-3 font-semibold text-base border-2 border-gray-200 bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:shadow-lg transition-all shadow-sm ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 48 48">
-                      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                    </svg>
-                    {language === "bn" ? "গুগল দিয়ে লগইন" : "Continue with Google"}
-                  </button>
+                  <div className="w-full" style={{ transform: 'scaleY(1.35)', transformOrigin: 'center' }}>
+                    <GoogleLogin
+                      onSuccess={handleGoogleSuccess}
+                      onError={() => setError("Google Login Failed")}
+                      useOneTap
+                      theme="outline"
+                      size="large"
+                      width="100%"
+                      shape="pill"
+                      text="continue_with"
+                    />
+                  </div>
                 </div>
 
                 {/* Help Text */}
