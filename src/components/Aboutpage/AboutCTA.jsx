@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef } from 'react';
-import { LuArrowRight, LuMail, LuPhone, LuMapPin, LuSend } from 'react-icons/lu';
+import { LuArrowRight, LuMail, LuMapPin, LuSend } from 'react-icons/lu';
+import { FaWhatsapp } from 'react-icons/fa';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -76,7 +77,7 @@ const AboutCTA = () => {
                                     action: 'mailto:support@zayeduddin.com'
                                 },
                                 {
-                                    icon: LuPhone,
+                                    icon: FaWhatsapp,
                                     text: '+880 17141-117701',
                                     label: 'HELPLINE',
                                     action: 'tel:+8801714117701'

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LuMail,
-  LuPhone,
   LuMapPin,
   LuSend,
   LuClock,
@@ -92,7 +91,7 @@ const ContactPage = () => {
 
   const contactCards = [
     { icon: LuMail, title: t("Email Us", "ইমেইল করুন"), value: content.contactInfo.email, link: `mailto:${content.contactInfo.email}`, accent: 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400' },
-    { icon: LuPhone, title: t("Call Us", "কল করুন"), value: content.contactInfo.phone, link: `tel:${content.contactInfo.phone.replace(/\s/g, '')}`, accent: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' },
+    { icon: FaWhatsapp, title: t("Call Us", "কল করুন"), value: content.contactInfo.phone, link: `tel:${content.contactInfo.phone.replace(/\s/g, '')}`, accent: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' },
     { icon: LuMapPin, title: t("Visit Us", "আমাদের অফিস"), value: t(content.contactInfo.address, content.contactInfo.addressBn), link: "https://maps.google.com", accent: 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400' },
     { icon: LuClock, title: t("Office Hours", "অফিস সময়"), value: t(content.contactInfo.officeHours, content.contactInfo.officeHoursBn), accent: 'bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400' }
   ];

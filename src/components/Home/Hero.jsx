@@ -41,6 +41,19 @@ const Hero = ({ data }) => {
         white: "#FFFFFF",
     };
 
+    // Dynamic text colors from admin dashboard (with fallbacks)
+    const textColors = {
+        heading: heroData?.textColors?.heading || colors.dark,
+        subtitle: heroData?.textColors?.subtitle || colors.dark,
+        bio: heroData?.textColors?.bio || colors.dark,
+        seeMore: heroData?.textColors?.seeMore || colors.gold,
+    };
+
+    // Dynamic text shadow from admin dashboard
+    const shadowStyle = heroData?.textShadow?.enabled
+        ? { textShadow: `${heroData.textShadow.offsetX || 0}px ${heroData.textShadow.offsetY || 2}px ${heroData.textShadow.blur || 4}px ${heroData.textShadow.color || 'rgba(0,0,0,0.3)'}` }
+        : {};
+
     const cards = [
         {
             title: t("hero.design"),
@@ -113,17 +126,17 @@ const Hero = ({ data }) => {
                     transition={{ duration: 0.8 }}
                     className="mb-10"
                 >
-                    <h1 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: colors.dark, fontFamily: 'var(--font-poppins)' }}>
+                    <h1 className="text-5xl md:text-6xl font-bold mb-4" style={{ color: textColors.heading, fontFamily: 'var(--font-poppins)', ...shadowStyle }}>
                         {heroName}
                     </h1>
-                    <h2 className="text-lg md:text-xl font-bold tracking-[0.2em] uppercase mb-6" style={{ color: colors.dark }}>
+                    <h2 className="text-lg md:text-xl font-bold tracking-[0.2em] uppercase mb-6" style={{ color: textColors.subtitle, ...shadowStyle }}>
                         {heroSubTitle}
                     </h2>
 
                     {/* Bio Description */}
-                    <p className={`max-w-3xl mx-auto text-xs md:text-sm leading-relaxed opacity-80 whitespace-pre-line ${bengaliClass}`} style={{ color: colors.dark }}>
+                    <p className={`max-w-3xl mx-auto text-xs md:text-sm leading-relaxed opacity-80 whitespace-pre-line ${bengaliClass}`} style={{ color: textColors.bio, ...shadowStyle }}>
                         {heroBio}
-                        <Link href="/about" className="inline-block ml-2 text-[#D4AF37] font-bold hover:underline transition-all">
+                        <Link href="/about" className="inline-block ml-2 font-bold hover:underline transition-all" style={{ color: textColors.seeMore }}>
                             {t("hero.seeMore")}
                         </Link>
                     </p>

@@ -28,7 +28,20 @@ const HeroDesignPage = () => {
         backgroundOverlayColor: '#021E14',
         backgroundOverlayOpacity: 0.12,
         backgroundBlur: 0.5,
-        backgroundGrayscale: true
+        backgroundGrayscale: true,
+        textColors: {
+            heading: '#021E14',
+            subtitle: '#021E14',
+            bio: '#021E14',
+            seeMore: '#D4AF37'
+        },
+        textShadow: {
+            enabled: false,
+            color: 'rgba(0,0,0,0.3)',
+            blur: 4,
+            offsetX: 0,
+            offsetY: 2
+        }
     });
 
     // Fetch hero design data
@@ -305,6 +318,157 @@ const HeroDesignPage = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Typography Colors */}
+                    <div className={`p-8 rounded-[2rem] ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-100 shadow-xl shadow-gray-200/50'}`}>
+                        <div className="flex items-center gap-4 mb-8">
+                            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-900 rounded-2xl flex items-center justify-center shadow-lg">
+                                <LuType className="text-white" size={24} />
+                            </div>
+                            <div>
+                                <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Typography Colors</h3>
+                                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Customize the color of each text element to match your background</p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Heading Color */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">Name / Heading</label>
+                                    <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.textColors?.heading || '#021E14'}</div>
+                                </div>
+                                <div className="flex gap-4 items-center">
+                                    <input type="color" value={heroContent.textColors?.heading || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, heading: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                    <input type="text" value={heroContent.textColors?.heading || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, heading: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} />
+                                </div>
+                            </div>
+
+                            {/* Subtitle Color */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">Subtitle / Title</label>
+                                    <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.textColors?.subtitle || '#021E14'}</div>
+                                </div>
+                                <div className="flex gap-4 items-center">
+                                    <input type="color" value={heroContent.textColors?.subtitle || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, subtitle: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                    <input type="text" value={heroContent.textColors?.subtitle || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, subtitle: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} />
+                                </div>
+                            </div>
+
+                            {/* Bio / Description Color */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">Bio / Description</label>
+                                    <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.textColors?.bio || '#021E14'}</div>
+                                </div>
+                                <div className="flex gap-4 items-center">
+                                    <input type="color" value={heroContent.textColors?.bio || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, bio: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                    <input type="text" value={heroContent.textColors?.bio || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, bio: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} />
+                                </div>
+                            </div>
+
+                            {/* See More Link Color */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">"See More" Link</label>
+                                    <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.textColors?.seeMore || '#D4AF37'}</div>
+                                </div>
+                                <div className="flex gap-4 items-center">
+                                    <input type="color" value={heroContent.textColors?.seeMore || '#D4AF37'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, seeMore: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                    <input type="text" value={heroContent.textColors?.seeMore || '#D4AF37'} onChange={(e) => setHeroContent(prev => ({ ...prev, textColors: { ...prev.textColors, seeMore: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Reset to defaults */}
+                        <div className="mt-8 pt-6 border-t border-gray-100 dark:border-slate-700">
+                            <button
+                                onClick={() => setHeroContent(prev => ({ ...prev, textColors: { heading: '#021E14', subtitle: '#021E14', bio: '#021E14', seeMore: '#D4AF37' } }))}
+                                className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold transition-all ${isDark ? 'bg-slate-700 text-gray-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                            >
+                                <LuRefreshCw size={16} />
+                                Reset to Default Colors
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Text Shadow Controls */}
+                    <div className={`p-8 rounded-[2rem] ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-100 shadow-xl shadow-gray-200/50'}`}>
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-900 rounded-2xl flex items-center justify-center shadow-lg">
+                                    <LuLayers className="text-white" size={24} />
+                                </div>
+                                <div>
+                                    <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Text Shadow</h3>
+                                    <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Add depth to your text with shadow effects</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setHeroContent(prev => ({ ...prev, textShadow: { ...prev.textShadow, enabled: !prev.textShadow?.enabled } }))}
+                                className={`flex items-center gap-3 px-6 py-3 rounded-2xl border transition-all ${heroContent.textShadow?.enabled ? 'bg-violet-600 border-violet-600 text-white shadow-lg' : isDark ? 'bg-slate-700 border-slate-600 text-gray-400' : 'bg-gray-50 border-gray-200 text-gray-500'}`}
+                            >
+                                <div className={`w-4 h-4 rounded-full border-2 transition-all ${heroContent.textShadow?.enabled ? 'bg-white border-white' : 'border-current opacity-30'}`} />
+                                <span className="text-xs font-black uppercase tracking-widest">{heroContent.textShadow?.enabled ? 'Enabled' : 'Disabled'}</span>
+                            </button>
+                        </div>
+
+                        {heroContent.textShadow?.enabled && (
+                            <div className="space-y-8">
+                                {/* Shadow Color */}
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center">
+                                        <label className="text-xs font-black uppercase tracking-widest opacity-50">Shadow Color</label>
+                                        <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.textShadow?.color || 'rgba(0,0,0,0.3)'}</div>
+                                    </div>
+                                    <div className="flex gap-4 items-center">
+                                        <input type="color" value={heroContent.textShadow?.color?.startsWith('rgba') ? '#000000' : (heroContent.textShadow?.color || '#000000')} onChange={(e) => setHeroContent(prev => ({ ...prev, textShadow: { ...prev.textShadow, color: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                        <input type="text" value={heroContent.textShadow?.color || 'rgba(0,0,0,0.3)'} onChange={(e) => setHeroContent(prev => ({ ...prev, textShadow: { ...prev.textShadow, color: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} placeholder="e.g. rgba(0,0,0,0.3) or #000000" />
+                                    </div>
+                                </div>
+
+                                {/* Blur, OffsetX, OffsetY */}
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center">
+                                            <label className="text-xs font-black uppercase tracking-widest opacity-50">Blur</label>
+                                            <span className="text-xs font-black">{heroContent.textShadow?.blur || 0}px</span>
+                                        </div>
+                                        <input type="range" min="0" max="20" step="1" value={heroContent.textShadow?.blur || 4} onChange={(e) => setHeroContent(prev => ({ ...prev, textShadow: { ...prev.textShadow, blur: parseFloat(e.target.value) } }))} className="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full appearance-none cursor-pointer accent-violet-600" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center">
+                                            <label className="text-xs font-black uppercase tracking-widest opacity-50">Offset X</label>
+                                            <span className="text-xs font-black">{heroContent.textShadow?.offsetX || 0}px</span>
+                                        </div>
+                                        <input type="range" min="-10" max="10" step="1" value={heroContent.textShadow?.offsetX || 0} onChange={(e) => setHeroContent(prev => ({ ...prev, textShadow: { ...prev.textShadow, offsetX: parseFloat(e.target.value) } }))} className="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full appearance-none cursor-pointer accent-violet-600" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between items-center">
+                                            <label className="text-xs font-black uppercase tracking-widest opacity-50">Offset Y</label>
+                                            <span className="text-xs font-black">{heroContent.textShadow?.offsetY || 0}px</span>
+                                        </div>
+                                        <input type="range" min="-10" max="10" step="1" value={heroContent.textShadow?.offsetY || 2} onChange={(e) => setHeroContent(prev => ({ ...prev, textShadow: { ...prev.textShadow, offsetY: parseFloat(e.target.value) } }))} className="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full appearance-none cursor-pointer accent-violet-600" />
+                                    </div>
+                                </div>
+
+                                {/* Preview */}
+                                <div className={`p-6 rounded-3xl border ${isDark ? 'bg-slate-700/30 border-slate-600' : 'bg-gray-50 border-gray-100'}`}>
+                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-3">Shadow Preview</p>
+                                    <p
+                                        className="text-3xl font-bold"
+                                        style={{
+                                            color: heroContent.textColors?.heading || '#021E14',
+                                            textShadow: `${heroContent.textShadow?.offsetX || 0}px ${heroContent.textShadow?.offsetY || 2}px ${heroContent.textShadow?.blur || 4}px ${heroContent.textShadow?.color || 'rgba(0,0,0,0.3)'}`
+                                        }}
+                                    >
+                                        Sample Text Preview
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Floating Intelligence - Badge */}

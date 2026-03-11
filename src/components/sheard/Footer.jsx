@@ -3,9 +3,9 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaFacebook, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaLinkedin, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { IoCallOutline, IoLocationOutline, IoMailOutline } from "react-icons/io5";
+import { IoLocationOutline, IoMailOutline } from "react-icons/io5";
 import { LuSend, LuArrowUpRight, LuHeart } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import Logo from "./Logo";
@@ -37,8 +37,8 @@ const Footer = () => {
   ];
 
   const aboutText = language === 'bn'
-    ? 'জায়েদ উদ্দিন একটি প্রিমিয়াম আইটি প্রশিক্ষণ এবং সৃজনশীল প্ল্যাটফর্ম যা ডিজাইন, ডেভেলপমেন্ট এবং ডিজিটাল আর্টসে শিল্প-নেতৃস্থানীয় দক্ষতা দিয়ে ব্যক্তিদের ক্ষমতায়ন করতে নিবেদিত।'
-    : 'Zayed Uddin is a premium IT training and creative platform dedicated to empowering individuals with industry-leading skills in design, development, and digital arts.';
+    ? 'zayeduddin.com একটি প্রিমিয়াম আইটি প্রশিক্ষণ প্ল্যাটফর্ম ও ক্রিয়েটিভ ডিজাইন মার্কেটপ্লেস এবং আইটি প্রশিক্ষণ বিষয়ক লার্নিং আর্টিকেল প্রকাশিত হয়।'
+    : 'zayeduddin.com is a premium IT training platform & creative design marketplace where IT training related learning articles are published.';
 
   return (
     <footer className="relative bg-[#021E14] overflow-hidden text-white">
@@ -171,7 +171,7 @@ const Footer = () => {
                 <li>
                   <a href="tel:+8801714117701" className="group flex items-center gap-3">
                     <div className="w-8 h-8 rounded-md bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#D4AF37] transition-colors">
-                      <IoCallOutline className="text-[#D4AF37] text-sm" />
+                      <FaWhatsapp className="text-[#D4AF37] text-sm" />
                     </div>
                     <span className="text-gray-300 text-sm work group-hover:text-[#D4AF37] transition-colors">+880 17141 117701</span>
                   </a>
