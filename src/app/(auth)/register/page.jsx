@@ -534,7 +534,7 @@ const Register = () => {
 
                       {/* Google Login Button */}
                       <div className="flex justify-center">
-                        <div className="w-full" style={{ transform: 'scaleY(1.35)', transformOrigin: 'center' }}>
+                        <div className="w-full">
                           <GoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={() => setError("Google Login Failed")}
