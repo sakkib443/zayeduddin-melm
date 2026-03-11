@@ -65,60 +65,90 @@ const AboutMe = () => {
                         transition={{ duration: 0.8 }}
                         className="w-full lg:w-1/2 order-1 lg:order-2 flex justify-center lg:justify-end"
                     >
-                        <div className="relative w-full max-w-lg aspect-[4/5] md:aspect-square mx-auto">
-                            {/* Abstract Background Shapes */}
-                            <div className="absolute top-10 right-10 w-3/4 h-3/4 bg-[#021E14]/5 rounded-[40px] rotate-6 z-0" />
-                            <div className="absolute -bottom-4 -left-4 w-1/2 h-1/2 bg-[#D4AF37]/10 rounded-full blur-3xl z-0" />
+                        <div className="relative w-full max-w-lg mx-auto">
 
-                            {/* Main Training Image 1 (Large) - Top Right */}
-                            <div className="absolute top-0 right-0 w-[70%] h-[60%] bg-white dark:bg-[#0d0d0d] p-2 rounded-[32px] shadow-2xl z-20 group">
-                                <div className="relative w-full h-full rounded-[24px] overflow-hidden border border-slate-100 dark:border-white/5">
+                            {/* Main Grid Layout */}
+                            <div className="grid grid-cols-2 gap-4">
+
+                                {/* Top Left — Tall Image */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.7, delay: 0.1 }}
+                                    className="relative h-96 rounded-[2rem] overflow-hidden shadow-2xl"
+                                >
                                     <Image
                                         src="/images/training.jpg"
                                         alt="Training Session 1"
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        className="object-cover transition-transform duration-700 hover:scale-105"
                                         priority
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#021E14]/60 via-transparent to-transparent" />
+                                    <div className="absolute bottom-4 left-4">
+                                        <span className="text-white text-xs font-bold uppercase tracking-widest opacity-80">Training</span>
+                                    </div>
+                                </motion.div>
+
+                                {/* Right Column — Two Stacked Images */}
+                                <div className="flex flex-col gap-4">
+                                    {/* Top Right — Square Image */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.7, delay: 0.2 }}
+                                        className="relative h-56 rounded-[2rem] overflow-hidden shadow-xl"
+                                    >
+                                        <Image
+                                            src="/images/training2.jpg"
+                                            alt="Training Session 2"
+                                            fill
+                                            className="object-cover transition-transform duration-700 hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#021E14]/50 via-transparent to-transparent" />
+                                    </motion.div>
+
+                                    {/* Bottom Right — Experience Badge Card */}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.35 }}
+                                        className="relative h-36 rounded-[2rem] overflow-hidden shadow-xl"
+                                    >
+                                        <Image
+                                            src="/images/training3.jpg"
+                                            alt="Training Session 3"
+                                            fill
+                                            className="object-cover transition-transform duration-700 hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#021E14]/70 via-[#021E14]/20 to-transparent" />
+                                    </motion.div>
                                 </div>
                             </div>
 
-                            {/* Training Image 2 (Medium) - Bottom Left */}
-                            <div className="absolute bottom-0 left-0 w-[60%] h-[45%] bg-white dark:bg-[#0d0d0d] p-2 rounded-[28px] shadow-xl z-20 group">
-                                <div className="relative w-full h-full rounded-[20px] overflow-hidden border border-slate-100 dark:border-white/5">
-                                    <Image
-                                        src="/images/training2.jpg"
-                                        alt="Training Session 2"
-                                        fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Training Image 3 (Accent) - Floating Center/Right */}
-                            <div className="absolute top-1/2 right-10 translate-y-12 w-[40%] h-[30%] bg-white dark:bg-[#0d0d0d] p-2 rounded-[24px] shadow-xl z-30 group animate-float hidden sm:block">
-                                <div className="relative w-full h-full rounded-[16px] overflow-hidden border border-slate-100 dark:border-white/5">
-                                    <Image
-                                        src="/images/training3.jpg"
-                                        alt="Training Session 3"
-                                        fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Experience Badge */}
-                            <div className="absolute top-10 left-0 -translate-x-1/4 bg-[#021E14] text-[#D4AF37] p-2 md:p-3 rounded-full shadow-2xl z-40 flex flex-col items-center justify-center w-28 h-28 md:w-36 md:h-36 border-4 border-white dark:border-[#050505] animate-bounce-slow">
-                                <span className={`text-[9px] md:text-[10px] uppercase tracking-wider text-center text-white/80 leading-tight font-bold ${bengaliClass}`}>
+                            {/* Since Badge — floating bottom-left */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.5 }}
+                                className="absolute -bottom-6 -left-6 bg-[#021E14] text-white rounded-[1.5rem] p-5 shadow-2xl z-30 flex flex-col items-center justify-center w-28 h-28 border-4 border-[#fafafa] dark:border-[#050505]"
+                            >
+                                <span className={`text-[9px] uppercase tracking-wider text-white/60 leading-tight font-bold ${bengaliClass}`}>
                                     {language === 'bn' ? 'শুরু থেকে' : 'Since'}
                                 </span>
-                                <span className="text-2xl md:text-3xl font-bold leading-none mt-1" style={{ fontFamily: 'var(--font-poppins)' }}>2003</span>
-                            </div>
+                                <span className="text-2xl font-bold leading-none mt-1 text-[#D4AF37]" style={{ fontFamily: 'var(--font-poppins)' }}>2003</span>
+                            </motion.div>
 
-                            {/* Decorative elements */}
-                            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-[#D4AF37]/10 rounded-full blur-2xl"></div>
-                            <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#021E14]/5 rounded-full blur-3xl"></div>
+                            {/* Gold accent bar */}
+                            <div className="absolute -bottom-2 left-28 right-0 h-1 bg-gradient-to-r from-[#D4AF37] to-transparent rounded-full opacity-50" />
+
+                            {/* Subtle background glow */}
+                            <div className="absolute -top-8 -right-8 w-40 h-40 bg-[#D4AF37]/8 rounded-full blur-3xl pointer-events-none" />
+                            <div className="absolute -bottom-8 left-0 w-32 h-32 bg-[#021E14]/5 rounded-full blur-2xl pointer-events-none" />
                         </div>
                     </motion.div>
 
