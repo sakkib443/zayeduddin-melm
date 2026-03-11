@@ -2,25 +2,54 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
-import { FaFacebook, FaLinkedin, FaYoutube, FaWhatsapp } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaFacebook, FaLinkedin, FaYoutube, FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLocationOutline, IoMailOutline } from "react-icons/io5";
 import { LuSend, LuArrowUpRight, LuHeart } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import Logo from "./Logo";
+import { API_BASE_URL } from "@/config/api";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const { t, language } = useLanguage();
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
-  const socialLinks = [
-    { icon: FaFacebook, href: "https://web.facebook.com/zayeduddin.official/", color: "#1877F2", label: "Facebook" },
-    { icon: FaLinkedin, href: "https://www.linkedin.com/in/zayeduddin/", color: "#0A66C2", label: "LinkedIn" },
-    { icon: FaXTwitter, href: "#", color: "#000000", label: "X" },
-    { icon: FaYoutube, href: "#", color: "#FF0000", label: "YouTube" },
-  ];
+  const [socialLinks, setSocialLinks] = useState([]);
+
+  // Icon map for social platforms
+  const iconMap = {
+    facebook: { icon: FaFacebook, color: "#1877F2", label: "Facebook" },
+    linkedin: { icon: FaLinkedin, color: "#0A66C2", label: "LinkedIn" },
+    youtube: { icon: FaYoutube, color: "#FF0000", label: "YouTube" },
+    instagram: { icon: FaInstagram, color: "#E1306C", label: "Instagram" },
+    whatsapp: { icon: FaWhatsapp, color: "#25D366", label: "WhatsApp" },
+    twitter: { icon: FaXTwitter, color: "#000000", label: "X" },
+  };
+
+  useEffect(() => {
+    const fetchSocialLinks = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/design/contact`);
+        const data = await res.json();
+        if (data.success && data.data?.contactContent?.socialLinks) {
+          const sl = data.data.contactContent.socialLinks;
+          const links = Object.entries(sl)
+            .filter(([, href]) => href && href !== '#')
+            .map(([platform, href]) => ({
+              href,
+              ...(iconMap[platform] || { icon: FaFacebook, color: "#1877F2", label: platform })
+            }));
+          setSocialLinks(links);
+        }
+      } catch (err) {
+        console.error('Footer: failed to fetch social links', err);
+      }
+    };
+    fetchSocialLinks();
+  }, []);
+
 
   const digitalProducts = [
     { href: "/design-template", label: language === 'bn' ? 'গ্রাফিক ডিজাইন' : 'Graphic Design' },
