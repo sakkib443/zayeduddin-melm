@@ -41,6 +41,12 @@ const HeroDesignPage = () => {
             blur: 4,
             offsetX: 0,
             offsetY: 2
+        },
+        cardStyle: {
+            bgColor: '#021E14',
+            bgOpacity: 1,
+            titleColor: '#D4AF37',
+            descColor: '#FFFFFF'
         }
     });
 
@@ -469,6 +475,93 @@ const HeroDesignPage = () => {
                                 </div>
                             </div>
                         )}
+                    </div>
+
+                    {/* Service Cards Style */}
+                    <div className={`p-8 rounded-[2rem] ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-100 shadow-xl shadow-gray-200/50'}`}>
+                        <div className="flex items-center gap-4 mb-8">
+                            <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-900 rounded-2xl flex items-center justify-center shadow-lg">
+                                <LuLayers className="text-white" size={24} />
+                            </div>
+                            <div>
+                                <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Service Cards Style</h3>
+                                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Customize the 2 service cards below the hero text</p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* BG Color */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">Background Color</label>
+                                    <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.cardStyle?.bgColor || '#021E14'}</div>
+                                </div>
+                                <div className="flex gap-4 items-center">
+                                    <input type="color" value={heroContent.cardStyle?.bgColor || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, cardStyle: { ...prev.cardStyle, bgColor: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                    <input type="text" value={heroContent.cardStyle?.bgColor || '#021E14'} onChange={(e) => setHeroContent(prev => ({ ...prev, cardStyle: { ...prev.cardStyle, bgColor: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} />
+                                </div>
+                            </div>
+
+                            {/* BG Opacity */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">Background Opacity</label>
+                                    <span className="text-xs font-black">{Math.round((heroContent.cardStyle?.bgOpacity ?? 1) * 100)}%</span>
+                                </div>
+                                <input type="range" min="0" max="1" step="0.01" value={heroContent.cardStyle?.bgOpacity ?? 1} onChange={(e) => setHeroContent(prev => ({ ...prev, cardStyle: { ...prev.cardStyle, bgOpacity: parseFloat(e.target.value) } }))} className="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full appearance-none cursor-pointer accent-rose-500" />
+                                <div
+                                    className="w-full h-16 rounded-2xl flex items-center justify-center text-sm font-bold transition-all"
+                                    style={{
+                                        backgroundColor: (() => {
+                                            const hex = heroContent.cardStyle?.bgColor || '#021E14';
+                                            const op = heroContent.cardStyle?.bgOpacity ?? 1;
+                                            if (!hex.startsWith('#')) return hex;
+                                            const r = parseInt(hex.slice(1,3),16);
+                                            const g = parseInt(hex.slice(3,5),16);
+                                            const b = parseInt(hex.slice(5,7),16);
+                                            return `rgba(${r},${g},${b},${op})`;
+                                        })(),
+                                        color: heroContent.cardStyle?.titleColor || '#D4AF37'
+                                    }}
+                                >
+                                    Card Preview
+                                </div>
+                            </div>
+
+                            {/* Title Color */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">Title Color</label>
+                                    <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.cardStyle?.titleColor || '#D4AF37'}</div>
+                                </div>
+                                <div className="flex gap-4 items-center">
+                                    <input type="color" value={heroContent.cardStyle?.titleColor || '#D4AF37'} onChange={(e) => setHeroContent(prev => ({ ...prev, cardStyle: { ...prev.cardStyle, titleColor: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                    <input type="text" value={heroContent.cardStyle?.titleColor || '#D4AF37'} onChange={(e) => setHeroContent(prev => ({ ...prev, cardStyle: { ...prev.cardStyle, titleColor: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} />
+                                </div>
+                            </div>
+
+                            {/* Desc Color */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-xs font-black uppercase tracking-widest opacity-50">Description Color</label>
+                                    <div className="px-2 py-1 rounded-md bg-gray-100 dark:bg-slate-700 font-mono text-[10px] uppercase font-bold">{heroContent.cardStyle?.descColor || '#FFFFFF'}</div>
+                                </div>
+                                <div className="flex gap-4 items-center">
+                                    <input type="color" value={heroContent.cardStyle?.descColor || '#FFFFFF'} onChange={(e) => setHeroContent(prev => ({ ...prev, cardStyle: { ...prev.cardStyle, descColor: e.target.value } }))} className="w-14 h-14 rounded-2xl cursor-pointer border-4 border-white shadow-xl hover:scale-105 transition-transform appearance-none bg-transparent" />
+                                    <input type="text" value={heroContent.cardStyle?.descColor || '#FFFFFF'} onChange={(e) => setHeroContent(prev => ({ ...prev, cardStyle: { ...prev.cardStyle, descColor: e.target.value } }))} className={`flex-1 px-5 py-3.5 rounded-2xl border font-mono text-sm tracking-widest ${isDark ? 'bg-slate-700 border-slate-600 text-white' : 'bg-white border-gray-200 text-gray-900'}`} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 pt-6 border-t border-gray-100 dark:border-slate-700">
+                            <button
+                                onClick={() => setHeroContent(prev => ({ ...prev, cardStyle: { bgColor: '#021E14', bgOpacity: 1, titleColor: '#D4AF37', descColor: '#FFFFFF' } }))}
+                                className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold transition-all ${isDark ? 'bg-slate-700 text-gray-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                            >
+                                <LuRefreshCw size={16} />
+                                Reset Card Styles
+                            </button>
+                        </div>
                     </div>
 
                     {/* Floating Intelligence - Badge */}

@@ -144,34 +144,52 @@ const Hero = ({ data }) => {
 
                 {/* Service Cards */}
                 <div className="grid md:grid-cols-2 gap-8 mt-12 px-4 max-w-5xl mx-auto">
-                    {cards.map((card, index) => (
-                        <motion.div
-                            key={card.title}
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 + (index * 0.2) }}
-                        >
-                            <Link href={card.href} className="group block h-full">
-                                <div
-                                    className="h-full p-10 md:p-14 rounded-3xl shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-black/20 flex flex-col items-center justify-center text-center"
-                                    style={{ backgroundColor: colors.dark }}
-                                >
-                                    <h3
-                                        className="text-3xl md:text-4xl font-bold mb-4 transition-colors group-hover:text-white"
-                                        style={{ color: colors.gold, fontFamily: 'var(--font-poppins)' }}
+                    {cards.map((card, index) => {
+                        // Compute card background with opacity
+                        const cardBgColor = heroData?.cardStyle?.bgColor || colors.dark;
+                        const cardBgOpacity = heroData?.cardStyle?.bgOpacity ?? 1;
+                        // Convert hex + opacity to rgba
+                        const hexToRgba = (hex, opacity) => {
+                            const r = parseInt(hex.slice(1, 3), 16);
+                            const g = parseInt(hex.slice(3, 5), 16);
+                            const b = parseInt(hex.slice(5, 7), 16);
+                            return `rgba(${r},${g},${b},${opacity})`;
+                        };
+                        const cardBg = cardBgColor.startsWith('#')
+                            ? hexToRgba(cardBgColor, cardBgOpacity)
+                            : cardBgColor;
+                        const cardTitleColor = heroData?.cardStyle?.titleColor || colors.gold;
+                        const cardDescColor = heroData?.cardStyle?.descColor || colors.white;
+
+                        return (
+                            <motion.div
+                                key={card.title}
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 + (index * 0.2) }}
+                            >
+                                <Link href={card.href} className="group block h-full">
+                                    <div
+                                        className="h-full p-10 md:p-14 rounded-3xl shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-black/20 flex flex-col items-center justify-center text-center"
+                                        style={{ backgroundColor: cardBg }}
                                     >
-                                        {card.title}
-                                    </h3>
-                                    <p
-                                        className="text-xs md:text-sm opacity-70 leading-relaxed font-light"
-                                        style={{ color: colors.white }}
-                                    >
-                                        {card.description}
-                                    </p>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    ))}
+                                        <h3
+                                            className="text-3xl md:text-4xl font-bold mb-4 transition-colors"
+                                            style={{ color: cardTitleColor, fontFamily: 'var(--font-poppins)' }}
+                                        >
+                                            {card.title}
+                                        </h3>
+                                        <p
+                                            className="text-xs md:text-sm opacity-70 leading-relaxed font-light"
+                                            style={{ color: cardDescColor }}
+                                        >
+                                            {card.description}
+                                        </p>
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
 
