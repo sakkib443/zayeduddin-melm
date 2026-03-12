@@ -10,7 +10,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import { API_BASE_URL } from "@/config/api";
 import Logo from "@/components/sheard/Logo";
 
-import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const router = useRouter();
@@ -79,14 +80,14 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
+  const handleGoogleSuccess = async (tokenResponse) => {
     setLoading(true);
     setError("");
     try {
       const res = await fetch(`${API_BASE_URL}/auth/google-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idToken: credentialResponse.credential }),
+        body: JSON.stringify({ accessToken: tokenResponse.access_token }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Google Login failed");
@@ -97,6 +98,11 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: handleGoogleSuccess,
+    onError: () => setError("Google Login Failed"),
+  });
 
   const features = [
     { icon: FiShield, text: language === "bn" ? "নিরাপদ লগইন" : "Secure Login" },
@@ -282,18 +288,15 @@ const Login = () => {
 
                 {/* Google Login Button */}
                 <div className="flex justify-center">
-                  <div className="w-full">
-                    <GoogleLogin
-                      onSuccess={handleGoogleSuccess}
-                      onError={() => setError("Google Login Failed")}
-                      useOneTap
-                      theme="outline"
-                      size="large"
-                      width="100%"
-                      shape="pill"
-                      text="continue_with"
-                    />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => googleLogin()}
+                    disabled={loading}
+                    className={`w-full py-3.5 rounded-full font-semibold shadow-lg transition text-base flex items-center justify-center gap-3 bg-gradient-to-r from-[#021E14] to-[#38a89d] text-white hover:shadow-xl hover:-translate-y-0.5 ${bengaliClass}`}
+                  >
+                    <FcGoogle size={22} className="bg-white rounded-full p-0.5" />
+                    {language === "bn" ? "Google দিয়ে লগইন করুন" : "Continue with Google"}
+                  </button>
                 </div>
 
                 {/* Help Text */}
