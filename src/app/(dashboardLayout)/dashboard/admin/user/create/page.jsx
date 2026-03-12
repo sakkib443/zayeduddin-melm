@@ -293,7 +293,7 @@ export default function CreateUserPage() {
                                 className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:border-[#021E14] outline-none transition-all appearance-none"
                             >
                                 <option value="student">Student</option>
-                                <option value="mentor">Mentor</option>
+                                <option value="instructor">Instructor</option>
                                 <option value="admin">Admin</option>
                             </select>
                         </div>

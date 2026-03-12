@@ -62,7 +62,7 @@ export default function CreateBatchPage() {
     const fetchInstructors = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${API_URL}/users?role=mentor&limit=100`, {
+            const res = await fetch(`${API_URL}/users?role=instructor&limit=100`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await res.json();

@@ -79,7 +79,7 @@ const UserManagement = () => {
   const getRoleBadge = (role) => {
     switch (role) {
       case 'admin': return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400';
-      case 'mentor': return 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400';
+      case 'instructor': return 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400';
       case 'student': return 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400';
       default: return 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300';
     }

@@ -161,60 +161,48 @@ export default function MentorDashboard() {
         fetchDashboardData();
     }, []);
 
-    // Stats cards data
+    // Stats cards data - Course related only
     const mainStats = [
         {
-            title: 'Total Likes',
-            value: dashboardData.totalLikes || 0,
-            subtitle: 'Across all products',
-            change: '+15.2%',
+            title: 'Total Courses',
+            value: dashboardData.totalCourses || 0,
+            subtitle: `${dashboardData.publishedCourses || 0} published`,
+            change: '+12.5%',
             changeType: 'up',
-            icon: FiHeart,
+            icon: FiBook,
             gradient: 'from-[#021E14] to-[#01140D]',
         },
         {
-            title: 'Today Revenue',
-            value: dashboardData.todayRevenue,
-            subtitle: "Today's earnings",
-            change: '+8.5%',
-            changeType: 'up',
-            icon: FiDollarSign,
-            gradient: 'from-[#021E14] to-[#01140D]',
-        },
-        {
-            title: 'This Month Revenue',
-            value: dashboardData.monthlyRevenue,
-            subtitle: 'Monthly earnings',
-            change: '+18.2%',
-            changeType: 'up',
-            icon: FiTrendingUp,
+            title: 'Total Modules',
+            value: dashboardData.totalModules || 0,
+            subtitle: 'Across all courses',
+            icon: FiLayers,
             gradient: 'from-[#D4AF37] to-[#01140D]',
         },
         {
-            title: 'Total Orders',
-            value: dashboardData.totalOrders,
-            subtitle: `${dashboardData.completedOrders || 0} completed`,
-            change: '+24.5%',
+            title: 'Total Lessons',
+            value: dashboardData.totalLessons || 0,
+            subtitle: 'Video & text lessons',
+            icon: FiPlay,
+            gradient: 'from-cyan-500 to-[#01140D]',
+        },
+        {
+            title: 'Total Enrollments',
+            value: dashboardData.totalEnrollments || 0,
+            subtitle: `${dashboardData.activeEnrollments || 0} active`,
+            change: '+18.2%',
             changeType: 'up',
-            icon: FiPackage,
+            icon: FiUsers,
             gradient: 'from-[#021E14] to-[#01140D]',
         },
     ];
 
-    // Product stats for cards - Updated to mentor links
-    const productStats = [
-        { title: 'All Courses', value: dashboardData.totalCourses, icon: FiBook, gradient: 'from-[#021E14] to-[#01140D]', href: '/dashboard/instructor/course' },
-        { title: 'All Softwares', value: dashboardData.totalSoftware, icon: FiCode, gradient: 'from-cyan-500 to-[#01140D]', href: '/dashboard/instructor/software' },
-        { title: 'All Websites', value: dashboardData.totalWebsites, icon: FiGlobe, gradient: 'from-[#021E14] to-[#01140D]', href: '/dashboard/instructor/website' },
-        { title: 'All Categories', value: dashboardData.categories, icon: FiLayers, gradient: 'from-[#D4AF37] to-[#01140D]', href: '/dashboard/instructor/category' },
-    ];
-
-    // Quick actions - Updated to mentor links
+    // Quick actions - Course related only
     const quickActions = [
         { title: 'Add Course', href: '/dashboard/instructor/course/create', icon: FiBook, gradient: 'from-[#D4AF37] to-[#01140D]' },
-        { title: 'Add Website', href: '/dashboard/instructor/website/create', icon: FiGlobe, gradient: 'from-[#021E14] to-[#01140D]' },
-        { title: 'Add Software', href: '/dashboard/instructor/software/create', icon: FiCode, gradient: 'from-cyan-500 to-[#01140D]' },
-        { title: 'Add Category', href: '/dashboard/instructor/category/create', icon: FiLayers, gradient: 'from-[#021E14] to-[#01140D]' },
+        { title: 'Add Module', href: '/dashboard/instructor/module/create', icon: FiLayers, gradient: 'from-[#021E14] to-[#01140D]' },
+        { title: 'Add Lesson', href: '/dashboard/instructor/lesson/create', icon: FiPlay, gradient: 'from-cyan-500 to-[#01140D]' },
+        { title: 'All Courses', href: '/dashboard/instructor/course', icon: FiGrid, gradient: 'from-[#021E14] to-[#01140D]' },
     ];
 
     return (
@@ -230,9 +218,9 @@ export default function MentorDashboard() {
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
-                            <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Mentor Dashboard</h1>
+                            <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Instructor Dashboard</h1>
                             <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#D4AF37] to-[#01140D] text-white rounded-full">
-                                Mentor
+                                Instructor
                             </span>
                         </div>
                         <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -262,120 +250,40 @@ export default function MentorDashboard() {
                 ))}
             </div>
 
-            {/* ==================== PRODUCT STATS ==================== */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {productStats.map((stat) => {
-                    const Icon = stat.icon;
-                    return (
-                        <Link
-                            key={stat.title}
-                            href={stat.href}
-                            className={`group rounded-2xl border p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden relative ${isDark
-                                ? 'bg-slate-800 border-slate-700'
-                                : 'bg-white/80 backdrop-blur-sm border-slate-200/60'
-                                }`}
-                        >
-                            <div className={`absolute -right-4 -top-4 w-20 h-20 bg-gradient-to-br ${stat.gradient} opacity-10 rounded-full blur-xl`} />
-                            <div className="relative flex items-center gap-4">
-                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                                    <Icon className="text-xl text-white" />
-                                </div>
-                                <div>
-                                    <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                        {loading ? '...' : stat.value.toLocaleString()}
-                                    </p>
-                                    <p className="text-xs text-slate-500 font-medium">{stat.title}</p>
-                                </div>
-                            </div>
-                        </Link>
-                    );
-                })}
-            </div>
-
-            {/* ==================== QUICK ACTIONS & LIVE STATS ==================== */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Quick Actions */}
-                <div className={`p-6 rounded-2xl border transition-all hover:shadow-lg ${isDark
-                    ? 'bg-slate-800 border-slate-700'
-                    : 'bg-white border-slate-200 shadow-sm'
-                    }`}>
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-14 h-14 bg-[#D4AF37]/10 text-amber-600 rounded-2xl flex items-center justify-center">
-                            <FiZap size={28} />
-                        </div>
-                        <div>
-                            <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Quick Actions</h2>
-                            <p className="text-sm text-slate-500">Create new content</p>
-                        </div>
+            {/* ==================== QUICK ACTIONS ==================== */}
+            <div className={`p-6 rounded-2xl border transition-all hover:shadow-lg ${isDark
+                ? 'bg-slate-800 border-slate-700'
+                : 'bg-white border-slate-200 shadow-sm'
+                }`}>
+                <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-[#D4AF37]/10 text-amber-600 rounded-2xl flex items-center justify-center">
+                        <FiZap size={28} />
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
-                        {quickActions.map((action) => {
-                            const Icon = action.icon;
-                            return (
-                                <Link
-                                    key={action.title}
-                                    href={action.href}
-                                    className={`group relative flex flex-col items-center gap-3 p-4 rounded-xl border hover:border-transparent hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden ${isDark
-                                        ? 'border-slate-700 hover:bg-slate-700/50'
-                                        : 'border-slate-200'
-                                        }`}
-                                >
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${action.gradient} opacity-0 group-hover:opacity-5 transition-opacity`} />
-                                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${action.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all`}>
-                                        <Icon className="text-xl text-white" />
-                                    </div>
-                                    <span className={`text-xs font-semibold text-center ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{action.title}</span>
-                                </Link>
-                            );
-                        })}
+                    <div>
+                        <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Quick Actions</h2>
+                        <p className="text-sm text-slate-500">Create new course content</p>
                     </div>
                 </div>
-
-                {/* Live Stats */}
-                <div className={`p-6 rounded-2xl border transition-all hover:shadow-lg ${isDark
-                    ? 'bg-slate-800 border-slate-700'
-                    : 'bg-white border-slate-200 shadow-sm'
-                    }`}>
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-14 h-14 bg-[#021E14]/10 text-[#021E14] rounded-2xl flex items-center justify-center">
-                            <FiActivity size={28} />
-                        </div>
-                        <div>
-                            <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Live Statistics</h2>
-                            <p className="text-sm text-slate-500">Real-time platform data</p>
-                        </div>
-                    </div>
-
-                    <div className="space-y-3">
-                        <div className={`flex justify-between items-center p-3 rounded-xl border ${isDark
-                            ? 'bg-slate-900/50 border-slate-700'
-                            : 'bg-slate-50 border-slate-100'
-                            }`}>
-                            <span className="text-sm text-slate-500">Today's Revenue</span>
-                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>?{dashboardData.todayRevenue.toLocaleString()}</span>
-                        </div>
-                        <div className={`flex justify-between items-center p-3 rounded-xl border ${isDark
-                            ? 'bg-slate-900/50 border-slate-700'
-                            : 'bg-slate-50 border-slate-100'
-                            }`}>
-                            <span className="text-sm text-slate-500">This Month</span>
-                            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>?{dashboardData.monthlyRevenue.toLocaleString()}</span>
-                        </div>
-                        <div className={`flex justify-between items-center p-3 rounded-xl border ${isDark
-                            ? 'bg-slate-900/50 border-slate-700'
-                            : 'bg-slate-50 border-slate-100'
-                            }`}>
-                            <span className="text-sm text-slate-500">Active Enrollments</span>
-                            <span className="text-lg font-bold text-[#021E14]">{dashboardData.activeEnrollments}</span>
-                        </div>
-                        <div className={`flex justify-between items-center p-3 rounded-xl border ${isDark
-                            ? 'bg-slate-900/50 border-slate-700'
-                            : 'bg-slate-50 border-slate-100'
-                            }`}>
-                            <span className="text-sm text-slate-500">Total Enrollments</span>
-                            <span className="text-lg font-bold text-[#021E14]">{dashboardData.totalEnrollments}</span>
-                        </div>
-                    </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {quickActions.map((action) => {
+                        const Icon = action.icon;
+                        return (
+                            <Link
+                                key={action.title}
+                                href={action.href}
+                                className={`group relative flex flex-col items-center gap-3 p-4 rounded-xl border hover:border-transparent hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden ${isDark
+                                    ? 'border-slate-700 hover:bg-slate-700/50'
+                                    : 'border-slate-200'
+                                    }`}
+                            >
+                                <div className={`absolute inset-0 bg-gradient-to-br ${action.gradient} opacity-0 group-hover:opacity-5 transition-opacity`} />
+                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${action.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all`}>
+                                    <Icon className="text-xl text-white" />
+                                </div>
+                                <span className={`text-xs font-semibold text-center ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{action.title}</span>
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
 
@@ -390,12 +298,12 @@ export default function MentorDashboard() {
                     </div>
                     <div>
                         <h3 className={`text-lg font-bold mb-2 ${isDark ? 'text-[#D4AF37]' : 'text-amber-800'}`}>
-                            Mentor Access Notice
+                            Instructor Access Notice
                         </h3>
                         <p className={`text-sm ${isDark ? 'text-amber-300/80' : 'text-amber-700'}`}>
-                            As a Mentor, you can create and update courses, websites, software, and categories.
-                            However, you cannot delete any content or access analytics/reports.
-                            For delete operations or advanced analytics, please contact an Administrator.
+                            As an Instructor, you can create and edit courses, modules, and lessons.
+                            You do not have access to revenue, orders, marketplace, or design templates.
+                            For advanced operations, please contact an Administrator.
                         </p>
                     </div>
                 </div>

@@ -70,7 +70,7 @@ const InstructorSidebar = () => {
 
     const isMenuOpen = (menu) => openMenus.includes(menu);
 
-    // Instructor Menu Items - Similar to Admin but NO Analytics, NO Reports, NO Delete options
+    // Instructor Menu Items - Only Course/Module/Lesson related
     const menuItems = [
         {
             title: 'Dashboard',
@@ -78,7 +78,6 @@ const InstructorSidebar = () => {
             icon: FiHome,
             gradient: 'from-[#021E14] to-[#01140D]'
         },
-        // NO Analytics - Removed for Instructor
         {
             title: 'LMS',
             icon: FiBook,
@@ -93,59 +92,11 @@ const InstructorSidebar = () => {
             ],
         },
         {
-            title: 'Marketplace',
-            icon: FiGlobe,
-            gradient: 'from-[#021E14] to-[#01140D]',
-            submenu: [
-                { title: 'All Websites', href: '/dashboard/instructor/website', icon: FiGlobe },
-                { title: 'Create Website', href: '/dashboard/instructor/website/create', icon: FiFileText },
-                { title: 'All Software', href: '/dashboard/instructor/software', icon: FiCode },
-                { title: 'Create Software', href: '/dashboard/instructor/software/create', icon: FiFileText },
-            ],
-        },
-        {
-            title: 'Categories',
-            icon: FiLayers,
-            gradient: 'from-[#021E14] to-[#01140D]',
-            submenu: [
-                { title: 'All Categories', href: '/dashboard/instructor/category', icon: FiLayers },
-                { title: 'Create Category', href: '/dashboard/instructor/category/create', icon: FiFileText },
-            ],
-        },
-        {
-            title: 'Orders',
-            href: '/dashboard/instructor/orders',
-            icon: FiShoppingBag,
-            gradient: 'from-green-500 to-[#021E14]'
-        },
-        {
-            title: 'Coupons',
-            href: '/dashboard/instructor/coupons',
-            icon: FiTag,
-            gradient: 'from-[#D4AF37] to-[#01140D]'
-        },
-        {
-            title: 'Resource Library',
-            icon: FiEdit3,
-            gradient: 'from-[#021E14] to-cyan-500',
-            submenu: [
-                { title: 'My Resources', href: '/dashboard/instructor/blog', icon: FiEdit3 },
-                { title: 'Write Resource', href: '/dashboard/instructor/blog/create', icon: FiFileText },
-            ],
-        },
-        {
-            title: 'Like & Rating',
-            href: '/dashboard/instructor/favorites-ratings',
-            icon: FiStar,
-            gradient: 'from-[#021E14] to-[#01140D]'
-        },
-        {
             title: 'My Profile',
             href: '/dashboard/instructor/profile',
             icon: FiUser,
             gradient: 'from-slate-500 to-slate-700'
         },
-        // NO Reports, NO Design, NO Settings - Removed for Instructor
     ];
 
     return (

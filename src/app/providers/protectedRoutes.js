@@ -84,7 +84,7 @@ const ProtectedRoute = ({ children, role, allowedRoles = [] }) => {
       if (normalizedRequiredRoles.length > 0 && !normalizedRequiredRoles.includes(normalizedUserRole)) {
         // Redirect to user's own dashboard
         switch (userRole) {
-          case "mentor":
+          case "instructor":
             router.replace("/dashboard/instructor");
             break;
           case "user":
