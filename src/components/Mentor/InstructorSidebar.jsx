@@ -70,7 +70,7 @@ const InstructorSidebar = () => {
 
     const isMenuOpen = (menu) => openMenus.includes(menu);
 
-    // Instructor Menu Items - Only Course/Module/Lesson related
+    // Instructor Menu Items - Course, Batch & Live Class related
     const menuItems = [
         {
             title: 'Dashboard',
@@ -89,6 +89,17 @@ const InstructorSidebar = () => {
                 { title: 'Create Module', href: '/dashboard/instructor/module/create', icon: FiFileText },
                 { title: 'All Lessons', href: '/dashboard/instructor/lesson', icon: FiPlay },
                 { title: 'Create Lesson', href: '/dashboard/instructor/lesson/create', icon: FiFileText },
+            ],
+        },
+        {
+            title: 'Batch Management',
+            icon: FiUsers,
+            gradient: 'from-[#021E14] to-[#01140D]',
+            submenu: [
+                { title: 'All Batches', href: '/dashboard/instructor/batch', icon: FiUsers },
+                { title: 'Create Batch', href: '/dashboard/instructor/batch/create', icon: FiFileText },
+                { title: 'Live Classes', href: '/dashboard/instructor/live-class', icon: FiPlay },
+                { title: 'Schedule Class', href: '/dashboard/instructor/live-class/create', icon: FiFileText },
             ],
         },
         {

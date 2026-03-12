@@ -197,12 +197,14 @@ export default function MentorDashboard() {
         },
     ];
 
-    // Quick actions - Course related only
+    // Quick actions - Course & Batch related
     const quickActions = [
         { title: 'Add Course', href: '/dashboard/instructor/course/create', icon: FiBook, gradient: 'from-[#D4AF37] to-[#01140D]' },
         { title: 'Add Module', href: '/dashboard/instructor/module/create', icon: FiLayers, gradient: 'from-[#021E14] to-[#01140D]' },
         { title: 'Add Lesson', href: '/dashboard/instructor/lesson/create', icon: FiPlay, gradient: 'from-cyan-500 to-[#01140D]' },
-        { title: 'All Courses', href: '/dashboard/instructor/course', icon: FiGrid, gradient: 'from-[#021E14] to-[#01140D]' },
+        { title: 'Create Batch', href: '/dashboard/instructor/batch/create', icon: FiGrid, gradient: 'from-[#021E14] to-[#01140D]' },
+        { title: 'Schedule Class', href: '/dashboard/instructor/live-class/create', icon: FiPlay, gradient: 'from-[#D4AF37] to-[#01140D]' },
+        { title: 'All Courses', href: '/dashboard/instructor/course', icon: FiGrid, gradient: 'from-slate-500 to-slate-700' },
     ];
 
     return (
