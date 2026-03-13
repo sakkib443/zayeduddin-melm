@@ -52,7 +52,7 @@ const Register = () => {
         case "admin":
           router.push("/dashboard/admin");
           break;
-        case "mentor":
+        case "instructor":
           router.push("/dashboard/instructor");
           break;
         case "student":
