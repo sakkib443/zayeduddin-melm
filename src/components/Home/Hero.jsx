@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -12,11 +12,14 @@ const Hero = ({ data }) => {
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
     const [heroData, setHeroData] = useState(data || null);
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [isApiLoading, setIsApiLoading] = useState(!data);
 
     // Fetch hero design data from API if no data prop is provided
     useEffect(() => {
         if (data) {
             setHeroData(data);
+            setIsApiLoading(false);
             return;
         }
 
@@ -29,10 +32,23 @@ const Hero = ({ data }) => {
                 }
             } catch (error) {
                 console.error('Error fetching hero data:', error);
+            } finally {
+                setIsApiLoading(false);
             }
         };
         fetchHero();
     }, [data]);
+
+    // Reset imageLoaded when background image URL changes
+    const backgroundImage = heroData?.backgroundImage || "/images/zayed uddin.png";
+    
+    useEffect(() => {
+        setImageLoaded(false);
+    }, [backgroundImage]);
+
+    const handleImageLoad = useCallback(() => {
+        setImageLoaded(true);
+    }, []);
 
     const colors = {
         bg: "#fafafa",
@@ -67,9 +83,6 @@ const Hero = ({ data }) => {
         },
     ];
 
-    // Determine background image: API data > fallback
-    const backgroundImage = heroData?.backgroundImage || "/images/zayed uddin.png";
-
     // Dynamic text from API (with fallback to translation keys)
     const heroName = heroData?.heading
         ? (language === 'bn' ? heroData.heading.line1Bn : heroData.heading.line1) || t("hero.name")
@@ -88,20 +101,37 @@ const Hero = ({ data }) => {
 
             {/* Background Image - Dynamic Effects (Centered Full Cover) */}
             <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+                {/* Loading Skeleton - shows while image is loading */}
+                {!imageLoaded && (
+                    <div 
+                        className="absolute inset-0 z-0"
+                        style={{
+                            background: `linear-gradient(135deg, ${colors.bg} 0%, #e8e8e8 50%, ${colors.bg} 100%)`,
+                            backgroundSize: '200% 200%',
+                            animation: 'shimmer 1.5s ease-in-out infinite',
+                        }}
+                    />
+                )}
+
                 <div
                     className="relative w-full h-full"
                     style={{
                         filter: `blur(${heroData?.backgroundBlur || 0}px) grayscale(${heroData?.backgroundGrayscale ? 1 : 0})`,
+                        opacity: imageLoaded ? 1 : 0,
+                        transition: 'opacity 0.5s ease-in-out',
                     }}
                 >
-                    <Image
-                        src={backgroundImage}
-                        alt="Background"
-                        fill
-                        className="object-cover object-center"
-                        priority
-                        unoptimized={backgroundImage.startsWith('http')}
-                    />
+                    {!isApiLoading && (
+                        <Image
+                            src={backgroundImage}
+                            alt="Background"
+                            fill
+                            className="object-cover object-center"
+                            priority
+                            unoptimized={backgroundImage.startsWith('http')}
+                            onLoad={handleImageLoad}
+                        />
+                    )}
                 </div>
 
                 {/* Dynamic Overlay Color Mask (Only visible if opacity > 0) */}
@@ -193,8 +223,12 @@ const Hero = ({ data }) => {
                 </div>
             </div>
 
-            {/* Custom Font Import */}
+            {/* Shimmer animation + transitions */}
             <style jsx global>{`
+                @keyframes shimmer {
+                    0% { background-position: -200% 0; }
+                    100% { background-position: 200% 0; }
+                }
             `}</style>
         </section>
     );

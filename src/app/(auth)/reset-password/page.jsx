@@ -72,7 +72,8 @@ const ResetPasswordContent = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     token,
-                    password: formData.password
+                    password: formData.password,
+                    confirmPassword: formData.confirmPassword
                 }),
             });
 
