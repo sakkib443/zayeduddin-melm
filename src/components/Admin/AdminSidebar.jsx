@@ -146,12 +146,12 @@ const AdminSidebar = () => {
       ],
     },
     {
-      title: 'Users',
+      title: 'My Client',
       icon: FiUsers,
       gradient: 'from-[#021E14] to-cyan-500',
       submenu: [
-        { title: 'All Users', href: '/dashboard/admin/user', icon: FiUsers },
-        { title: 'Create User', href: '/dashboard/admin/user/create', icon: FiFileText },
+        { title: 'All Client', href: '/dashboard/admin/user', icon: FiUsers },
+        { title: 'Create Client', href: '/dashboard/admin/user/create', icon: FiFileText },
       ],
     },
 

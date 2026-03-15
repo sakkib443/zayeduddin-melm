@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     FiUser, FiMail, FiPhone, FiMapPin, FiEdit3, FiSave, FiCamera,
     FiShield, FiLock, FiAward, FiBook, FiStar, FiUsers, FiCheckCircle, FiX,
-    FiClock, FiTrendingUp, FiLayers, FiPlay
+    FiClock, FiTrendingUp, FiLayers, FiPlay, FiLoader, FiUpload
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { API_URL } from '@/config/api';
 import toast from 'react-hot-toast';
 
 export default function MentorProfilePage() {
@@ -14,6 +15,9 @@ export default function MentorProfilePage() {
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [fetchingProfile, setFetchingProfile] = useState(true);
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const fileInputRef = useRef(null);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -24,22 +28,55 @@ export default function MentorProfilePage() {
     });
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            try {
-                const userData = JSON.parse(storedUser);
+        fetchProfile();
+    }, []);
+
+    const fetchProfile = async () => {
+        try {
+            setFetchingProfile(true);
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            const res = await fetch(`${API_URL}/users/me`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await res.json();
+            if (data.success && data.data) {
+                const userData = data.data;
                 setUser(userData);
+                localStorage.setItem('user', JSON.stringify(userData));
                 setFormData({
                     firstName: userData.firstName || '',
                     lastName: userData.lastName || '',
                     email: userData.email || '',
-                    phoneNumber: userData.phoneNumber || '',
+                    phoneNumber: userData.phoneNumber || userData.phone || '',
                     address: userData.address || '',
                     bio: userData.bio || '',
                 });
-            } catch (e) { }
+            } else {
+                loadFromStorage();
+            }
+        } catch (error) {
+            loadFromStorage();
+        } finally {
+            setFetchingProfile(false);
         }
-    }, []);
+    };
+
+    const loadFromStorage = () => {
+        const stored = localStorage.getItem('user');
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            setUser(parsed);
+            setFormData({
+                firstName: parsed.firstName || '',
+                lastName: parsed.lastName || '',
+                email: parsed.email || '',
+                phoneNumber: parsed.phoneNumber || parsed.phone || '',
+                address: parsed.address || '',
+                bio: parsed.bio || '',
+            });
+        }
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,14 +84,79 @@ export default function MentorProfilePage() {
 
     const handleSave = async () => {
         setLoading(true);
-        setTimeout(() => {
-            const updatedUser = { ...user, ...formData };
-            localStorage.setItem('user', JSON.stringify(updatedUser));
-            setUser(updatedUser);
-            toast.success('Profile updated successfully!');
-            setIsEditing(false);
+        try {
+            const token = localStorage.getItem('token');
+            const payload = {};
+            if (formData.firstName) payload.firstName = formData.firstName;
+            if (formData.lastName) payload.lastName = formData.lastName;
+            if (formData.phoneNumber) payload.phoneNumber = formData.phoneNumber;
+            if (formData.address !== undefined) payload.address = formData.address;
+
+            const res = await fetch(`${API_URL}/users/me`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setUser(data.data);
+                localStorage.setItem('user', JSON.stringify(data.data));
+                toast.success('Profile updated successfully!');
+                setIsEditing(false);
+            } else {
+                toast.error(data.message || 'Failed to update profile');
+            }
+        } catch (error) {
+            toast.error('Something went wrong');
+        } finally {
             setLoading(false);
-        }, 1000);
+        }
+    };
+
+    const handleAvatarClick = () => fileInputRef.current?.click();
+
+    const handleAvatarUpload = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) { toast.error('Please select an image file'); return; }
+        if (file.size > 5 * 1024 * 1024) { toast.error('Image must be less than 5MB'); return; }
+
+        setUploadingAvatar(true);
+        try {
+            const token = localStorage.getItem('token');
+            const fd = new FormData();
+            fd.append('avatar', file);
+
+            const uploadRes = await fetch(`${API_URL}/upload/avatar`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` },
+                body: fd,
+            });
+            const uploadData = await uploadRes.json();
+            if (!uploadData.success) { toast.error(uploadData.message || 'Upload failed'); return; }
+
+            const updateRes = await fetch(`${API_URL}/users/me`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ avatar: uploadData.data.url }),
+            });
+            const updateData = await updateRes.json();
+            if (updateData.success) {
+                setUser(updateData.data);
+                localStorage.setItem('user', JSON.stringify(updateData.data));
+                toast.success('Profile photo updated!');
+            } else {
+                toast.error('Failed to save avatar');
+            }
+        } catch (error) {
+            toast.error('Failed to upload photo');
+        } finally {
+            setUploadingAvatar(false);
+            if (fileInputRef.current) fileInputRef.current.value = '';
+        }
     };
 
     const inputClass = `w-full px-4 py-3.5 rounded-2xl border-2 outline-none transition-all text-sm font-medium ${isDark
@@ -64,15 +166,22 @@ export default function MentorProfilePage() {
 
     const labelClass = `block text-xs font-bold uppercase tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`;
 
+    if (fetchingProfile) {
+        return (
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <FiLoader className="animate-spin text-[#021E14]" size={24} />
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen">
+            <input type="file" ref={fileInputRef} onChange={handleAvatarUpload} accept="image/*" className="hidden" />
+
             {/* Hero Section - Mentor Themed */}
             <div className="relative overflow-hidden">
-                {/* Background Gradient - Brand Colors for Mentor */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#021E14] via-[#e88a43] to-[#021E14]" />
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-
-                {/* Decorative Blobs */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#021E14]/20 rounded-full blur-3xl" />
 
@@ -83,19 +192,23 @@ export default function MentorProfilePage() {
                             <div className="relative group">
                                 <div className="absolute inset-0 bg-gradient-to-br from-white to-[#021E14] rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
                                 <div className="relative w-36 h-36 rounded-3xl bg-gradient-to-br from-white/20 to-white/5 p-1 backdrop-blur-xl border border-white/20">
-                                    <div className="w-full h-full rounded-[20px] bg-white/10 backdrop-blur-xl flex items-center justify-center">
-                                        <span className="text-5xl font-black text-white">
-                                            {user?.firstName?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || 'M'}
-                                        </span>
+                                    <div className="w-full h-full rounded-[20px] overflow-hidden bg-white/10 backdrop-blur-xl flex items-center justify-center">
+                                        {user?.avatar ? (
+                                            <img src={user.avatar} alt={user.firstName} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <span className="text-5xl font-black text-white">
+                                                {user?.firstName?.charAt(0)?.toUpperCase() || 'M'}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() => toast.info('Avatar upload coming soon!')}
-                                    className="absolute -bottom-2 -right-2 w-12 h-12 rounded-2xl bg-white text-[#021E14] flex items-center justify-center shadow-xl hover:scale-110 transition-transform border-4 border-[#021E14]"
+                                    onClick={handleAvatarClick}
+                                    disabled={uploadingAvatar}
+                                    className="absolute -bottom-2 -right-2 w-12 h-12 rounded-2xl bg-white text-[#021E14] flex items-center justify-center shadow-xl hover:scale-110 transition-transform border-4 border-[#021E14] disabled:opacity-50"
                                 >
-                                    <FiCamera size={20} />
+                                    {uploadingAvatar ? <FiLoader className="animate-spin" size={20} /> : <FiCamera size={20} />}
                                 </button>
-                                {/* Mentor Badge */}
                                 <div className="absolute -top-3 -right-3 px-3 py-1.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-lg border-2 border-white">
                                     Mentor
                                 </div>
@@ -208,7 +321,6 @@ export default function MentorProfilePage() {
 
                     {/* Right Column - Profile Form */}
                     <div className={`lg:col-span-2 rounded-3xl ${isDark ? 'bg-slate-800/50 border border-slate-700/50' : 'bg-white border border-slate-200 shadow-xl'}`}>
-                        {/* Form Header */}
                         <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 border-b ${isDark ? 'border-slate-700/50' : 'border-slate-100'}`}>
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white">
@@ -230,7 +342,17 @@ export default function MentorProfilePage() {
                             ) : (
                                 <div className="flex gap-2">
                                     <button
-                                        onClick={() => setIsEditing(false)}
+                                        onClick={() => {
+                                            setIsEditing(false);
+                                            setFormData({
+                                                firstName: user?.firstName || '',
+                                                lastName: user?.lastName || '',
+                                                email: user?.email || '',
+                                                phoneNumber: user?.phoneNumber || user?.phone || '',
+                                                address: user?.address || '',
+                                                bio: user?.bio || '',
+                                            });
+                                        }}
                                         className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-slate-100 text-slate-600'}`}
                                     >
                                         Cancel
@@ -247,42 +369,20 @@ export default function MentorProfilePage() {
                             )}
                         </div>
 
-                        {/* Form Body */}
                         <div className="p-6">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label className={labelClass}>First Name</label>
-                                    <input
-                                        type="text"
-                                        name="firstName"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                        placeholder="Enter first name"
-                                        className={inputClass}
-                                    />
+                                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} disabled={!isEditing} placeholder="Enter first name" className={inputClass} />
                                 </div>
                                 <div>
                                     <label className={labelClass}>Last Name</label>
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                        placeholder="Enter last name"
-                                        className={inputClass}
-                                    />
+                                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} disabled={!isEditing} placeholder="Enter last name" className={inputClass} />
                                 </div>
                                 <div>
                                     <label className={labelClass}>Email Address</label>
                                     <div className="relative">
-                                        <input
-                                            type="email"
-                                            value={formData.email}
-                                            disabled
-                                            className={`${inputClass} pr-20`}
-                                        />
+                                        <input type="email" value={formData.email} disabled className={`${inputClass} pr-20`} />
                                         <span className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-[#021E14]/20 text-[#021E14] text-[10px] font-bold rounded-md uppercase">
                                             Mentor
                                         </span>
@@ -290,39 +390,15 @@ export default function MentorProfilePage() {
                                 </div>
                                 <div>
                                     <label className={labelClass}>Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        name="phoneNumber"
-                                        value={formData.phoneNumber}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                        placeholder="+880 1XXX XXXXXX"
-                                        className={inputClass}
-                                    />
+                                    <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} disabled={!isEditing} placeholder="+880 1XXX XXXXXX" className={inputClass} />
                                 </div>
                                 <div className="md:col-span-2">
                                     <label className={labelClass}>Bio / About</label>
-                                    <textarea
-                                        name="bio"
-                                        value={formData.bio}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                        placeholder="Tell students about yourself..."
-                                        rows={3}
-                                        className={`${inputClass} resize-none`}
-                                    />
+                                    <textarea name="bio" value={formData.bio} onChange={handleChange} disabled={!isEditing} placeholder="Tell students about yourself..." rows={3} className={`${inputClass} resize-none`} />
                                 </div>
                                 <div className="md:col-span-2">
                                     <label className={labelClass}>Address</label>
-                                    <textarea
-                                        name="address"
-                                        value={formData.address}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                        placeholder="Enter your full address"
-                                        rows={2}
-                                        className={`${inputClass} resize-none`}
-                                    />
+                                    <textarea name="address" value={formData.address} onChange={handleChange} disabled={!isEditing} placeholder="Enter your full address" rows={2} className={`${inputClass} resize-none`} />
                                 </div>
                             </div>
                         </div>

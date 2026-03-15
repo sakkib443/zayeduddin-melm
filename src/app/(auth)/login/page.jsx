@@ -292,9 +292,9 @@ const Login = () => {
                     type="button"
                     onClick={() => googleLogin()}
                     disabled={loading}
-                    className={`w-full py-3.5 rounded-full font-semibold shadow-lg transition text-base flex items-center justify-center gap-3 bg-gradient-to-r from-[#021E14] to-[#38a89d] text-white hover:shadow-xl hover:-translate-y-0.5 ${bengaliClass}`}
+                    className={`w-full py-3.5 rounded-full font-medium transition text-base flex items-center justify-center gap-3 bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 ${bengaliClass}`}
                   >
-                    <FcGoogle size={22} className="bg-white rounded-full p-0.5" />
+                    <FcGoogle size={24} />
                     {language === "bn" ? "Google দিয়ে লগইন করুন" : "Continue with Google"}
                   </button>
                 </div>

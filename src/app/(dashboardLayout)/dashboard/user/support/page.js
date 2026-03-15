@@ -45,23 +45,24 @@ export default function UserSupportPage() {
 
     const contactMethods = [
         {
-            icon: FiPhone,
-            title: t('userDashboard.support.phoneSupport'),
-            value: '+880 1730-481212',
+            icon: FiMessageCircle,
+            title: 'WhatsApp',
+            value: '01714117701',
             subtext: 'Mon-Fri, 9AM-6PM',
             color: 'text-[#021E14]',
             bg: 'bg-[#021E14]/10',
+            link: 'https://wa.me/8801714117701',
         },
         {
             icon: FiMail,
             title: t('userDashboard.support.emailSupport'),
-            value: 'support@ejobsit.com',
+            value: 'support@zayeduddin.com',
             subtext: '24-48 hours response',
             color: 'text-[#021E14]',
             bg: 'bg-[#021E14]/10',
         },
         {
-            icon: FiMessageCircle,
+            icon: FiClock,
             title: t('userDashboard.support.liveChat'),
             value: t('userDashboard.support.comingSoon'),
             subtext: t('userDashboard.support.realTimeSupport'),
@@ -93,10 +94,13 @@ export default function UserSupportPage() {
             <div className="grid md:grid-cols-3 gap-6">
                 {contactMethods.map((method, index) => {
                     const Icon = method.icon;
+                    const Wrapper = method.link ? 'a' : 'div';
+                    const wrapperProps = method.link ? { href: method.link, target: '_blank', rel: 'noopener noreferrer' } : {};
                     return (
-                        <div
+                        <Wrapper
                             key={index}
-                            className={`${cardClass} p-6 hover:border-[#021E14]/30 group`}
+                            {...wrapperProps}
+                            className={`${cardClass} p-6 hover:border-[#021E14]/30 group block`}
                         >
                             <div className="flex items-start gap-4">
                                 <div className={`w-12 h-12 rounded-xl ${method.bg} flex items-center justify-center transition-transform group-hover:scale-110`}>
@@ -108,7 +112,7 @@ export default function UserSupportPage() {
                                     <p className="text-[10px] uppercase font-black tracking-widest text-slate-500 mt-1">{method.subtext}</p>
                                 </div>
                             </div>
-                        </div>
+                        </Wrapper>
                     );
                 })}
             </div>

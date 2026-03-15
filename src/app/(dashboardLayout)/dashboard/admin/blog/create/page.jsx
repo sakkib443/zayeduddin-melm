@@ -226,45 +226,67 @@ export default function CreateBlogPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-6">
-                    {/* Title */}
+                    {/* Title - বাংলা আগে */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Resource Title <span className="text-[#021E14]">*</span>
+                        <label className={`block text-base font-semibold mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            রিসোর্স টাইটেল (বাংলা) <span className="text-[#021E14]">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="titleBn"
+                            value={formData.titleBn}
+                            onChange={handleChange}
+                            placeholder="বাংলায় টাইটেল লিখুন..."
+                            className={`w-full px-4 py-3 rounded-xl border text-sm font-normal transition-all ${isDark
+                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
+                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
+                        />
+                        <label className={`block text-base font-semibold mt-4 mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            Resource Title (English)
                         </label>
                         <input
                             type="text"
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
-                            placeholder="Enter your blog title..."
-                            className={`w-full px-4 py-3 rounded-xl border text-lg font-medium transition-all ${isDark
-                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
-                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
-                        />
-                        <input
-                            type="text"
-                            name="titleBn"
-                            value={formData.titleBn}
-                            onChange={handleChange}
-                            placeholder="????? ??????? (??????)"
-                            className={`w-full mt-3 px-4 py-2.5 rounded-xl border transition-all ${isDark
+                            placeholder="Enter resource title in English..."
+                            className={`w-full px-4 py-3 rounded-xl border text-sm font-normal transition-all ${isDark
                                 ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
                                 : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
                                 } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
                         />
                     </div>
 
-                    {/* Excerpt */}
+                    {/* Excerpt - বাংলা আগে */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Excerpt / Short Summary <span className="text-[#021E14]">*</span>
+                        <label className={`block text-base font-semibold mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            সংক্ষিপ্ত বিবরণ (বাংলা) <span className="text-[#021E14]">*</span>
+                        </label>
+                        <textarea
+                            name="excerptBn"
+                            value={formData.excerptBn}
+                            onChange={handleChange}
+                            placeholder="বাংলায় সংক্ষিপ্ত বিবরণ লিখুন (সর্বোচ্চ ৫০০ অক্ষর)..."
+                            rows={3}
+                            maxLength={500}
+                            className={`w-full px-4 py-3 rounded-xl border transition-all resize-none ${isDark
+                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-[#021E14]'
+                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#021E14]'
+                                } focus:outline-none focus:ring-2 focus:ring-[#021E14]/20`}
+                        />
+                        <p className={`text-xs mt-1 text-right ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                            {formData.excerptBn.length}/500
+                        </p>
+
+                        <label className={`block text-base font-semibold mt-4 mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            Excerpt / Short Summary (English)
                         </label>
                         <textarea
                             name="excerpt"
                             value={formData.excerpt}
                             onChange={handleChange}
-                            placeholder="Write a brief summary of your blog (max 500 characters)..."
+                            placeholder="Write a brief summary in English (max 500 characters)..."
                             rows={3}
                             maxLength={500}
                             className={`w-full px-4 py-3 rounded-xl border transition-all resize-none ${isDark
@@ -277,15 +299,27 @@ export default function CreateBlogPage() {
                         </p>
                     </div>
 
-                    {/* Content Editor */}
+                    {/* Content Editor - বাংলা আগে */}
                     <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
-                        <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            Resource Content <span className="text-[#021E14]">*</span>
+                        <label className={`block text-base font-semibold mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            রিসোর্স কন্টেন্ট (বাংলা) <span className="text-[#021E14]">*</span>
+                        </label>
+                        <RichTextEditor
+                            value={formData.contentBn}
+                            onChange={(contentBn) => setFormData(prev => ({ ...prev, contentBn }))}
+                            placeholder="বাংলায় কন্টেন্ট লিখুন..."
+                            isDark={isDark}
+                        />
+                    </div>
+
+                    <div className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200'}`}>
+                        <label className={`block text-base font-semibold mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                            Resource Content (English) <span className="text-[#021E14]">*</span>
                         </label>
                         <RichTextEditor
                             value={formData.content}
                             onChange={(content) => setFormData(prev => ({ ...prev, content }))}
-                            placeholder="Start writing your blog content here..."
+                            placeholder="Write your resource content in English..."
                             isDark={isDark}
                         />
                     </div>

@@ -1,13 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { FiUser, FiMail, FiPhone, FiMapPin, FiSave, FiCamera, FiShield, FiKey } from 'react-icons/fi';
+import React, { useState, useEffect, useRef } from 'react';
+import { FiUser, FiMail, FiPhone, FiMapPin, FiSave, FiCamera, FiShield, FiKey, FiLoader, FiUpload } from 'react-icons/fi';
 import { API_URL } from '@/config/api';
 import toast from 'react-hot-toast';
 
 export default function AdminProfilePage() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [fetchingProfile, setFetchingProfile] = useState(true);
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const fileInputRef = useRef(null);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -17,19 +20,60 @@ export default function AdminProfilePage() {
     });
 
     useEffect(() => {
-        const userData = localStorage.getItem('user');
-        if (userData) {
-            const parsed = JSON.parse(userData);
-            setUser(parsed);
-            setFormData({
-                firstName: parsed.firstName || '',
-                lastName: parsed.lastName || '',
-                email: parsed.email || '',
-                phone: parsed.phone || '',
-                address: parsed.address || '',
-            });
-        }
+        fetchProfile();
     }, []);
+
+    const fetchProfile = async () => {
+        try {
+            setFetchingProfile(true);
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            const res = await fetch(`${API_URL}/users/me`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await res.json();
+            if (data.success && data.data) {
+                const userData = data.data;
+                setUser(userData);
+                localStorage.setItem('user', JSON.stringify(userData));
+                setFormData({
+                    firstName: userData.firstName || '',
+                    lastName: userData.lastName || '',
+                    email: userData.email || '',
+                    phone: userData.phone || userData.phoneNumber || '',
+                    address: userData.address || '',
+                });
+            } else {
+                const stored = localStorage.getItem('user');
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    setUser(parsed);
+                    setFormData({
+                        firstName: parsed.firstName || '',
+                        lastName: parsed.lastName || '',
+                        email: parsed.email || '',
+                        phone: parsed.phone || parsed.phoneNumber || '',
+                        address: parsed.address || '',
+                    });
+                }
+            }
+        } catch (error) {
+            const stored = localStorage.getItem('user');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                setUser(parsed);
+                setFormData({
+                    firstName: parsed.firstName || '',
+                    lastName: parsed.lastName || '',
+                    email: parsed.email || '',
+                    phone: parsed.phone || parsed.phoneNumber || '',
+                    address: parsed.address || '',
+                });
+            }
+        } finally {
+            setFetchingProfile(false);
+        }
+    };
 
     const handleChange = (e) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -38,25 +82,30 @@ export default function AdminProfilePage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/users/update-profile`, {
+            const payload = {};
+            if (formData.firstName) payload.firstName = formData.firstName;
+            if (formData.lastName) payload.lastName = formData.lastName;
+            if (formData.phone) payload.phoneNumber = formData.phone;
+            if (formData.address !== undefined) payload.address = formData.address;
+
+            const response = await fetch(`${API_URL}/users/me`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             });
+            const data = await response.json();
 
-            if (response.ok) {
-                const updatedUser = { ...user, ...formData };
-                localStorage.setItem('user', JSON.stringify(updatedUser));
-                setUser(updatedUser);
+            if (data.success) {
+                setUser(data.data);
+                localStorage.setItem('user', JSON.stringify(data.data));
                 toast.success('Profile updated successfully!');
             } else {
-                toast.error('Failed to update profile');
+                toast.error(data.message || 'Failed to update profile');
             }
         } catch (error) {
             console.error('Profile update error:', error);
@@ -66,8 +115,61 @@ export default function AdminProfilePage() {
         }
     };
 
+    const handleAvatarClick = () => fileInputRef.current?.click();
+
+    const handleAvatarUpload = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) { toast.error('Please select an image file'); return; }
+        if (file.size > 5 * 1024 * 1024) { toast.error('Image must be less than 5MB'); return; }
+
+        setUploadingAvatar(true);
+        try {
+            const token = localStorage.getItem('token');
+            const fd = new FormData();
+            fd.append('avatar', file);
+
+            const uploadRes = await fetch(`${API_URL}/upload/avatar`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` },
+                body: fd,
+            });
+            const uploadData = await uploadRes.json();
+            if (!uploadData.success) { toast.error(uploadData.message || 'Upload failed'); return; }
+
+            const updateRes = await fetch(`${API_URL}/users/me`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ avatar: uploadData.data.url }),
+            });
+            const updateData = await updateRes.json();
+            if (updateData.success) {
+                setUser(updateData.data);
+                localStorage.setItem('user', JSON.stringify(updateData.data));
+                toast.success('Profile photo updated!');
+            } else {
+                toast.error('Failed to save avatar');
+            }
+        } catch (error) {
+            toast.error('Failed to upload photo');
+        } finally {
+            setUploadingAvatar(false);
+            if (fileInputRef.current) fileInputRef.current.value = '';
+        }
+    };
+
+    if (fetchingProfile) {
+        return (
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <FiLoader className="animate-spin text-[#021E14]" size={24} />
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-5">
+            <input type="file" ref={fileInputRef} onChange={handleAvatarUpload} accept="image/*" className="hidden" />
+
             {/* Header */}
             <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-md p-5 shadow-sm">
                 <div className="flex items-center gap-3">
@@ -86,11 +188,19 @@ export default function AdminProfilePage() {
                 <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-md p-5 shadow-sm">
                     <div className="text-center">
                         <div className="relative inline-block">
-                            <div className="w-24 h-24 rounded-md bg-[#021E14] flex items-center justify-center text-white text-3xl font-semibold">
-                                {user?.firstName?.[0] || 'A'}
+                            <div className="w-24 h-24 rounded-md overflow-hidden bg-[#021E14] flex items-center justify-center text-white text-3xl font-semibold">
+                                {user?.avatar ? (
+                                    <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                                ) : (
+                                    user?.firstName?.[0] || 'A'
+                                )}
                             </div>
-                            <button className="absolute -bottom-1 -right-1 w-8 h-8 rounded-md bg-[#021E14] text-white flex items-center justify-center shadow-sm hover:bg-[#e8893f] transition-colors">
-                                <FiCamera size={14} />
+                            <button
+                                onClick={handleAvatarClick}
+                                disabled={uploadingAvatar}
+                                className="absolute -bottom-1 -right-1 w-8 h-8 rounded-md bg-[#021E14] text-white flex items-center justify-center shadow-sm hover:bg-[#e8893f] transition-colors disabled:opacity-50"
+                            >
+                                {uploadingAvatar ? <FiLoader className="animate-spin" size={14} /> : <FiCamera size={14} />}
                             </button>
                         </div>
                         <h3 className="text-base font-semibold mt-4 text-gray-800 dark:text-white">
@@ -104,6 +214,15 @@ export default function AdminProfilePage() {
                                 <span className="text-xs font-medium">Verified Account</span>
                             </div>
                         </div>
+
+                        <button
+                            onClick={handleAvatarClick}
+                            disabled={uploadingAvatar}
+                            className="mt-3 w-full flex items-center justify-center gap-2 px-3 py-2 bg-[#021E14] text-white text-xs font-medium rounded-md hover:bg-[#01140D] transition-colors disabled:opacity-50"
+                        >
+                            {uploadingAvatar ? <><FiLoader className="animate-spin" size={12} /> Uploading...</> : <><FiUpload size={12} /> Upload Photo</>}
+                        </button>
+                        <p className="text-[10px] text-gray-400 mt-2">JPG, PNG or WebP. Max 5MB.</p>
                     </div>
                 </div>
 
