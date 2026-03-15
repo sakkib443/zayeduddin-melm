@@ -11,9 +11,11 @@ import {
 } from 'react-icons/fi';
 import Link from 'next/link';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function UserPurchasesPage() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -72,19 +74,19 @@ export default function UserPurchasesPage() {
             case 'completed':
                 return (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#021E14]/10 text-[#021E14] text-[10px] font-bold">
-                        <FiCheckCircle size={10} /> Paid
+                        <FiCheckCircle size={10} /> {t('userDashboard.purchases.paid')}
                     </span>
                 );
             case 'pending':
                 return (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#D4AF37]/10 text-[#D4AF37] text-[10px] font-bold">
-                        <FiClock size={10} /> Pending
+                        <FiClock size={10} /> {t('userDashboard.purchases.pending')}
                     </span>
                 );
             case 'failed':
                 return (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#021E14]/10 text-[#021E14] text-[10px] font-bold">
-                        <FiXCircle size={10} /> Failed
+                        <FiXCircle size={10} /> {t('userDashboard.purchases.failed')}
                     </span>
                 );
             default:
@@ -125,10 +127,10 @@ export default function UserPurchasesPage() {
                     </div>
                     <div>
                         <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Purchase History
+                            {t('userDashboard.purchases.title')}
                         </h1>
                         <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            Track your orders and transaction history
+                            {t('userDashboard.purchases.description')}
                         </p>
                     </div>
                 </div>
@@ -148,7 +150,7 @@ export default function UserPurchasesPage() {
                         className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl text-sm font-bold shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                     >
                         <FiPackage size={16} />
-                        Shop More
+                        {t('userDashboard.purchases.shopMore')}
                     </Link>
                 </div>
             </div>
@@ -160,7 +162,7 @@ export default function UserPurchasesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Total Orders
+                                {t('userDashboard.purchases.totalOrders')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {orders.length.toString().padStart(2, '0')}
@@ -178,7 +180,7 @@ export default function UserPurchasesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Completed
+                                {t('userDashboard.purchases.completedOrders')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 text-[#021E14]`}>
                                 {completedOrders.toString().padStart(2, '0')}
@@ -196,7 +198,7 @@ export default function UserPurchasesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Pending
+                                {t('userDashboard.purchases.pendingOrders')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 text-[#D4AF37]`}>
                                 {pendingOrders.toString().padStart(2, '0')}
@@ -214,7 +216,7 @@ export default function UserPurchasesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Total Spent
+                                {t('userDashboard.purchases.totalSpent')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 ?{totalSpent.toLocaleString()}
@@ -233,7 +235,7 @@ export default function UserPurchasesPage() {
                 <div className="relative flex-1">
                     <FiSearch className={`absolute left-4 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
                     <input
-                        placeholder="Search orders..."
+                        placeholder={t('userDashboard.purchases.searchOrders')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full pl-11 pr-4 py-2.5 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 ${isDark
@@ -266,12 +268,12 @@ export default function UserPurchasesPage() {
                 <div className={`py-16 text-center ${cardClass}`}>
                     <FiShoppingBag size={40} className={`mx-auto mb-4 ${isDark ? 'text-slate-600' : 'text-slate-300'}`} />
                     <h2 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        {searchTerm || statusFilter !== 'all' ? 'No Orders Found' : 'No Purchases Yet'}
+                        {searchTerm || statusFilter !== 'all' ? t('userDashboard.purchases.noOrdersFound') : t('userDashboard.purchases.noPurchasesYet')}
                     </h2>
                     <p className={`text-sm mt-2 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
                         {searchTerm || statusFilter !== 'all'
-                            ? 'Try adjusting your search or filters.'
-                            : 'Start shopping to see your orders here.'
+                            ? t('userDashboard.purchases.adjustFilters')
+                            : t('userDashboard.purchases.startShopping')
                         }
                     </p>
                     {!searchTerm && statusFilter === 'all' && (
@@ -279,7 +281,7 @@ export default function UserPurchasesPage() {
                             href="/courses"
                             className="inline-flex items-center gap-2 mt-5 px-5 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
                         >
-                            Browse Courses <FiArrowRight />
+                            {t('userDashboard.main.browseCourses')} <FiArrowRight />
                         </Link>
                     )}
                 </div>
@@ -294,11 +296,11 @@ export default function UserPurchasesPage() {
                             <span className="w-1.5 h-1.5 rounded-full bg-[#021E14]"></span>
                             Order ID
                         </div>
-                        <div className="col-span-3">Products</div>
-                        <div className="col-span-2">Date</div>
-                        <div className="col-span-1">Status</div>
-                        <div className="col-span-2 text-right">Amount</div>
-                        <div className="col-span-1 text-center">Details</div>
+                        <div className="col-span-3">{t('userDashboard.purchases.products')}</div>
+                        <div className="col-span-2">{t('userDashboard.purchases.date')}</div>
+                        <div className="col-span-1">{t('userDashboard.purchases.status')}</div>
+                        <div className="col-span-2 text-right">{t('userDashboard.purchases.amount')}</div>
+                        <div className="col-span-1 text-center">{t('userDashboard.purchases.details')}</div>
                     </div>
 
                     {/* Order Rows */}
@@ -353,7 +355,7 @@ export default function UserPurchasesPage() {
                                             )}
                                         </div>
                                         <span className={`text-xs font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                            {order.items?.length || 0} item{order.items?.length !== 1 && 's'}
+                                            {order.items?.length || 0} {order.items?.length !== 1 ? t('userDashboard.purchases.items') : t('userDashboard.purchases.item')}
                                         </span>
                                     </div>
 
@@ -430,7 +432,7 @@ export default function UserPurchasesPage() {
                                                                     href={`/dashboard/user/${item.productType === 'course' ? 'courses' : 'assets/' + (item.productType === 'software' ? 'softwares' : 'websites')}`}
                                                                     className="text-[10px] font-bold text-[#021E14] hover:underline"
                                                                 >
-                                                                    Access ?
+                                                                    {t('userDashboard.purchases.access')} →
                                                                 </Link>
                                                             )}
                                                         </div>
@@ -453,7 +455,7 @@ export default function UserPurchasesPage() {
                                                     ? 'bg-slate-700 text-slate-300 hover:text-[#021E14]'
                                                     : 'bg-white text-slate-500 hover:text-[#021E14] border border-slate-200'
                                                     }`}>
-                                                    <FiDownload size={10} /> Invoice
+                                                    <FiDownload size={10} /> {t('userDashboard.purchases.invoice')}
                                                 </button>
                                             </div>
                                         </div>
@@ -473,7 +475,7 @@ export default function UserPurchasesPage() {
                 <div className="flex items-center gap-3">
                     <FiCreditCard size={18} className="text-[#021E14] shrink-0" />
                     <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Need help with a payment? <Link href="/dashboard/user/support" className="text-[#021E14] font-bold hover:underline">Contact Support</Link>
+                        {t('userDashboard.purchases.paymentHelp')} <Link href="/dashboard/user/support" className="text-[#021E14] font-bold hover:underline">{t('userDashboard.purchases.contactSupport')}</Link>
                     </p>
                 </div>
             </div>

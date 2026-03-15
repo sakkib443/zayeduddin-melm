@@ -10,9 +10,11 @@ import {
     FiPackage, FiArrowRight
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function AllAssetsPage() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const dispatch = useDispatch();
     const { downloads, loading } = useSelector((state) => state.download);
     const [searchTerm, setSearchTerm] = useState('');
@@ -84,10 +86,10 @@ export default function AllAssetsPage() {
                     </div>
                     <div>
                         <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Digital Assets
+                            {t('userDashboard.downloads.title')}
                         </h1>
                         <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            All your purchased softwares and website templates
+                            {t('userDashboard.downloads.description')}
                         </p>
                     </div>
                 </div>
@@ -107,7 +109,7 @@ export default function AllAssetsPage() {
                         className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl text-sm font-bold shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                     >
                         <FiPackage size={16} />
-                        Browse More
+                        {t('userDashboard.downloads.browseMore')}
                     </Link>
                 </div>
             </div>
@@ -125,7 +127,7 @@ export default function AllAssetsPage() {
                                 {stats.total.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                All downloads
+                                {t('userDashboard.downloads.allDownloads')}
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
@@ -140,13 +142,13 @@ export default function AllAssetsPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Softwares
+                                {t('userDashboard.assets.softwares')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {stats.softwares.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Applications & tools
+                                {t('userDashboard.downloads.applicationsTools')}
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
@@ -161,13 +163,13 @@ export default function AllAssetsPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Websites
+                                {t('userDashboard.assets.websites')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {stats.websites.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Templates & themes
+                                {t('userDashboard.downloads.templatesThemes')}
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
@@ -183,7 +185,7 @@ export default function AllAssetsPage() {
                 <div className="relative flex-1">
                     <FiSearch className={`absolute left-4 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
                     <input
-                        placeholder="Search your assets..."
+                        placeholder={t('userDashboard.downloads.searchAssets')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full pl-11 pr-4 py-2.5 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 ${isDark
@@ -251,19 +253,19 @@ export default function AllAssetsPage() {
                         <FiDownload size={36} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
                     </div>
                     <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        No Assets Found
+                        {t('userDashboard.downloads.noAssetsFound')}
                     </h2>
                     <p className={`text-sm mt-3 max-w-sm mx-auto ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
                         {searchTerm
-                            ? `No assets matching "${searchTerm}".`
-                            : "You haven't purchased any digital assets yet. Browse our marketplace to get started!"}
+                            ? `${t('userDashboard.downloads.noAssetsMatching')} "${searchTerm}".`
+                            : t('userDashboard.downloads.noPurchasedYet')}
                     </p>
                     {!searchTerm && (
                         <Link
                             href="/software"
                             className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                         >
-                            Browse Marketplace <FiArrowRight />
+                            {t('userDashboard.downloads.browseMarketplace')} <FiArrowRight />
                         </Link>
                     )}
                 </div>
@@ -311,7 +313,7 @@ export default function AllAssetsPage() {
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between text-[10px] font-bold">
                                         <span className={`uppercase tracking-widest flex items-center gap-1.5 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                            <FiClock size={10} /> Purchased
+                                            <FiClock size={10} /> {t('userDashboard.downloads.purchased')}
                                         </span>
                                         <span className={isDark ? 'text-slate-300' : 'text-slate-600'}>
                                             {new Date(item.createdAt).toLocaleDateString()}
@@ -319,9 +321,9 @@ export default function AllAssetsPage() {
                                     </div>
                                     <div className="flex items-center justify-between text-[10px] font-bold">
                                         <span className={`uppercase tracking-widest flex items-center gap-1.5 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                            <FiShield size={10} /> License
+                                            <FiShield size={10} /> {t('userDashboard.downloads.license')}
                                         </span>
-                                        <span className="text-[#021E14]">Commercial</span>
+                                        <span className="text-[#021E14]">{t('userDashboard.downloads.commercial')}</span>
                                     </div>
                                 </div>
 
@@ -332,7 +334,7 @@ export default function AllAssetsPage() {
                                         disabled={!item.product?.downloadFile}
                                         className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-xs shadow-md shadow-[#021E14]/10 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-50"
                                     >
-                                        <FiDownload size={14} /> Download
+                                        <FiDownload size={14} /> {t('userDashboard.downloads.download')}
                                     </button>
                                     <button className={`p-2.5 rounded-xl transition-all ${isDark
                                         ? 'bg-slate-700 text-slate-300 hover:text-[#021E14]'
@@ -394,9 +396,9 @@ export default function AllAssetsPage() {
                         <FiShield size={22} />
                     </div>
                     <div>
-                        <h4 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>License Information</h4>
+                        <h4 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.downloads.licenseInfo')}</h4>
                         <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            All assets include commercial license. Use for unlimited personal and client projects.
+                            {t('userDashboard.downloads.licenseDesc')}
                         </p>
                     </div>
                 </div>
@@ -407,7 +409,7 @@ export default function AllAssetsPage() {
                         : 'bg-slate-900 text-white hover:bg-slate-800'
                         }`}
                 >
-                    Need Help?
+                    {t('userDashboard.downloads.needHelp')}
                 </Link>
             </div>
         </div>

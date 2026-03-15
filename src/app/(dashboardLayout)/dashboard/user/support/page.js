@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { FiHelpCircle, FiMessageCircle, FiPhone, FiMail, FiClock, FiChevronDown, FiChevronUp, FiExternalLink, FiLoader, FiSend } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function UserSupportPage() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const [expandedFaq, setExpandedFaq] = useState(null);
     const [ticketForm, setTicketForm] = useState({
         subject: '',
@@ -44,7 +46,7 @@ export default function UserSupportPage() {
     const contactMethods = [
         {
             icon: FiPhone,
-            title: 'Phone Support',
+            title: t('userDashboard.support.phoneSupport'),
             value: '+880 1730-481212',
             subtext: 'Mon-Fri, 9AM-6PM',
             color: 'text-[#021E14]',
@@ -52,7 +54,7 @@ export default function UserSupportPage() {
         },
         {
             icon: FiMail,
-            title: 'Email Support',
+            title: t('userDashboard.support.emailSupport'),
             value: 'support@ejobsit.com',
             subtext: '24-48 hours response',
             color: 'text-[#021E14]',
@@ -60,9 +62,9 @@ export default function UserSupportPage() {
         },
         {
             icon: FiMessageCircle,
-            title: 'Live Chat',
-            value: 'Coming Soon',
-            subtext: 'Real-time support',
+            title: t('userDashboard.support.liveChat'),
+            value: t('userDashboard.support.comingSoon'),
+            subtext: t('userDashboard.support.realTimeSupport'),
             color: 'text-[#021E14]',
             bg: 'bg-[#021E14]/10',
         },
@@ -80,10 +82,10 @@ export default function UserSupportPage() {
             {/* Header */}
             <div>
                 <h1 className={`text-2xl font-black outfit tracking-tight ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                    Help & Support
+                    {t('userDashboard.support.title')}
                 </h1>
                 <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                    Get help with your courses and account
+                    {t('userDashboard.support.description')}
                 </p>
             </div>
 
@@ -118,7 +120,7 @@ export default function UserSupportPage() {
                         <div className="w-10 h-10 rounded-xl bg-[#021E14]/10 flex items-center justify-center text-[#021E14]">
                             <FiHelpCircle size={20} />
                         </div>
-                        <h2 className={`text-lg font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>Frequently Asked Questions</h2>
+                        <h2 className={`text-lg font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.support.faq')}</h2>
                     </div>
 
                     <div className="space-y-4">
@@ -152,7 +154,7 @@ export default function UserSupportPage() {
                         href="/help"
                         className="mt-8 flex items-center justify-center gap-2 text-[#021E14] text-xs font-black uppercase tracking-widest hover:underline"
                     >
-                        View All FAQs
+                        {t('userDashboard.support.viewAllFaqs')}
                         <FiExternalLink size={14} />
                     </a>
                 </div>
@@ -163,18 +165,18 @@ export default function UserSupportPage() {
                         <div className="w-10 h-10 rounded-xl bg-[#021E14]/10 flex items-center justify-center text-[#021E14]">
                             <FiMessageCircle size={20} />
                         </div>
-                        <h2 className={`text-lg font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>Submit a Support Ticket</h2>
+                        <h2 className={`text-lg font-black outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.support.submitTicket')}</h2>
                     </div>
 
                     <form onSubmit={handleSubmitTicket} className="space-y-6">
                         {/* Subject */}
                         <div>
-                            <label className={`block text-[10px] font-black uppercase tracking-widest mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Subject</label>
+                            <label className={`block text-[10px] font-black uppercase tracking-widest mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{t('userDashboard.support.subject')}</label>
                             <input
                                 type="text"
                                 value={ticketForm.subject}
                                 onChange={(e) => setTicketForm({ ...ticketForm, subject: e.target.value })}
-                                placeholder="Brief description of your issue"
+                                placeholder={t('userDashboard.support.subjectPlaceholder')}
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all ${isDark
                                     ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20'
                                     : 'bg-white border-slate-200 text-slate-800 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20 shadow-sm'
@@ -184,7 +186,7 @@ export default function UserSupportPage() {
 
                         {/* Category */}
                         <div>
-                            <label className={`block text-[10px] font-black uppercase tracking-widest mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Category</label>
+                            <label className={`block text-[10px] font-black uppercase tracking-widest mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{t('userDashboard.support.category')}</label>
                             <select
                                 value={ticketForm.category}
                                 onChange={(e) => setTicketForm({ ...ticketForm, category: e.target.value })}
@@ -193,21 +195,21 @@ export default function UserSupportPage() {
                                     : 'bg-white border-slate-200 text-slate-800 focus:border-[#021E14] shadow-sm'
                                     }`}
                             >
-                                <option value="general">General Inquiry</option>
-                                <option value="course">Course Related</option>
-                                <option value="payment">Payment Issue</option>
-                                <option value="technical">Technical Problem</option>
-                                <option value="certificate">Certificate Request</option>
+                                <option value="general">{t('userDashboard.support.generalInquiry')}</option>
+                                <option value="course">{t('userDashboard.support.courseRelated')}</option>
+                                <option value="payment">{t('userDashboard.support.paymentIssue')}</option>
+                                <option value="technical">{t('userDashboard.support.technicalProblem')}</option>
+                                <option value="certificate">{t('userDashboard.support.certificateRequest')}</option>
                             </select>
                         </div>
 
                         {/* Message */}
                         <div>
-                            <label className={`block text-[10px] font-black uppercase tracking-widest mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Message</label>
+                            <label className={`block text-[10px] font-black uppercase tracking-widest mb-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{t('userDashboard.support.message')}</label>
                             <textarea
                                 value={ticketForm.message}
                                 onChange={(e) => setTicketForm({ ...ticketForm, message: e.target.value })}
-                                placeholder="Describe your issue in detail..."
+                                placeholder={t('userDashboard.support.messagePlaceholder')}
                                 rows={4}
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all resize-none ${isDark
                                     ? 'bg-slate-900 border-white/10 text-slate-200 focus:border-[#021E14] focus:ring-2 focus:ring-[#021E14]/20'
@@ -222,7 +224,7 @@ export default function UserSupportPage() {
                             className="w-full py-4 bg-gradient-to-r from-[#021E14] to-[#01140D] text-white font-black text-xs uppercase tracking-widest rounded-xl hover:shadow-lg hover:shadow-[#021E14]/25 transition-all flex items-center justify-center gap-2"
                         >
                             <FiSend size={16} />
-                            Submit Ticket
+                            {t('userDashboard.support.submitTicketBtn')}
                         </button>
                     </form>
                 </div>

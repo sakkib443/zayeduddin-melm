@@ -7,10 +7,12 @@ import {
     FiPlay, FiBook, FiRefreshCw
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 import { API_URL } from '@/config/api';
 
 export default function MyLiveClassesPage() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const [myBatches, setMyBatches] = useState([]);
     const [liveClasses, setLiveClasses] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -70,7 +72,7 @@ export default function MyLiveClassesPage() {
     const cardClass = `rounded-xl border transition-all ${isDark
         ? 'bg-slate-800/50 border-white/5' : 'bg-white border-slate-200 shadow-sm'}`;
 
-    const activeBatches = myBatches.filter(b => b.meetingLink && (b.status === 'ongoing' || b.status === 'upcoming'));
+    const activeBatches = myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming');
     const todayBatches = activeBatches.filter(b => isTodayClass(b.schedule));
     const otherBatches = activeBatches.filter(b => !isTodayClass(b.schedule));
 
@@ -91,8 +93,8 @@ export default function MyLiveClassesPage() {
                         <FiVideo size={20} />
                     </div>
                     <div>
-                        <h1 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Live Classes</h1>
-                        <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>View and join your live classes</p>
+                        <h1 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.liveClasses.title')}</h1>
+                        <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('userDashboard.liveClasses.description')}</p>
                     </div>
                 </div>
                 <button onClick={handleSync}
@@ -107,7 +109,7 @@ export default function MyLiveClassesPage() {
                 <div>
                     <h2 className={`text-sm font-bold mb-3 flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                         <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
-                        Upcoming Live Classes
+                        {t('userDashboard.liveClasses.upcomingLiveClasses')}
                     </h2>
                     <div className="space-y-3">
                         {liveClasses.map((cls) => (
@@ -117,7 +119,7 @@ export default function MyLiveClassesPage() {
                                         <div className="flex items-center gap-2 mb-1">
                                             <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${cls.status === 'live'
                                                 ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'}`}>
-                                                {cls.status === 'live' ? '🔴 Live' : '📅 Scheduled'}
+                                                {cls.status === 'live' ? `🔴 ${t('userDashboard.main.live')}` : `📅 ${t('userDashboard.liveClasses.scheduled')}`}
                                             </span>
                                             {cls.classNumber && (
                                                 <span className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Class #{cls.classNumber}</span>
@@ -137,11 +139,17 @@ export default function MyLiveClassesPage() {
                                             </span>
                                         </div>
                                     </div>
-                                    <a href={cls.meetingLink} target="_blank" rel="noopener noreferrer"
-                                        className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all hover:scale-105 ${cls.status === 'live'
-                                            ? 'bg-red-500 text-white shadow-sm' : 'bg-[#021E14] text-white shadow-sm'}`}>
-                                        <FiPlay size={12} /> {cls.status === 'live' ? 'Join Now' : 'Join Class'}
-                                    </a>
+                                    {(cls.meetingLink || cls.batch?.meetingLink) ? (
+                                        <a href={cls.meetingLink || cls.batch?.meetingLink} target="_blank" rel="noopener noreferrer"
+                                            className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs transition-all hover:scale-105 ${cls.status === 'live'
+                                                ? 'bg-red-500 text-white shadow-sm' : 'bg-[#021E14] text-white shadow-sm'}`}>
+                                            <FiPlay size={12} /> {cls.status === 'live' ? t('userDashboard.liveClasses.joinNow') : t('userDashboard.liveClasses.joinClass')}
+                                        </a>
+                                    ) : (
+                                        <span className={`shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-xs ${isDark ? 'bg-slate-700 text-slate-400' : 'bg-slate-100 text-slate-400'}`}>
+                                            <FiClock size={12} /> Link coming soon
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -152,7 +160,7 @@ export default function MyLiveClassesPage() {
             {/* Today's Batch Classes */}
             {todayBatches.length > 0 && (
                 <div>
-                    <h2 className={`text-sm font-bold mb-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>Today&apos;s Batch Classes</h2>
+                    <h2 className={`text-sm font-bold mb-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.liveClasses.todaysBatchClasses')}</h2>
                     <div className="space-y-3">
                         {todayBatches.map((batch) => {
                             const todaySchedule = getTodaySchedule(batch.schedule);
@@ -168,10 +176,16 @@ export default function MyLiveClassesPage() {
                                                 </p>
                                             )}
                                         </div>
-                                        <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
-                                            className="px-3 py-2 bg-[#021E14] text-white rounded-lg text-xs font-bold hover:bg-[#021E14]/90 transition-all flex items-center gap-1.5">
-                                            <FiVideo size={12} /> Join
-                                        </a>
+                                        {batch.meetingLink ? (
+                                            <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
+                                                className="px-3 py-2 bg-[#021E14] text-white rounded-lg text-xs font-bold hover:bg-[#021E14]/90 transition-all flex items-center gap-1.5">
+                                                <FiVideo size={12} /> {t('userDashboard.main.join')}
+                                            </a>
+                                        ) : (
+                                            <span className={`px-3 py-2 rounded-lg text-xs font-semibold ${isDark ? 'bg-slate-700 text-slate-400' : 'bg-slate-100 text-slate-400'}`}>
+                                                No link yet
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             );
@@ -183,7 +197,7 @@ export default function MyLiveClassesPage() {
             {/* Other Active Batches */}
             {otherBatches.length > 0 && (
                 <div>
-                    <h2 className={`text-sm font-bold mb-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>Other Active Batches</h2>
+                    <h2 className={`text-sm font-bold mb-3 ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.liveClasses.otherActiveBatches')}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {otherBatches.map((batch) => (
                             <div key={batch._id} className={`${cardClass} p-4`}>
@@ -206,11 +220,18 @@ export default function MyLiveClassesPage() {
                                         ))}
                                     </div>
                                 )}
-                                <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
-                                    className={`w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${isDark
-                                        ? 'bg-slate-700 text-slate-200 hover:bg-slate-600' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
-                                    <FiExternalLink size={12} /> Meeting Link
-                                </a>
+                                {batch.meetingLink ? (
+                                    <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
+                                        className={`w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${isDark
+                                            ? 'bg-slate-700 text-slate-200 hover:bg-slate-600' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                                        <FiExternalLink size={12} /> {t('userDashboard.liveClasses.meetingLink')}
+                                    </a>
+                                ) : (
+                                    <div className={`w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold ${isDark
+                                        ? 'bg-slate-700/50 text-slate-500' : 'bg-slate-50 text-slate-400'}`}>
+                                        <FiClock size={12} /> Meeting link not added yet
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -223,12 +244,12 @@ export default function MyLiveClassesPage() {
                     <div className={`w-14 h-14 mx-auto rounded-xl flex items-center justify-center mb-3 ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
                         <FiVideo size={24} className={isDark ? 'text-slate-500' : 'text-slate-300'} />
                     </div>
-                    <h3 className={`font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>No Live Classes</h3>
+                    <h3 className={`font-bold text-sm mb-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.liveClasses.noLiveClasses')}</h3>
                     <p className={`text-xs mb-4 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                        {myBatches.length === 0 ? "Enroll in an online course to access live classes." : "No live class links set up yet."}
+                        {myBatches.length === 0 ? t('userDashboard.liveClasses.enrollToAccess') : t('userDashboard.liveClasses.noLinksYet')}
                     </p>
                     <Link href="/courses" className="inline-flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white rounded-lg font-semibold text-xs hover:bg-[#021E14]/90 transition-all">
-                        Browse Courses <FiExternalLink size={12} />
+                        {t('userDashboard.main.browseCourses')} <FiExternalLink size={12} />
                     </Link>
                 </div>
             )}

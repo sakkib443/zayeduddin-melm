@@ -62,7 +62,7 @@ export default function CreateLiveClassPage() {
     const fetchInstructors = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`${API_URL}/users?role=instructor&limit=100`, {
+            const res = await fetch(`${API_URL}/instructors?limit=100`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await res.json();
@@ -228,8 +228,8 @@ export default function CreateLiveClassPage() {
                             >
                                 <option value="">Select Instructor</option>
                                 {instructors.map((inst) => (
-                                    <option key={inst._id} value={inst._id}>
-                                        {inst.name}
+                                    <option key={inst._id} value={inst.userId?._id || inst.userId}>
+                                        {inst.userId?.firstName || ''} {inst.userId?.lastName || ''} {inst.title ? `— ${inst.title}` : ''}
                                     </option>
                                 ))}
                             </select>

@@ -13,9 +13,11 @@ import {
     FiUsers, FiVideo, FiCalendar, FiExternalLink
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function UserDashboard() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
     const [isSyncing, setIsSyncing] = useState(false);
@@ -93,7 +95,7 @@ export default function UserDashboard() {
                     </div>
                     <div>
                         <h1 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Dashboard
+                            {t('userDashboard.main.dashboard')}
                         </h1>
                         <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             {hasMounted ? new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }) : '...'}
@@ -109,14 +111,14 @@ export default function UserDashboard() {
                             }`}
                     >
                         <FiRefreshCw size={14} className={isSyncing ? 'animate-spin' : ''} />
-                        Sync
+                        {t('userDashboard.main.sync')}
                     </button>
                     <Link
                         href="/courses"
                         className="flex items-center gap-2 px-3 py-2 bg-[#021E14] text-white rounded-lg text-xs font-semibold shadow-sm hover:bg-[#021E14]/90 transition-all"
                     >
                         <FiBook size={14} />
-                        Browse Courses
+                        {t('userDashboard.main.browseCourses')}
                     </Link>
                 </div>
             </div>
@@ -129,18 +131,18 @@ export default function UserDashboard() {
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div>
                         <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Welcome, <span className="text-[#021E14]">{user?.firstName || 'Learner'}</span>! 👋
+                            {t('userDashboard.main.welcome')} <span className="text-[#021E14]">{user?.firstName || t('userDashboard.main.learner')}</span>! 👋
                         </h2>
                         <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             {enrollments.length > 0
-                                ? `You have ${enrollments.length} active course${enrollments.length > 1 ? 's' : ''}.`
-                                : 'Start your learning journey today.'
+                                ? `${t('userDashboard.main.youHave')} ${enrollments.length} ${t('userDashboard.main.activeCourses')}.`
+                                : t('userDashboard.main.startJourney')
                             }
                         </p>
                     </div>
                     <div className="flex items-center gap-2">
                         <Link href="/dashboard/user/courses" className="px-4 py-2 bg-[#021E14] text-white rounded-lg font-semibold text-sm hover:bg-[#021E14]/90 transition-all">
-                            My Courses
+                            {t('userDashboard.sidebar.myCourses')}
                         </Link>
                     </div>
                 </div>
@@ -153,13 +155,13 @@ export default function UserDashboard() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Enrolled Courses
+                                {t('userDashboard.main.enrolledCourses')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {enrollments.length.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                {enrollmentStats?.completedCourses || 0} completed
+                                {enrollmentStats?.completedCourses || 0} {t('userDashboard.main.completed')}
                             </p>
                         </div>
                         <div className="w-11 h-11 rounded-xl bg-[#021E14] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
@@ -174,13 +176,13 @@ export default function UserDashboard() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Digital Assets
+                                {t('userDashboard.main.digitalAssets')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {downloads.length.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Templates & websites
+                                {t('userDashboard.main.templatesWebsites')}
                             </p>
                         </div>
                         <div className="w-11 h-11 rounded-xl bg-[#021E14] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
@@ -195,13 +197,13 @@ export default function UserDashboard() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Certificates
+                                {t('userDashboard.main.certificates')}
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {(enrollmentStats?.certificatesEarned || 0).toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Earned achievements
+                                {t('userDashboard.main.earnedAchievements')}
                             </p>
                         </div>
                         <div className="w-11 h-11 rounded-xl bg-[#021E14] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform">
@@ -224,8 +226,8 @@ export default function UserDashboard() {
                                 <FiVideo size={16} />
                             </div>
                             <div>
-                                <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Upcoming Classes</h3>
-                                <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Your scheduled live classes</p>
+                                <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.main.upcomingClasses')}</h3>
+                                <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('userDashboard.main.scheduledLive')}</p>
                             </div>
                         </div>
                         <div className="flex flex-wrap gap-2">
@@ -234,7 +236,7 @@ export default function UserDashboard() {
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="flex-1 min-w-0">
                                             <span className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-bold uppercase mb-1 ${batch.status === 'ongoing' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
-                                                {batch.status === 'ongoing' ? '🟢 Live' : '🔵 Upcoming'}
+                                                {batch.status === 'ongoing' ? `🟢 ${t('userDashboard.main.live')}` : `🔵 ${t('userDashboard.main.upcoming')}`}
                                             </span>
                                             <h4 className={`font-bold text-xs truncate ${isDark ? 'text-white' : 'text-slate-800'}`}>{batch.batchName}</h4>
                                             <p className={`text-[10px] truncate ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{batch.course?.title}</p>
@@ -247,7 +249,7 @@ export default function UserDashboard() {
                                         {batch.meetingLink && batch.status === 'ongoing' && (
                                             <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
                                                 className="shrink-0 px-2.5 py-1.5 bg-[#021E14] text-white rounded-md text-[10px] font-bold hover:bg-[#021E14]/90 transition-all flex items-center gap-1">
-                                                <FiVideo size={10} /> Join
+                                                <FiVideo size={10} /> {t('userDashboard.main.join')}
                                             </a>
                                         )}
                                     </div>
@@ -255,7 +257,7 @@ export default function UserDashboard() {
                             ))}
                         </div>
                         <Link href="/dashboard/user/live-classes" className="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-[#021E14] hover:underline">
-                            View all classes <FiArrowRight size={11} />
+                            {t('userDashboard.main.viewAllClasses')} <FiArrowRight size={11} />
                         </Link>
                     </div>
                 </div>
@@ -265,7 +267,7 @@ export default function UserDashboard() {
             <div className={`${cardClass} overflow-hidden`}>
                 <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
                     <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        My Courses
+                        {t('userDashboard.sidebar.myCourses')}
                     </h2>
                     <Link href="/dashboard/user/courses" className="text-[10px] font-bold text-[#021E14] hover:underline flex items-center gap-1">
                         View All <FiArrowRight size={10} />
@@ -277,10 +279,10 @@ export default function UserDashboard() {
                         <div className={`w-14 h-14 mx-auto rounded-xl flex items-center justify-center mb-3 ${isDark ? 'bg-slate-700' : 'bg-slate-100'}`}>
                             <FiBook size={24} className={isDark ? 'text-slate-500' : 'text-slate-300'} />
                         </div>
-                        <h3 className={`font-bold mb-1 text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>No courses yet</h3>
-                        <p className={`text-xs mb-4 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Start your learning journey today.</p>
+                        <h3 className={`font-bold mb-1 text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.main.noCourses')}</h3>
+                        <p className={`text-xs mb-4 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{t('userDashboard.main.startJourneyToday')}</p>
                         <Link href="/courses" className="inline-flex items-center gap-2 px-4 py-2 bg-[#021E14] text-white rounded-lg font-semibold text-xs hover:bg-[#021E14]/90 transition-all">
-                            Browse Courses <FiArrowRight size={12} />
+                            {t('userDashboard.main.browseCourses')} <FiArrowRight size={12} />
                         </Link>
                     </div>
                 ) : (
@@ -308,7 +310,7 @@ export default function UserDashboard() {
                                                     ? 'bg-blue-100 text-blue-700'
                                                     : 'bg-emerald-100 text-emerald-700'
                                                     }`}>
-                                                    {isOnline ? 'Online' : 'Recorded'}
+                                                    {isOnline ? t('userDashboard.main.online') : t('userDashboard.main.recorded')}
                                                 </span>
                                             </div>
                                             {/* Progress */}
@@ -328,7 +330,7 @@ export default function UserDashboard() {
                                                     ? 'bg-slate-700 text-slate-300 hover:bg-[#021E14] hover:text-white'
                                                     : 'bg-slate-100 text-slate-500 hover:bg-[#021E14] hover:text-white'
                                                     }`}
-                                                title="Continue Learning"
+                                                title={t('userDashboard.main.continueLearning')}
                                             >
                                                 <FiPlay size={14} />
                                             </Link>
@@ -340,7 +342,7 @@ export default function UserDashboard() {
                                                         ? 'bg-slate-700 text-slate-300 hover:bg-blue-600 hover:text-white'
                                                         : 'bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white'
                                                         }`}
-                                                    title="Class Schedule"
+                                                    title={t('userDashboard.main.classSchedule')}
                                                 >
                                                     <FiCalendar size={14} />
                                                 </Link>
@@ -350,7 +352,7 @@ export default function UserDashboard() {
                                             {isOnline && batch?.meetingLink && (
                                                 <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
                                                     className="p-2 rounded-lg bg-green-50 text-green-600 hover:bg-green-600 hover:text-white transition-all"
-                                                    title="Join Live Class"
+                                                    title={t('userDashboard.main.joinLiveClass')}
                                                 >
                                                     <FiVideo size={14} />
                                                 </a>
@@ -369,7 +371,7 @@ export default function UserDashboard() {
                 {/* Profile Card */}
                 <div className={`${cardClass} overflow-hidden`}>
                     <div className={`p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
-                        <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>My Profile</h2>
+                        <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.main.myProfile')}</h2>
                     </div>
                     <div className="p-4">
                         <div className="flex items-center gap-3 mb-4">
@@ -387,7 +389,7 @@ export default function UserDashboard() {
                                 : 'bg-slate-100 text-slate-600 hover:bg-[#021E14] hover:text-white'
                                 }`}
                         >
-                            Edit Profile <FiChevronRight size={12} />
+                            {t('userDashboard.main.editProfile')} <FiChevronRight size={12} />
                         </Link>
                     </div>
                 </div>
@@ -395,14 +397,14 @@ export default function UserDashboard() {
                 {/* Quick Links */}
                 <div className={`${cardClass} overflow-hidden`}>
                     <div className={`p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
-                        <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Quick Links</h2>
+                        <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.main.quickLinks')}</h2>
                     </div>
                     <div className="p-3 space-y-1">
                         {[
-                            { href: '/dashboard/user/schedule', icon: FiCalendar, title: 'Class Schedule', desc: 'View your weekly schedule' },
-                            { href: '/dashboard/user/live-classes', icon: FiVideo, title: 'Live Classes', desc: 'Join or view live classes' },
-                            { href: '/dashboard/user/downloads', icon: FiDownload, title: 'Downloads', desc: 'Access digital assets' },
-                            { href: '/dashboard/user/purchases', icon: FiClock, title: 'Purchase History', desc: 'View transactions' },
+                            { href: '/dashboard/user/schedule', icon: FiCalendar, title: t('userDashboard.sidebar.schedule'), desc: t('userDashboard.main.viewSchedule') },
+                            { href: '/dashboard/user/live-classes', icon: FiVideo, title: t('userDashboard.main.liveClasses'), desc: t('userDashboard.main.joinViewLive') },
+                            { href: '/dashboard/user/downloads', icon: FiDownload, title: t('userDashboard.main.downloads'), desc: t('userDashboard.main.accessDigital') },
+                            { href: '/dashboard/user/purchases', icon: FiClock, title: t('userDashboard.sidebar.purchaseHistory'), desc: t('userDashboard.main.viewTransactions') },
                         ].map((item) => (
                             <Link key={item.href} href={item.href}
                                 className={`flex items-center gap-3 p-3 rounded-lg transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>

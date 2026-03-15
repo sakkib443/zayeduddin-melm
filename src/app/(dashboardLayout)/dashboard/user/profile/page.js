@@ -7,10 +7,12 @@ import {
     FiClock, FiTrendingUp
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 import toast from 'react-hot-toast';
 
 export default function UserProfilePage() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -105,18 +107,18 @@ export default function UserProfilePage() {
                                         {user?.firstName || 'Student'} {user?.lastName || 'User'}
                                     </h1>
                                     <span className="px-3 py-1 bg-white/20 backdrop-blur-xl rounded-full text-xs font-bold uppercase tracking-wider border border-white/30">
-                                        {user?.role || 'Student'}
+                                        {user?.role || t('userDashboard.profile.student')}
                                     </span>
                                 </div>
                                 <p className="text-white/70 text-sm font-medium mb-4">{user?.email || 'email@example.com'}</p>
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
                                     <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20">
                                         <FiCheckCircle className="text-emerald-400" size={16} />
-                                        <span className="text-sm font-semibold">Verified</span>
+                                        <span className="text-sm font-semibold">{t('userDashboard.profile.verified')}</span>
                                     </div>
                                     <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20">
                                         <FiClock className="text-[#D4AF37]" size={16} />
-                                        <span className="text-sm font-semibold">Active</span>
+                                        <span className="text-sm font-semibold">{t('userDashboard.profile.active')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -129,10 +131,10 @@ export default function UserProfilePage() {
             <div className="max-w-6xl mx-auto px-6 -mt-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                        { icon: FiBook, label: 'Enrolled Courses', value: '0', color: 'from-[#021E14] to-[#3aa8a1]' },
-                        { icon: FiAward, label: 'Certificates', value: '0', color: 'from-[#021E14] to-[#e88a43]' },
-                        { icon: FiHeart, label: 'Wishlist Items', value: '0', color: 'from-[#021E14] to-[#01140D]' },
-                        { icon: FiTrendingUp, label: 'Completed', value: '0%', color: 'from-[#021E14] to-[#01140D]' },
+                        { icon: FiBook, label: t('userDashboard.profile.enrolledCourses'), value: '0', color: 'from-[#021E14] to-[#3aa8a1]' },
+                        { icon: FiAward, label: t('userDashboard.profile.certificates'), value: '0', color: 'from-[#021E14] to-[#e88a43]' },
+                        { icon: FiHeart, label: t('userDashboard.profile.wishlistItems'), value: '0', color: 'from-[#021E14] to-[#01140D]' },
+                        { icon: FiTrendingUp, label: t('userDashboard.profile.completedPct'), value: '0%', color: 'from-[#021E14] to-[#01140D]' },
                     ].map((stat, idx) => (
                         <div key={idx} className={`relative group ${isDark ? 'bg-slate-800/80' : 'bg-white'} rounded-2xl p-5 shadow-xl border ${isDark ? 'border-slate-700/50' : 'border-slate-100'} hover:shadow-2xl transition-all`}>
                             <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white shadow-lg mb-3`}>
@@ -158,26 +160,26 @@ export default function UserProfilePage() {
                                         <FiShield className="text-white" size={28} />
                                     </div>
                                     <div className="text-white">
-                                        <h3 className="font-bold text-lg">Account Protected</h3>
-                                        <p className="text-emerald-100 text-sm">All security features enabled</p>
+                                        <h3 className="font-bold text-lg">{t('userDashboard.profile.accountProtected')}</h3>
+                                        <p className="text-emerald-100 text-sm">{t('userDashboard.profile.allSecurityEnabled')}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="p-6 space-y-4">
                                 {[
-                                    { label: 'Email Verified', status: true },
-                                    { label: 'Phone Verified', status: !!user?.phoneNumber },
-                                    { label: 'Two-Factor Auth', status: false },
+                                    { label: t('userDashboard.profile.emailVerified'), status: true },
+                                    { label: t('userDashboard.profile.phoneVerified'), status: !!user?.phoneNumber },
+                                    { label: t('userDashboard.profile.twoFactorAuth'), status: false },
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-center justify-between">
                                         <span className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{item.label}</span>
                                         {item.status ? (
                                             <span className="flex items-center gap-1.5 text-[#021E14] text-xs font-bold">
-                                                <FiCheckCircle size={14} /> Enabled
+                                                <FiCheckCircle size={14} /> {t('userDashboard.profile.enabled')}
                                             </span>
                                         ) : (
                                             <span className="flex items-center gap-1.5 text-slate-400 text-xs font-bold">
-                                                <FiX size={14} /> Disabled
+                                                <FiX size={14} /> {t('userDashboard.profile.disabled')}
                                             </span>
                                         )}
                                     </div>
@@ -187,19 +189,19 @@ export default function UserProfilePage() {
 
                         {/* Quick Actions */}
                         <div className={`rounded-3xl p-6 ${isDark ? 'bg-slate-800/50 border border-slate-700/50' : 'bg-white border border-slate-200 shadow-xl'}`}>
-                            <h3 className={`font-bold text-lg mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Quick Actions</h3>
+                            <h3 className={`font-bold text-lg mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.profile.quickActions')}</h3>
                             <div className="space-y-3">
                                 <button className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all ${isDark ? 'bg-slate-700/50 hover:bg-slate-700 text-white' : 'bg-slate-50 hover:bg-slate-100 text-slate-700'}`}>
                                     <FiLock size={18} className="text-[#021E14]" />
-                                    <span className="font-semibold text-sm">Change Password</span>
+                                    <span className="font-semibold text-sm">{t('userDashboard.profile.changePassword')}</span>
                                 </button>
                                 <button className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all ${isDark ? 'bg-slate-700/50 hover:bg-slate-700 text-white' : 'bg-slate-50 hover:bg-slate-100 text-slate-700'}`}>
                                     <FiShield size={18} className="text-[#021E14]" />
-                                    <span className="font-semibold text-sm">Security Settings</span>
+                                    <span className="font-semibold text-sm">{t('userDashboard.profile.securitySettings')}</span>
                                 </button>
                                 <button className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all ${isDark ? 'bg-slate-700/50 hover:bg-slate-700 text-white' : 'bg-slate-50 hover:bg-slate-100 text-slate-700'}`}>
                                     <FiAward size={18} className="text-[#021E14]" />
-                                    <span className="font-semibold text-sm">View Certificates</span>
+                                    <span className="font-semibold text-sm">{t('userDashboard.profile.viewCertificates')}</span>
                                 </button>
                             </div>
                         </div>
@@ -214,8 +216,8 @@ export default function UserProfilePage() {
                                     <FiUser size={22} />
                                 </div>
                                 <div>
-                                    <h2 className={`font-bold text-lg ${isDark ? 'text-white' : 'text-slate-800'}`}>Personal Information</h2>
-                                    <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Update your personal details</p>
+                                    <h2 className={`font-bold text-lg ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.profile.personalInfo')}</h2>
+                                    <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('userDashboard.profile.updateDetails')}</p>
                                 </div>
                             </div>
                             {!isEditing ? (
@@ -224,7 +226,7 @@ export default function UserProfilePage() {
                                     className="flex items-center gap-2 px-5 py-2.5 bg-[#021E14] hover:bg-[#3aa8a1] text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-[#021E14]/25"
                                 >
                                     <FiEdit3 size={16} />
-                                    Edit Profile
+                                    {t('userDashboard.profile.editProfile')}
                                 </button>
                             ) : (
                                 <div className="flex gap-2">
@@ -232,7 +234,7 @@ export default function UserProfilePage() {
                                         onClick={() => setIsEditing(false)}
                                         className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all ${isDark ? 'bg-slate-700 text-slate-300' : 'bg-slate-100 text-slate-600'}`}
                                     >
-                                        Cancel
+                                        {t('userDashboard.profile.cancel')}
                                     </button>
                                     <button
                                         onClick={handleSave}
@@ -240,7 +242,7 @@ export default function UserProfilePage() {
                                         className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-semibold text-sm transition-all shadow-lg shadow-[#021E14]/25 disabled:opacity-50"
                                     >
                                         <FiSave size={16} />
-                                        {loading ? 'Saving...' : 'Save Changes'}
+                                        {loading ? t('userDashboard.profile.saving') : t('userDashboard.profile.saveChanges')}
                                     </button>
                                 </div>
                             )}
@@ -250,31 +252,31 @@ export default function UserProfilePage() {
                         <div className="p-6">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className={labelClass}>First Name</label>
+                                    <label className={labelClass}>{t('userDashboard.profile.firstName')}</label>
                                     <input
                                         type="text"
                                         name="firstName"
                                         value={formData.firstName}
                                         onChange={handleChange}
                                         disabled={!isEditing}
-                                        placeholder="Enter first name"
+                                        placeholder={t('userDashboard.profile.enterFirstName')}
                                         className={inputClass}
                                     />
                                 </div>
                                 <div>
-                                    <label className={labelClass}>Last Name</label>
+                                    <label className={labelClass}>{t('userDashboard.profile.lastName')}</label>
                                     <input
                                         type="text"
                                         name="lastName"
                                         value={formData.lastName}
                                         onChange={handleChange}
                                         disabled={!isEditing}
-                                        placeholder="Enter last name"
+                                        placeholder={t('userDashboard.profile.enterLastName')}
                                         className={inputClass}
                                     />
                                 </div>
                                 <div>
-                                    <label className={labelClass}>Email Address</label>
+                                    <label className={labelClass}>{t('userDashboard.profile.emailAddress')}</label>
                                     <div className="relative">
                                         <input
                                             type="email"
@@ -283,12 +285,12 @@ export default function UserProfilePage() {
                                             className={`${inputClass} pr-20`}
                                         />
                                         <span className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-emerald-100 text-[#021E14] text-[10px] font-bold rounded-md uppercase">
-                                            Verified
+                                            {t('userDashboard.profile.verified')}
                                         </span>
                                     </div>
                                 </div>
                                 <div>
-                                    <label className={labelClass}>Phone Number</label>
+                                    <label className={labelClass}>{t('userDashboard.profile.phoneNumber')}</label>
                                     <input
                                         type="tel"
                                         name="phoneNumber"
@@ -300,13 +302,13 @@ export default function UserProfilePage() {
                                     />
                                 </div>
                                 <div className="md:col-span-2">
-                                    <label className={labelClass}>Address</label>
+                                    <label className={labelClass}>{t('userDashboard.profile.address')}</label>
                                     <textarea
                                         name="address"
                                         value={formData.address}
                                         onChange={handleChange}
                                         disabled={!isEditing}
-                                        placeholder="Enter your full address"
+                                        placeholder={t('userDashboard.profile.enterAddress')}
                                         rows={3}
                                         className={`${inputClass} resize-none`}
                                     />

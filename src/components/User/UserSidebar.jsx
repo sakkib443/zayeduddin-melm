@@ -32,6 +32,7 @@ import {
 } from 'react-icons/fi';
 
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 import Logo from '../sheard/Logo';
 import { fetchMyStats } from '@/redux/enrollmentSlice';
 import { fetchMyOrders } from '@/redux/orderSlice';
@@ -43,6 +44,7 @@ const UserSidebar = () => {
     const [user, setUser] = useState(null);
     const pathname = usePathname();
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const dispatch = useDispatch();
 
     // Redux State
@@ -91,58 +93,58 @@ const UserSidebar = () => {
 
     const menuItems = [
         {
-            title: 'Dashboard',
+            title: t('userDashboard.sidebar.dashboard'),
             href: '/dashboard/user',
             icon: FiHome,
             gradient: 'from-[#021E14] to-[#01140D]'
         },
         {
-            title: 'My Courses',
+            title: t('userDashboard.sidebar.myCourses'),
             href: '/dashboard/user/courses',
             icon: FiBook,
             gradient: 'from-[#021E14] to-[#021E14]',
             count: stats?.totalEnrolled
         },
         {
-            title: 'Schedule',
+            title: t('userDashboard.sidebar.schedule'),
             href: '/dashboard/user/schedule',
             icon: FiCalendar,
             gradient: 'from-[#021E14] to-[#021E14]'
         },
         {
-            title: 'Live Classes',
+            title: t('userDashboard.sidebar.liveClasses'),
             href: '/dashboard/user/live-classes',
             icon: FiLayers,
             gradient: 'from-[#021E14] to-[#021E14]'
         },
         {
-            title: 'My Downloads',
+            title: t('userDashboard.sidebar.myDownloads'),
             href: '/dashboard/user/downloads',
             icon: FiDownload,
             gradient: 'from-[#021E14] to-[#021E14]',
             count: downloads?.length
         },
         {
-            title: 'Purchase History',
+            title: t('userDashboard.sidebar.purchaseHistory'),
             href: '/dashboard/user/purchases',
             icon: FiShoppingBag,
             gradient: 'from-[#021E14] to-[#021E14]',
             count: orders?.length
         },
         {
-            title: 'My Favorites',
+            title: t('userDashboard.sidebar.myFavorites'),
             href: '/dashboard/user/favorites',
             icon: FiHeart,
             gradient: 'from-[#021E14] to-[#01140D]'
         },
         {
-            title: 'Profile Settings',
+            title: t('userDashboard.sidebar.profileSettings'),
             href: '/dashboard/user/profile',
             icon: FiUser,
             gradient: 'from-slate-500 to-slate-700'
         },
         {
-            title: 'Support',
+            title: t('userDashboard.sidebar.support'),
             href: '/dashboard/user/support',
             icon: FiHelpCircle,
             gradient: 'from-[#021E14] to-[#021E14]'
@@ -195,13 +197,13 @@ const UserSidebar = () => {
                             }`}
                     >
                         <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" size={18} />
-                        <span className="text-sm font-medium">Return to Marketplace</span>
+                        <span className="text-sm font-medium">{t('userDashboard.sidebar.returnToMarketplace')}</span>
                     </Link>
                 </div>
 
                 {/* Navigation */}
                 <nav className="relative px-3 py-4 space-y-1 overflow-y-auto max-h-[calc(100vh-180px)]" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                    <p className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>User Dashboard</p>
+                    <p className={`px-3 py-2 text-[10px] font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{t('userDashboard.sidebar.title')}</p>
 
                     {menuItems.map((item) => {
                         const Icon = item.icon;
@@ -324,8 +326,8 @@ const UserSidebar = () => {
                             {user?.firstName?.[0] || 'S'}
                         </div>
                         <div className="overflow-hidden">
-                            <p className={`text-sm font-bold truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{user?.firstName || 'Student'}</p>
-                            <p className="text-[10px] text-slate-500 truncate">{user?.email || 'student@motionboss.com'}</p>
+                            <p className={`text-sm font-bold truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{user?.firstName || t('userDashboard.sidebar.student')}</p>
+                            <p className="text-[10px] text-slate-500 truncate">{user?.email || ''}</p>
                         </div>
                     </div>
                     <button
@@ -333,7 +335,7 @@ const UserSidebar = () => {
                         className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[#021E14] hover:text-[#021E14] hover:bg-[#021E14]/10 transition-all border border-[#021E14]/10"
                     >
                         <FiLogOut size={16} />
-                        <span className="text-xs font-medium">Logout Account</span>
+                        <span className="text-xs font-medium">{t('userDashboard.sidebar.logout')}</span>
                     </button>
                 </div>
             </aside>

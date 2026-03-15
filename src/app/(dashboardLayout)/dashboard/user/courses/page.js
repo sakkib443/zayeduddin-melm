@@ -10,10 +10,12 @@ import {
     FiCheckCircle, FiInfo, FiUsers
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
 
 export default function UserCoursesPage() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const dispatch = useDispatch();
     const { enrollments, loading, error } = useSelector((state) => state.enrollment);
     const [searchTerm, setSearchTerm] = useState('');
@@ -92,10 +94,10 @@ export default function UserCoursesPage() {
                     </div>
                     <div>
                         <h1 className={`text-xl font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            My Courses
+                            {t('userDashboard.courses.myCourses')}
                         </h1>
                         <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            All your enrolled courses and learning progress
+                            {t('userDashboard.courses.allEnrolled')}
                         </p>
                     </div>
                 </div>
@@ -116,7 +118,7 @@ export default function UserCoursesPage() {
                         className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl text-sm font-bold shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                     >
                         <FiArrowRight size={16} />
-                        Explore More
+                        {t('userDashboard.courses.exploreMore')}
                     </Link>
                 </div>
             </div>
@@ -128,13 +130,13 @@ export default function UserCoursesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Total Courses
+                                {t('userDashboard.courses.totalCourses')}
                             </p>
                             <h3 className={`text-2xl font-black mt-1 outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {stats.total.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                All enrolled courses
+                                {t('userDashboard.courses.allEnrolledCourses')}
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
@@ -149,13 +151,13 @@ export default function UserCoursesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                In Progress
+                                {t('userDashboard.courses.inProgress')}
                             </p>
                             <h3 className={`text-2xl font-black mt-1 outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {stats.inProgress.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Active learning
+                                {t('userDashboard.courses.activeLearning')}
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
@@ -170,13 +172,13 @@ export default function UserCoursesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Completed
+                                {t('userDashboard.courses.completedLabel')}
                             </p>
                             <h3 className={`text-2xl font-black mt-1 outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {stats.completed.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Certificate eligible
+                                {t('userDashboard.courses.certificateEligible')}
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#01140D] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
@@ -191,13 +193,13 @@ export default function UserCoursesPage() {
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Points Earned
+                                {t('userDashboard.courses.pointsEarned')}
                             </p>
                             <h3 className={`text-2xl font-black mt-1 outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {stats.points.toLocaleString()}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Learning rewards
+                                {t('userDashboard.courses.learningRewards')}
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#021E14] to-[#021E14] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
@@ -213,7 +215,7 @@ export default function UserCoursesPage() {
                 <div className="relative flex-1">
                     <FiSearch className={`absolute left-4 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`} />
                     <input
-                        placeholder="Search your courses..."
+                        placeholder={t('userDashboard.courses.searchCourses')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full pl-11 pr-4 py-2.5 rounded-xl text-sm transition-all focus:outline-none focus:ring-2 ${isDark
@@ -255,19 +257,19 @@ export default function UserCoursesPage() {
                         <FiMinusCircle size={36} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
                     </div>
                     <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                        No Courses Found
+                        {t('userDashboard.courses.noCoursesFound')}
                     </h2>
                     <p className={`text-sm mt-3 max-w-sm mx-auto ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
                         {searchTerm
-                            ? `We couldn't find any courses matching "${searchTerm}" in your shelf.`
-                            : "Your learning shelf is currently empty. Start your learning journey today!"}
+                            ? `${t('userDashboard.courses.noMatchSearch')} "${searchTerm}" ${t('userDashboard.courses.inYourShelf')}`
+                            : t('userDashboard.courses.emptyShelf')}
                     </p>
                     {!searchTerm && (
                         <Link
                             href="/courses"
                             className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-sm shadow-md shadow-[#021E14]/10 hover:scale-105 transition-all"
                         >
-                            Browse All Courses <FiArrowRight />
+                            {t('userDashboard.courses.browseAll')} <FiArrowRight />
                         </Link>
                     )}
                 </div>
@@ -342,7 +344,7 @@ export default function UserCoursesPage() {
                                     href={`/learn/${enroll.course?._id}`}
                                     className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-gradient-to-r from-[#021E14] to-[#021E14] text-white rounded-xl font-bold text-xs shadow-md shadow-[#021E14]/10 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all"
                                 >
-                                    <FiPlay size={14} /> Continue Learning
+                                    <FiPlay size={14} /> {t('userDashboard.courses.continueLearning')}
                                 </Link>
                             </div>
 
@@ -404,9 +406,9 @@ export default function UserCoursesPage() {
                         <FiInfo size={22} />
                     </div>
                     <div>
-                        <h4 className={`text-base font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>Having Issues?</h4>
+                        <h4 className={`text-base font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.courses.havingIssues')}</h4>
                         <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                            If your course isn't appearing, use the sync button or contact support.
+                            {t('userDashboard.courses.issuesDesc')}
                         </p>
                     </div>
                 </div>
@@ -417,7 +419,7 @@ export default function UserCoursesPage() {
                         : 'bg-slate-900 text-white hover:bg-slate-800'
                         }`}
                 >
-                    Contact Support
+                    {t('userDashboard.courses.contactSupport')}
                 </Link>
             </div>
         </div>

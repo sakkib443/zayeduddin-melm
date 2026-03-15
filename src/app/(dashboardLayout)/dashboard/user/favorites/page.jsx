@@ -8,12 +8,14 @@ import { FiHeart, FiTrash2, FiExternalLink, FiSearch, FiFilter } from "react-ico
 import { LuGlobe, LuCode, LuBookOpen, LuChevronRight } from "react-icons/lu";
 import Link from "next/link";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useLanguage } from "@/context/LanguageContext";
 
 const FavoritesPage = () => {
     const [wishlist, setWishlist] = useState(null);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("all");
     const { isDark } = useTheme();
+    const { t } = useLanguage();
 
     const fetchWishlist = async () => {
         try {
@@ -97,31 +99,31 @@ const FavoritesPage = () => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h1 className={`text-2xl lg:text-3xl font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>My Favorites</h1>
+                    <h1 className={`text-2xl lg:text-3xl font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.favorites.title')}</h1>
                     <p className={`text-sm poppins mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Explore and manage the products and courses you love
+                        {t('userDashboard.favorites.description')}
                     </p>
                 </div>
 
                 {/* Filters */}
                 <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
                     {[
-                        { id: "all", label: "All Items" },
-                        { id: "course", label: "Courses" },
-                        { id: "software", label: "Software" },
-                        { id: "website", label: "Websites" },
-                    ].map((t) => (
+                        { id: "all", label: t('userDashboard.favorites.allItems') },
+                        { id: "course", label: t('userDashboard.favorites.courses') },
+                        { id: "software", label: t('userDashboard.assets.softwares') },
+                        { id: "website", label: t('userDashboard.assets.websites') },
+                    ].map((tab) => (
                         <button
-                            key={t.id}
-                            onClick={() => setFilter(t.id)}
+                            key={tab.id}
+                            onClick={() => setFilter(tab.id)}
                             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap
-                ${filter === t.id
+                ${filter === tab.id
                                     ? 'bg-[#021E14] text-white shadow-lg shadow-rose-500/20'
                                     : isDark
                                         ? 'bg-slate-800 text-slate-400 hover:bg-slate-700'
                                         : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}
                         >
-                            {t.label}
+                            {tab.label}
                         </button>
                     ))}
                 </div>
@@ -132,15 +134,15 @@ const FavoritesPage = () => {
                     <div className="w-20 h-20 bg-[#021E14] rounded-full flex items-center justify-center mb-4">
                         <FiHeart className="text-[#021E14] text-3xl" />
                     </div>
-                    <h3 className={`text-xl font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>No favorites yet</h3>
+                    <h3 className={`text-xl font-bold outfit ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.favorites.noFavoritesYet')}</h3>
                     <p className={`text-sm poppins mt-2 text-center max-w-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        You haven't liked any {filter === 'all' ? 'products' : filter} yet. Browse our marketplace to find things you like!
+                        {t('userDashboard.favorites.noFavoritesDesc')}
                     </p>
                     <Link
                         href={filter === 'course' ? '/courses' : filter === 'website' ? '/website' : filter === 'software' ? '/software' : '/'}
                         className="mt-6 px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-[#021E14] transition-all flex items-center gap-2"
                     >
-                        Explore Now <FiExternalLink />
+                        {t('userDashboard.favorites.exploreNow')} <FiExternalLink />
                     </Link>
                 </div>
             ) : (
@@ -177,7 +179,7 @@ const FavoritesPage = () => {
                                     <button
                                         onClick={() => handleRemove(item.product?._id)}
                                         className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-md text-[#021E14] rounded-lg flex items-center justify-center shadow-sm hover:bg-[#021E14] hover:text-white transition-all transform hover:scale-110"
-                                        title="Remove from favorites"
+                                        title={t('userDashboard.favorites.removeFromFavorites')}
                                     >
                                         <FiTrash2 size={16} />
                                     </button>
@@ -191,7 +193,7 @@ const FavoritesPage = () => {
 
                                     <div className="flex items-center justify-between mt-4">
                                         <div className="flex flex-col">
-                                            <span className={`text-[10px] font-medium uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Price</span>
+                                            <span className={`text-[10px] font-medium uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{t('userDashboard.favorites.price')}</span>
                                             <span className={`text-lg font-bold outfit ${isDark ? 'text-white' : 'text-slate-900'}`}>
                                                 ?{(item.product?.price || 0).toLocaleString()}
                                             </span>
@@ -204,7 +206,7 @@ const FavoritesPage = () => {
                                                     ? 'bg-slate-800 text-white hover:bg-[#021E14]'
                                                     : 'bg-slate-100 text-slate-700 hover:bg-[#021E14] hover:text-white'}`}
                                         >
-                                            View Details <LuChevronRight size={16} />
+                                            {t('userDashboard.favorites.viewDetails')} <LuChevronRight size={16} />
                                         </Link>
                                     </div>
                                 </div>

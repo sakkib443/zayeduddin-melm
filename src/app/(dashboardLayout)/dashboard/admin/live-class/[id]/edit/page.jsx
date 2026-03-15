@@ -1,61 +1,106 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import { FiArrowLeft, FiSave, FiPlus, FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeft, FiSave, FiPlus, FiTrash2, FiVideo, FiLoader } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { API_URL } from '@/config/api';
 
-const DAYS = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+const PLATFORMS = [
+    { value: 'zoom', label: 'Zoom' },
+    { value: 'google_meet', label: 'Google Meet' },
+    { value: 'microsoft_teams', label: 'Microsoft Teams' },
+    { value: 'custom', label: 'Custom Link' },
+];
 
-export default function CreateBatchPage() {
+export default function EditLiveClassPage() {
     const { isDark } = useTheme();
     const router = useRouter();
+    const params = useParams();
+    const classId = params.id;
+
     const [loading, setLoading] = useState(false);
-    const [courses, setCourses] = useState([]);
+    const [fetching, setFetching] = useState(true);
+    const [batches, setBatches] = useState([]);
     const [instructors, setInstructors] = useState([]);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [fieldErrors, setFieldErrors] = useState({});
 
     const [formData, setFormData] = useState({
-        course: '',
+        batch: '',
         instructor: '',
-        batchName: '',
-        batchCode: '',
+        title: '',
         description: '',
-        startDate: '',
-        endDate: '',
-        enrollmentDeadline: '',
-        maxStudents: 50,
-        schedule: [],
+        classNumber: '',
+        classDate: '',
+        startTime: '',
+        endTime: '',
+        meetingLink: '',
+        meetingId: '',
+        meetingPassword: '',
+        platform: 'zoom',
+        resources: [],
     });
 
     useEffect(() => {
-        fetchCourses();
+        fetchBatches();
         fetchInstructors();
-    }, []);
+        if (classId) {
+            fetchLiveClass();
+        }
+    }, [classId]);
 
-    const fetchCourses = async () => {
+    const fetchLiveClass = async () => {
         try {
+            setFetching(true);
             const token = localStorage.getItem('token');
-            const res = await fetch(`${API_URL}/courses/admin/all?limit=100`, {
+            const res = await fetch(`${API_URL}/live-classes/${classId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await res.json();
-            console.log('Courses response:', data);
-            if (data.success) {
-                setCourses(data.data || []);
-            } else {
-                // Try alternative endpoint
-                const res2 = await fetch(`${API_URL}/courses?limit=100`, {
-                    headers: { Authorization: `Bearer ${token}` },
+
+            if (data.success && data.data) {
+                const lc = data.data;
+                setFormData({
+                    batch: lc.batch?._id || lc.batch || '',
+                    instructor: lc.instructor?._id || lc.instructor || '',
+                    title: lc.title || '',
+                    description: lc.description || '',
+                    classNumber: lc.classNumber || '',
+                    classDate: lc.classDate ? lc.classDate.split('T')[0] : '',
+                    startTime: lc.startTime || '',
+                    endTime: lc.endTime || '',
+                    meetingLink: lc.meetingLink || '',
+                    meetingId: lc.meetingId || '',
+                    meetingPassword: lc.meetingPassword || '',
+                    platform: lc.platform || 'zoom',
+                    resources: lc.resources || [],
                 });
-                const data2 = await res2.json();
-                setCourses(data2.data || []);
+            } else {
+                setError('Live class not found');
             }
         } catch (error) {
-            console.error('Error fetching courses:', error);
+            console.error('Error fetching live class:', error);
+            setError('Failed to load live class data');
+        } finally {
+            setFetching(false);
+        }
+    };
+
+    const fetchBatches = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${API_URL}/batches?limit=100`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await res.json();
+            if (data.success) {
+                setBatches(data.data || []);
+            }
+        } catch (error) {
+            console.error('Error fetching batches:', error);
         }
     };
 
@@ -79,56 +124,62 @@ export default function CreateBatchPage() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const addSchedule = () => {
+    const addResource = () => {
         setFormData((prev) => ({
             ...prev,
-            schedule: [...prev.schedule, { day: 'saturday', startTime: '10:00', endTime: '12:00' }],
+            resources: [...prev.resources, { title: '', url: '', type: 'file' }],
         }));
     };
 
-    const updateSchedule = (index, field, value) => {
-        const newSchedule = [...formData.schedule];
-        newSchedule[index][field] = value;
-        setFormData((prev) => ({ ...prev, schedule: newSchedule }));
+    const updateResource = (index, field, value) => {
+        const newResources = [...formData.resources];
+        newResources[index][field] = value;
+        setFormData((prev) => ({ ...prev, resources: newResources }));
     };
 
-    const removeSchedule = (index) => {
+    const removeResource = (index) => {
         setFormData((prev) => ({
             ...prev,
-            schedule: prev.schedule.filter((_, i) => i !== index),
+            resources: prev.resources.filter((_, i) => i !== index),
         }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setSuccess('');
         setFieldErrors({});
         setLoading(true);
 
         try {
             const token = localStorage.getItem('token');
+            const payload = {
+                ...formData,
+                classNumber: formData.classNumber ? parseInt(formData.classNumber) : undefined,
+            };
 
-            // Remove instructor if empty
-            const submitData = { ...formData };
-            if (!submitData.instructor) {
-                delete submitData.instructor;
-            }
+            // Remove empty strings for optional fields
+            if (!payload.instructor) delete payload.instructor;
+            if (!payload.meetingLink) delete payload.meetingLink;
 
-            const res = await fetch(`${API_URL}/batches`, {
-                method: 'POST',
+            const res = await fetch(`${API_URL}/live-classes/${classId}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(submitData),
+                body: JSON.stringify(payload),
             });
 
             const data = await res.json();
 
             if (data.success) {
-                router.push('/dashboard/admin/batch');
+                setSuccess('Live class updated successfully!');
+                setTimeout(() => {
+                    router.push('/dashboard/admin/live-class');
+                }, 1500);
             } else {
-                setError(data.message || 'Failed to create batch');
+                setError(data.message || 'Failed to update live class');
                 if (data.errorMessages) {
                     const errors = {};
                     data.errorMessages.forEach(err => {
@@ -145,12 +196,23 @@ export default function CreateBatchPage() {
         }
     };
 
+    if (fetching) {
+        return (
+            <div className="p-6 flex items-center justify-center min-h-[400px]">
+                <div className="flex items-center gap-3">
+                    <FiLoader className="animate-spin text-[#021E14]" size={24} />
+                    <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>Loading live class data...</span>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="p-6 max-w-4xl mx-auto">
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
                 <Link
-                    href="/dashboard/admin/batch"
+                    href="/dashboard/admin/live-class"
                     className={`p-2 rounded-md border transition-colors ${isDark
                         ? 'border-slate-600 hover:bg-slate-700 text-gray-300'
                         : 'border-gray-200 hover:bg-gray-50 text-gray-600'
@@ -160,17 +222,24 @@ export default function CreateBatchPage() {
                 </Link>
                 <div>
                     <h1 className={`text-2xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                        Create New Batch
+                        Edit Live Class
                     </h1>
                     <p className={`text-sm mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                        Create a new batch for an online course
+                        Update live class details
                     </p>
                 </div>
             </div>
 
+            {/* Success Message */}
+            {success && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-md">
+                    {success}
+                </div>
+            )}
+
             {/* Error Message */}
             {error && (
-                <div className="mb-6 p-4 bg-[#021E14] border border-[#021E14] text-emerald-700 rounded-md">
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-md">
                     {error}
                 </div>
             )}
@@ -180,16 +249,16 @@ export default function CreateBatchPage() {
                 {/* Basic Info */}
                 <div className={`p-6 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <h2 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                        Basic Information
+                        Class Information
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Course <span className="text-[#021E14]">*</span>
+                                Batch <span className="text-[#021E14]">*</span>
                             </label>
                             <select
-                                name="course"
-                                value={formData.course}
+                                name="batch"
+                                value={formData.batch}
                                 onChange={handleChange}
                                 required
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
@@ -197,14 +266,14 @@ export default function CreateBatchPage() {
                                     : 'bg-white border-gray-200 text-gray-900'
                                     } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             >
-                                <option value="">Select Course</option>
-                                {courses.map((course) => (
-                                    <option key={course._id} value={course._id}>
-                                        {course.title}
+                                <option value="">Select Batch</option>
+                                {batches.map((batch) => (
+                                    <option key={batch._id} value={batch._id}>
+                                        {batch.batchName} - {batch.course?.title}
                                     </option>
                                 ))}
                             </select>
-                            {fieldErrors.course && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.course}</p>}
+                            {fieldErrors.batch && <p className="mt-1 text-xs text-red-500">{fieldErrors.batch}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -226,42 +295,61 @@ export default function CreateBatchPage() {
                                     </option>
                                 ))}
                             </select>
+                            {fieldErrors.instructor && <p className="mt-1 text-xs text-red-500">{fieldErrors.instructor}</p>}
                         </div>
-                        <div>
+                        <div className="md:col-span-2">
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Batch Name <span className="text-[#021E14]">*</span>
+                                Class Title
                             </label>
                             <input
                                 type="text"
-                                name="batchName"
-                                value={formData.batchName}
+                                name="title"
+                                value={formData.title}
                                 onChange={handleChange}
-                                placeholder="e.g., Batch-01, Morning Batch"
-                                required
+                                placeholder="e.g., Class 01 - JavaScript Basics"
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
                                     } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.batchName && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.batchName}</p>}
+                            {fieldErrors.title && <p className="mt-1 text-xs text-red-500">{fieldErrors.title}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Batch Code <span className="text-[#021E14]">*</span>
+                                Class Number
                             </label>
                             <input
-                                type="text"
-                                name="batchCode"
-                                value={formData.batchCode}
+                                type="number"
+                                name="classNumber"
+                                value={formData.classNumber}
                                 onChange={handleChange}
-                                placeholder="e.g., WEB-B01"
-                                required
+                                min={1}
+                                placeholder="Auto-generated if empty"
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
                                     } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.batchCode && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.batchCode}</p>}
+                        </div>
+                        <div>
+                            <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                                Platform
+                            </label>
+                            <select
+                                name="platform"
+                                value={formData.platform}
+                                onChange={handleChange}
+                                className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
+                                    ? 'bg-slate-700 border-slate-600 text-white'
+                                    : 'bg-white border-gray-200 text-gray-900'
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
+                            >
+                                {PLATFORMS.map((p) => (
+                                    <option key={p.value} value={p.value}>
+                                        {p.label}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div className="md:col-span-2">
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -272,7 +360,7 @@ export default function CreateBatchPage() {
                                 value={formData.description}
                                 onChange={handleChange}
                                 rows={3}
-                                placeholder="Batch description..."
+                                placeholder="What will be covered in this class..."
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
                                     : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
@@ -282,143 +370,182 @@ export default function CreateBatchPage() {
                     </div>
                 </div>
 
-                {/* Dates & Capacity */}
+                {/* Schedule */}
                 <div className={`p-6 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <h2 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                        Schedule & Capacity
+                        Schedule
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Start Date <span className="text-[#021E14]">*</span>
+                                Class Date
                             </label>
                             <input
                                 type="date"
-                                name="startDate"
-                                value={formData.startDate}
+                                name="classDate"
+                                value={formData.classDate}
                                 onChange={handleChange}
-                                required
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
                                     } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.startDate && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.startDate}</p>}
+                            {fieldErrors.classDate && <p className="mt-1 text-xs text-red-500">{fieldErrors.classDate}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                End Date <span className="text-[#021E14]">*</span>
+                                Start Time
                             </label>
                             <input
-                                type="date"
-                                name="endDate"
-                                value={formData.endDate}
+                                type="time"
+                                name="startTime"
+                                value={formData.startTime}
                                 onChange={handleChange}
-                                required
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
                                     } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                            {fieldErrors.endDate && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.endDate}</p>}
+                            {fieldErrors.startTime && <p className="mt-1 text-xs text-red-500">{fieldErrors.startTime}</p>}
                         </div>
                         <div>
                             <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Enrollment Deadline
+                                End Time
                             </label>
                             <input
-                                type="date"
-                                name="enrollmentDeadline"
-                                value={formData.enrollmentDeadline}
+                                type="time"
+                                name="endTime"
+                                value={formData.endTime}
                                 onChange={handleChange}
                                 className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
                                     ? 'bg-slate-700 border-slate-600 text-white'
                                     : 'bg-white border-gray-200 text-gray-900'
                                     } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                             />
-                        </div>
-                        <div>
-                            <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Max Students <span className="text-[#021E14]">*</span>
-                            </label>
-                            <input
-                                type="number"
-                                name="maxStudents"
-                                value={formData.maxStudents}
-                                onChange={handleChange}
-                                min={1}
-                                required
-                                className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
-                                    ? 'bg-slate-700 border-slate-600 text-white'
-                                    : 'bg-white border-gray-200 text-gray-900'
-                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
-                            />
-                            {fieldErrors.maxStudents && <p className="mt-1 text-xs text-[#021E14]">{fieldErrors.maxStudents}</p>}
+                            {fieldErrors.endTime && <p className="mt-1 text-xs text-red-500">{fieldErrors.endTime}</p>}
                         </div>
                     </div>
                 </div>
 
-                {/* Weekly Schedule */}
+                {/* Meeting Details */}
+                <div className={`p-6 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
+                    <h2 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                        Meeting Details
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="md:col-span-2">
+                            <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                                Meeting Link
+                            </label>
+                            <input
+                                type="url"
+                                name="meetingLink"
+                                value={formData.meetingLink}
+                                onChange={handleChange}
+                                placeholder="https://zoom.us/j/..."
+                                className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
+                                    ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
+                                    : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
+                            />
+                            {fieldErrors.meetingLink && <p className="mt-1 text-xs text-red-500">{fieldErrors.meetingLink}</p>}
+                        </div>
+                        <div>
+                            <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                                Meeting ID (Optional)
+                            </label>
+                            <input
+                                type="text"
+                                name="meetingId"
+                                value={formData.meetingId}
+                                onChange={handleChange}
+                                placeholder="123 456 7890"
+                                className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
+                                    ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
+                                    : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
+                            />
+                        </div>
+                        <div>
+                            <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                                Meeting Password (Optional)
+                            </label>
+                            <input
+                                type="text"
+                                name="meetingPassword"
+                                value={formData.meetingPassword}
+                                onChange={handleChange}
+                                placeholder="abc123"
+                                className={`w-full px-4 py-2.5 rounded-md border font-normal ${isDark
+                                    ? 'bg-slate-700 border-slate-600 text-white placeholder-gray-400'
+                                    : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
+                                    } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Resources */}
                 <div className={`p-6 rounded-md border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
                     <div className="flex items-center justify-between mb-4">
                         <h2 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                            Weekly Class Schedule
+                            Class Resources
                         </h2>
                         <button
                             type="button"
-                            onClick={addSchedule}
+                            onClick={addResource}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-colors font-medium"
                         >
                             <FiPlus size={14} />
-                            Add Day
+                            Add Resource
                         </button>
                     </div>
 
-                    {formData.schedule.length === 0 ? (
+                    {formData.resources.length === 0 ? (
                         <p className={`text-center py-8 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                            No schedule added yet. Click "Add Day" to add class days.
+                            No resources added yet. Add PDF, video links or other materials.
                         </p>
                     ) : (
                         <div className="space-y-3">
-                            {formData.schedule.map((item, index) => (
+                            {formData.resources.map((item, index) => (
                                 <div key={index} className={`flex items-center gap-3 p-3 rounded-md border ${isDark ? 'bg-slate-700 border-slate-600' : 'bg-gray-50 border-gray-200'}`}>
+                                    <input
+                                        type="text"
+                                        value={item.title}
+                                        onChange={(e) => updateResource(index, 'title', e.target.value)}
+                                        placeholder="Resource title"
+                                        className={`flex-1 px-3 py-2 rounded-md border font-normal ${isDark
+                                            ? 'bg-slate-600 border-slate-500 text-white placeholder-gray-400'
+                                            : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
+                                    />
+                                    <input
+                                        type="url"
+                                        value={item.url}
+                                        onChange={(e) => updateResource(index, 'url', e.target.value)}
+                                        placeholder="URL"
+                                        className={`flex-1 px-3 py-2 rounded-md border font-normal ${isDark
+                                            ? 'bg-slate-600 border-slate-500 text-white placeholder-gray-400'
+                                            : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
+                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
+                                    />
                                     <select
-                                        value={item.day}
-                                        onChange={(e) => updateSchedule(index, 'day', e.target.value)}
-                                        className={`px-3 py-2 rounded-md border font-normal capitalize ${isDark
+                                        value={item.type}
+                                        onChange={(e) => updateResource(index, 'type', e.target.value)}
+                                        className={`px-3 py-2 rounded-md border font-normal ${isDark
                                             ? 'bg-slate-600 border-slate-500 text-white'
                                             : 'bg-white border-gray-200 text-gray-900'
                                             } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
                                     >
-                                        {DAYS.map((day) => (
-                                            <option key={day} value={day} className="capitalize">
-                                                {day}
-                                            </option>
-                                        ))}
+                                        <option value="file">File</option>
+                                        <option value="pdf">PDF</option>
+                                        <option value="video">Video</option>
+                                        <option value="link">Link</option>
                                     </select>
-                                    <input
-                                        type="time"
-                                        value={item.startTime}
-                                        onChange={(e) => updateSchedule(index, 'startTime', e.target.value)}
-                                        className={`px-3 py-2 rounded-md border font-normal ${isDark
-                                            ? 'bg-slate-600 border-slate-500 text-white'
-                                            : 'bg-white border-gray-200 text-gray-900'
-                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
-                                    />
-                                    <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>to</span>
-                                    <input
-                                        type="time"
-                                        value={item.endTime}
-                                        onChange={(e) => updateSchedule(index, 'endTime', e.target.value)}
-                                        className={`px-3 py-2 rounded-md border font-normal ${isDark
-                                            ? 'bg-slate-600 border-slate-500 text-white'
-                                            : 'bg-white border-gray-200 text-gray-900'
-                                            } focus:outline-none focus:ring-2 focus:ring-[#021E14]`}
-                                    />
                                     <button
                                         type="button"
-                                        onClick={() => removeSchedule(index)}
-                                        className="p-2 text-[#021E14] hover:bg-[#021E14] dark:hover:bg-[#021E14]/20 rounded-md transition-colors"
+                                        onClick={() => removeResource(index)}
+                                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/20 rounded-md transition-colors"
                                     >
                                         <FiTrash2 size={16} />
                                     </button>
@@ -431,7 +558,7 @@ export default function CreateBatchPage() {
                 {/* Submit Button */}
                 <div className="flex justify-end gap-3">
                     <Link
-                        href="/dashboard/admin/batch"
+                        href="/dashboard/admin/live-class"
                         className={`px-6 py-2.5 rounded-md border font-medium ${isDark
                             ? 'border-slate-600 text-gray-300 hover:bg-slate-700'
                             : 'border-gray-200 text-gray-700 hover:bg-gray-50'
@@ -445,7 +572,7 @@ export default function CreateBatchPage() {
                         className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#021E14] text-white rounded-md hover:bg-[#01140D] transition-colors font-medium disabled:opacity-50"
                     >
                         <FiSave size={18} />
-                        {loading ? 'Creating...' : 'Create Batch'}
+                        {loading ? 'Saving...' : 'Save Changes'}
                     </button>
                 </div>
             </form>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMyBatches } from '@/redux/batchSlice';
 import { FiCalendar, FiClock, FiVideo, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useLanguage } from '@/context/LanguageContext';
 
 const DAY_MAP = {
     saturday: { short: 'Sat', index: 5 },
@@ -20,6 +21,7 @@ const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export default function UserSchedulePage() {
     const { isDark } = useTheme();
+    const { t } = useLanguage();
     const dispatch = useDispatch();
     const { myBatches = [], loading } = useSelector((state) => state.batch);
     const [currentWeek, setCurrentWeek] = useState(0);
@@ -82,8 +84,8 @@ export default function UserSchedulePage() {
         <div className="space-y-5">
             {/* Header */}
             <div>
-                <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Class Schedule</h1>
-                <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Your weekly class schedule from enrolled batches</p>
+                <h1 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.schedule.title')}</h1>
+                <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('userDashboard.schedule.description')}</p>
             </div>
 
             {/* Stats */}
@@ -95,7 +97,7 @@ export default function UserSchedulePage() {
                         </div>
                         <div>
                             <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{todayClasses}</p>
-                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Classes Today</p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('userDashboard.schedule.classesToday')}</p>
                         </div>
                     </div>
                 </div>
@@ -106,7 +108,7 @@ export default function UserSchedulePage() {
                         </div>
                         <div>
                             <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{totalClasses}</p>
-                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Weekly Classes</p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('userDashboard.schedule.weeklyClasses')}</p>
                         </div>
                     </div>
                 </div>
@@ -119,7 +121,7 @@ export default function UserSchedulePage() {
                             <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
                                 {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').length}
                             </p>
-                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Active Batches</p>
+                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t('userDashboard.schedule.activeBatches')}</p>
                         </div>
                     </div>
                 </div>
@@ -128,7 +130,7 @@ export default function UserSchedulePage() {
             {/* Weekly Calendar */}
             <div className={`${cardClass} p-5`}>
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Weekly View</h2>
+                    <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.schedule.weeklyView')}</h2>
                     <div className="flex items-center gap-2">
                         <button onClick={() => setCurrentWeek(currentWeek - 1)} className={`p-1.5 rounded-md border ${isDark ? 'border-white/10 hover:bg-white/5' : 'border-slate-200 hover:bg-slate-50'}`}>
                             <FiChevronLeft size={14} />
@@ -140,7 +142,7 @@ export default function UserSchedulePage() {
                             <FiChevronRight size={14} />
                         </button>
                         <button onClick={() => setCurrentWeek(0)} className="px-2 py-1 text-[10px] font-bold text-[#021E14] hover:bg-[#021E14]/10 rounded-md transition">
-                            Today
+                            {t('userDashboard.schedule.today')}
                         </button>
                     </div>
                 </div>
@@ -187,12 +189,12 @@ export default function UserSchedulePage() {
             {/* All Batch Schedules List */}
             <div className={`${cardClass} overflow-hidden`}>
                 <div className={`p-4 border-b ${isDark ? 'border-white/5' : 'border-slate-100'}`}>
-                    <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Batch Schedule Details</h2>
+                    <h2 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>{t('userDashboard.schedule.batchScheduleDetails')}</h2>
                 </div>
                 {myBatches.filter(b => b.status === 'ongoing' || b.status === 'upcoming').length === 0 ? (
                     <div className="p-8 text-center">
                         <FiCalendar className={`mx-auto text-2xl mb-2 ${isDark ? 'text-slate-600' : 'text-slate-300'}`} />
-                        <p className={`text-sm ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>No active batches. Enroll in an online course to see your schedule.</p>
+                        <p className={`text-sm ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{t('userDashboard.schedule.noActiveBatches')}</p>
                     </div>
                 ) : (
                     <div className="divide-y divide-slate-100 dark:divide-white/5">
@@ -222,7 +224,7 @@ export default function UserSchedulePage() {
                                     {batch.meetingLink && (
                                         <a href={batch.meetingLink} target="_blank" rel="noopener noreferrer"
                                             className="shrink-0 px-3 py-1.5 bg-[#021E14] text-white rounded-md text-[10px] font-bold hover:bg-[#021E14]/90 transition-all flex items-center gap-1">
-                                            <FiVideo size={10} /> Join Class
+                                            <FiVideo size={10} /> {t('userDashboard.schedule.joinClass')}
                                         </a>
                                     )}
                                 </div>

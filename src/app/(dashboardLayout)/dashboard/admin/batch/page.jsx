@@ -20,6 +20,8 @@ export default function BatchPage() {
     const [totalPages, setTotalPages] = useState(1);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedBatch, setSelectedBatch] = useState(null);
+    const [deleteError, setDeleteError] = useState('');
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(() => {
         fetchBatches();
@@ -54,6 +56,8 @@ export default function BatchPage() {
 
     const handleDelete = async () => {
         if (!selectedBatch) return;
+        setDeleting(true);
+        setDeleteError('');
         try {
             const token = localStorage.getItem('token');
             const res = await fetch(`${API_URL}/batches/${selectedBatch._id}`, {
@@ -61,13 +65,21 @@ export default function BatchPage() {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            if (res.ok) {
+            const data = await res.json();
+
+            if (res.ok && data.success) {
                 fetchBatches();
                 setShowDeleteModal(false);
                 setSelectedBatch(null);
+                setDeleteError('');
+            } else {
+                setDeleteError(data.message || 'Failed to delete batch. It may have enrolled students.');
             }
         } catch (error) {
             console.error('Error deleting batch:', error);
+            setDeleteError('Something went wrong. Please try again.');
+        } finally {
+            setDeleting(false);
         }
     };
 
@@ -245,9 +257,10 @@ export default function BatchPage() {
                                                 <button
                                                     onClick={() => {
                                                         setSelectedBatch(batch);
+                                                        setDeleteError('');
                                                         setShowDeleteModal(true);
                                                     }}
-                                                    className={`p-2 rounded-md transition-colors text-[#021E14] ${isDark ? 'hover:bg-[#021E14]/20' : 'hover:bg-[#021E14]'}`}
+                                                    className={`p-2 rounded-md transition-colors text-red-500 ${isDark ? 'hover:bg-red-500/20' : 'hover:bg-red-50'}`}
                                                     title="Delete"
                                                 >
                                                     <FiTrash2 size={16} />
@@ -302,12 +315,17 @@ export default function BatchPage() {
                         <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                             Delete Batch
                         </h3>
-                        <p className={`mb-6 font-normal ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                        <p className={`mb-4 font-normal ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                             Are you sure you want to delete "{selectedBatch?.batchName}"? This action cannot be undone.
                         </p>
+                        {deleteError && (
+                            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+                                {deleteError}
+                            </div>
+                        )}
                         <div className="flex gap-3 justify-end">
                             <button
-                                onClick={() => setShowDeleteModal(false)}
+                                onClick={() => { setShowDeleteModal(false); setDeleteError(''); }}
                                 className={`px-4 py-2 rounded-md border font-medium ${isDark
                                     ? 'border-slate-600 text-gray-300 hover:bg-slate-700'
                                     : 'border-gray-200 text-gray-700 hover:bg-gray-50'
@@ -317,9 +335,10 @@ export default function BatchPage() {
                             </button>
                             <button
                                 onClick={handleDelete}
-                                className="px-4 py-2 rounded-md bg-[#021E14] text-white hover:bg-[#01140D] font-medium"
+                                disabled={deleting}
+                                className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Delete
+                                {deleting ? 'Deleting...' : 'Delete'}
                             </button>
                         </div>
                     </div>

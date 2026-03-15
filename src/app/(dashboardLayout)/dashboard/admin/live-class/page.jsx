@@ -297,7 +297,7 @@ export default function LiveClassPage() {
                                                         setSelectedClass(liveClass);
                                                         setShowDeleteModal(true);
                                                     }}
-                                                    className={`p-2 rounded-md transition-colors text-[#021E14] ${isDark ? 'hover:bg-[#021E14]/20' : 'hover:bg-[#021E14]'}`}
+                                                    className={`p-2 rounded-md transition-colors text-red-500 ${isDark ? 'hover:bg-red-500/20' : 'hover:bg-red-50'}`}
                                                     title="Delete"
                                                 >
                                                     <FiTrash2 size={16} />
