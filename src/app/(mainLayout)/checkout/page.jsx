@@ -29,7 +29,7 @@ const CheckoutContent = () => {
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
     const [isSuccess, setIsSuccess] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false); 
     const [pageLoading, setPageLoading] = useState(!!courseId);
 
     // Payment States
@@ -457,7 +457,7 @@ const CheckoutContent = () => {
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" /></svg>
                                                     </div>
                                                     <div>
-                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">01714117701</p>
+                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">01734008621</p>
                                                         <p className={`text-[10px] font-normal text-slate-400 uppercase tracking-widest ${bengaliClass}`}>
                                                             {language === 'bn' ? 'পার্সোনাল নম্বর' : 'Personal Number'}
                                                         </p>
