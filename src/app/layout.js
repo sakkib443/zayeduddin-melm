@@ -69,6 +69,9 @@ export const metadata = {
     shortcut: "/images/ejobsitlogo.png",
     apple: "/images/ejobsitlogo.png",
   },
+  other: {
+    "facebook-domain-verification": "ggslw6vyjlou5i6j6iqmhxwcy21fgu",
+  },
 };
 
 export default function RootLayout({ children }) {
